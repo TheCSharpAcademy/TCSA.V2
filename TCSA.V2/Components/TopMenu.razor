@@ -1,0 +1,123 @@
+﻿@using TCSA.V2.Components.UI
+<nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
+    <div class="container container-nav text-end">
+        <a class="navbar-brand" href="#">
+            <img width="50" src="img/logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img width="50" src="https://css-tricks.com/wp-content/uploads/2012/10/threelines.png" />
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav me-auto mb-2 mb-lg-0 stupid-menu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                     <AuthorizeView>
+                        <NotAuthorized>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Account/Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Account/Login">Login</a>
+                            </li>
+                        </NotAuthorized>
+                     </AuthorizeView>
+                    <li class="nav-item">
+                        <a class="nav-link blink" target="_blank" href="https://thecsharpschool.getlearnworlds.com/subscription/the-c-academy-membership"><span style="color: red">(New!) </span>VIP Membership</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/leaderboard">Leaderboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Study Areas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#first-steps-area">First Steps</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#console-area">Console</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#jobs-area">Apply for Jobs</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#mvc-area">MVC</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#angular-area">Angular</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#react-area">React</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#blazor-area">Blazor</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#maui-area">MAUI</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#auth-area">Auth</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#azure-area">Azure</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sql-area">SQL</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#challenges-area">Challenges</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Articles
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#first-steps-area">First Steps</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="article/58">Code Conventions</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="article/52">Code Reviews</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://www.youtube.com/channel/UCUb14APzNlpUcDElcCEw5OA">
+                            <YoutubeSVG />
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://discord.gg/JVnwYdM79C">
+                            <DiscordSVG />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://www.linkedin.com/school/thecsharpacademy/">
+                            <LinkedinSVG />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>

@@ -50,3 +50,33 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+@media (max-width: 992px) {
+    .title-desktop {
+        display: none !important;
+    }
+
+    .title-mobile {
+        margin-top: 150px;
+    }
+}
+
+@media (min-width: 992px) {
+    .title-desktop {
+        margin-top: 100px;
+    }
+
+    .title-mobile {
+        display: none !important;
+    }
+
+    .top-menu {
+        max-height: 50px;
+    }
+}
+
+@media (min-width: 766px) {
+    .title-image {
+        margin-top: 100px;
+    }
+}

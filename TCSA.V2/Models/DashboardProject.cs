@@ -1,4 +1,6 @@
-﻿namespace TCSA.V2.Models;
+﻿using TCSA.V2.Data;
+
+namespace TCSA.V2.Models;
 
 public class DashboardProject
 {
@@ -35,5 +37,5 @@ public class DashboardProject
         }
     }
 
-    public AppUser AppUser { get; set; }
+    public ApplicationUser AppUser { get; set; }
 }

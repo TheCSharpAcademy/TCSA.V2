@@ -1,15 +1,11 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: white;
 }
 
-a, .btn-link {
-    color: #006bb7;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -18,6 +14,11 @@ a, .btn-link {
 
 .content {
     padding-top: 1.1rem;
+}
+
+.nav-link {
+    color: #1C236D;
+    font-weight: 500;
 }
 
 h1:focus {

@@ -2,7 +2,187 @@
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 
-<div class="mt-5 pt-5">Hello @Project.Title</div>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid project-banner">
+        <div class="container text-center align-content-center">
+            <h1 class="page-title">@Project.Title</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container w-50">
+    @if (Project.Introduction != null)
+    {
+        <div class="row pb-5 p-sm-2">
+            <div class="col">
+                <h1 class="article-section-title">Introduction</h1>
+                @foreach (var paragraph in Project.Introduction)
+                {
+                    <p>@((MarkupString)(@paragraph.Body))</p>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Project.LearningItems != null)
+    {
+        <div class="row pb-5">
+            <div class="col-2 icon-div">
+                <img src="img/books.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class=col-10>
+                <h1 class="article-section-title">What you'll learn</h1>
+                <p>@((MarkupString)(Project.LearningIntro))</p>
+                <ol class="list-group  list-group-numbered list-group-flush">
+                    @foreach (var item in Project.LearningItems)
+                    {
+                        <li>@((MarkupString)(item))</li>
+                    }
+                </ol>
+
+            </div>
+        </div>
+    }
+
+    @if (Project.Resources != null)
+    {
+        <div class="row pb-5">
+            <div class="col-2 icon-div">
+                <img src="img/books.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class=col-10>
+                <h1 class="article-section-title">Resources</h1>
+                @if (!String.IsNullOrEmpty(Project.ResourcesIntro))
+                {
+                    <p>@((MarkupString)(Project.ResourcesIntro))</p>
+                }
+                <ul class="list-group  list-group-flush">
+                    @foreach (var resource in Project.Resources)
+                    {
+                        <li class="list-group-item">
+                            <svg class="bi" width="24" height="24" fill="blue">
+                                <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#link-45deg" />
+                            </svg>
+                            @((MarkupString)(resource))
+                        </li>
+                    }
+                </ul>
+                @if (!String.IsNullOrEmpty(Project.ResourcesConclusion))
+                {
+                    <p>@((MarkupString)(Project.ResourcesConclusion))</p>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Project.Tips != null)
+    {
+        <div class="row pb-5">
+            <div class="col-2 icon-div">
+                <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class=col-10>
+                <h1 class="article-section-title">Tips</h1>
+                <ul class="list-group  list-group-flush">
+                    @foreach (var tip in Project.Tips)
+                    {
+                        <li class="list-group-item">
+                            <svg class="bi" width="24" height="24" fill="orange">
+                                <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#lightbulb-fill" />
+                            </svg>
+                            @((MarkupString)(tip))
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+    @if (Project.Challenges != null)
+    {
+        <div class="row pb-5">
+            <div class="col-2 icon-div">
+                <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class=col-10>
+                <h1 class="article-section-title">Challenges</h1>
+                <ul class="list-group  list-group-flush">
+                    @foreach (var challenge in Project.Challenges)
+                    {
+                        <li class="list-group-item">
+                            <svg class="bi" width="24" height="24" fill="red">
+                                <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-circle" />
+                            </svg>
+                            @((MarkupString)(challenge))
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+    @if (Project.Blocks != null)
+    {
+        @foreach (var block in Project.Blocks)
+        {
+            <div class="row pb-5">
+                @if (!String.IsNullOrEmpty(block.ImgUrl))
+                {
+                    <div class="col-2 icon-div">
+                        <img src="img/@block.ImgUrl" width="70" alt="" class="align-middle">
+                    </div>
+                }
+                <div class="@(String.IsNullOrEmpty(block.ImgUrl) ? "col-10" : "col")">
+                    <h1>@block.Title</h1>
+
+                    @foreach (var paragraph in block.Paragraphs)
+                    {
+                        if (paragraph.IsPicture)
+                        {
+                            <div class="d-flex justify-content-center pb-4">
+                                <img src="img/@paragraph.PictureUrl" class="img-fluid">
+                            </div>
+                        }
+
+                        if (paragraph.IsVideo)
+                        {
+                            <div class="video-paragraph d-flex justify-content-center embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="@paragraph.VideoUrl" width="500" height="350" allowfullscreen></iframe>
+                            </div>
+                        }
+
+                        if (!String.IsNullOrEmpty(paragraph.Body))
+                        {
+                            <p>@((MarkupString)(paragraph.Body))</p>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    @if (Project.Screenshots != null)
+    {
+        <div class="row pb-5">
+            <div class="col-2 icon-div">
+                <img src="img/icons8-photo-gallery-64.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class=col-10>
+                <div class="row">
+                    <h1>Example Screenshots</h1>
+                    @foreach (var screenshot in Project.Screenshots)
+                    {
+                        <div class="col-4 pt-3">
+                            <a href="img/@screenshot" target="_blank">
+                                <img src="img/@screenshot" width="100" />
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
     [Parameter] public string ProjectSlug { get; set; }
@@ -10,8 +190,27 @@
 
     private Project Project { get; set; }
 
+    private string BackgroundImage;
+
     protected async override Task OnInitializedAsync()
     {
         Project = ProjectHelper.GetProjects().Single(x => x.Id == ProjectId);
+
+        BackgroundImage = Project.BannerUrl != "" ? Project.BannerUrl : "article-banner.jpg";
     }
 }
+
+<style>
+    .project-banner {
+        background-image: url("../img/ProjectBanners/@BackgroundImage");
+        background-size: cover;
+        box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .page-title {
+        padding-top: 70px;
+        height: 200px;
+        color: white;
+        font-weight: 600;
+    }
+</style>

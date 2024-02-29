@@ -1,6 +1,9 @@
 ﻿@page "/Project/{ProjectId:int}/{ProjectSlug}"
+@rendermode InteractiveServer
+
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using static TCSA.V2.Helpers.Enums
 
 <div class="container">
     <div class="jumbotron jumbotron-fluid project-banner">
@@ -11,6 +14,19 @@
 </div>
 
 <div class="container w-50">
+    <div class="row pb-3">
+        <div class="col">
+            <label for="languageSelect">Select Language:</label>
+            <select class="form-control" id="languageSelect" @onchange="ChangeLanguage">
+                >
+                @foreach (var language in AvailableLanguages)
+                {
+                    <option value="@language">@language</option>
+                }
+            </select>
+        </div>
+    </div>
+
     @if (Project.Introduction != null)
     {
         <div class="row pb-5 p-sm-2">
@@ -188,15 +204,53 @@
     [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public int ProjectId { get; set; }
 
+    private Language SelectedLanguage { get; set; } = Language.English;
     private Project Project { get; set; }
+    private Project ProjectInPortuguese { get; set; }
+    private List<Language> AvailableLanguages { get; set; } = new();
 
     private string BackgroundImage;
 
     protected async override Task OnInitializedAsync()
     {
-        Project = ProjectHelper.GetProjects().Single(x => x.Id == ProjectId);
+        Project = SelectedLanguage switch
+        {
+            Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
+            Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
+        };
+
+        GetAvailableLanguages();
 
         BackgroundImage = Project.BannerUrl != "" ? Project.BannerUrl : "article-banner.jpg";
+    }
+
+    private void GetAvailableLanguages()
+    {
+        AvailableLanguages.Add(Language.English);
+        
+        ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
+
+        if (ProjectInPortuguese != null) 
+        {
+            AvailableLanguages.Add(Language.Portuguese);
+        }
+    }
+
+    private void ChangeLanguage(ChangeEventArgs e)
+    {
+        string selectedLanguage = e.Value.ToString();
+
+        Language selectedLanguageEnum = Enum.Parse<Language>(selectedLanguage);
+
+        SelectedLanguage = selectedLanguageEnum;
+
+        Project = SelectedLanguage switch
+        {
+           Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
+           Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId)
+        };
+
+        StateHasChanged();
     }
 }
 

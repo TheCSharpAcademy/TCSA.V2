@@ -1,6 +1,36 @@
 ﻿@page "/"
 @using TCSA.V2.Components.UI
-
-<PageTitle>Home</PageTitle>
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
 
 <MainBanner />
+
+<div class="container certificate-container">
+    <div class="row d-flex justify-content-center">
+        <Card Type=Enums.CardType.Project
+              Id=@CertificationProject.Id
+              Slug="@CertificationProject.Slug"
+              Title=@CertificationProject.Title
+              Description=@CertificationProject.Description
+              IconUrl=@CertificationProject.IconUrl />
+    </div>
+</div>
+
+@code {
+    protected List<Project> Projects = new();
+    protected Project CertificationProject = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Projects = ProjectHelper.GetProjects();
+        CertificationProject = Projects.Single(x => x.Id == 75);
+    }
+}
+
+<style>
+    .certificate-container {
+        background-color: black;
+        padding-bottom: 50px;
+        padding-top: 50px;
+    }
+</style>

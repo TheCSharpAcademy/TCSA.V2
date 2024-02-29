@@ -1,0 +1,45 @@
+﻿@using static TCSA.V2.Helpers.Enums
+<div class="card-slot col-lg-3 col-md-6">
+    <div class="card shadow rounded-lg text-center" style="width: 18rem;">
+        @if (IsReleased)
+        {
+            <a href="@Href" class="stretched-link" target="_blank">
+                <img class="card-img-top" src="img/@IconUrl" alt="Card image cap">
+            </a>
+        }
+        else
+        {
+            <div>
+                <img class="card-img-top" src="img/@IconUrl" alt="Card image cap">
+            </div>
+        }
+
+        <div class="card-body">
+            <h5 class="card-title">@Title</h5>
+            @if (!IsReleased)
+            {
+                <span class="release-date">(Release date: @ReleaseDate.ToString("MMM/dd/yy"))</span>
+            }
+            <p class="card-text">@Description</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public CardType Type { get; set; }
+    [Parameter] public DateTime ReleaseDate { get; set; }
+    [Parameter] public string Href { get; set; }
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string IconUrl { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Slug { get; set; }
+    [Parameter] public string Description { get; set; }
+    private bool IsReleased { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        Href = Type == CardType.Article ? $"article/{Id}/{Slug}" : $"project/{Id}/{Slug}";
+        IsReleased = ReleaseDate < DateTime.Now;
+    }
+}
+

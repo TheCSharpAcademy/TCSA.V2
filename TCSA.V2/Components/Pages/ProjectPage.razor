@@ -1,0 +1,17 @@
+﻿@page "/Project/{ProjectId:int}/{ProjectSlug}"
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+
+<div class="mt-5 pt-5">Hello @Project.Title</div>
+
+@code {
+    [Parameter] public string ProjectSlug { get; set; }
+    [Parameter] public int ProjectId { get; set; }
+
+    private Project Project { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Project = ProjectHelper.GetProjects().Single(x => x.Id == ProjectId);
+    }
+}

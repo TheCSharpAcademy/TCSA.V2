@@ -3,8 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using TCSA.V2.Models;
 
 namespace TCSA.V2.Data;
-
-// Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser
 {
     public string FirstName { get; set; }

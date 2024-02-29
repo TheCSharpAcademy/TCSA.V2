@@ -1,121 +1,35 @@
 ﻿@page "/Admin/Dataseed"
+@using TCSA.V2.Models.Forms
+@using TCSA.V2.Services
 
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
-<h3>DataSeed</h3>
+<div class="form-group mt-5">
+    <EditForm Model="Model" OnValidSubmit="Submit" FormName="DataSeedForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-floating">
+            <InputNumber id="numberOfUsers" class="form-control number-input" @bind-Value="Model.NumberOfUsers" />
+            <label for="numberOfUsers">Number of Users</label>
+        </div>
+        <button class="btn btn-outline-secondary" type="submit">Submit</button>
+    </EditForm>
+</div>
 
 @code {
+    [SupplyParameterFromForm]
+    public DataSeedForm Model { get; set; }
 
+    [Inject] private IDataSeedService DataSeedService { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private async Task Submit()
+    {
+        await DataSeedService.SeedData(Model);
+    }
 }
+
+<style>
+    .number-input {
+        max-width: 150px;
+    }
+</style>

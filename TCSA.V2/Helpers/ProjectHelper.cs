@@ -23,4 +23,13 @@ public static class ProjectHelper
             .Concat(StandAloneProjectsHelper.GetProjectsInPortuguese())
             .ToList();
     }
+    
+    public static List<Project> GetProjectsInDutch()
+    {
+        var projects = new List<Project>();
+
+        return projects
+            .Concat(StandAloneProjectsHelper.GetProjectsInDutch())
+            .ToList();
+    }
 }

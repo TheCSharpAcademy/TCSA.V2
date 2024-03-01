@@ -3,7 +3,7 @@ using TCSA.V2.Models;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
-internal static class ConsoleProjectsHelper
+public class ConsoleProjectsHelper
 {
     internal static List<Project> GetProjects()
     {
@@ -11,87 +11,102 @@ internal static class ConsoleProjectsHelper
         {
              new Project
              {
-                Id = 75,
-                Title = "FreeCodeCamp C# Certification",
-                IconUrl = "cards/freecodecamp.jpg",
-                Slug = "freecodecamp-certification",
+                Id = 53,
+                Title = "Math Game",
+                IconUrl = "icons8-maths-376.png",
                 BannerUrl = "",
-                Description = "Get started completing this professional C# certification",
-                Area = Area.StandAlone,
+                Description = "In your first project, you’ll create a math game to reinforce what you've learned in the Foundations area",
+                Area = Area.Console,
                 Level = Level.Green,
-                ExperiencePoints = 20,
+                ExperiencePoints = 10,
+                Difficulty = Difficulty.Beginner,
+                DisplayOrder= 1,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
                     {
-                        Body="For a long time Microsoft has put a lot of effort into educational material for .NET and C#. There are of resources in their <a href='https://learn.microsoft.com/en-au/docs/' target='blank'>technical documentation</a> and <a href='https://learn.microsoft.com/en-us/training/' target='blank'>learning platform</a>, targeting from absolute beginners to senior developers seeking to improve their skills. Such an extensive library has the downside of sometimes being confused, particularly when considering the variety of technologies, their different versions accross the years and the constant evolution of .NET."
+                        Body="In your first project you’ll build a very simple Math Game app. If this is your first time building a project indepentently, I recommend making use of the C# Academy's <a target='blank' href='https://www.youtube.com/watch?v=YUc5NZZVtjA&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'> series from our C# Foundation area</a>.This series will guide you through the process of creating a console app from the ground up, while explaining crucial C# concepts. If you have already watched it, or if you have prior experience creating C# applications, this project will be a breeze. But it’s still helpful to reinforce your knowledge."
                     },
                     new Paragraph
                     {
-                        Body="In August 2023, FreeCodeCamp and Microsoft paired up to offer a single unified learning resource, which gives students a professional certification when completed. This certification is comprised of a step-by-step list of topics in a curriculum provided by FreeCodeCamp, but the studying and completion of the modules happens within Microsoft's learning materials. It's a fantastic resource that prevents learners from getting lost in tutorial hell when learning the basics. "
+                        Body="You'll find challenges at the end of this project and all other projects in The C# Academy. These challenges aren't requirements. Your project will still be approved and you'll gain the correspondent experience points. However, the challenges will reinforce what you've learned. Although you might not get extra points for completing them, you'll become a better developer each time you finish a challenge."
                     }
                 },
                 Requirements = new List<string>
                 {
-                    @"You need to complete FreeCodeCamp's<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
-                    @"Upon completion you need to submit a screenshot of your certificate either via <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> our Discord Server (Code Reviews Channel)</a> or <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via E-mail</a>, along with the username/email you use to log into the academy."
+                    @"You need to create a Math game containing the 4 basic operations",
+                    @"The divisions should result on INTEGERS ONLY and dividends should go from 0 to 100. Example: Your app shouldn't present the division 7/2 to the user, since it doesn't result in an integer.",
+                    @"Users should be presented with a menu to choose an operation",
+                    @"You should record previous games in a List and there should be an option in the menu for the user to visualize a history of previous games.",
+                    @"You don't need to record results on a database. Once the program is closed the results will be deleted."
                 },
+                Resources = new List<string>
+                {
+                    "<a href='https://www.youtube.com/watch?v=iLByqqLGYEc&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'>Math Game Tutorial on Youtube</a>",
+                },
+                ResourcesIntro = "If you have previous C# experience, you might be able to complete this project without any help. If you don't, follow this tutorial: ",
+                ResourcesConclusion = "You don't need to watch the second part of this tutorial (Building a .NET Maui app), to complete this project. Only the Console App is required",
                 Tips = new List<string>
                 {
-                    "You might be tempted to speed through the certification, rushing past the topics you might be familiar with. Instead, read each paragraph carefully. There are always gaps in your knowledge. We don't know what we don't know.",
-                    "You don't need to complete the coding challenges in the certification to mark a section as completed. But we recommend you actually complete them, no matter how easy they are. If an exercise is too easy, try using an approach you haven't used before.",
-                    "Make lots of notes, but don't fall into the trap of writing EVERYTHING down. Notes are useful when you can have a quick glance at them for reference. A good approach is to write down concise bullet points with concepts you were not familiar with. You can also have separate notes with follow-up topics you want to study.",
-                    "Although you can complete the certification in a few hours, we recommend doing each section in a different day, so you're always studying with maximum focus."
+                    "Don't forget to ALWAYS, I mean ALWAYS have your code saved on Github (or whatever source control you use). This way you won't lose your work, and you can always refer back to it in the future. You're building a library of your own!",
+                    "Don't rush through the steps, even if this tutorial is easy for you. Make sure you understand EACH WORD of the code. Leave no stone unturned.",
+                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google is your best friend. You'll find explanations about pretty much everything in forums like stackoveflow.com.",
+                    "If this is your first project, I recommend doing it twice. You'll be surprised at how much your retention increases, and how many gaps were left in the first time.",
+                    "Upon completion of your project, go to our <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and brag about it! It's a very important step to complete a project and you should celebrate."
                 },
                 Challenges = new List<string>
                 {
-                    "Upon completion of your project, have a go at completing the <a target='_blank' href='https://thecsharpacademy.com/project/53'>Math Game</a> project without watching the video tutorial in the project's page. It might be challenging if this is your first time building something yourself but this approach will speed up your learning.",
-                }
-            },
-        };
-    }
-    internal static List<Project> GetProjectsInPortuguese()
-    {
-        return new List<Project>
-        {
-             new Project
-             {
-                Id = 75,
-                Title = "Certificacao C#",
-                IconUrl = "cards/freecodecamp.jpg",
-                Slug = "freecodecamp-certification",
-                BannerUrl = "",
-                Description = "Get started completing this professional C# certification",
-                Area = Area.StandAlone,
-                Level = Level.Green,
-                ExperiencePoints = 20,
-                Introduction = new List<Paragraph>
+                    "Try to implement levels of difficulty.",
+                    "Add a timer to track how long the user takes to finish the game.",
+                    "Add a function that let's the user pick the number of questions.",
+                    "Create a 'Random Game' option where the players will be presented with questions from random operations",
+                },
+                Blocks = new List<Block>
                 {
-                    new Paragraph
+                    new Block
                     {
-                        Body="Por muito tempo, a Microsoft investiu muito esforço em material educacional para .NET e C#. Há uma quantidade infinita de recursos na documentação deles, direcionados desde iniciantes até desenvolvedores sênior que procuram aprimorar suas habilidades. Uma biblioteca tão extensa tem a desvantagem de às vezes confundir os alunos, principalmente ao considerar a variedade de tecnologias, as diferentes versões de C# ao longo dos anos e a constante evolução do .NET."
-                        
+                        Title = "Source Control",
+                        ImgUrl = "icons8-git-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "If this is your first tutorial, you might be tempted to skip this step and start coding. Don’t do it or you’ll learn the hard way. One day after working for many hours on a difficult problem you won’t save your work on a source control repository and for whatever reason all of it will be lost."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Get into the habit of saving every line of code you ever write. I promise it will save you from many headaches. All serious developers save their work on a backup repository. The most commonly used is Github. Create an account if you haven’t yet. "
+                            },
+                            new Paragraph
+                            {
+                                Body="1. In Visual Studio, go to Git > Create Git Repository<br>2. Enter your Login Details<br>3. Click on Create and Push. "
+                            },
+                            new Paragraph
+                            {
+                                Body="✅ Done! Your repository is good to go. Don’t forget to commit and push your changes after every step!"
+                            }, new Paragraph
+                            {
+                                Body="You can take further step and learn how to integrate Github with Visual Studio watching this tutorial:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/oCvb-Q5lXb8"
+                            }
+                        }
                     },
-                    new Paragraph
+                    new Block
                     {
-                        Body="In August 2023, Free Code Camp and Microsoft paired up to offer a single unified learning resource, which gives students a professional certification when completed. This certification is comprised of a step-by-step list of topics in a curriculum provided by Free Code Camp, but the studying and completion of the modules happens within Microsoft's learning materials. It's a fantastic resource that prevents learners from getting lost in the sea of tutorials provided by Microsoft, and that's not even to mention courses found in platforms such as Udemy, Youtube and alike. "
-                    }
-                },
-                Requirements = new List<string>
-                {
-                    @"You need to complete Free Code Camp's<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
-                    @"Upon completion you need to submit a screenshot of your certificate either via <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> our Discord Server (Code Reviews Channel)</a> or <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via E-mail</a>"
-                },
-                Tips = new List<string>
-                {
-                    "You might be tempted to speed through the certification, rushing past the topics you might be familiar with. Instead, read each paragraph carefully. There are always gaps in your knowledge. We don't know what we don't know.",
-                    "You don't need to complete the coding challenges in the certification to mark a section as completed. But we recommend you actually complete them, no matter how easy they are. If an exercise is too easy, try using an approach you haven't used before.",
-                    "Make lots of notes, but don't fall into the trap of writing EVERYTHING down. Notes are useful when you can have a quick glance at them for reference. A good approach is to write down concise bullet points with concepts you were not familiar with. You can also have separate notes with follow-up topics you want to study.",
-                    "Although you can complete the certification in a few hours, we recommend doing each section in a different day, so you're always studying with maximum focus."
-                },
-                Challenges = new List<string>
-                {
-                    "Upon completion of your project, have a go at completing the <a target='_blank' href='https://thecsharpacademy.com/project/53'>Math Game</a> project without watching the video tutorial in the project's page. It might be challenging if this is your first time building something yourselfbut this approach will speed up your learning.",
+                        Title = "Code Review",
+                        ImgUrl= "icons8-code-review-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                            }
+                        }
+                    },
                 }
             },
         };

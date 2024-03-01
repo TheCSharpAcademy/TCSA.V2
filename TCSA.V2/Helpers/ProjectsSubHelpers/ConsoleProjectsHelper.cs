@@ -742,6 +742,203 @@ public class ConsoleProjectsHelper
                     "Calculate the duration of the shift based on its start and end.",
                 }
             },
+             new Project
+             {
+                Id = 18,
+                Title = "Exercise Tracker",
+                IconUrl = "icons8-bench-press-96.png",
+                BannerUrl = "",
+                Slug="exercise-tracker",
+                Description = "Learn the repository pattern, the most common design pattern for interaction with databases",
+                Area = Area.Console,
+                Level = Level.Orange,
+                ExperiencePoints = 30,
+                Difficulty = Difficulty.Advanced,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="So far we have been developing our applications without thinking too much about their design. In software development, we’ll often use “general repeatable solutions to commonly occurring problems”, <a href='https://en.wikipedia.org/wiki/Software_design_pattern'>the so called design patterns</a>."
+                    },
+                    new Paragraph
+                    {
+                        Body="We will build an exercise tracker using the “Repository Pattern”, an almost universally used solution for data persistence. It creates a layer between business logic and data access, which helps us create more loosely-coupled, testable and maintainable applications. <b>You’ll be dealing with repositories on a daily-basis when you get your C# job!</b>"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "This is an application where you should record exercise data.",
+                    "You should choose one type of exercise only. We want to keep the app simple so you focus on the subject you're learning and not on the business complexities.",
+                    "You can choose raw SQL or Entity Framework for your data-persistence.",
+                    "The model for your exercise class should have at least the following properties: {Id INT, DateStart DateTime, DateEnd DateTime, Duration TimeSpan, Comments string}",
+                    "Your application should have the following classes: UserInput, ExerciseController, ExerciseService (where business logic will be handled) and ExerciseRepository. These classes might feel empty at first but they'll be needed in most applications as they grow.",
+                    "You can choose between SQLite or SQLServer.",
+                    "You need to use dependency injection to access the repository from the controller."
+                },
+                ResourcesIntro = "Here are a few resources that might be helpful.",
+                Resources = new List<string>
+                {
+                    "<a target='blank' href='https://medium.com/@kerimkkara/implementing-the-repository-pattern-in-c-and-net-5fdd91950485'>Repository Pattern Docs</a>",
+                    "<a target='blank' href='https://www.programmingwithwolfgang.com/repository-pattern-net-core/'>Repository Pattern Tutorial</a>",
+                    "<a target='blank' href='https://www.youtube.com/watch?v=Jnv7hNNuTqs'>Repository Pattern with EF on Youtube</a>",
+                    "<a target='blank' href='https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-usage'>Dependency Injection Tutorial</a>"
+                },
+                ResourcesConclusion = "There are many other Youtube videos and blog articles about the Repository Pattern. Google and ChatGPT are your best friends!",
+                Tips = new List<string>
+                {
+                    "Don't forget to add validation to your app. ",
+                    "Don't forget to create a Github repository for your project from the beginning.",
+                    "You might come across the concept of Unit of Work in some tutorials. I suggest you don't use it, so you focus on learning how a single repository works.",
+                    "Keep your application simple (only one table). Complexity is your enemy at the moment, since you want to focus solely on learning the pattern."
+                },
+                Challenges = new List<string>
+                {
+                    "To illustrate the separation provided by the repository pattern, create a different branch of your project where you'll replace Entity Framework by Dapper or ADO.NET in your repository. You'll notice that you won't need to touch your controller.",
+                    "Create an application with two types of exercises (ex. weights and cardio), using EF for one and Raw SQL for the other"
+                }
+            },
+             new Project
+             {
+                Id = 19,
+                Title = "Sports Results Notifier",
+                IconUrl = "icons8-sports-96.png",
+                BannerUrl = "webcrawler.jpg",
+                Slug="sports-results",
+                Description = "Learn how to create a web crawler and send e-mails using C#",
+                Area = Area.Console,
+                ExperiencePoints = 30,
+                Difficulty = Difficulty.Advanced,
+                Level = Level.Orange,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="You’re getting close to the end of our beginner C# program. But before your graduation from this first phase you need to learn two very important tasks in programming: The ability to harvest data from non-api sources and the ability to send e-mails. Let’s create an application that will combine these two tasks."
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "This is an application where you should read sports data from a website once a day and send it to a specific e-mail address.",
+                    "You don't need any interaction with the program. It will be a service that runs automatically.",
+                    "The data should be collected from the Basketball Reference Website in the resources area.",
+                    "You should use the Agility Pack library for scrapping."
+                },
+                ResourcesIntro = "Here are a few resources that might be helpful.",
+                Resources = new List<string>
+                {
+                    "<a target='_blank' href='https://html-agility-pack.net/'>Agility Pack Docs</a>",
+                    "<a target='_blank' href='https://www.c-sharpcorner.com/blogs/send-email-using-gmail-smtp'>Send An Email Using Gmail SMTP and C#</a>",
+                    "<a target='_blank' href='https://www.youtube.com/watch?v=oMM0yzyi4Do'>Agility Pack Tutorial</a>",
+                    "<a target='_blank' href='https://www.youtube.com/watch?v=wbBuB7-BaXw'>Another Agility Pack Tutorial</a>",
+                    "<a target='_blank' href='https://www.basketball-reference.com/boxscores/'>Basketball Reference</a>"
+                },
+                ResourcesConclusion = "There are many other Youtube videos and blog articles about scrapping and sending an e-mail with C#. Google is your best friend! 🙂",
+                Tips = new List<string>
+                {
+                    "Don't forget to create a Github repository for your project from the beginning.",
+                    "After the completion of this project, try to create your own scrapper from a different source and with a different business case.",
+                    "Bear in mind that some websites don't authorise scrapping.",
+                    "Keep your application simple (only one table). Complexity is your enemy at the moment, since you want to focus solely on learning the pattern.",
+                    "It's not simple to scrap data from websites generated dynamically with the help of Javascript frameworks. When you create your own project, be aware that it's easier to scrape from more traditional, simple, server-based ones."
+                }
+            },
+             new Project
+             {
+                Id = 20,
+                Title = "Excel Reader",
+                IconUrl = "excel.png",
+                Slug="excel-reader",
+                BannerUrl = "",
+                Description = "Learn how to read data from an Excel Sheet into a real database using SQL",
+                Area = Area.Console,
+                Level = Level.Orange,
+                ExperiencePoints = 30,
+                Difficulty = Difficulty.Advanced,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Now  that you have an initial foundation of C#, it’s time to tackle a very important task in programming. The ability to work with files.When working in a company, all sorts of documents will be generated using a variety of file types: .doc, .xls, .pdf, .csv, just to name a few of the most commonly used. "
+                    },
+                    new Paragraph
+                    {
+                        Body="Your job as a programmer is to create applications that will manipulate data “to and from” these files. In this project, we will transpose an excel table into an SQL database using a C# library."
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "This is an application that will read data from an Excel spreadsheet into a database",
+                    "When the application starts, it should delete the database if it exists, create a new one, create all tables, read from Excel, seed into the database.",
+                    "You need to use EPPlus package",
+                    "You shouldn't read into Json first.",
+                    "You can use SQLite or SQL Server (or MySQL if you're using a Mac)",
+                    "Once the database is populated, you'll fetch data from it and show it in the console.",
+                    "You don't need any user input",
+                    "You should print messages to the console letting the user know what the app is doing at that moment (i.e. reading from excel; creating tables, etc)",
+                    "The application will be written for a known table, you don't need to make it dynamic.",
+                    "When submitting the project for review, you need to include an xls file that can be read by your application."
+                },
+                ResourcesIntro = "The knowledge you gained from the previous three projects will be enough to complete this project.You’ll only need to find out how EPPlus Package works. <a href='https://www.youtube.com/watch?v=kBwmP-kLEEE'>Here's a good Youtube tutorial</a>. If it’s not enough search for further videos on Youtube and/or specific questions in StackOverflow 😁",
+                Tips = new List<string>
+                {
+                    "Before anything else you’ll have to create an Excel table that will be stored in your main project folder. The more organised the easier it will be for your program to read it. The first row of your columns need to be the property names of your model class",
+                    "Don't forget to create a Github repository for your project from the beginning.",
+                    "Remember, this time you don’t need any user input. The only interaction your program will have with the user is to show the data from your database.",
+                    "You could structure the program in three parts. One for database creation, one for reading from the file and return a list and the last to populate your database using the returned list"
+                },
+                Challenges = new List<string>
+                {
+                    "If you want to expand on this project, try to create a program that reads data from any excel sheet, regardless of the number of columns or the content of the header.",
+                    "Add the ability to read from other types of files, i.e. csv, pdf, doc",
+                    "Let the user choose the file that will be read, by inserting the path.",
+                    "Add a functionality to write into files, you can also use EPPlus for that."
+                }
+            },
+             new Project
+             {
+                Id = 21,
+                Title = "Unit Testing",
+                IconUrl = "icons8-test-tube-100.png",
+                BannerUrl = "",
+                Slug="unit-testing",
+                Description = "The last piece of the puzzle before moving on to  front-end. Learn to test the business logic of your applications",
+                Area = Area.Console,
+                Level = Level.Orange,
+                ExperiencePoints = 30,
+                Difficulty = Difficulty.Advanced,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="We’re almost there! It’s been a long way and it’s almost time to celebrate your graduation from the Console Apps area. But there’s one final step: Unit Tests."
+                    },
+                    new Paragraph
+                    {
+                        Body="More likely than not (and hopefully) the organisation you’ll work will have systems that use automatic unit testing. They make sure everything is running properly before each deployment. The code covered by those tests won’t need to be tested manually every time a change is made, which is prone to errors and very expensive. A strong suite of unit tests helps developers write better code, more efficiently. So let's do it!"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "In this project, you'll create unit tests for the Coding Tracker App, the second project in the course",
+                    "You'll need to create a CodingTracker.Tests project, parallel to your coding tracker and reference it in your csproj file",
+                    "You'll only test the validation methods, making sure the app correctly prevents the user from giving incorrect inputs",
+                    "You should use .NETs MSTest Library",
+                    "You should test both correct and incorrect inputs"
+                },
+                ResourcesIntro = "Here are a few resources that might be helpful.",
+                Resources = new List<string>
+                {
+                    "<a href='https://fortegrp.com/the-importance-of-unit-testing/'>The Importance of Unit Testing</a>",
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest'>MSTest Docs</a>",
+                    "<a href='https://www.youtube.com/watch?v=HYrXogLj7vg'>Unit Testing C# Code on Youtube</a>"
+                },
+                Tips = new List<string>
+                {
+                    "Don't worry about integration or end-to-end tests, they're out of the scope of this project",
+                    "Make sure the names of your tests are clear, even if they have to be long. \"WhenQuantityInputIsCorrect()\" is a good name, while \"QuantityTest\" doesn't have enough information.",
+                    "In your test, you'll have to mock the tested service and call it's methods. Think of all possibilities of correct and incorrect inputs and test if the application handles them."
+                }
+            },
         };
     }
 }

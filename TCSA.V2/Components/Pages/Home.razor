@@ -2,6 +2,7 @@
 @using TCSA.V2.Components.UI
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using static TCSA.V2.Helpers.Enums
 
 <MainBanner />
 
@@ -13,6 +14,37 @@
               Title=@CertificationProject.Title
               Description=@CertificationProject.Description
               IconUrl=@CertificationProject.IconUrl />
+    </div>
+</div>
+
+<div class="container w-75">
+    <div class="row d-flex justify-content-center title">
+        <h1 id="console-area"></h1>
+        <img id="console_title" class="area-title" src="img/console-title.png" />
+    </div>
+@*     <div class="row d-flex justify-content-center">
+        <Card Type="CardType.Article"
+              Id=@consoleArticle.Id.ToString()
+              Title=@consoleArticle.Title
+              Description=@consoleArticle.Description
+              IconUrl=@consoleArticle.IconUrl />
+    </div> *@
+    <div class="row d-flex justify-content-center">
+
+        @foreach (var project in Projects.Where(x => x.Area == Area.Console && x.Id != 52 && x.Id != 75))
+        {
+            <Card Type="CardType.Project"
+                  Id=@project.Id
+                  Title=@project.Title
+                  Description=@project.Description
+                  IconUrl=@project.IconUrl />
+        }
+
+       @*  <Card Type="Article"
+              Id=@graduationArticle.Id.ToString()
+              Title=@graduationArticle.Title
+              Description=@graduationArticle.Description
+              IconUrl=@graduationArticle.IconUrl /> *@
     </div>
 </div>
 

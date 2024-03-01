@@ -20,7 +20,7 @@ public static class ProjectHelper
         var projects = new List<Project>();
 
         return projects
-            .Concat(ConsoleProjectsHelper.GetProjectsInPortuguese())
+            .Concat(StandAloneProjectsHelper.GetProjectsInPortuguese())
             .ToList();
     }
 }

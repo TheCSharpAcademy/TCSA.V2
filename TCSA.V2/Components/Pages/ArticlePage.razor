@@ -1,0 +1,85 @@
+﻿@page "/article/{ArticleId:int}/{ArticleSlug}"
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+
+<div class="container">
+    <div class="jumbotron jumbotron-fluid project-banner">
+        <div class="container text-center align-content-center">
+            <h1 class="page-title">@Article.Title</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container w-50 article-blocks-desktop">
+    @foreach (var block in Article.Blocks)
+    {
+        <div class="row pb-4">
+            @if (!String.IsNullOrEmpty(block.ImgUrl))
+            {
+                <div class="col-2 icon-div">
+                    <img src="img/@block.ImgUrl" width="70" alt="" class="align-middle">
+                </div>
+            }
+            <div class="@(String.IsNullOrEmpty(block.ImgUrl) ? "col-10" : "col")">
+                <h1 class="article-section-title">@block.Title</h1>
+
+                @foreach (var paragraph in block.Paragraphs)
+                {
+                    if (paragraph.IsPicture)
+                    {
+                        <div class="d-flex justify-content-center photo-paragraph">
+                            <img src="img/@paragraph.PictureUrl" class="img-fluid" />
+                        </div>
+                    }
+
+                    if (paragraph.IsVideo)
+                    {
+                        <div class="video-paragraph d-flex justify-content-center embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" width="500" height="350" src="@paragraph.VideoUrl" allowfullscreen></iframe>
+                        </div>
+                    }
+
+                    if (!String.IsNullOrEmpty(paragraph.Body))
+                    {
+                        <p>@((MarkupString)(paragraph.Body))</p>
+                    }
+                }
+            </div>
+        </div>
+    }
+
+    @if (HasNext)
+    {
+        <div class="container user-buttons">
+            <a href="article/@(Article.Id + 1)" target="_blank">
+                <btn class="btn btn-outline-secondary" type="button">Next</btn>
+            </a>
+        </div>
+    }
+</div>
+
+
+@code {
+    [Parameter] public string ArticleSlug { get; set; }
+    [Parameter] public int ArticleId { get; set; }
+
+    private Article Article { get; set; }
+
+    private bool HasNext;
+
+    private string BackgroundImage;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Article = ArticleHelper.GetArticles().Single(x => x.Id == ArticleId);
+        BackgroundImage = Article.BannerUrl != "" ? Article.BannerUrl : "article-banner.jpg";
+    }
+}
+
+<style>
+    .page-title {
+        padding-top: 120px;
+        height: 300px;
+        color: white;
+    }
+</style>

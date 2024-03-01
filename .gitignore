@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /TCSA.V2/appsettings.json
+/TCSA.V2/appsettings.json

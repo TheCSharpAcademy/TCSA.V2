@@ -221,6 +221,7 @@
         {
             Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
+            Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
         };
 
         GetAvailableLanguages();
@@ -231,10 +232,10 @@
     private void GetAvailableLanguages()
     {
         AvailableLanguages.Add(Language.English);
-        
+
         ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
 
-        if (ProjectInPortuguese != null) 
+        if (ProjectInPortuguese != null)
         {
             AvailableLanguages.Add(Language.Portuguese);
         }
@@ -250,8 +251,9 @@
 
         Project = SelectedLanguage switch
         {
-           Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
-           Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId)
+            Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
+            Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
+            Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId)
         };
 
         StateHasChanged();

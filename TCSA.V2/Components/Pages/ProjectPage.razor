@@ -235,6 +235,7 @@
         AvailableLanguages.Add(Language.English);
 
         ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
+        ProjectInTurkish = ProjectHelper.GetProjectsInTurkish()?.FirstOrDefault(x => x.Id == ProjectId);
 
         if (ProjectInPortuguese != null)
         {

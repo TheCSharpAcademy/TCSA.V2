@@ -26,8 +26,8 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGitHub(o =>
     {
-        o.ClientId = "765ed648ea278be3f7bc";
-        o.ClientSecret = "f7ede01190f013aa2bc2e7cad8d4836f2b7b8ac5";
+        o.ClientId = "";
+        o.ClientSecret = "";
         o.CallbackPath = "/signin-github";
         // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
         o.Scope.Add("read:user");

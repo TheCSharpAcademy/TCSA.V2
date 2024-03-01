@@ -11,7 +11,6 @@ public class Enums
     public enum Language
     {
         English,
-        Portuguese,
-        Turkish
+        Portuguese
     }
 }

@@ -211,7 +211,6 @@
     private Language SelectedLanguage { get; set; } = Language.English;
     private Project Project { get; set; }
     private Project ProjectInPortuguese { get; set; }
-    private Project ProjectInTurkish { get; set; }
     private List<Language> AvailableLanguages { get; set; } = new();
 
     private string BackgroundImage;
@@ -222,7 +221,6 @@
         {
             Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
-            Language.Turkish => ProjectHelper.GetProjectsInTurkish().Single(x => x.Id == ProjectId)
         };
 
         GetAvailableLanguages();
@@ -235,16 +233,10 @@
         AvailableLanguages.Add(Language.English);
         
         ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
-        ProjectInTurkish = ProjectHelper.GetProjectsInTurkish()?.FirstOrDefault(x => x.Id == ProjectId);
 
         if (ProjectInPortuguese != null) 
         {
             AvailableLanguages.Add(Language.Portuguese);
-        }
-
-        if (ProjectInTurkish != null)
-        {
-            AvailableLanguages.Add(Language.Turkish);
         }
     }
 
@@ -259,8 +251,7 @@
         Project = SelectedLanguage switch
         {
            Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
-           Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
-            Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId)
+           Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId)
         };
 
         StateHasChanged();

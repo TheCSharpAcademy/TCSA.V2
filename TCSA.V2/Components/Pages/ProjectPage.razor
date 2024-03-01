@@ -211,6 +211,7 @@
     private Language SelectedLanguage { get; set; } = Language.English;
     private Project Project { get; set; }
     private Project ProjectInPortuguese { get; set; }
+    private Project ProjectInTurkish { get; set; }
     private List<Language> AvailableLanguages { get; set; } = new();
 
     private string BackgroundImage;
@@ -238,6 +239,11 @@
         if (ProjectInPortuguese != null)
         {
             AvailableLanguages.Add(Language.Portuguese);
+        }
+
+        if (ProjectInTurkish != null)
+        {
+            AvailableLanguages.Add(Language.Turkish);
         }
     }
 

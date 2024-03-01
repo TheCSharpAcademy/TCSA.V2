@@ -485,6 +485,263 @@ public class ConsoleProjectsHelper
                     }
                 }
             },
+             new Project
+            {
+                Id = 14,
+                Title = "Flashcards",
+                IconUrl = "icons8-quizlet-96.png",
+                BannerUrl = "",
+                Slug = "flashcards",
+                Level = Level.Yellow,
+                Description = "Building stacks of flashcards and a study functionality. Learn to deal with linked databases using SQL Server and to use Data Transfer Objects",
+                Area = Area.Console,
+                ExperiencePoints = 20,
+                Difficulty = Difficulty.Intermediate,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="After the first two projects, you should be somewhat comfortable with how things work in C#. It’s time to make things slightly more complex. You’ll be using <b>SQL Server</b> for the first time. We could continue using SQLite, as it does everything needed for most small applications, but SQL Server is heavily used in the industry and the sooner we get familiar with it, the better."
+                    },
+                    new Paragraph
+                    {
+                        Body="This time the database will be a little more complex as well. We will have two tables linked by a foreign key. And for the first time we will be working with  <a href='https://www.codeproject.com/Articles/1050468/Data-Transfer-Object-Design-Pattern-in-Csharp' target='_blank'>DTOs (Data Transfer Objects)</a>, which will help us use the same object in different ways."
+                    },
+                    new Paragraph
+                    {
+                        Body="Time to get started!"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "This is an application where the users will create Stacks of Flashcards.",
+                    "You'll need two different tables for stacks and flashcards. The tables should be linked by a foreign key.",
+                    "Stacks should have an unique name.",
+                    "Every flashcard needs to be part of a stack. If a stack is deleted, the same should happen with the flashcard.",
+                    "You should use DTOs to show the flashcards to the user without the Id of the stack it belongs to.",
+                    "When showing a stack to the user, the flashcard Ids should always start with 1 without gaps between them. If you have 10 cards and number 5 is deleted, the table should show Ids from 1 to 9.",
+                    "After creating the flashcards functionalities, create a \"Study Session\" area, where the users will study the stacks. All study sessions should be stored, with date and score.",
+                    "The study and stack tables should be linked. If a stack is deleted, it's study sessions should be deleted.",
+                    "The project should contain a call to the study table so the users can see all their study sessions. This table receives insert calls upon each study session, but there shouldn't be update and delete calls to it."
+                },
+                Tips = new List<string>
+                {
+                    "Before starting to code, try creating tables and running a few CRUD queries in SQL Server to get familiar with SQL Server Studio.",
+                    "For management of stacks, let the user choose the stack by name.",
+                    "Think of the \"stacks\" and \"study\" areas almost as separate applications. The study area is merely using data from the stacks area."
+                },
+                LearningIntro = "If you have learned the basics of C# following the  <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE' target='_blank'>C# Foundations </a> article, you should know all the basic techniques needed to complete this project. Here’s a list of the things you’ll need to fulfil the requirements:",
+                LearningItems = new List<string>
+                 {
+                     "Using SQL Server.",
+                     "Creating linked tables with SQL.",
+                     "Using DTOs to create different versions of classes.",
+                     "<a href='https://www.youtube.com/watch?v=bNetxDl40pM' target='_blank'>Pivoting Tables in SQL</a>"
+                 },
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Installing SQL Server",
+                        ImgUrl = "icons8-sql-server-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This is the first project in the academy where we’ll be using SQL Server. <a href='https://docs.microsoft.com/en-us/sql/tools/visual-studio-code/sql-server-develop-use-vscode?view=sql-server-ver15'> You can work with SQL Server using Visual Studio.</a>. But I recommend you start using Microsoft SQL Server Management Studio. For this app, don’t use SQL Server EXPRESS, but only LOCAL DB. <a href='https://www.youtube.com/watch?v=QsXWszvjMBM'> Here’s a tutorial on how to install the studio</a>. And here’s a tutorial on <a href='https://www.youtube.com/watch?v=M5DhHYQlnq8'> how to connect to your localdb</a> "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Challenge",
+                        ImgUrl = "icons8-courage-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "If you want to expand on this project, here’s an idea. Try to create a report system where you can see the number of sessions per month per stack. And another one with the average score per month per stack. This is not an easy challenge if you’re just getting started with databases, but it will teach you all the power of SQL and the possibilities it gives you to ask interesting questions from your tables."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Below’s a screenshot with an example of the finished report. You’ll need to learn about Pivoting Tables to complete this challenge. Reach out if you need help! "
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "flashcards-8.png"
+                            }
+                        }
+                    }
+                },
+                Screenshots = new List<string>
+                {
+                    "flashcards-1.png",
+                    "flashcards-2.png",
+                    "flashcards-3.png",
+                    "flashcards-4.png",
+                    "flashcards-5.png",
+                    "flashcards-6.png",
+                    "flashcards-7.png"
+                }
+            },
+             new Project
+            {
+                Id = 15,
+                Title = "Drinks Info",
+                IconUrl = "drinks.png",
+                BannerUrl = "",
+                Slug = "drinks",
+                Description = "Build a console app to consume an external API with HTTP Requests with C#",
+                Area = Area.Console,
+                Level = Level.Yellow,
+                ExperiencePoints = 20,
+                Difficulty = Difficulty.Intermediate,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Often times developers work with third-party data. A very common way of accessing external vendor’s data is to make requests to their APIs (Application Programming Interface). Once we have access to their data, we can process in our application to suit our needs. Another common scenario is when an organisation has multiple independent applications that communicate amongst themselves. <a href='https://en.wikipedia.org/wiki/Microservices'>The so called microservices</a>."
+                    },
+                    new Paragraph
+                    {
+                        Body="In this application we will learn how to connect to an external API through HTTP requests using .NET’s class library. It‘s easier than you imagine! Luckily there are many public APIs out there. <a href='https://github.com/public-apis/public-apis'> Here’s a great list of public APIs for practice.</a>"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "You were hired by restaurant to create a solution for their drinks menu.",
+                    "Their drinks menu is provided by an external company. All the data about the drinks is in the companies database, accessible through an API.",
+                    "Your job is to create a system that allows the restaurant employee to pull data from any drink in the database.",
+                    "You don't need SQL here, as you won't be operating the database. All you need is to create an user-friendly way to present the data to the users (the restaurant employees)",
+                    "When the users open the application, they should be presented with the Drinks Category Menu and invited to choose a category. Then they'll have the chance to choose a drink and see information about it.",
+                    "When the users visualise the drink detail, there shouldn't be any properties with empty values"
+                },
+                RequirementsConclusion = "Don't panic! We'll help! 😁",
+                ResourcesIntro = "Here are the links for using HTTP calls with C# and to the Drinks API documentation:",
+                Resources = new List<string>
+                {
+                    "<a href='https://www.thecocktaildb.com/api.php' target='_blank'>Cocktail Database</a>",
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/console-webapiclient' target='_blank'>Microsoft Docs: Http Requests</a>",
+                    "<a href='https://www.youtube.com/watch?v=fc7peZ-FHs4' target='_blank'>Video: Drinks Info App (FULL PROJECT)</a>"
+                },
+                Screenshots = new List<string>
+                {
+                    "drinks-1.png"
+                }
+            },
+             new Project
+            {
+                Id = 16,
+                Title = "Phone Book",
+                IconUrl = "icons8-contact-book-512-150x150.png",
+                BannerUrl = "",
+                Slug = "phonebook",
+                Description = "Now you have basic understanding of SQL, it’s time to learn the basics of Entity Framework with a CRUD Phone Book Console App",
+                Area = Area.Console,
+                Level = Level.Yellow,
+                ExperiencePoints = 20,
+                Difficulty = Difficulty.Intermediate,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="In the .NET ecosystem you’ll come across <a href='https://stackoverflow.com/questions/1279613/what-is-an-orm-how-does-it-work-and-how-should-i-use-one'>ORMs (Object-Relational Mappers)</a>, which helps you to deal with databases using objects. If you have searched for C# tutorials you’ve probably encountered technologies such as Dapper and Entity Framework. You’ll definitely be using one when you start working as a developer."
+                    },
+                    new Paragraph
+                    {
+                        Body="In this tutorial we’ll implement a very simple Phone Book so you can learn the basics of Entity Framework, the most popular ORM. Even though we at The C# Academy strongly believe C# students should learn raw SQL first and foremost, most .NET C# job applications demand Entity Framework. The good news is that EF’s basic operations are very simple to learn and you’ll be up and running very quickly. Let’s go!"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "This is an application where you should record contacts with their phone numbers.",
+                    "Users should be able to Add, Delete, Update and Read from a database, using the console.",
+                    "You need to use Entity Framework, raw SQL isn't allowed.",
+                    "Your code should contain a base Contact class with AT LEAST {Id INT, Name STRING, Email STRING and Phone Number(STRING)}",
+                    "You should validate e-mails and phone numbers and let the user know what formats are expected",
+                    "You should use Code-First Approach, which means EF will create the database schema for you.",
+                    "You should use SQL Server, not SQLite"
+                },
+                ResourcesIntro = "Here are a few resources that might be helpful.",
+                Resources = new List<string>
+                {
+                    "<a href='https://docs.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli'>Entity Framework Docs</a>",
+                    "<a href='https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0'>CRUD Console APP with EF on Youtube</a>"
+                },
+                ResourcesConclusion = "There are many other Youtube videos and blog articles about Entity Framework everything else you need. Don’t be ashamed to use Google!",
+                Tips = new List<string>
+                {
+                    "Before starting the phone book app, finish the program in the Microsoft Documentation article without any changes and store in your Github repository for reference. Make sure you understand most of the code before you get started.",
+                    "Don't forget to create a Github repository for your project from the beginning."
+                },
+                Challenges = new List<string>
+                {
+                    "Create a functionality that allows users to add the contact's e-mail address and send an e-mail message from the app.",
+                    "Expand the app by creating categories of contacts (i.e. Family, Friends, Work, etc).",
+                    "What if you want to send not only e-mails but SMS?"
+                }
+            },
+             new Project
+            {
+                Id = 17,
+                Title = "Shifts Logger",
+                IconUrl = "icons8-nurse-256.png",
+                BannerUrl = "",
+                Slug="shifts-logger",
+                Description = "Build an App for shift workers to log their hours. In this app you’ll learn how to build a Web API and consume it with a Console App",
+                Area = Area.Console,
+                Level = Level.Yellow,
+                ExperiencePoints = 20,
+                Difficulty = Difficulty.Intermediate,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="If you’ve been learning to code for more than five minutes, you probably heard about <a href='https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction'>'APIs'</a>. They’re at the core of back-end programming. In web development, their main job will be to communicate with databases using “endpoints”. From now on you’ll be creating APIs all the time and this acronym will forever be part of your vocabulary. "
+                    },
+                    new Paragraph
+                    {
+                        Body="In the <a href='project/15' target='blank'>Drinks Info App</a> we have created a program that consumed an external API. This time we will track a worker’s “shifts”. We’ll create an API and the console app that will consume it. When using Microsoft’s Documentation, often times you’ll come across Web APIs being developed with Entity Framework, which acts as layer between the “endpoints” and the actual database. "
+                    },
+                    new Paragraph
+                    {
+                        Body="This stack (Web API/EF) is very common in enterprise applications, but it’s important to know that  Web Apis can be developed using ADO.NET and Dapper. These data access solutions have the advantage of giving the developers more control over the SQL queries. In the end, all solutions are valid. Each has pros and cons and it comes down to personal preference. For this project, we will be using Entity Framework, as it takes care the basic CRUD operations we need as beginners. "
+                    },
+                    new Paragraph
+                    {
+                        Body="This project has as a requirement the use of Web APIs testing tools. In development you need a way to quickly test your endpoints without having to create a UI. These days, Swagger is already scaffolded into the .NET Core Web Api project so you can start using it as soon as you run your project. Postman is very complete external tool with an user interface that makes it very easy to store tests for later use, which saves a lot of development time. The learning curve for Postman is slightly steeper, but don’t skip it, it will pay off. "
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "This is an application where you should record a worker's shifts.",
+                    "You need to create two applications: the Web API and the UI that will call it.",
+                    "All validation and user input should happen in the UI app.",
+                    "Your API's controller should be lean. Any logic should be handled in a separate \"service\".",
+                    "You should use SQL Server, not SQLite",
+                    "You should use the \"code first\" approach to create your database, using Entity Framework's migrations tool.",
+                    "Your front-end project needs to have try-catch blocks around the API calls so it handles unexpected errors (i.e. the API isn't running or returns a 500 error.)"
+                },
+                ResourcesIntro = "Here are a few resources that might be helpful.",
+                Resources = new List<string>
+                {
+                    "<a href='https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction'>What are APIs?</a>",
+                    "<a href='https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio'>Web API Docs</a>",
+                      "<a href='https://learn.microsoft.com/en-us/shows/beginners-series-to-web-apis/what-are-web-apis-1-of-18--beginners-series-to-web-apis'>Web API Beginner's Series (Microsoft Learn)</a>",
+                    "<a href='https://www.youtube.com/watch?v=IYWOWxw7dys'>Testing Web APIs with Swagger</a>",
+                    "<a href='https://www.youtube.com/watch?v=FjgYtQK_zLE'>Postman Youtube Tutorial</a>"
+
+                },
+                Tips = new List<string>
+                {
+                    "If this is your first contact with .NET Web API, follow the tutorial closely using the Todo List data model and http-repl for testing. In a second moment, follow the tutorial one more time, this time following the project's requirements.",
+                    "Don't forget to create a Github repository for your project from the beginning.",
+                    "First, create the Web API project, then use Swagger and Postman to test it. Only then create the UI project.",
+                    "You might be tempted to skip testing with Swagger and Postman. Don't make that mistake. These tools are essential for working with web apis in enterprise and your hiring managers will be unimpressed if you are not familiar with them.",
+                    "Calculate the duration of the shift based on its start and end.",
+                }
+            },
         };
     }
 }

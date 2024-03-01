@@ -1,10 +1,12 @@
 ﻿@page "/"
+@using TCSA.V2.Components.Main
 @using TCSA.V2.Components.UI
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using static TCSA.V2.Helpers.Enums
 
 <MainBanner />
+<HowItWorksArea Articles=@Articles />
 
 <div class="container certificate-container">
     <div class="row d-flex justify-content-center">
@@ -51,10 +53,12 @@
 
 @code {
     protected List<Project> Projects = new();
+    protected List<Article> Articles = new();
     protected Project CertificationProject = new();
 
     protected override async Task OnInitializedAsync()
     {
+        Articles = ArticleHelper.GetArticles();
         Projects = ProjectHelper.GetProjects();
         CertificationProject = Projects.Single(x => x.Id == 75);
     }

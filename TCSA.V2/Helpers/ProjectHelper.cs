@@ -10,6 +10,7 @@ public static class ProjectHelper
         var projects = new List<Project>();
         
         return projects
+            .Concat(StandAloneProjectsHelper.GetProjects()) 
             .Concat(ConsoleProjectsHelper.GetProjects())
             .ToList();  
     }

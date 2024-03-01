@@ -19,7 +19,6 @@ builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuth
 
 builder.Services.AddScoped<IDataSeedService, DataSeedService>();
 
-
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
@@ -27,8 +26,8 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGitHub(o =>
     {
-        o.ClientId = "6aa39f5428b286abe505";
-        o.ClientSecret = "1f1b49651a6c4ab03f82db653d0692044cf0104f";
+        o.ClientId = builder.Configuration["Values:GithubClientId"];
+        o.ClientSecret = builder.Configuration["Values:GithubClientSecret"];
         o.CallbackPath = "/signin-github";
         // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
         o.Scope.Add("read:user");

@@ -7,4 +7,10 @@ public class Enums
         Article,
         Project
     }
+
+    public enum Language
+    {
+        English,
+        Portuguese
+    }
 }

@@ -1,16 +1,16 @@
 ﻿@using static TCSA.V2.Helpers.Enums
 <div class="card-slot col-lg-3 col-md-6">
-    <div class="card shadow rounded-lg text-center" style="width: 18rem;">
+    <div class="card card-index shadow rounded-lg text-center" style="width: 18rem;">
         @if (IsReleased)
         {
             <a href="@Href" class="stretched-link" target="_blank">
-                <img class="card-img-top" src="img/@IconUrl" alt="Card image cap">
+                <img class="card-img-top" src="img/Cards/@IconUrl" alt="Card image cap">
             </a>
         }
         else
         {
             <div>
-                <img class="card-img-top" src="img/@IconUrl" alt="Card image cap">
+                <img class="card-img-top" src="img/Cards/@IconUrl" alt="Card image cap">
             </div>
         }
 
@@ -42,4 +42,51 @@
         IsReleased = ReleaseDate < DateTime.Now;
     }
 }
+
+<style>
+    .card-slot {
+        margin-bottom: 2rem;
+    }
+
+    .card-img-top {
+        max-width: 100px;
+    }
+
+    .card-index {
+        border: none;
+        border-radius: 15px;
+        padding: 30px 0;
+        min-height: 100%;
+        width: 100% !important;
+        transition: all 200ms ease-in-out;
+    }
+
+    .card-no-transition {
+        transition: none;
+    }
+
+        .card-no-transition:hover {
+            transform: none !important;
+        }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-family: Roboto;
+        color: #1C236D;
+        font-weight: 600;
+    }
+
+    .release-date {
+        color: red;
+        font-weight: 500;
+    }
+
+    .card-text {
+        margin-top: 10px;
+    }
+</style>
 

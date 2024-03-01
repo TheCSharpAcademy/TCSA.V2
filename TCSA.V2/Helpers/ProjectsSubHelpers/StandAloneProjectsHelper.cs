@@ -13,7 +13,7 @@ internal static class StandAloneProjectsHelper
              {
                 Id = 75,
                 Title = "FreeCodeCamp C# Certification",
-                IconUrl = "cards/freecodecamp.jpg",
+                IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
                 Description = "Get started completing this professional C# certification",

@@ -13,19 +13,23 @@
     </div>
 </div>
 
+
 <div class="container w-50">
-    <div class="row pb-3">
-        <div class="col">
-            <label for="languageSelect">Select Language:</label>
-            <select class="form-control" id="languageSelect" @onchange="ChangeLanguage">
-                >
-                @foreach (var language in AvailableLanguages)
-                {
-                    <option value="@language">@language</option>
-                }
-            </select>
+    @if (AvailableLanguages.Count > 1)
+    {
+        <div class="row pb-3">
+            <div class="col">
+                <label for="languageSelect">Select Language:</label>
+                <select class="form-control" id="languageSelect" @onchange="ChangeLanguage">
+                    >
+                    @foreach (var language in AvailableLanguages)
+                    {
+                        <option value="@language">@language</option>
+                    }
+                </select>
+            </div>
         </div>
-    </div>
+    }
 
     @if (Project.Introduction != null)
     {

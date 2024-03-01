@@ -20,7 +20,7 @@
 <div class="container w-75">
     <div class="row d-flex justify-content-center title">
         <h1 id="console-area"></h1>
-        <img id="console_title" class="area-title" src="img/console-title.png" />
+        <img id="console_title" class="area-title" src="img/Titles/console-title.png" />
     </div>
 @*     <div class="row d-flex justify-content-center">
         <Card Type="CardType.Article"
@@ -35,6 +35,7 @@
         {
             <Card Type="CardType.Project"
                   Id=@project.Id
+                  Slug="@project.Slug"
                   Title=@project.Title
                   Description=@project.Description
                   IconUrl=@project.IconUrl />

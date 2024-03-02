@@ -50,4 +50,13 @@ public static class ProjectHelper
             .Concat(StandAloneProjectsHelper.GetProjectsInKorean())
             .ToList();
     }
+
+    public static List<Project> GetProjectsInCroatian()
+    {
+        var projects = new List<Project>();
+
+        return projects
+            .Concat(StandAloneProjectsHelper.GetProjectsInCroatian())
+            .ToList();
+    }
 }

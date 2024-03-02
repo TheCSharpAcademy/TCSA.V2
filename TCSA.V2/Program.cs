@@ -18,6 +18,7 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
 builder.Services.AddScoped<IDataSeedService, DataSeedService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -52,8 +53,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.EnsureDeleted();
-    dbContext.Database.EnsureCreated();
+    //dbContext.Database.EnsureDeleted();
+    //dbContext.Database.EnsureCreated();
 }
 
 // Configure the HTTP request pipeline.

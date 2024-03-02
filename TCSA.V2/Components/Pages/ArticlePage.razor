@@ -1,6 +1,10 @@
 ﻿@page "/article/{ArticleId:int}/{ArticleSlug}"
+@rendermode InteractiveServer
+
+@using System.Security.Claims;
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using TCSA.V2.Services
 
 <div class="container">
     <div class="jumbotron jumbotron-fluid project-banner">
@@ -48,6 +52,16 @@
         </div>
     }
 
+    @if (!IsCompleted)
+    {
+        <p>If you're following the roadmap, mark this article as read before moving to the next.</p>
+        <div class="user-buttons">
+            <btn class="btn btn-outline-secondary" type="button" @onclick="MarkAsRead">Mark As Read</btn>
+        </div>
+        <br />
+        <p class="projects-worth">This article is worth @Article.ExperiencePoints XPs </p>
+    }
+
     @if (HasNext)
     {
         <div class="container user-buttons">
@@ -60,19 +74,52 @@
 
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
     [Parameter] public string ArticleSlug { get; set; }
     [Parameter] public int ArticleId { get; set; }
 
     private Article Article { get; set; }
 
     private bool HasNext;
-
+    private bool IsCompleted;
+    private string UserId;
     private string BackgroundImage;
 
     protected async override Task OnInitializedAsync()
     {
         Article = ArticleHelper.GetArticles().Single(x => x.Id == ArticleId);
         BackgroundImage = Article.BannerUrl != "" ? Article.BannerUrl : "article-banner.jpg";
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (AuthSate.User.Identity.IsAuthenticated)
+        {
+            var claims = AuthSate.User;
+            UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            IsCompleted = await CheckIfProjectCompleted();
+        }
+    }
+
+    private Task<bool> CheckIfProjectCompleted()
+    {
+        return ProjectService.IsProjectCompleted(UserId, ArticleId);
+    }
+
+    private async Task MarkAsRead()
+    {
+        var project = new DashboardProject
+            {
+                AppUserId = UserId,
+                GithubUrl = "Not required",
+                ProjectId = ArticleId,
+                IsCompleted = true,
+                DateSubmitted = DateTimeOffset.UtcNow
+            };
+
+        var response = await ProjectService.PostArticle(project);
     }
 }
 

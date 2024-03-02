@@ -30,6 +30,7 @@ public static class ProjectHelper
 
         return projects
             .Concat(StandAloneProjectsHelper.GetProjectsInDutch())
+            .Concat(ConsoleProjectsHelper.GetProjectsInDutch())
             .ToList();
     }
 }

@@ -12,6 +12,7 @@ public class Enums
     {
         English,
         Portuguese,
-        Dutch
+        Dutch,
+        Turkish
     }
 }

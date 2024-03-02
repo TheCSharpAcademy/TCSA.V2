@@ -168,7 +168,11 @@
     {
         try
         {
-            return Activator.CreateInstance<ApplicationUser>();
+            var user = Activator.CreateInstance<ApplicationUser>();
+            user.Country = "";
+            user.FirstName = "";
+            user.LastName = "";
+            return user;
         }
         catch
         {

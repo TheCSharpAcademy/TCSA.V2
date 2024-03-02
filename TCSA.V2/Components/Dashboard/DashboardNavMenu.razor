@@ -1,0 +1,68 @@
+﻿@implements IDisposable
+
+@inject NavigationManager NavigationManager
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable dashboard-menu pt-5" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dashboard">
+                <span class="bi bi-plus-square-fill-nav-menu"></span> Main
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dashboard/submitproject">
+                <span class="bi bi-list-nested-nav-menu"></span> Submit Project
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dashboard/roadmap">
+                <span class="bi bi-list-nested-nav-menu"></span> Roadmap
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dashboard/activity">
+                <span class="bi bi-list-nested-nav-menu"></span> Activity
+            </NavLink>
+        </div> 
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dashboard/codereviews">
+                <span class="bi bi-list-nested-nav-menu"></span> Code Reviews
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="dashboard/communityprojects">
+                <span class="bi bi-list-nested-nav-menu"></span> Community Projects
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
+
+<style>
+    .dashboard-menu {
+        background-color: #1C236D;
+    }
+</style>

@@ -4,6 +4,7 @@
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using static TCSA.V2.Helpers.Enums
+@using System.Security.Claims;
 
 <div class="container">
     <div class="jumbotron jumbotron-fluid project-banner">
@@ -43,6 +44,38 @@
             </div>
         </div>
     }
+
+    <div class="row pb-5">
+        <div class="col">
+            <div class="col d-flex justify-content-center">
+                <h1 class="article-section-title">Requirements</h1>
+            </div>
+
+            @if (!String.IsNullOrEmpty(Project.RequirementsIntro))
+            {
+                <p><p>@((MarkupString)(Project.RequirementsIntro))</p></p>
+            }
+
+            @if (Project.Requirements != null)
+            {
+                <ul class="list-group  list-group-flush">
+                    @foreach (var requirement in Project.Requirements)
+                    {
+                        <li class="list-group-item">
+                            <svg class="bi" width="24" height="24" fill="green">
+                                <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-square" />
+                            </svg>
+                            @((MarkupString)(requirement))
+                        </li>
+                    }
+                </ul>
+            }
+            @if (!String.IsNullOrEmpty(Project.RequirementsConclusion))
+            {
+                <p>@((MarkupString)(Project.RequirementsConclusion))</p>
+            }
+        </div>
+    </div>
 
     @if (Project.LearningItems != null)
     {
@@ -207,6 +240,7 @@
 @code {
     [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public int ProjectId { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
 
     private Language SelectedLanguage { get; set; } = Language.English;
     private Project Project { get; set; }
@@ -215,6 +249,7 @@
     private List<Language> AvailableLanguages { get; set; } = new();
 
     private string BackgroundImage;
+    private string userId;
 
     protected async override Task OnInitializedAsync()
     {
@@ -228,6 +263,15 @@
         GetAvailableLanguages();
 
         BackgroundImage = Project.BannerUrl != "" ? Project.BannerUrl : "article-banner.jpg";
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (AuthSate.User.Identity.IsAuthenticated)
+        {
+            var claims = AuthSate.User;
+            userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
     }
 
     private void GetAvailableLanguages()

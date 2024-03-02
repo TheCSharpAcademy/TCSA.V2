@@ -68,6 +68,7 @@
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
+        user.Country = "";
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -106,7 +107,9 @@
     {
         try
         {
-            return Activator.CreateInstance<ApplicationUser>();
+            var user = Activator.CreateInstance<ApplicationUser>();
+            user.Country = "";
+            return user;
         }
         catch
         {

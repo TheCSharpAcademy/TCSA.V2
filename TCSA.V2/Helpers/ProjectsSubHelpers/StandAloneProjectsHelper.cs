@@ -61,7 +61,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "cards/freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
-                Description = "Get started completing this professional C# certification",
+                Description = "Comece sua jornada completando a certificação profissional em C# da Microsoft",
                 Area = Area.StandAlone,
                 Level = Level.Green,
                 ExperiencePoints = 20,
@@ -74,24 +74,24 @@ internal static class StandAloneProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="In August 2023, Free Code Camp and Microsoft paired up to offer a single unified learning resource, which gives students a professional certification when completed. This certification is comprised of a step-by-step list of topics in a curriculum provided by Free Code Camp, but the studying and completion of the modules happens within Microsoft's learning materials. It's a fantastic resource that prevents learners from getting lost in the sea of tutorials provided by Microsoft, and that's not even to mention courses found in platforms such as Udemy, Youtube and alike. "
+                        Body="O Free Code Camp e a Microsoft uniram forças em agosto de 2023 para oferecer um recurso unificado de ensino, também providenciando aos estudantes que completarem o currículo um certificado profissional.\r\nEssa certificação contém um lista passo a passo de tópicos organizados em um currículo fornecido pela Free Code Camp, mas o estudo e conclusão dos módulos acontece dentro do portal de estudo da Microsoft.\r\nÉ um ótimo recurso e evita que estudantes se percam no mar de tutoriais que a Microsoft oferece, mantendo uma linha de aprendizado consistente. Sem mencionar outros cursos encontrados em plataformas como Udemy, youtube, entre outras."
                     }
                 },
                 Requirements = new List<string>
                 {
-                    @"You need to complete Free Code Camp's<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
-                    @"Upon completion you need to submit a screenshot of your certificate either via <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> our Discord Server (Code Reviews Channel)</a> or <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via E-mail</a>"
+                    @"Você precisa completar o curso no Free Code Camp <a target='blank' href='https://www.freecodecamp.org/portuguese/learn/foundational-c-sharp-with-microsoft/'>Fundamentos de C# com a Microsoft</a> com certificação",
+                    @"Após completar a certificação você precisará enviar uma captura de tela do seu certificado via <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> nosso servidor do discord (Code Reviews Channel)</a> ou <a target='blank' href='mailto:thecsharpacademy@gmail.com'>por E-mail"
                 },
                 Tips = new List<string>
                 {
-                    "You might be tempted to speed through the certification, rushing past the topics you might be familiar with. Instead, read each paragraph carefully. There are always gaps in your knowledge. We don't know what we don't know.",
-                    "You don't need to complete the coding challenges in the certification to mark a section as completed. But we recommend you actually complete them, no matter how easy they are. If an exercise is too easy, try using an approach you haven't used before.",
-                    "Make lots of notes, but don't fall into the trap of writing EVERYTHING down. Notes are useful when you can have a quick glance at them for reference. A good approach is to write down concise bullet points with concepts you were not familiar with. You can also have separate notes with follow-up topics you want to study.",
-                    "Although you can complete the certification in a few hours, we recommend doing each section in a different day, so you're always studying with maximum focus."
+                    "Você talvez sinta a tentação de concluir a certificação rapidamente, pulando tópicos que pareçam familiares.\r\nAo invés disso, leia cada parágrafo com cuidado. Sempre existem lacunas em nosso conhecimento. Nós não sabemos o que não sabemos.",
+                    "Você não precisa completar os desafios de código para marcar uma seção como concluída. Mas nós recomendamos que você complete eles, não importa o quão facéis sejam. Se um exercício parecer muito fácil, tente usar um método que você nunca usou antes para completá-lo.",
+                    "Faça muitas anotações, mas cuidado para não cair na armadilha de anotar TUDO. Notas são úteis quando você precisa referenciar algo rapidamente. Uma boa prática é anotar pontos importantes e conceitos coms os quais você ainda não está familiarizado. Você também pode separar notas com tópicos de acompanhamento que você deseja estudar no futuro.",
+                    "Embora você possa terminar a certificação em algumas horas, nós recomendamos dedicar um dia diferente para cada seção, para você estar sempre focado durante os estudos."
                 },
                 Challenges = new List<string>
                 {
-                    "Upon completion of your project, have a go at completing the <a target='_blank' href='https://thecsharpacademy.com/project/53'>Math Game</a> project without watching the video tutorial in the project's page. It might be challenging if this is your first time building something yourselfbut this approach will speed up your learning.",
+                    "Após completar a certificação, tente concluir o projeto do <a target='_blank' href='https://thecsharpacademy.com/project/53'>Jogo de matemática</a> sem assistir ao tutorial em vídeo na página do projeto. Pode ser desafior se essa é a sua primeira vez construindo algo do zero, mas essa abordagem irá acelerar seu aprendizado.",
                 }
             },
         };

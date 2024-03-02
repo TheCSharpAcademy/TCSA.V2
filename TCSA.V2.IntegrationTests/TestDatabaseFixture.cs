@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Net.Http;
 using TCSA.V2.Data;
@@ -15,12 +16,16 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
     private static bool _projectsInitialized;
 
     public Mock<IHttpClientFactory> MockHttpClientFactory { get; private set; }
+    public Mock<ILogger<ProjectService>> MockLogger { get; private set; }
 
     public TestDatabaseFixture()
     {
+        MockLogger = new Mock<ILogger<ProjectService>>();
+
         MockHttpClientFactory = new Mock<IHttpClientFactory>();
         var fakeHttpClient = new HttpClient();
         MockHttpClientFactory.Setup(f => f.CreateClient(It.IsAny<string>())).Returns(fakeHttpClient);
+
 
         lock (_lock)
         {
@@ -51,9 +56,7 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
             {
                 var factory = CreateDbContextFactory();
 
-                var ProjectService = new ProjectService(factory);
-
-                var projectService = new ProjectService(factory);
+                var projectService = new ProjectService(MockLogger.Object, factory);
 
                 projectService.PostArticle(new Models.DashboardProject
                 {

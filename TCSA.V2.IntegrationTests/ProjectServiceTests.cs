@@ -1,4 +1,6 @@
-﻿using TCSA.V2.Services;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
+using TCSA.V2.Services;
 
 namespace TCSA.V2.IntegrationTests;
 
@@ -17,7 +19,7 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     public async Task CheckIfProjectExistsReturnCorrectResult(string userId, int projectId, bool expectedResult)
     {
         var factory = _fixture.CreateDbContextFactory();
-        var projectService = new ProjectService(factory);
+        var projectService = new ProjectService(_fixture.MockLogger.Object, factory);
 
         var actualResult = await projectService.IsProjectCompleted(userId, projectId);
 

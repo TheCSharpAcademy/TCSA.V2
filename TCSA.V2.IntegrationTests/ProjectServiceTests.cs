@@ -1,5 +1,7 @@
-﻿using TCSA.V2.Services;
+﻿using TCSA.V2.Models;
+using TCSA.V2.Services;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace TCSA.V2.IntegrationTests;
 
 public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
@@ -17,10 +19,32 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     public async Task CheckIfProjectExistsReturnCorrectResult(string userId, int projectId, bool expectedResult)
     {
         var factory = _fixture.CreateDbContextFactory();
-        var projectService = new ProjectService(factory);
+        var projectService = new ProjectService(_fixture.MockLogger.Object, factory);
 
         var actualResult = await projectService.IsProjectCompleted(userId, projectId);
 
         Assert.Equal(expectedResult, actualResult);
+    }
+
+    [Fact]
+    public async Task PostArticleThatAlreadyExistsReturn0()
+    {
+        var factory = _fixture.CreateDbContextFactory();
+        var projectService = new ProjectService(_fixture.MockLogger.Object, factory);
+
+        var project = new DashboardProject
+        {
+            AppUserId = "testId",
+            GithubUrl = "",
+            IsCompleted = false,
+            IsPendingNotification = false,
+            IsPendingReview = true,
+            ProjectId = 1,
+            DateSubmitted = DateTime.Now,
+        };
+
+        var actualResult = await projectService.PostArticle(project);
+
+        Assert.Equal(0, actualResult);
     }
 }

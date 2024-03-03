@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
-using System.Net.Http;
 using TCSA.V2.Data;
+using TCSA.V2.Models;
 using TCSA.V2.Services;
 
 namespace TCSA.V2.IntegrationTests;
@@ -15,12 +16,16 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
     private static bool _projectsInitialized;
 
     public Mock<IHttpClientFactory> MockHttpClientFactory { get; private set; }
+    public Mock<ILogger<ProjectService>> MockLogger { get; private set; }
 
     public TestDatabaseFixture()
     {
+        MockLogger = new Mock<ILogger<ProjectService>>();
+
         MockHttpClientFactory = new Mock<IHttpClientFactory>();
         var fakeHttpClient = new HttpClient();
         MockHttpClientFactory.Setup(f => f.CreateClient(It.IsAny<string>())).Returns(fakeHttpClient);
+
 
         lock (_lock)
         {
@@ -33,7 +38,7 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
                     context.AddRange(
                         new ApplicationUser
                         {
-                            Id="testId",
+                            Id = "testId",
                             FirstName = "Pablo",
                             LastName = "Souza",
                             Email = "pablo.testerson@gmail.com",
@@ -41,32 +46,23 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
                             Country = "Brazil",
                             DiscordAlias = "Bolotas"
                         });
+
+                    context.AddRange(
+                        new DashboardProject
+                        {
+                            AppUserId = "testId",
+                            GithubUrl = "",
+                            IsCompleted = false,
+                            IsPendingNotification = false,
+                            IsPendingReview = true,
+                            ProjectId = 1,
+                            DateSubmitted = DateTime.Now,
+                        });
+
                     context.SaveChanges();
                 }
 
                 _databaseInitialized = true;
-            }
-
-            if (!_projectsInitialized)
-            {
-                var factory = CreateDbContextFactory();
-
-                var ProjectService = new ProjectService(factory);
-
-                var projectService = new ProjectService(factory);
-
-                projectService.PostArticle(new Models.DashboardProject
-                {
-                    AppUserId = "testId",
-                    GithubUrl = "",
-                    IsCompleted = false,
-                    IsPendingNotification = false,
-                    IsPendingReview = true,
-                    ProjectId = 1,
-                    DateSubmitted = DateTime.Now,
-                }).Wait();
-
-                _projectsInitialized = true;
             }
         }
     }

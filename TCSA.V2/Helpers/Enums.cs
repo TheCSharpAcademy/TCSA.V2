@@ -13,6 +13,7 @@ public class Enums
         English,
         Portuguese,
         Dutch,
-        Turkish
+        Turkish,
+        Korean
     }
 }

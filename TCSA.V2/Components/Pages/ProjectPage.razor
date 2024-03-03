@@ -247,6 +247,7 @@
     private Project ProjectInPortuguese { get; set; }
     private Project ProjectInDutch { get; set; }
     private Project ProjectInTurkish { get; set; }
+    private Project ProjectInKorean { get; set; }
     private List<Language> AvailableLanguages { get; set; } = new();
 
     private string BackgroundImage;
@@ -259,7 +260,8 @@
             Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
-            Language.Turkish => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId)
+            Language.Turkish => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
+            Language.Korean => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId)
         };
 
         GetAvailableLanguages();
@@ -283,6 +285,7 @@
         ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
         ProjectInDutch = ProjectHelper.GetProjectsInDutch()?.FirstOrDefault(x => x.Id == ProjectId);
         ProjectInTurkish = ProjectHelper.GetProjectsInTurkish()?.FirstOrDefault(x => x.Id == ProjectId);
+        ProjectInKorean = ProjectHelper.GetProjectsInKorean()?.FirstOrDefault(x => x.Id == ProjectId);
 
         if (ProjectInPortuguese != null) 
         {
@@ -297,6 +300,11 @@
         if (ProjectInTurkish != null)
         {
             AvailableLanguages.Add(Language.Turkish);
+        }
+
+        if (ProjectInTurkish != null)
+        {
+            AvailableLanguages.Add(Language.Korean);
         }
     }
 
@@ -313,7 +321,8 @@
             Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId), 
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
-            Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId)
+            Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
+            Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId)
             
         };
 

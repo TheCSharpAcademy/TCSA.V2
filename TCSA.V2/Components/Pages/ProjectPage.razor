@@ -259,7 +259,7 @@
     {
         @if (!IsCompleted)
         {
-             <a class="btn btn-success" href="dashboard/submit-project">Submit</a>           
+            <a class="btn btn-success" href="dashboard/submit-project">Submit</a>
         }
     }
     else
@@ -281,11 +281,6 @@
 
     private Language SelectedLanguage { get; set; } = Language.English;
     private Project Project { get; set; }
-    private Project ProjectInPortuguese { get; set; }
-    private Project ProjectInDutch { get; set; }
-    private Project ProjectInCroatian { get; set; }
-    private Project ProjectInTurkish { get; set; }
-    private Project ProjectInKorean { get; set; }
     private List<Language> AvailableLanguages { get; set; } = new();
 
     private bool IsLoggedIn;
@@ -327,37 +322,25 @@
     {
         AvailableLanguages.Add(Language.English);
 
-        ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
-        ProjectInDutch = ProjectHelper.GetProjectsInDutch()?.FirstOrDefault(x => x.Id == ProjectId);
-        ProjectInTurkish = ProjectHelper.GetProjectsInTurkish()?.FirstOrDefault(x => x.Id == ProjectId);
-        ProjectInKorean = ProjectHelper.GetProjectsInKorean()?.FirstOrDefault(x => x.Id == ProjectId);
-        ProjectInCroatian = ProjectHelper.GetProjectsInCroatian()?.FirstOrDefault(x => x.Id == ProjectId);
-
-        if (ProjectInPortuguese != null)
+        var languagesToCheck = new Dictionary<Func<IEnumerable<Project>?>, Language>
         {
-            AvailableLanguages.Add(Language.Portuguese);
-        }
+            { () => ProjectHelper.GetProjectsInPortuguese(), Language.Portuguese },
+            { () => ProjectHelper.GetProjectsInDutch(), Language.Dutch },
+            { () => ProjectHelper.GetProjectsInTurkish(), Language.Turkish },
+            { () => ProjectHelper.GetProjectsInKorean(), Language.Korean },
+            { () => ProjectHelper.GetProjectsInCroatian(), Language.Croatian }
+        };
 
-        if (ProjectInDutch != null)
+        foreach (var pair in languagesToCheck)
         {
-            AvailableLanguages.Add(Language.Dutch);
-        }
-
-        if (ProjectInTurkish != null)
-        {
-            AvailableLanguages.Add(Language.Turkish);
-        }
-
-        if (ProjectInTurkish != null)
-        {
-            AvailableLanguages.Add(Language.Korean);
-        }
-
-        if (ProjectInCroatian != null)
-        {
-            AvailableLanguages.Add(Language.Croatian);
+            var languageProjects = pair.Key()?.FirstOrDefault(x => x.Id == ProjectId);
+            if (languageProjects != null)
+            {
+                AvailableLanguages.Add(pair.Value);
+            }
         }
     }
+
 
     private void ChangeLanguage(ChangeEventArgs e)
     {
@@ -375,7 +358,7 @@
             Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
             Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId),
             Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId)
-            
+
         };
 
         StateHasChanged();

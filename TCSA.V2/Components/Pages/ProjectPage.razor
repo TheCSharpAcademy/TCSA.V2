@@ -5,6 +5,7 @@
 @using TCSA.V2.Models
 @using static TCSA.V2.Helpers.Enums
 @using System.Security.Claims;
+@using TCSA.V2.Services
 
 <div class="container">
     <div class="jumbotron jumbotron-fluid project-banner">
@@ -13,6 +14,24 @@
         </div>
     </div>
 </div>
+
+@if (IsCompleted)
+{
+    <div class="card">
+        <div class="card-body">
+            You have completed this roadmap step.
+        </div>
+    </div>
+}
+
+@if (IsPendingReview)
+{
+    <div class="card card-pending">
+        <div class="card-body">
+            This Project Is Pending Review
+        </div>
+    </div>
+}
 
 
 <div class="container w-50">
@@ -235,12 +254,30 @@
             </div>
         </div>
     }
+
+    @if (IsLoggedIn)
+    {
+        @if (!IsCompleted)
+        {
+             <a class="btn btn-success" href="dashboard/submit-project">Submit</a>           
+        }
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-body">
+                Log in to mark this article as read and save your progress.
+            </div>
+        </div>
+    }
 </div>
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
     [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public int ProjectId { get; set; }
-    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
 
     private Language SelectedLanguage { get; set; } = Language.English;
     private Project Project { get; set; }
@@ -250,8 +287,12 @@
     private Project ProjectInKorean { get; set; }
     private List<Language> AvailableLanguages { get; set; } = new();
 
+    private bool IsLoggedIn;
+    private bool IsPendingReview { get; set; } = false;
+    private bool IsCompleted { get; set; } = false;
+
     private string BackgroundImage;
-    private string userId;
+    private string UserId;
 
     protected async override Task OnInitializedAsync()
     {
@@ -260,8 +301,8 @@
             Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
-            Language.Turkish => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
-            Language.Korean => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId)
+            Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
+            Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId)
         };
 
         GetAvailableLanguages();
@@ -272,22 +313,24 @@
 
         if (AuthSate.User.Identity.IsAuthenticated)
         {
+            IsLoggedIn = true;
             var claims = AuthSate.User;
-            userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
+        IsCompleted = await ProjectService.IsProjectCompleted(UserId, ProjectId);
     }
 
     private void GetAvailableLanguages()
     {
         AvailableLanguages.Add(Language.English);
-        
+
         ProjectInPortuguese = ProjectHelper.GetProjectsInPortuguese()?.FirstOrDefault(x => x.Id == ProjectId);
         ProjectInDutch = ProjectHelper.GetProjectsInDutch()?.FirstOrDefault(x => x.Id == ProjectId);
         ProjectInTurkish = ProjectHelper.GetProjectsInTurkish()?.FirstOrDefault(x => x.Id == ProjectId);
         ProjectInKorean = ProjectHelper.GetProjectsInKorean()?.FirstOrDefault(x => x.Id == ProjectId);
 
-        if (ProjectInPortuguese != null) 
+        if (ProjectInPortuguese != null)
         {
             AvailableLanguages.Add(Language.Portuguese);
         }
@@ -318,12 +361,12 @@
 
         Project = SelectedLanguage switch
         {
-            Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId), 
+            Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
             Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
             Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId)
-            
+
         };
 
         StateHasChanged();

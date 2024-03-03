@@ -303,7 +303,8 @@
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
             Language.Turkish => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
-            Language.Korean => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId)
+            Language.Korean => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
+            Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId)
         };
 
         GetAvailableLanguages();
@@ -351,7 +352,6 @@
         {
             AvailableLanguages.Add(Language.Korean);
         }
-    }
 
         if (ProjectInCroatian != null)
         {
@@ -373,7 +373,8 @@
             Language.Portuguese => ProjectHelper.GetProjectsInPortuguese()?.Single(x => x.Id == ProjectId),
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
             Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
-            Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId)
+            Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId),
+            Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId)
             
         };
 

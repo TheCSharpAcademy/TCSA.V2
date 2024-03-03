@@ -47,4 +47,18 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
 
         Assert.Equal(0, actualResult);
     }
+
+    [Fact]
+    public async Task GetCompletedProjectsById_ReturnsCorrectProjects()
+    {
+        var userId = "testId";
+        var expectedCompletedProjects = new List<int> { 1, 12, 13 }; 
+
+        var projectService = new ProjectService(_fixture.MockLogger.Object, _fixture.CreateDbContextFactory());
+
+        var actualCompletedProjects = await projectService.GetCompletedProjectsById(userId);
+
+        Assert.NotNull(actualCompletedProjects);
+        Assert.Equal(expectedCompletedProjects.OrderBy(x => x), actualCompletedProjects.OrderBy(x => x));
+    }
 }

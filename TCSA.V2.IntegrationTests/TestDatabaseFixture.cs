@@ -57,7 +57,28 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
                             IsPendingReview = true,
                             ProjectId = 1,
                             DateSubmitted = DateTime.Now,
+                        },
+                        new DashboardProject
+                        {
+                            AppUserId = "testId",
+                            GithubUrl = "",
+                            IsCompleted = false,
+                            IsPendingNotification = false,
+                            IsPendingReview = true,
+                            ProjectId = 12,
+                            DateSubmitted = DateTime.Now,
+                        },
+                        new DashboardProject
+                        {
+                            AppUserId = "testId",
+                            GithubUrl = "",
+                            IsCompleted = false,
+                            IsPendingNotification = false,
+                            IsPendingReview = true,
+                            ProjectId = 13,
+                            DateSubmitted = DateTime.Now,
                         });
+
 
                     context.SaveChanges();
                 }

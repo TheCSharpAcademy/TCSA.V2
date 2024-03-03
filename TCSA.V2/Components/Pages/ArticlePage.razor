@@ -15,6 +15,14 @@
 </div>
 
 <div class="container w-50 article-blocks-desktop">
+    @if (IsLoggedIn && IsCompleted)
+    {
+        <div class="card">
+            <div class="card-body">
+                You have completed this roadmap step.
+            </div>
+        </div>
+    }
     @foreach (var block in Article.Blocks)
     {
         <div class="row pb-4">
@@ -52,14 +60,42 @@
         </div>
     }
 
-    @if (!IsCompleted)
+    @if (IsLoggedIn)
     {
-        <p>If you're following the roadmap, mark this article as read before moving to the next.</p>
-        <div class="user-buttons">
-            <btn class="btn btn-outline-secondary" type="button" @onclick="MarkAsRead">Mark As Read</btn>
+        @if (!IsCompleted)
+        {
+            <p>If you're following the roadmap, mark this article as read before moving to the next.</p>
+            <div class="user-buttons">
+                @if (IsLoading)
+                {
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                }
+                else
+                {
+                    <button class="btn btn-outline-secondary" type="button" @onclick="MarkAsRead" disabled="@IsLoading">Mark As Read</button>
+                }
+            </div>
+            <br />
+            <p class="projects-worth">This article is worth @Article.ExperiencePoints XPs </p>
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-body">
+                    You have completed this roadmap step.
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-body">
+                Log in to mark this article as read and save your progress.
+            </div>
         </div>
-        <br />
-        <p class="projects-worth">This article is worth @Article.ExperiencePoints XPs </p>
     }
 
     @if (HasNext)
@@ -82,10 +118,14 @@
 
     private Article Article { get; set; }
 
+    private bool IsLoggedIn;
     private bool HasNext;
     private bool IsCompleted;
+    private bool IsLoading;
+    private bool Toast;
     private string UserId;
     private string BackgroundImage;
+    private string ResultMessage;
 
     protected async override Task OnInitializedAsync()
     {
@@ -96,6 +136,7 @@
 
         if (AuthSate.User.Identity.IsAuthenticated)
         {
+            IsLoggedIn = true;
             var claims = AuthSate.User;
             UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -110,6 +151,8 @@
 
     private async Task MarkAsRead()
     {
+        IsLoading = true;
+
         var project = new DashboardProject
             {
                 AppUserId = UserId,
@@ -120,6 +163,24 @@
             };
 
         var response = await ProjectService.PostArticle(project);
+
+        if (response == 1)
+        {
+            ResultMessage = "Your project was submitted successfuly";
+        }
+        else
+        {
+            ResultMessage = "There was an error when submitting your project";
+        }
+
+        IsLoading = false;
+
+        IsCompleted = await CheckIfProjectCompleted();
+
+        if (IsCompleted)
+        {
+            Toast = true;
+        }
     }
 }
 

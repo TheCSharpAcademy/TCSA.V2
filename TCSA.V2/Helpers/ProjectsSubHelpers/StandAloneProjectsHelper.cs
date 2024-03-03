@@ -70,7 +70,7 @@ internal static class StandAloneProjectsHelper
                     new Paragraph
                     {
                         Body="Por muito tempo, a Microsoft investiu muito esforço em material educacional para .NET e C#. Há uma quantidade infinita de recursos na documentação deles, direcionados desde iniciantes até desenvolvedores sênior que procuram aprimorar suas habilidades. Uma biblioteca tão extensa tem a desvantagem de às vezes confundir os alunos, principalmente ao considerar a variedade de tecnologias, as diferentes versões de C# ao longo dos anos e a constante evolução do .NET."
-                        
+
                     },
                     new Paragraph
                     {
@@ -96,7 +96,7 @@ internal static class StandAloneProjectsHelper
             },
         };
     }
-    
+
     internal static List<Project> GetProjectsInDutch()
     {
         return new List<Project>
@@ -140,6 +140,52 @@ internal static class StandAloneProjectsHelper
                     "Na voltooiing van dit project zou je het <a target='_blank' href='https://thecsharpacademy.com/project/53'>Wiskundespel</a> project kunnen voltooien zonder de video-tutorial in de projectpagina te bekijken. Het kan een uitdaging zijn als dit de eerste keer is dat je zelf iets bouwt, maar deze aanpak zal jouw leerproces zeker versnellen.",
                 }
             },
+        };
+    }
+
+    internal static List<Project> GetProjectsInCroatian()
+    {
+        return new List<Project>
+        {
+            new Project
+            {
+                Id = 75,
+                Title = "FreeCodeCamp C# Certifikat",
+                IconUrl = "freecodecamp.jpg",
+                Slug = "freecodecamp-certification",
+                BannerUrl = "",
+                Description = "Započni sa polaganjem profesionalnog C# certifikata",
+                Area = Area.StandAlone,
+                Level = Level.Green,
+                ExperiencePoints = 20,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Microsoft već dugo vremena ulaže puno truda kreirajući edukacijski materijal za .NET i C#. Velika količina resursa nalazi se u <a href='https://learn.microsoft.com/en-au/docs/' target='blank'>tehničkoj dokumentaciji</a> i na <a href='https://learn.microsoft.com/en-us/training/' target='blank'>platformi za učenje</a>, namijenjenih svima od aposlutnih početnika do iskusnih programera koji žele usavršiti svoje vještine. Takva opširna zbirka ponekad može zbuniti studente, posebno kad se uzme u obzir raznolikost tehnologija, različite verzije C# jezika i stalna evolucija .NET-a."
+                    },
+                    new Paragraph
+                    {
+                        Body="U kolovozu 2023. godine, FreeCodeCamp i Microsoft udružili su snage kako bi ponudili jedinstveni izvor znanja za učenje koji po završetku polaznicima dodjeljuje stručni certifikat. Certifikacija se sastoji od korak-po-korak tema organiziranih unutar FreeCodeCamp nastavnog plana, dok se proučavanje i polaganje modula odvija pomoću Microsoftovih obrazovnih materijala. Radi se o izvrsnom resursu koji pomaže polaznicima da izbjegnu \"tutorial hell\" tijekom učenja osnova programskog jezika. "
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"Potrebno je položiti FreeCodeCamp obrazovni program<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a>",
+                    @"Nakon završetka potrebno je dostaviti screenshot certifikata putem <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> našeg Discord Servera (Code Reviews kanal)</a> ili <a target='blank' href='mailto:thecsharpacademy@gmail.com'>poslati E-mail</a>, te navesti username/email koji koristite za prijavu na stranicu C# akademije."
+                },
+                Tips = new List<string>
+                {
+                    "Možda ćete htjeti požuriti polaganje certifikata i brzo proći kroz teme s kojima već imate iskustva. Umjesto toga, pažljivo pročitajte svaki odlomak. Uvijek postoje praznine u znanju nekog područja. Ne znamo što sve ne znamo.",
+                    "Nije potrebno riješiti vježbe programiranja kako bi se odjeljak označio kao dovršen. Unatoč tome preporučujemo da ih stvarno riješite, bez obzira koliko su jednostavne. Ako je vježba prejednostavna, pokušajte koristiti pristup koji do sada niste koristili.",
+                    "Napravite puno bilješki, ali ne upadajte u zamku zapisivanja SVEGA. Bilješke su korisne kada ih možete brzo pregledati kao referencu. Dobar pristup je zapisivati sažete točke s konceptima s kojima niste bili upoznati. Također možete imati odvojene bilješke s temama koje želite kasnije proučiti.",
+                    "Iako možete završiti certifikaciju u nekoliko sati, preporučujemo da svaki odjeljak obavite tijekom različitog dana kako biste uvijek učili s maksimalnom koncentracijom."
+                },
+                Challenges = new List<string>
+                {
+                    "Nakon završetka ovog projekta, pokušajte riješiti projekt <a target='_blank' href='https://thecsharpacademy.com/project/53'>Matematičke Igre</a> bez gledanja video tutorijala na stranicama projekta. Ako prvi puta samostalno pokušavate nešto izraditi ovo će možda biti prilično izazovno, ali će ovakav pristup ubrzati Vaše učenje.",
+                }
+            }
         };
     }
 

@@ -14,6 +14,7 @@ public class Enums
         Portuguese,
         Dutch,
         Turkish,
-        Korean
+        Korean,
+        Croatian
     }
 }

@@ -189,4 +189,50 @@ internal static class StandAloneProjectsHelper
             },
         };
     }
+    internal static List<Project> GetProjectsInKorean()
+    {        
+        return new List<Project>
+        {
+             new Project
+             {
+                Id = 75,
+                Title = "프리코드캠프 C# 자격증",
+                IconUrl = "freecodecamp.jpg",
+                Slug = "freecodecamp-certification",
+                BannerUrl = "",
+                Description = "C# 자격증 과정을 시작해 보세요!",
+                Area = Area.StandAlone,
+                Level = Level.Green,
+                ExperiencePoints = 20,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="마이크로소프트(MS)는 오랜 시간 동안 .NET 및 C#에 관련된 학습자료를 제공하기 위해 많은 노력을 기울여 왔습니다. 마이크로소프트(MS)는 <a href='https://learn.microsoft.com/en-au/docs/' target='blank'>기술 문서</a>와 <a href='https://learn.microsoft.com/en-us/training/' target='blank'>학습 플랫폼</a>을 통해 완전 코딩 초보부터 자신의 실력을 향상시키고자 하는 시니어 개발자 분들도 유용하게 쓸 수 있는 다양하고 방대한 자료들을 제공하고 있습니다. 하지만 이러한 자료들은 오히려 너무 다양하고 방대하기 떄문에 오히려 더 난해하게 느껴질 수가 있는데, 특히 .NET이 계속적으로 발전함으로 인해 연도별로 다른 버전들이 존재하고, 그로 인해 생긴 기술의 다양성을 고려할 때 더욱 더 그럴 수 있습니다."
+                    },
+                     new Paragraph
+                    {
+                        Body="그렇기 때문에 2023년 8월, 마이크로소프트(MS)는 프리코드캠프(FCC)와 협력하여 통합된 단일 교육 과정을 제공하기로 했으며 이 과정을 수료한 학생들이 별도의 전문 자격 인증서를 받을 수 있도록 하였습니다.이 자격증은 프리코드캠프(FCC)가 제공하는 형식을 따라 단계별로 또는 주제별로 학습내용을 진행할 수 있게 구성되어 있지만, 실질적으로 코딩을 배우는 모듈은 마이크로소프트(MS)의 학습 자료 내에서 진행하게 됩니다. 이는 코딩의 기초를 배우는 과정에서 초보자가 튜토리얼 지옥에 빠져 시간을 낭비하지 않고 효과적으로 코딩을 배울 수 있게 해주는 아주 매력적인 학습 과정입니다"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"프리코드캠프(FCC)에서 제공하는 마이크로소프트(MS)의 기초 C# 자격증 과정<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'>을 완료하세요",
+                    @"자격증을 발급 받은 후에는 <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'>저희 디스코드 서버(Code Reviews Channel)</a>를 통해 또는 <a target='blank' href='mailto:thecsharpacademy@gmail.com'>이메일</a>을 통해 자격증의 스크린샷을 제출해야 하며, 로그인할 때 사용하는 사용자 이름/이메일도 함께 보내주셔야 합니다."
+                },
+                Tips = new List<string>
+                {
+                    "학습 과정을 후다닥 마치고 자격증만 빨리 받고 어느정도 아는 내용은 대충 넘어가고 싶을 수도 있습니다. 그러나 모든 내용을 주의 깊게 읽어주세요. 지식에는 항상 틈새가 있습니다. 나 스스로도 내가 뭘 모르는 지를 모른다는 것입니다.",
+                    "자격증 과정에서 코딩 도전과제를 풀지 않아도 괜찮습니다만 가능하면 실제로 해보는 것이 좋습니다. 도전과제가 얼마나 쉬운지에 관계없이 모든 도전 과제를 완료하는 것이 좋습니다. 과제가 너무 쉬우면 이전에 사용하지 않았던 방법을 통해 풀어볼 수 있도록 보세요.",
+                    "많은 노트를 작성하되, 너무 모든 것을 노트필기하려고 하면 안됩니다. 노트필기는 참고용으로 빠르게 훑어볼 때 유용합니다. 노트필기 중 좋은 방법은 익숙하지 않은 개념을 필기하고 간결한 글머리 기호를 이용해 작성하는 것입니다. 또한 나중에 더 짚고 넘어가고 싶은 주제에 대한 별도의 메모를 작성하는 것도 좋습니다.",
+                    "학습 과정을 몇 시간 만에 완료할 수도 있지만, 각 단계를 여러 날에 걸처 진행하는 것이 좋습니다. 이렇게 하면 자신의 집중력을 최대치로 끌어내서 공부할 수 있습니다."
+                },
+                Challenges = new List<string>
+                {
+                    "자격증을 발급 받은 후에는 <a target='_blank' href='https://thecsharpacademy.com/project/53'>수학 게임</a> 프로젝트를 튜토리얼 영상을 보지 않고 직접 완성해 보세요. 무작정 스스로 무언가를 만드는 것이 처음이라면 어려울 수도 있지만, 이러한 방식은 배우는 속도를 높일 수 있습니다.",
+                }
+            },
+        };
+    }
+
 }

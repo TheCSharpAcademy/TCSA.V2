@@ -1,13 +1,79 @@
 ﻿@page "/dashboard/submit-project"
 @using TCSA.V2.Components.Dashboard.Shared
 @layout DashboardLayout
-<h1>Submit Project</h1>
-<h1>Submit Project</h1>
-<h1>Submit Project</h1>
-<h1>Submit Project</h1>
-<h1>Submit Project</h1>
-<h1>Submit Project</h1>
+@rendermode InteractiveServer
+
+@using System.Security.Claims;
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Services
+
+<div class="form-group mt-5">
+    <EditForm Model="@Model" OnValidSubmit="Submit" FormName="SubmitProjectForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InputSelect shadow rounded @bind-Value="Model.ProjectId" class="form-select">
+            <option selected>Open this select menu</option>
+            @foreach (var project in ProjectsNotCompleted)
+            {
+                <option value="@project.Id">@project.Area - @project.Title</option>
+            }
+        </InputSelect>
+
+        <label>Pull Request Url</label>
+        <InputText class="form-control" @bind-Value="Model.GithubUrl" />
+        <InputText hidden class="form-control" @bind-Value="Model.AppUserId" />
+        @if (IsSubmitting)
+        {
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        }
+        else
+        {
+            <button class="btn btn-outline-secondary submit-code-review-btn" type="submit">Submit</button>
+        }
+    </EditForm>
+</div>
 
 @code {
+    [SupplyParameterFromForm]
+    public DashboardProject Model { get; set; }
 
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
+    private List<int> DashboardProjects;
+    private List<Project> ProjectsNotCompleted = new();
+    private DashboardProject ProjectToSubmit;
+    private bool IsSubmitting;
+
+    private string UserId;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Model ??= new();
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (AuthSate.User.Identity.IsAuthenticated)
+        {
+            var claims = AuthSate.User;
+            UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+            DashboardProjects = await ProjectService.GetCompletedProjectsById(UserId);
+
+            ProjectsNotCompleted = ProjectHelper.GetProjects()
+            .Where(x => !DashboardProjects.Contains(x.Id))
+            .ToList();
+        }
+    }
+
+    private async Task Submit()
+    {
+        Model.DateSubmitted = DateTime.UtcNow;
+        Model.IsPendingReview = true;
+        Model.AppUserId = UserId;
+
+        var result = ProjectService.PostArticle(Model);
+    }
 }

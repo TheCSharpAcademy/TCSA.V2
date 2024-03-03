@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System.Net.Http;
 using TCSA.V2.Data;
+using TCSA.V2.Models;
 using TCSA.V2.Services;
 
 namespace TCSA.V2.IntegrationTests;
@@ -38,7 +38,7 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
                     context.AddRange(
                         new ApplicationUser
                         {
-                            Id="testId",
+                            Id = "testId",
                             FirstName = "Pablo",
                             LastName = "Souza",
                             Email = "pablo.testerson@gmail.com",
@@ -46,30 +46,23 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
                             Country = "Brazil",
                             DiscordAlias = "Bolotas"
                         });
+
+                    context.AddRange(
+                        new DashboardProject
+                        {
+                            AppUserId = "testId",
+                            GithubUrl = "",
+                            IsCompleted = false,
+                            IsPendingNotification = false,
+                            IsPendingReview = true,
+                            ProjectId = 1,
+                            DateSubmitted = DateTime.Now,
+                        });
+
                     context.SaveChanges();
                 }
 
                 _databaseInitialized = true;
-            }
-
-            if (!_projectsInitialized)
-            {
-                var factory = CreateDbContextFactory();
-
-                var projectService = new ProjectService(MockLogger.Object, factory);
-
-                projectService.PostArticle(new Models.DashboardProject
-                {
-                    AppUserId = "testId",
-                    GithubUrl = "",
-                    IsCompleted = false,
-                    IsPendingNotification = false,
-                    IsPendingReview = true,
-                    ProjectId = 1,
-                    DateSubmitted = DateTime.Now,
-                }).Wait();
-
-                _projectsInitialized = true;
             }
         }
     }

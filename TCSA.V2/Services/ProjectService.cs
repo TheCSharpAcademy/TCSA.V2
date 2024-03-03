@@ -49,7 +49,7 @@ public class ProjectService : IProjectService
             using (var context = _factory.CreateDbContext())
             {
                 var alreadyExists = await context.DashboardProjects
-                .AnyAsync(x => x.ProjectId == project.Id && x.AppUserId == project.AppUserId);
+                .AnyAsync(x => x.ProjectId == project.ProjectId && x.AppUserId == project.AppUserId);
 
                 if (!alreadyExists)
                 {

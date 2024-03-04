@@ -34,6 +34,7 @@ builder.Services.AddScoped<IUserActivityService, UserActivityService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<IPeerReviewService, PeerReviewService>();
+builder.Services.AddScoped<ICountriesService, CountriesService>();
 
 builder.Services.AddAuthentication(options =>
     {

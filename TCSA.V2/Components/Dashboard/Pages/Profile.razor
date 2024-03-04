@@ -1,0 +1,133 @@
+﻿@page "/dashboard/profile"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+@using System.Security.Claims;
+@using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Models.DTOs
+@using TCSA.V2.Services
+
+<div class="mt-5">
+    @if (profile != null)
+    {
+        @if (!UpdateSubmitted)
+        {
+            <EditForm Model="@profile" OnValidSubmit="Submit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled="true"
+                               @bind-Value="profile.FirstName" />
+                    <label for="floatingFirstName">First Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled="true"
+                               @bind-Value="profile.LastName" />
+                    <label for="floatingLastName">Last Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled=@(!IsEditing)
+                               @bind-Value="profile.DisplayName" />
+                    <label for="floatingDisplayName">Display Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled=@(!IsEditing)
+                               @bind-Value="profile.DiscordAlias" />
+                    <label for="floatingDiscordAlias">Discord Alias</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled=@(!IsEditing)
+                               @bind-Value="profile.GithubUsername" />
+                    <label for="floatingGithubUsername">Github Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled=@(!IsEditing)
+                               @bind-Value="profile.CodeWarsUsername" />
+                    <label for="floatingCodewarsUsername">CodeWars Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control"
+                               disabled=@(!IsEditing)
+                               @bind-Value="profile.LinkedInUrl" />
+                    <label for="floatingLinkedInUrl">LinkedIn Url</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputSelect shadow rounded @bind-Value="profile.Country" class="form-select select-country">
+                        <option selected>Select Country</option>
+                        @foreach (var country in countries.OrderBy(x => x))
+                        {
+                            <option value="@country">@country</option>
+                        }
+                    </InputSelect>
+                </div>
+                <button disabled=@IsWaiting class="btn btn-success submit-code-review-btn me-2" type="submit">Submit</button>
+                @if (IsEditing)
+                {
+                    <button class="btn btn-primary submit-code-review-btn" type="button" @onclick="@OnClickCallback">Cancel Editing</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary submit-code-review-btn" type="button" @onclick="@Edit">Edit</button>
+                }
+            </EditForm>
+        }
+        else
+        {
+            <div class="horizontal-card card-success">
+                <div class="card-body card-body-success">
+                    @ResultMessage
+                </div>
+            </div>
+        }
+    }
+</div>
+@code {
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private ICountriesService CountriesService { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
+    private AppUserForProfile profile { get; set; }
+
+    private bool IsEditing { get; set; } = false;
+    private bool UpdateSubmitted { get; set; } = false;
+    private bool IsWaiting { get; set; } = false;
+    private string ResultMessage { get; set; }
+    private List<string> countries = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await CountriesService.GetCountries();
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        try
+        {
+            profile = await UserService.GetProfile(userId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private async Task Submit()
+    {
+        IsWaiting = true;
+        var response = await UserService.UpdateProfile(profile);
+        IsWaiting = false;
+        UpdateSubmitted = true;
+        ResultMessage = response.Message;
+    }
+
+    private async Task Edit() => IsEditing = !IsEditing;
+}

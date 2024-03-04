@@ -1,0 +1,26 @@
+﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Models
+@using static TCSA.V2.Helpers.Enums
+
+<div class="container w-75">
+    <div class="row d-flex justify-content-center text-center title">
+        <img class="area-title" src="img/Titles/@TitleImgUrl" />
+        <p id="mvc-area" class="lead">@Description</p>
+    </div>
+    <div class="row d-flex justify-content-center">
+        @foreach (var project in Projects)
+        {
+            <Card Type=CardType.Project
+                  Id=@project.Id
+                  Title=@project.Title
+                  Description=@project.Description
+                  IconUrl=@project.IconUrl />
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public List<Project> Projects { get; set; }
+    [Parameter] public string TitleImgUrl { get; set; }
+    [Parameter] public string Description { get; set; }
+}

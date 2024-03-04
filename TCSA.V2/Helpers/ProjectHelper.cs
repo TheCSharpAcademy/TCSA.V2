@@ -12,6 +12,14 @@ public static class ProjectHelper
         return projects
             .Concat(StandAloneProjectsHelper.GetProjects()) 
             .Concat(ConsoleProjectsHelper.GetProjects())
+            .Concat(StartApplyingProjectsHelper.GetProjects())
+            .Concat(MVCProjectsHelper.GetProjects())
+            .Concat(AngularProjectsHelper.GetProjects())
+            .Concat(BlazorProjectsHelper.GetProjects())
+            .Concat(ReactProjectsHelper.GetProjects())
+            .Concat(SqlProjectsHelper.GetProjects())
+            .Concat(AuthProjectsHelper.GetProjects())
+            .Concat(AzureProjectsHelper.GetProjects())
             .ToList();  
     }
 

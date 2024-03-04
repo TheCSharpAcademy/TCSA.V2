@@ -112,6 +112,7 @@
 @code {
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IUserActivityService ActivityService { get; set; }
 
     [Parameter] public string ArticleSlug { get; set; }
     [Parameter] public int ArticleId { get; set; }
@@ -167,6 +168,14 @@
         if (response == 1)
         {
             ResultMessage = "Your project was submitted successfuly";
+
+            await ActivityService.PostUserActivity(new AppUserActivity
+                {
+                    ProjectId = Article.Id,
+                    AppUserId = UserId,
+                    DateSubmitted = DateTimeOffset.UtcNow,
+                    ActivityType = ActivityType.ArticleRead
+                });
         }
         else
         {

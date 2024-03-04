@@ -42,12 +42,13 @@
 
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IUserActivityService ActivityService { get; set; }
 
     private List<int> DashboardProjects;
     private List<Project> ProjectsNotCompleted = new();
-    private DashboardProject ProjectToSubmit;
-    private bool IsSubmitting;
 
+    private bool IsSubmitting;
+    private string ResultMessage;
     private string UserId;
 
     protected async override Task OnInitializedAsync()
@@ -70,10 +71,31 @@
 
     private async Task Submit()
     {
+        IsSubmitting = true;
+
         Model.DateSubmitted = DateTime.UtcNow;
         Model.IsPendingReview = true;
         Model.AppUserId = UserId;
 
-        var result = ProjectService.PostArticle(Model);
+        var response = await ProjectService.PostArticle(Model);
+
+        if (response == 1)
+        {
+            ResultMessage = "Your project was submitted successfuly";
+
+            await ActivityService.PostUserActivity(new AppUserActivity
+                {
+                    ProjectId = Model.Id,
+                    AppUserId = UserId,
+                    DateSubmitted = DateTimeOffset.UtcNow,
+                    ActivityType = ActivityType.ProjectSubmitted
+                });
+        }
+        else
+        {
+            ResultMessage = "There was an error when submitting your project";
+        }
+
+        IsSubmitting = false;
     }
 }

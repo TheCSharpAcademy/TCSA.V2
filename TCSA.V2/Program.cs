@@ -32,6 +32,7 @@ builder.Services.AddScoped<IDataSeedService, DataSeedService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IUserActivityService, UserActivityService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 
 builder.Services.AddAuthentication(options =>
     {

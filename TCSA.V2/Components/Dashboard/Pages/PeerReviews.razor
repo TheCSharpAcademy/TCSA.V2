@@ -1,0 +1,138 @@
+﻿@page "/dashboard/peer-reviews"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Services
+
+<div class="mt-5">
+    @if (userAssigned)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
+        <div class="horizontal-card card-success">
+            <div class="card-body card-body-success">
+                You have been assigned to the issue. Don't forget to assign yourself to the issue on Github as well if you haven't yet. <a class="article-link" href="article/57" target="_blank">Please read this article</a> for a comprehensive code review tutorial.
+            </div>
+        </div>
+    }
+
+    @if (projectCompleted)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissProjectCompleted" />
+        <div class="horizontal-card card-success">
+            <div class="card-body card-body-success">
+                The project was successfuly marked as complete.
+            </div>
+        </div>
+    }
+
+    @if (availableProjects != null)
+    {
+        foreach (var project in availableProjects)
+        {
+            <DashboardReviewCard Status="@(@CheckIfAssigned(project.Id) ? "is-assigned" : "")"
+                                 Title=@GetProject(project.ProjectId).Title
+                                 Name=@GetName(project.AppUserId)
+                                 IconUrl=@GetProject(project.ProjectId).IconUrl
+                                 ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
+                                 GithubUrl=@project.GithubUrl
+                                 OnAssignCallBack="@(() => AssignMyself(project.Id))"
+                                 OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))" />
+        }
+    }
+</div>
+
+
+@code {
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private IPeerReviewService PeerReviewService { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
+    private List<Project>? projects;
+    private List<DashboardProject> availableProjects;
+    private ApplicationUser User;
+
+    private string userId = "";
+    private bool userAssigned = false;
+    private bool projectCompleted = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = ProjectHelper.GetProjects();
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        try
+        {
+            User = await PeerReviewService.GetUserForPeerReview(userId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+    }
+
+    private Project GetProject(int id)
+    {
+        return projects.Single(x => x.Id == id);
+    }
+
+    private string GetName(string id)
+    {
+        return PeerReviewService.GetRevieweeName(id);
+    }
+
+    private async Task MarkAsComplete(int dashboardProjectId, string id)
+    {
+        await PeerReviewService.MarkCodeReviewAsCompleted(userId, dashboardProjectId, id, User.ExperiencePoints);
+
+        projectCompleted = true;
+
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+
+        User = await PeerReviewService.GetUserForPeerReview(userId);
+    }
+
+    private async Task AssignMyself(int id)
+    {
+        await PeerReviewService.AssignUserToCodeReview(userId, id);
+        User = await PeerReviewService.GetUserForPeerReview(userId);
+
+        userAssigned = true;
+
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+    }
+
+    private bool CheckIfAssigned(int id)
+    {
+        return User?.CodeReviewProjects?.Any(x => x.DashboardProjectId == id) ?? false;
+    }
+
+    private void DismissUserAssigned() => userAssigned = false;
+    private void DismissProjectCompleted() => projectCompleted = false;
+}
+
+<style>
+    .modal-dialog {
+        margin-top: 100px;
+        max-width: 750px;
+    }
+
+    .article-link {
+        color: black;
+        font-weight: 600;
+        text-decoration: underline;
+    }
+</style>

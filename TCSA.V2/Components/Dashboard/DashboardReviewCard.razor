@@ -1,0 +1,40 @@
+﻿<div class="row horizontal-card horizontal-card-desktop shadow rounded-sm @Status">
+    <div class="row g-0">
+        <div class="col-md-1">
+            <img src="img/@IconUrl" class="img-fluid card-img" alt="...">
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <p class="card-title-dashboard">@Title</p>
+            <p class="project-card-text">@Name</p>
+            <span class="experience-points-issue">
+                <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
+                @ExperiencePoints
+            </span>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <a href="@GithubUrl" target="_blank" class="btn community-btn">View PR</a>
+        </div>
+        <div class="col-md-3 d-flex align-items-center justify-content-start">
+            @if (Status != "is-assigned")
+            {
+                <button type="button" @onclick="OnAssignCallBack" target="_blank" class="btn community-btn">Assign Myself</button>
+            }
+            else
+            {
+                <button type="button" @onclick="OnMarkAsCompleteCallBack" target="_blank" class="btn btn-danger">Mark As Complete</button>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Name { get; set; }
+    [Parameter] public string IconUrl { get; set; }
+    [Parameter] public string GithubUrl { get; set; }
+    [Parameter] public string Status { get; set; }
+    [Parameter] public int ExperiencePoints { get; set; }
+    [Parameter] public EventCallback OnAssignCallBack { get; set; }
+    [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
+}
+

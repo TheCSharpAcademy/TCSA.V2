@@ -735,6 +735,164 @@ public static class ArticleHelper
                     }
                 }
             },
+            new Article
+            {
+                Id = 9,
+                Title = "The Importance of Console Applications",
+                IconUrl = "icons8-baby-app-96.png",
+                Slug = "the-importance-of-console-applications",
+                BannerUrl = "",
+                Description = "Building console applications will allow you to focus on the back end before diving into the complexities of front-end. Here’s why.",
+                Area = Area.Console,
+                Level = Level.Green,
+                ExperiencePoints = 5,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        ImgUrl= "icons8-command-line-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Web technologies are developing extremely fast. Websites these days are faster, more efficient, better looking and provide great user experience. When starting to learn web development, it’s easy to get tempted by all the hype of the latest frameworks. I started with Angular myself. I loved it from the moment I wrote my first component."
+                            },
+                            new Paragraph
+                            {
+                                Body = "But I quickly realised if I wanted to deal with data in the capacity I wanted, I would need to learn a back-end language. I took an approach that I find less than ideal. I dove into a bunch of tutorials about how to build full-stack apps. That made it very difficult for me to understand back-end properly. I wish I knew there was a better approach."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Now I find it much more effective to build Console Apps to learn back-end. And the reason is simple: Focus. You can dedicate your full attention to your back-end language if you don’t have to worry about all the complexities of presenting data to the user in a beautiful way."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl= "icons8-console-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "That’s why I decided to make the first part of this program purely focused on Console Apps, without any front-end distractions. These apps will help progressively teach you: data types; basic control flow and syntax; dealing with databases; creating and calling APIs; Entity Framework; Repository Pattern and Unit Testing. As you can see there’s already a lot to keep you busy. "
+                            },
+                            new Paragraph
+                            {
+                                Body = "That doesn’t mean you won’t have an user interface. But instead of the website, you’ll be interacting with the user via the console line. You’ll still need to handle validation, basic presentation and all sorts of errors to provide a good user experience. And this knowledge will definitely transfer when you start creating full-stack apps."
+                            },
+                            new Paragraph
+                            {
+                                Body = "I know we all want to create fancy things as soon as possible. Even when I was creating this library of console apps, I was looking forward to going back to the latest web technologies, Maui, Blazor, Angular, Ionic, React, they are beautiful! But without a solid back-end foundation we’re very limited. The competition for a job is tough out there. You need to stack the deck in your favour. And it starts here, writing simple, clean, effective console programs. Now let’s start"
+                            }
+                        }
+                    }
+                }
+            },
+            new Article
+            {
+                Id = 10,
+                Title = "Graduation!",
+                IconUrl = "icons8-graduate-96.png",
+                BannerUrl = "",
+                Description = "This is your graduation from Console Apps! Find out how to start applying for jobs and what are the next steps in your coding journey.",
+                Slug = "graduation",
+                Area = Area.Console,
+                ExperiencePoints = 5,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Congratulations",
+                        ImgUrl= "hexternal-celebration-soccer-and-football-match-kosonicon-lineal-color-kosonicon-300x300.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Well done!! If you got this point, I’m sure you feel accomplished. It wasn’t easy. You were probably frustrated and disheartened at times. You felt stuck and maybe even thought of quitting. But you pushed through! And now you can proudly affirm you know the basics of back-end development with C#. How are you planning to celebrate? 🍾 You deserve it!! 😁"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "What you've learned",
+                        ImgUrl= "icons8-checklist-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"
+✅ Basic C# Syntax and Control Flow<br>
+✅ Console Application Techniques: User Input and Validation<br>
+✅ Basic SQL Syntax and Crud Commands<br>
+✅ Principles of MVC Design: Models, Controllers, UI, Services, Validators<br>
+✅ Interaction with files in your file system<br>
+✅ Calling an External Api with Http Requests<br>
+✅ Entity Framework<br>
+✅ Creating and calling Web APIs<br>
+✅ Webscrapping <br>
+✅ Sending e-mails with code<br>
+✅ Fundamentals of Unit Testing<br><br>
+   That's a lot!! Again... Well done!!!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "What Happens From Here",
+                        ImgUrl= "icons8-where-what-quest-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Now that you have a good understanding of the basic principles of back-end web development with C#, what’s the next step? Well, there’s a lot to do! ASP.NET is endless, but as I said before, most of what you’ll do from now on is a variation of what you’ve already done. Calling databases, getting the user input and processing data in between."
+                            },
+                            new Paragraph
+                            {
+                                Body = "The next steps in this program involve building full-stack applications with the following:"
+                            },
+                            new Paragraph
+                            {
+                                Body = @"➡️ ASP.NET MVC With Razor Syntax<br>
+➡️ Securing Your App With Authorisation and Authentication With Asp.NET Identity<br>
+➡️ Deploying your full-stack app with Azure, Firebase<br>
+➡️ Desktop Applications With WPF and XAML<br>
+➡️ Single Page Applications with Blazor<br>
+➡️ Mobile Applications With Xamarin Forms (and hopefully with .NET MAUI)<br>
+➡️ CRUD Applications With React<br>
+➡️ CRUD Applications With Angular<br><br>
+But I'll be surprised if you get to the end of this list and you don't have a job yet."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Before We Continue",
+                        ImgUrl= "icons8-permanent-job-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Before we continue with our .NET C# program, I have to tell you. What you have done so far might be enough to land you a job. Yes, that’s right. The demand for C# developers is so high that a handful of console apps might suffice. "
+                            },
+                            new Paragraph
+                            {
+                                Body = "So while you learn everything else .NET has to offer, you’ll be also applying for jobs, with a decent chance of success. But we need to get organised first. You need a portfolio and a resume."
+                            },
+                            new Paragraph
+                            {
+                                Body = @"While a portfolio isn’t absolutely necessary to land you a job, it does increase your chances. You’ll read more about it in the Portfolio Area. So let’s get ready for our next three steps:<br><br>
+✔️ Creating a Portfolio<br>
+✔️ Creating a Resume<br>
+✔️ Applying for Jobs<br>"
+                            },
+                            new Paragraph
+                            {
+                                Body = "If you don’t want to look for jobs right now, you can jump straight to the MVC Area, but I strongly recommend you still create a portfolio. Check out the portfolio project to understand why."
+                            }
+                        }
+                    }
+                }
+            },
         };
     }
 }

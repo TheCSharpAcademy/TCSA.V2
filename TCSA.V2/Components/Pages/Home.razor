@@ -25,13 +25,14 @@
         <h1 id="console-area"></h1>
         <img id="console_title" class="area-title" src="img/Titles/console-title.png" />
     </div>
-@*     <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
         <Card Type="CardType.Article"
-              Id=@consoleArticle.Id.ToString()
-              Title=@consoleArticle.Title
-              Description=@consoleArticle.Description
-              IconUrl=@consoleArticle.IconUrl />
-    </div> *@
+              Id=@ConsoleArticle.Id
+              Slug=@ConsoleArticle.Slug
+              Title=@ConsoleArticle.Title
+              Description=@ConsoleArticle.Description
+              IconUrl=@ConsoleArticle.IconUrl />
+    </div>
     <div class="row d-flex justify-content-center">
 
         @foreach (var project in Projects.Where(x => x.Area == Area.Console && x.Id != 52 && x.Id != 75))
@@ -44,11 +45,12 @@
                   IconUrl=@project.IconUrl />
         }
 
-       @*  <Card Type="Article"
-              Id=@graduationArticle.Id.ToString()
-              Title=@graduationArticle.Title
-              Description=@graduationArticle.Description
-              IconUrl=@graduationArticle.IconUrl /> *@
+        <Card Type=@CardType.Article
+              Id=@GraduationArticle.Id
+              Slug=@GraduationArticle.Slug
+              Title=@GraduationArticle.Title
+              Description=@GraduationArticle.Description
+              IconUrl=@GraduationArticle.IconUrl />
     </div>
 </div>
 
@@ -56,12 +58,17 @@
     protected List<Project> Projects = new();
     protected List<Article> Articles = new();
     protected Project CertificationProject = new();
+    protected Article ConsoleArticle = new();
+    protected Article GraduationArticle = new();
 
     protected override async Task OnInitializedAsync()
     {
         Articles = ArticleHelper.GetArticles();
         Projects = ProjectHelper.GetProjects();
         CertificationProject = Projects.Single(x => x.Id == 75);
+        ConsoleArticle = Articles.Single(x => x.Id == 9);
+        GraduationArticle = Articles.Single(x => x.Id == 10);
+
     }
 }
 

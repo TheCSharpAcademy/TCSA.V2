@@ -1,0 +1,39 @@
+﻿@using TCSA.V2.Data
+<div class="row horizontal-card dashboard-header d-flex align-items-center shadow rounded-sm">
+    <div class="col-10">
+        <div class="belt-label-wrap">
+            <div class="belt-label">
+                <img src=@FlagUrl width="50" class="rounded flag" alt="...">
+            </div>
+            <div class="belt-label">
+                <p class="user-name">@DisplayName</p>
+            </div>
+        </div>
+
+        <div class="belt-label-wrap">
+            <div class="belt-label">
+                <img src=@BeltImgUrl width="25" class="img-belt-header" alt="...">
+            </div>
+            <div class="belt-label">
+                <p class="user-level-text">
+                    @(Level) Belt,
+                    <span class="ranking">@Ranking,</span>
+                    <span class="experience-points">
+                        <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
+                        @ExperiencePoints
+                    </span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public int ExperiencePoints { get; set; }
+    [Parameter] public int Ranking { get; set; }
+    [Parameter] public string BeltImgUrl { get; set; }
+    [Parameter] public string DisplayName { get; set; }
+    [Parameter] public string FlagUrl { get; set; }
+    [Parameter] public Level Level { get; set; }
+}

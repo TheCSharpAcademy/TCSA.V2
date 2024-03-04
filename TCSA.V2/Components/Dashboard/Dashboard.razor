@@ -1,74 +1,40 @@
 ﻿@page "/dashboard"
 @using TCSA.V2.Components.Dashboard.Shared
-@layout DashboardLayout
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-<h1>Dashboardmain</h1>
-@code {
+@using TCSA.V2.Data
+@using TCSA.V2.Services
+@using System.Security.Claims;
 
+@layout DashboardLayout
+
+<div class="mt-5">
+    @if (User != null)
+    {
+        <DashboardHeader Level=@User.Level
+                         BeltImgUrl="/img/Belts/white.png"
+                         FlagUrl="/img/Flags/earth.png"
+                         ExperiencePoints=@User.ExperiencePoints
+                         Ranking=1
+                         DisplayName=@User.DisplayName />
+    }
+</div>
+
+@code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+
+    ApplicationUser User;
+    private string UserId;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (AuthSate.User.Identity.IsAuthenticated)
+        {
+            var claims = AuthSate.User;
+            UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+            User = await UserService.GetUserById(UserId);
+        }
+    }
 }

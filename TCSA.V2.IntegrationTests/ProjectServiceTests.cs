@@ -61,4 +61,30 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
         Assert.NotNull(actualCompletedProjects);
         Assert.Equal(expectedCompletedProjects.OrderBy(x => x), actualCompletedProjects.OrderBy(x => x));
     }
+
+    [Fact]
+    public async Task AddNewProject_ReturnsCorrectIdAndUpdatesCompletedProjects()
+    {
+        var factory = _fixture.CreateDbContextFactory();
+        var projectService = new ProjectService(_fixture.MockLogger.Object, factory);
+
+        var project = new DashboardProject
+        {
+            AppUserId = "testId",
+            GithubUrl = "",
+            IsCompleted = false,
+            IsPendingNotification = false,
+            IsPendingReview = true,
+            ProjectId = 14,
+            DateSubmitted = DateTime.Now,
+        };
+
+        var addedProjectId = await projectService.PostArticle(project);
+        var completedProjectsAfterAddition = await projectService.GetCompletedProjectsById("testId");
+
+        var expectedCompletedProjects = new List<int> { 1, 12, 13, 14 };
+        Assert.Equal(expectedCompletedProjects.OrderBy(x => x), completedProjectsAfterAddition.OrderBy(x => x));
+    }
+
+
 }

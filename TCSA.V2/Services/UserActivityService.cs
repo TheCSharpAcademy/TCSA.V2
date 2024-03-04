@@ -7,6 +7,7 @@ namespace TCSA.V2.Services;
 public interface IUserActivityService
 {
     Task PostUserActivity(AppUserActivity activity);
+    Task<List<AppUserActivity>> GetActivityById(string userId);
 }
 public class UserActivityService : IUserActivityService
 {
@@ -40,6 +41,27 @@ public class UserActivityService : IUserActivityService
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Error in {nameof(PostUserActivity)}");
+        }
+    }
+
+    public async Task<List<AppUserActivity>> GetActivityById(string id)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var activity = await context.UserActivity
+                    .Where(x => x.AppUserId == id)
+                    .OrderByDescending(x => x.DateSubmitted)
+                    .ToListAsync();
+
+                return activity ??= null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetActivityById)}");
+            return null;
         }
     }
 }

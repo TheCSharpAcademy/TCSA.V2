@@ -1,11 +1,15 @@
 ﻿@page "/dashboard"
 @using TCSA.V2.Components.Dashboard.Shared
 @using TCSA.V2.Components.UI
+@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
 @using TCSA.V2.Services
 @using System.Security.Claims;
 
 @layout DashboardLayout
+@rendermode InteractiveServer
 
 <div class="mt-5">
     @if (User != null)
@@ -21,8 +25,20 @@
                         IsComplete=true
                         IconUrl="icons8-foundation-100.png"
                         Description="Description Here"
-                        OnClickCallback=@ToggleFoundationSteps
+                        OnClickCallback="@ToggleFoundationSteps"
                         HasButton=true/>
+
+        if (foundationSteps)
+        {
+             <div class="ps-3">
+                  <CloseButtonSVG OnClickCallback="@ToggleFoundationSteps" />
+                  @foreach (var article in articles.Where(x => x.Area == Area.StartHere))
+                  {
+                       <DashboardArticleCard Article=@article
+                                             Status="completed" />
+                  }
+             </div> 
+        }
     }
 </div>
 
@@ -33,11 +49,15 @@
 
     ApplicationUser User;
     private string UserId;
-
     private bool foundationSteps;
+
+    private List<Article>? articles;
+    private List<Project>? projects;
 
     protected async override Task OnInitializedAsync()
     {
+        articles = ArticleHelper.GetArticles();
+
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
         if (AuthSate.User.Identity.IsAuthenticated)

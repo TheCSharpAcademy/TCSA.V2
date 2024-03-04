@@ -1,0 +1,35 @@
+﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+
+<HorizontalCard CardName="SQL Area"
+                IsComplete=true
+                IconUrl="icons8-sql-server-64.png"
+                Description="Description Here"
+                OnClickCallback="@ToggleSteps"
+                HasButton=true />
+
+@if (Steps)
+{
+    <div class="ps-3">
+        <CloseButtonSVG OnClickCallback="@ToggleSteps" />
+        @foreach (var project in Projects.Where(x => x.Area == Area.SQL))
+        {
+            <DashboardProjectCard Project=@project
+                                  Status="completed" />
+        }
+    </div>
+}
+
+@code {
+    private List<Project> Projects;
+    private bool Steps;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Projects = ProjectHelper.GetProjects();
+    }
+
+    private void ToggleSteps() => Steps = !Steps;
+}

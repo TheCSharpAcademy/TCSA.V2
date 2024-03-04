@@ -1,0 +1,26 @@
+﻿<div class="horizontal-card-desktop row horizontal-card d-flex align-items-center shadow rounded-sm">
+    <div class="row g-0">
+        <div class="col-sm-1 col-md-1 d-flex align-items-center">
+            <img src="img/cards/@IconUrl" class="img-fluid card-img" alt="...">
+        </div>
+        <div class="col-sm-8 @(HasButton ? "col-md-8" : "col-md-11")">
+            <p class="card-title-dashboard">@CardName</p>
+            <p class="card-text"><small>@((MarkupString)Description)</small></p>
+        </div>
+        @if (HasButton)
+        {
+            <div class="col-sm-1 col-md-3 d-flex align-items-center">
+                <a href="" class="btn view-articles-btn" @onclick="OnClickCallback" @onclick:preventDefault>View Projects</a>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+    [Parameter] public string IconUrl { get; set; }
+    [Parameter] public string CardName { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public bool IsComplete { get; set; }
+    [Parameter] public bool HasButton { get; set; } = true;
+}

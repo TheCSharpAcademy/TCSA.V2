@@ -1,5 +1,6 @@
 ﻿@page "/dashboard"
 @using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Data
 @using TCSA.V2.Services
 @using System.Security.Claims;
@@ -15,6 +16,13 @@
                          ExperiencePoints=@User.ExperiencePoints
                          Ranking=1
                          DisplayName=@User.DisplayName />
+
+        <HorizontalCard CardName="Foundations"
+                        IsComplete=true
+                        IconUrl="icons8-foundation-100.png"
+                        Description="Description Here"
+                        OnClickCallback=@ToggleFoundationSteps
+                        HasButton=true/>
     }
 </div>
 
@@ -25,6 +33,8 @@
 
     ApplicationUser User;
     private string UserId;
+
+    private bool foundationSteps;
 
     protected async override Task OnInitializedAsync()
     {
@@ -37,4 +47,6 @@
             User = await UserService.GetUserById(UserId);
         }
     }
+
+    private void ToggleFoundationSteps() => foundationSteps = !foundationSteps;
 }

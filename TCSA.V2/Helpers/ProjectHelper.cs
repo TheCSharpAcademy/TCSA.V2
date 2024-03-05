@@ -52,6 +52,7 @@ public static class ProjectHelper
 
         return projects
             .Concat(StandAloneProjectsHelper.GetProjectsInTurkish())
+            .Concat(ConsoleProjectsHelper.GetProjectsInTurkish())
             .ToList();
     }
 

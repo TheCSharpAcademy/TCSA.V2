@@ -2819,4 +2819,112 @@ public class ConsoleProjectsHelper
              */
         };
     }
+
+    internal static List<Project> GetProjectsInPortuguese()
+    {
+        return new List<Project>
+        {
+            new Project
+             {
+                Id = 53,
+                Title = "Jogo de Matemática",
+                IconUrl = "icons8-maths-376.png",
+                BannerUrl = "",
+                Slug = "math-game",
+                Description = "Nesse primeiro projeto, você ira criar um jogo de matemática que irá reforçar o que você aprendeu na área de Fundamentos.",
+                Area = Area.Console,
+                Level = Level.Green,
+                ExperiencePoints = 10,
+                Difficulty = Difficulty.Beginner,
+                DisplayOrder= 1,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Se essa é a sua primeira vez construindo um projeto do zero e sem ajuda, eu recomendo usar a <a target='blank' href='https://www.youtube.com/watch?v=YUc5NZZVtjA&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'> série de vídeos que disponibilizamos na área de fundações.</a> A série irá guiá-lo pelo processo de criação de uma aplicação de console do zero, explicando conceitos cruciais de C#. Se você já assistiu a série ou tem experiência prévia trablhando com C#, esse projeto será simples. Mas lembre-se, é sempre útil reforçar seus conhecimentos."
+                    },
+                    new Paragraph
+                    {
+                        Body="Você irá encontrar desafios no final deste projeto e em todos os outros projetos na Academia C#. Esses desafios não são requirementos. Desde que seu projeto siga os requiremntos, seu projeto será aprovado e você irá ganhar os pontos de experiência correspondentes. Contudo, esses desafios vão reforçar o que você aprendeu. Você talvez não ganhe pontos extra, mas completar os desafios vão torná-lo um desenvolvedor melhor."
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"Você precisa criar um jogo de matemática contendo 4 operações básicas.",
+                    @"As divisões devem resultar APENAS EM INTEGERS e os dividendos devem variar de 0 a 100. Por exemplo: Sua aplicação não pode apresentar a divisão 7/2 ao usuário, porque resultaria em uma fração ao invés de um número inteiro.",
+                    @"Usuários devem ser apresentados com um menu para escolher uma operação",
+                    @"Você deve registrar os jogos anteriores em uma lista e incluir uma opção no menu para visualizar o histórico desses jogos.",
+                    @"Você não precisa registrar os resultados em um banco de dados. Quando o programa fechar, esses resultados serão deletados."
+                },
+                Resources = new List<string>
+                {
+                    "<a href='https://www.youtube.com/watch?v=iLByqqLGYEc&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'>Tutorial do Jogo de Matemática no Youtube</a>",
+                },
+                ResourcesIntro = "Se você tem experiência prévia com C# você provavelmente completará este projeto sem ajuda. Caso contrário, siga este tutorial.",
+                ResourcesConclusion = "Você não precisa assistir a segunda parte do tutorial (Construindo uma aplicação .NET usando Maui) para completar o projeto. Só a parte relacionada ao Console é necessária.",
+                Tips = new List<string>
+                {
+                    "Não se esqueça de SEMPRE salvar seu ccódigo no Github (Ou qualquer outro sistema de source control que você usa). Desse jeito você não irá perder seu trabalho e poderá usar seu código salvo como referência no futuro. Você está construindo sua própria biblioteca!",
+                    "Tome seu tempo com cada passo, mesmo que o tutorial seja fácil para você. Tenha certeza que você entende CADA PALAVRA do seu código. Não fique com nenhuma dúvida.",
+                    "Se existe algo que você não está entendendo, coloque seu mouse sobre o código, você irá receber uma explicação sobre o que os termos significam. Se você ainda não está entendendo, google é o seu melhor amigo. Você irá encontrar explicações sobre praticamente qualquer coisa em em fórums e sites como o stackoverflow.com",
+                    "Se esse é o seu primeiro projeto, eu recomendo desenvolver ele duas vezes. Você ficará surpreso com o aumento da sua  retenção e com quantos detalhes você deixou passar na primeira vez.",
+                    "Após completar o projeto, vá para o nosso <a target='_blank' href='https://discord.gg/JVnwYdM79C'>communidade do discord</a> e fale sobre ele! Completar um projeto é um passo importante e você deve celebrar ele."
+                },
+                Challenges = new List<string>
+                {
+                    "Tente implementar níveis de dificuldade.",
+                    "Adicione um timer para contar o tempo que o usuário leva para terminar o jogo.",
+                    "Adicione uma função que permite ao usuário selecionar o número de perguntas.",
+                    "Crie a opção 'Jogo Aleatório' onde os jogadores irão receber perguntas de operações aleatórias.",
+                },
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Source Control",
+                        ImgUrl = "icons8-git-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Se esse é o seu primeiro tutorial, você talvez se sinta tentando a pular essa parte e começar a programar.Se você fizer isso, irá aprender do jeito difícil. Um dia, após trabalhar por várias horas em um problema difícil, você irá se esquecer de salvar seu trabalho em um repositório e por uma razão qualquer tudo poderá ser perdido."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Pegue o hábito de salvar cada linha de código que você escrever. Eu prometo que fazer isso vai muitas dores de cabeça. Todos os desenvolvedores sérios salvam seu trabalho em um repositório de reserva. O mais comum é o Github. Crie uma conta se você ainda não o fez."
+                            },
+                            new Paragraph
+                            {
+                                Body="1. No Visual Studio, acesse Git > Criar um repositorio Git<br>2. Insira seus detalhes de login<br>3. Clique em 'Create and Push' "
+                            },
+                            new Paragraph
+                            {
+                                Body="✅ Pronto! Seu repositório está pronto. Não se esqueça de criar commits para suas mudanças após cada passo!"
+                            }, new Paragraph
+                            {
+                                Body="Você pode ir um passo além e aprender como integrar o Github com o Visual Studio assistindo este tutorial:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/oCvb-Q5lXb8"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Code Review",
+                        ImgUrl= "icons8-code-review-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Se você quer que seu código seja avaliado por um mebro da Academia C#, ao invés de criar seu próprio repositório, <a href='article/52' target='blank'>siga esse artigo</a>, onde você irá aprender a criar um fork do nosso diretório de revisões."
+                            }
+                        }
+                    },
+                }
+            },
+        };
+    }
 }

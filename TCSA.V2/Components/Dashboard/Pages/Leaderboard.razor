@@ -1,0 +1,168 @@
+﻿@page "/dashboard/leaderboard"
+@layout DashboardLayout
+
+@using System.Security.Claims;
+@using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.DTOs
+@using TCSA.V2.Services
+
+<div class="mt-5">
+    @if (users != null && !isLoading)
+    {
+        <nav aria-label="Page navigation example">
+            <btn class="btn btn-primary w-100 mb-3" @onclick="Filter2024">Click to See @(is2024 ? "all time" : "2024") Leaderboard</btn>
+
+            @if (!is2024 && Ranking > 50)
+            {
+                @if (CurrentPage != 0)
+                {
+                    <btn class="btn btn-primary w-100 mb-3" @onclick="() => LoadPagination(0)">Click to See Top 50</btn>
+                }
+                else
+                {
+                    <btn class="btn btn-primary w-100 mb-3" @onclick="() => LoadPagination(Ranking / 50)">Click to See Your Ranking</btn>
+                }
+
+                if (isLoading)
+                {
+                    <h3>Loading...</h3>
+                }
+            }
+        </nav>
+
+        @if (is2024)
+        {
+            <p>*The 2024 leaderboard only takes in consideration projects submitted in 2024</p>
+        }
+
+        <table class="table leaderboard-table">
+            <thead>
+                <tr>
+                    <th scope="col">Pos</th>
+                    <th scope="col">XP</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" class="country-header">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in users)
+                {
+                    <tr class="my-row @(user.Id == userId ? "is-user" : "")">
+                        <th class="leaderboard-cell index-cell" scope="row">@user.Ranking</th>
+                        <td class="leaderboard-cell">
+                            <div class="belt-label-wrap">
+                                <div class="belt-label">
+                                    <img class="img-xp-leaderboard" src="img/experience.png" width="30" alt="...">
+                                </div>
+                                <div class="belt-label">
+                                    <p class="leaderboard-xp">@user.ExperiencePoints</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="leaderboard-cell">
+                            <div class="name-cell">
+                                <div class="name-cell-name">@(user.DisplayName ??= $"{user.FirstName} {user.LastName}")</div>
+                                <div class="name-cell-level">
+                                    <div class="belt-name-wrap">
+                                        <div class="belt-label">
+                                            <img class="dashboard-belt" src="img/belts/@BeltHelper.GetBelt((int)user.Level)" width="20" alt="...">
+                                        </div>
+                                        <div class="belt-label">
+                                            @user.Level Belt
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="leaderboard-cell country-cell">
+                            @if (!string.IsNullOrEmpty(user.Country))
+                            {
+                                <div class="belt-label-wrap">
+                                    <div class="belt-label">
+                                        <img class="dashboard-flag" src="@FlagHelper.GetFlag(user.Country)" width="30" alt="...">
+                                    </div>
+                                    <div class="belt-label">
+                                        <p class="leaderboard-country">@user.Country</p>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h3>Loading...</h3>
+    }
+</div>
+
+@code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private ILeaderboardService LeaderboardService { get; set; }
+
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+
+    private List<AppUserForLeaderboard>? users { get; set; } = null;
+
+    private int CurrentPage;
+    private int Ranking;
+    private bool isLoading = true;
+    private bool is2024 = false;
+
+    private string userId = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (is2024)
+        {
+            await Filter2024();
+        }
+        else
+        {
+            Ranking = await LeaderboardService.GetUserRanking(userId);
+
+            CurrentPage = Ranking / 50;
+            await LoadPagination(CurrentPage);
+        }
+    }
+
+    protected async Task LoadPagination(int pageNumber)
+    {
+        isLoading = true;
+
+        var incomingUsers = await LeaderboardService.GetUsersForLeaderboard(pageNumber);
+
+        CurrentPage = pageNumber;
+        users = incomingUsers.ToList();
+
+        isLoading = false;
+    }
+
+    protected async Task Filter2024()
+    {
+        if (!is2024)
+        {
+            is2024 = true;
+            isLoading = true;
+
+            var incomingUsers = await LeaderboardService.GetUsersForLeaderboard();
+
+            users = incomingUsers.ToList();
+
+            isLoading = false;
+        }
+        else
+        {
+            is2024 = false;
+            await LoadPagination(CurrentPage);
+        }
+    }
+}

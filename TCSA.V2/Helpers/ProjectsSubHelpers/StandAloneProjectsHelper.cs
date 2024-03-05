@@ -48,6 +48,41 @@ internal static class StandAloneProjectsHelper
                     "Upon completion of your project, have a go at completing the <a target='_blank' href='https://thecsharpacademy.com/project/53'>Math Game</a> project without watching the video tutorial in the project's page. It might be challenging if this is your first time building something yourself but this approach will speed up your learning.",
                 }
             },
+             new Project
+            {
+                Id = 86,
+                Title = "Mark Yourself As Student of The C# Academy on LinkedIn",
+                IconUrl = "icons8-student-512.png",
+                BannerUrl = "",
+                ExperiencePoints = 20,
+                Description = "",
+                Area = Area.StandAlone,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="We hope you're enjoying your learning journey with us and finding value in the projects, resources and community we provide. We believe in the power of hands-on practice and code reviews to get you on the path of becoming a great dev! We're excited to invite you to connect with us on LinkedIn through <a target='blank' href='https://www.linkedin.com/school/thecsharpacademy/'>our official school page.</a>"
+                    },
+                    new Paragraph
+                    {
+                        Body="By marking yourself as a student, you'll be helping to spread the word about the academy. The more people know about it, the better it looks in your resume! This connection allows you to showcase your dedication to learning and improving your .NET/C# skills and gain recognition for it. Additionally, it opens up opportunities to network with other students, potentially leading to valuable connections 🤓"
+                    },
+                     new Paragraph
+                    {
+                        Body="To mark yourself as a student, make sure your profile is updated your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and click on the <b>Submit For Review</b> button below. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
+                    }
+                }
+            },
+             new Project
+            {
+                Id = 85,
+                Title = "Complete Profile Task",
+                IconUrl = "icons8-user-profile-264",
+                BannerUrl = "",
+                ExperiencePoints = 20,
+                Description = "Complete your profile to get extra points",
+                Area = Area.StandAlone
+            },
         };
     }
     internal static List<Project> GetProjectsInPortuguese()

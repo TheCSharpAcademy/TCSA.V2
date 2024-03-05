@@ -1,0 +1,144 @@
+﻿@using TCSA.V2.Models.DTO
+
+<div class="@CardName.ToLower() horizontal-card-desktop row horizontal-card d-flex shadow rounded-3 @(IsCompleted ? "roadmap-completed border border-5 border-warning opacity-75" : "")">
+    @if (CardName == "Black Belt")
+    {
+        <div class="col-12 d-flex pt-5 pb-5 align-items-center justify-content-center">@CardName</div>
+    }
+    else
+    {
+        <div class="col-2 d-flex align-items-center justify-content-center">@CardName</div>
+        <div class="col-10 roadmap-row rounded-sm g-0">
+            <div class="p-1">
+                <img src="img/icons8-question-mark-64.png" alt="Question Mark" class="question-mark" />
+                <ul class="hidden-list">
+                    @foreach (var req in Requirements)
+                    {
+                        <li class="requirement">@req</li>
+                    }
+                </ul>
+            </div>
+            <div class="row roadmap-tasks-row">
+                <div class="col-12">
+                    @foreach (var task in Tasks)
+                    {
+                        <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50")"
+                             src='img/@task.IconUrl' width='50'
+                             title=@(!task.IsCompleted ? task.Name : $"{task.Name} - Completed") />
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+    [Parameter] public List<RoadmapTask> Tasks { get; set; } = new List<RoadmapTask>();
+    [Parameter] public string IconUrl { get; set; }
+    [Parameter] public string CardName { get; set; }
+    [Parameter] public List<string> Requirements { get; set; }
+    [Parameter] public bool IsCompleted { get; set; }
+}
+
+<style>
+    .green {
+        background-color: green;
+        color: white;
+    }
+
+    .olive {
+        background-color: darkolivegreen !important;
+        color: white;
+    }
+
+    .yellow {
+        background-color: yellow;
+    }
+
+    .orange {
+        background-color: darkorange;
+    }
+
+    .purple {
+        background-color: purple;
+        color: white;
+    }
+
+    .blue {
+        background-color: blue;
+        color: white;
+    }
+
+    .black {
+        background-color: black;
+        color: white;
+    }
+
+    .red {
+        background-color: red;
+        color: white;
+    }
+
+    .brown {
+        background-color: saddlebrown;
+        color: white;
+    }
+
+    .grey {
+        background-color: slategrey;
+        color: white;
+    }
+
+    .belt {
+        padding: 0 !important;
+        font-weight: 600;
+    }
+
+    .roadmap-image {
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .roadmap-row {
+        background-color: white;
+        margin: 0 !important;
+    }
+    
+    .roadmap-tasks-row {
+        background-color: white;
+        margin: 0 20px 20px 20px !important;
+    }
+
+    .roadmap-completed {
+        filter: sepia(1);
+        box-shadow: 0 0 30px darkgoldenrod;
+    }
+
+    .task-completed {
+        filter: sepia(1);
+        box-shadow: 0 0 30px green;
+    }
+
+    .question-mark {
+        width: 15px;
+        cursor: pointer;
+    }
+
+    .hidden-list {
+        display: none;
+        position: absolute;
+        background-color: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        z-index: 1;
+    }
+
+    .question-mark:hover + .hidden-list {
+        display: block;
+    }
+
+    .requirement {
+        color: black;
+    }
+</style>
+

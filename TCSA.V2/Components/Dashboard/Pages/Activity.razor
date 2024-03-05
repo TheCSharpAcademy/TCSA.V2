@@ -1,71 +1,71 @@
 ﻿@page "/dashboard/activity"
+@layout DashboardLayout
+
+@using System.Security.Claims;
 @using TCSA.V2.Components.Dashboard.Shared
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
-<h1>Activity</h1>
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Services
+
+<div class="mt-5">
+    @if (Activities != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Activity</th>
+                    <th scope="col" class="xp-cell">XPs Gained</th>
+                    <th scope="col" class="xp-cell">Total XPs</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Activities)
+                {
+                    <tr class="activity-row">
+                        <td class="date-cell @UserActivityHelper.GetRowStyle(item.ActivityType)">
+                            <div>
+                                <b>@DateTimeHelper.GetDateForUserActivity(item.DateSubmitted)</b>
+                            </div>
+                            <div class="day-of-the-week-cell">
+                                <span class="day-of-the-week">@item.DateSubmitted.DayOfWeek</span>
+                            </div>
+                        </td>
+                        <td class="activity-cell">@((MarkupString)(UserActivityHelper.GetDescription(item.ActivityType, item.ProjectId)))</td>
+                        <td class="activity-cell xp-cell">@UserActivityHelper.GetXPs(item.ActivityType, item.ProjectId)</td>
+                        <td class="activity-cell xp-cell">@CurrentXP</td>
+                    </tr>
+                    CurrentXP -= UserActivityHelper.GetXPs(item.ActivityType, item.ProjectId);
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private IUserActivityService ActivityService { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
 
+    private List<AppUserActivity>? Activities { get; set; } = null;
+    private List<Article>? Articles;
+    private List<Project>? Projects;
+    private List<Issue>? Issues;
+    private int CurrentXP;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Projects = ProjectHelper.GetProjects();
+        Articles = ArticleHelper.GetArticles();
+        Issues = IssueHelper.GetIssues();
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        Activities = await ActivityService.GetActivityById(userId);
+        Activities.ForEach(x =>
+        {
+            CurrentXP += UserActivityHelper.GetXPs(x.ActivityType, x.ProjectId);
+        });
+    }
 }

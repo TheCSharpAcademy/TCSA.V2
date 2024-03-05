@@ -3,6 +3,7 @@
 
 @using System.Security.Claims;
 @using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.DTOs
@@ -67,7 +68,7 @@
                                 <div class="name-cell-level">
                                     <div class="belt-name-wrap">
                                         <div class="belt-label">
-                                            <img class="dashboard-belt" src="img/belts/@BeltHelper.GetBelt((int)user.Level)" width="20" alt="...">
+                                            <img class="dashboard-belt" src="img/belts/@($"{(Level)user.Level}-belt.png")" width="20" alt="...">
                                         </div>
                                         <div class="belt-label">
                                             @user.Level Belt

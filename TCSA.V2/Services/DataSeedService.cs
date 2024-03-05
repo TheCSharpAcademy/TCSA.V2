@@ -51,7 +51,8 @@ public class DataSeedService: IDataSeedService
                 FirstName = faker.Person.FirstName,
                 LastName = faker.Person.LastName,
                 Email = faker.Person.Email,
-                Country = faker.Address.Country()
+                Country = faker.Address.Country(),
+                ExperiencePoints = faker.Random.Number(1, 100)
             });
         }
 

@@ -12,68 +12,7 @@ public static class FlagHelper
             return $"img/flags/earth.png";
         }
 
-        var imgName = country.ToLower();
-
-        if (country == "Bosnia and Herzegovina")
-        {
-            imgName = "bosnia";
-        }
-
-        if (country == "United Kingdom")
-        {
-            imgName = "great-britain";
-        }
-
-        if (country == "United States")
-        {
-            imgName = "usa";
-        }
-
-        if (country == "Costa Rica")
-        {
-            imgName = "cr";
-        }
-
-        if (country == "New Zealand")
-        {
-            imgName = "nz";
-        }
-
-        if (country == "Dominican Republic")
-        {
-            imgName = "dr";
-        }
-
-        if (country == "South Africa")
-        {
-            imgName = "south-africa";
-        }
-
-        if (country == "South Korea")
-        {
-            imgName = "south-korea";
-        }
-
-        if (country == "Saudi Arabia")
-        {
-            imgName = "saudi-arabia";
-        }
-
-        if (country == "Trinidad and Tobago")
-        {
-            imgName = "trinidad";
-        }
-
-        if (country == "United Arab Emirates")
-        {
-            imgName = "uae";
-        }
-
-        if (country == "North Macedonia")
-        {
-            imgName = "northmacedonia";
-        }
-
+        var imgName = country.ToLower().Replace(" ","-");
 
         return $"img/flags/{imgName}.png";
     }

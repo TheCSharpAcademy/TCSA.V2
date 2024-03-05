@@ -63,10 +63,6 @@ h1:focus {
     .title-mobile {
         margin-top: 150px;
     }
-
-    .horizontal-card-mobile {
-        display: none !important;
-    }
 }
 
 @media (min-width: 992px) {
@@ -80,6 +76,10 @@ h1:focus {
 
     .top-menu {
         max-height: 50px;
+    }
+
+    .horizontal-card-mobile {
+        display: none !important;
     }
 }
 

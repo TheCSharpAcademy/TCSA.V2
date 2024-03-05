@@ -26,27 +26,35 @@ public class LeaderboardService : ILeaderboardService
 
     public async Task<int> GetUserRanking(string userId)
     {
-        using (var context = _factory.CreateDbContext())
+        try
         {
-            var rankingParameter = new SqlParameter("ranking", SqlDbType.Int)
+            using (var context = _factory.CreateDbContext())
             {
-                Direction = ParameterDirection.Output
-            };
+                var rankingParameter = new SqlParameter("ranking", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
 
-            var parameters = new[]
-            {
-            new SqlParameter("userId", userId),
-            rankingParameter
-        };
+                var parameters = new[]
+                {
+                    new SqlParameter("userId", userId),
+                    rankingParameter
+                };
 
-            context.Database.ExecuteSqlRaw("EXEC GetRanking @userId, @ranking OUT", parameters);
+                context.Database.ExecuteSqlRaw("EXEC GetRanking @userId, @ranking OUT", parameters);
 
-            if (rankingParameter.Value != DBNull.Value)
-            {
-                return (int)rankingParameter.Value;
+                if (rankingParameter.Value != DBNull.Value)
+                {
+                    return (int)rankingParameter.Value;
+                }
+
+                return -1;
             }
-
-            return -1; 
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUserRanking)}");
+            return 0;
         }
     }
 
@@ -56,16 +64,24 @@ public class LeaderboardService : ILeaderboardService
         var result = new List<AppUserForLeaderboard>();
         var index = pageNumber == 0 ? 0 : pageNumber * 50;
 
-        using (var context = _factory.CreateDbContext())
+        try
         {
-            users = context.Users
-            .Where(x => x.ExperiencePoints > 0)
-            .OrderByDescending(x => x.ExperiencePoints)
-            .ThenBy(x => x.FirstName)
-            .ThenBy(x => x.LastName)
-            .Skip(pageNumber * 50)
-            .Take(50)
-            .ToList();
+            using (var context = _factory.CreateDbContext())
+            {
+                users = await context.Users
+                .Where(x => x.ExperiencePoints > 0)
+                .OrderByDescending(x => x.ExperiencePoints)
+                .ThenBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
+                .Skip(pageNumber * 50)
+                .Take(50)
+                .ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUsersForLeaderboard)}");
+            return null;
         }
 
         foreach (var user in users)
@@ -103,38 +119,46 @@ public class LeaderboardService : ILeaderboardService
         var articles = ArticleHelper.GetArticles();
         var issues = IssueHelper.GetIssues();
 
-        using (var context = _factory.CreateDbContext())
+        try
         {
-            users = context.Users
-                .Where(x => x.DashboardProjects.Any(x => x.DateSubmitted > queryYear))
-                .Include(x => x.DashboardProjects.Where(x => x.DateSubmitted > queryYear && x.IsCompleted))
-                .Include(x => x.CodeReviewProjects)
-                .ToList();
-
-            foreach (var user in users)
+            using (var context = _factory.CreateDbContext())
             {
-                var ids = user.DashboardProjects?
-                  .Select(x => x.ProjectId)
-                  .ToList();
+                users = context.Users
+                    .Where(x => x.DashboardProjects.Any(x => x.DateSubmitted > queryYear))
+                    .Include(x => x.DashboardProjects.Where(x => x.DateSubmitted > queryYear && x.IsCompleted))
+                    .Include(x => x.CodeReviewProjects)
+                    .ToList();
 
-                user.ExperiencePoints = 0;
-
-                foreach (int id in ids)
+                foreach (var user in users)
                 {
-                    if (projects.Any(x => x.Id == id))
+                    var ids = user.DashboardProjects?
+                      .Select(x => x.ProjectId)
+                      .ToList();
+
+                    user.ExperiencePoints = 0;
+
+                    foreach (int id in ids)
                     {
-                        user.ExperiencePoints = projects.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
-                    }
-                    else if (articles.Any(x => x.Id == id))
-                    {
-                        user.ExperiencePoints = articles.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
-                    }
-                    else
-                    {
-                        user.ExperiencePoints = issues.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
+                        if (projects.Any(x => x.Id == id))
+                        {
+                            user.ExperiencePoints = projects.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
+                        }
+                        else if (articles.Any(x => x.Id == id))
+                        {
+                            user.ExperiencePoints = articles.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
+                        }
+                        else
+                        {
+                            user.ExperiencePoints = issues.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
+                        }
                     }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUsersForLeaderboard)}");
+            return null;
         }
 
         foreach (var user in users.OrderByDescending(x => x.ExperiencePoints))

@@ -1,0 +1,262 @@
+﻿@page "/dashboard/community"
+@layout DashboardLayout
+@rendermode InteractiveServer
+
+@using System.Security.Claims;
+@using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.FormModels
+@using TCSA.V2.Services
+
+<div class="mt-5">
+    @if (user != null)
+    {
+        <DashboardProjectCard Project="@currentProject" />
+        if (issues != null)
+        {
+            if (projectSubmitted)
+            {
+                <CloseButtonSVG OnClickCallback="@DismissProjectSubmitted" />
+                <div class="horizontal-card card-success">
+                    <div class="card-body card-body-success">
+                        Your project has been submitted for review.
+                    </div>
+                </div>
+            }
+
+            if (userAssigned)
+            {
+                <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
+                <div class="horizontal-card card-success">
+                    <div class="card-body card-body-success">
+                        You have been assigned to the issue. Don't forget to assign yourself to the issue on Github as well if you haven't yet.
+                    </div>
+                </div>
+            }
+
+            if (submitProject)
+            {
+                <div class="col horizontal-card submit-project-card shadow rounded-sm">
+                    <CloseButtonSVG OnClickCallback="@CloseSubmitProjectForm" />
+
+                    <div class="form-group">
+                        <EditForm Model="@form" OnValidSubmit="SubmitProject">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            <InputNumber hidden shadow rounded @bind-Value="form.ProjectId" class="form-select">
+                                <option selected>Open this select menu</option>
+                            </InputNumber>
+                            <p>
+                                <label>
+                                    <a target="blank" href="article/52">Pull Request Url</a>
+                                    <InputText class="form-control" @bind-Value="form.GithubUrl" />
+                                </label>
+                            </p>
+                            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                        </EditForm>
+                    </div>
+                </div>
+            }
+
+            if (issuesToShow != null)
+            {
+                foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
+                {
+                    <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
+                                        Issue="issue"
+                                        Title="Bolotas"
+                                        IsAssigned="@CheckIfAssigned(issue.ProjectId)"
+                                        IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
+                                        OnAssignCallBack="@(() => AssignMyself(issue))"
+                                        OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
+                }
+            }
+        }
+        <DashboardProjectCard Project="@currentProject2" />
+        if (issues != null)
+        {
+            if (projectSubmitted)
+            {
+                <CloseButtonSVG OnClickCallback="@DismissProjectSubmitted" />
+                <div class="horizontal-card card-success">
+                    <div class="card-body card-body-success">
+                        Your project has been submitted for review.
+                    </div>
+                </div>
+            }
+
+            if (userAssigned)
+            {
+                <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
+                <div class="horizontal-card card-success">
+                    <div class="card-body card-body-success">
+                        You have been assigned to the issue. Don't forget to assign yourself to the issue on Github as well if you haven't yet.
+                    </div>
+                </div>
+            }
+
+            if (issuesToShow != null)
+            {
+                foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
+                {
+                    <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
+                                        Issue="issue"
+                                        Title="Bolotas"
+                                        IsAssigned="@CheckIfAssigned(issue.ProjectId)"
+                                        IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
+                                        OnAssignCallBack="@(() => AssignMyself(issue))"
+                                        OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
+                }
+            }
+        }
+    }
+    else
+    {
+        <div class="spinner"></div>
+    }
+</div>
+
+@code {
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IUserActivityService ActivityService { get; set; }
+    [Inject] private ICommunityService CommunityService { get; set; }
+
+    private ApplicationUser user { get; set; }
+
+    private List<Project> projects;
+    private List<DashboardProject> userProjects;
+    private List<Issue>? issues;
+    private List<Issue>? issuesToShow = new List<Issue>();
+    private string userId = "";
+    private bool submitProject = false;
+    private bool projectSubmitted = false;
+    private bool userAssigned = false;
+    private DashboardProject dashboardProject = new();
+    private SubmitIssuePullRequestForm form = new();
+    private Project currentProject = new Project();
+    private Project currentProject2 = new Project();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        try
+        {
+            user = await UserService.GetUserById(userId);
+            userProjects = await ProjectService.GetDetailedProjectsById(userId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        projects = ProjectHelper.GetProjects();
+        issues = IssueHelper.GetIssues()
+          .Where(x => !x.IsClosed)
+          .ToList();
+
+        foreach (var issue in issues)
+        {
+            if (!CheckIfIssueIsTaken(issue.ProjectId).Result)
+            {
+                issuesToShow.Add(issue);
+            }
+        }
+
+        currentProject = projects.FirstOrDefault(x => x.Id == 54);
+        currentProject2 = projects.FirstOrDefault(x => x.Id == 87);
+    }
+
+    // TODO Change this in service
+    private async Task<bool> CheckIfIssueIsTaken(int id)
+    {
+        var project = await CommunityService.GetIssueById(id);
+
+        if (project == null)
+        {
+            return false;
+        }
+
+        if (project.AppUserId != userId)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private async Task AssignMyself(Issue issue)
+    {
+        await CommunityService.AssignUserToIssue(userId, issue);
+        user = await UserService.GetUserById(userId);
+
+        userAssigned = true;
+    }
+
+    private bool CheckIfAssigned(int id)
+    {
+        var result = userProjects.Any(x => x.ProjectId == id);
+        return result;
+    }
+
+    private bool CheckIfPendingReview(int id)
+    {
+        var project = userProjects.FirstOrDefault(x => x.ProjectId == id);
+        bool result = project == null ? false : project.IsPendingReview;
+        return result;
+    }
+
+    private async Task SubmitProject()
+    {
+        var project = new DashboardProject
+            {
+                AppUserId = user.Id,
+                GithubUrl = form.GithubUrl,
+                ProjectId = form.ProjectId,
+                IsPendingReview = true,
+                DateSubmitted = DateTimeOffset.UtcNow,
+            };
+
+        var result = await CommunityService.PostIssue(project, userId, isCommunityProject: true);
+
+        if (result > 0)
+        {
+            projectSubmitted = true;
+            submitProject = false;
+
+            await ActivityService.PostUserActivity(new AppUserActivity
+                {
+                    ProjectId = project.ProjectId,
+                    AppUserId = userId,
+                    DateSubmitted = DateTimeOffset.UtcNow,
+                    ActivityType = ActivityType.IssueSubmitted
+                });
+        }
+
+        user = await UserService.GetUserById(userId);
+    }
+
+    private void OpenSubmitProjectform(int projectId)
+    {
+        submitProject = true;
+        form.ProjectId = projectId;
+    }
+    private void CloseSubmitProjectForm() => submitProject = false;
+    private void DismissProjectSubmitted() => projectSubmitted = false;
+    private void DismissUserAssigned() => userAssigned = false;
+}
+
+<style>
+    .modal-dialog {
+        margin-top: 100px;
+        max-width: 750px;
+    }
+</style>

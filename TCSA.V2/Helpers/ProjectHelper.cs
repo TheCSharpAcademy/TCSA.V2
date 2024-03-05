@@ -20,6 +20,9 @@ public static class ProjectHelper
             .Concat(SqlProjectsHelper.GetProjects())
             .Concat(AuthProjectsHelper.GetProjects())
             .Concat(AzureProjectsHelper.GetProjects())
+            .Concat(MauiProjectsHelper.GetProjects())
+            .Concat(ChallengeProjectsHelper.GetProjects())
+            .Concat(OpenSourceProjectsHelper.GetProjects())
             .ToList();  
     }
 

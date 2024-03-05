@@ -9,7 +9,7 @@ namespace TCSA.V2.Components.Account
 {
     // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
     // every 30 minutes an interactive circuit is connected.
-    internal sealed class IdentityRevalidatingAuthenticationStateProvider(
+    internal sealed class IdentityRevalidatingAuthenticationStateProvider (
             ILoggerFactory loggerFactory,
             IServiceScopeFactory scopeFactory,
             IOptions<IdentityOptions> options)
@@ -17,7 +17,7 @@ namespace TCSA.V2.Components.Account
     {
         protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
 
-        protected override async Task<bool> ValidateAuthenticationStateAsync(
+        protected override async Task<bool> ValidateAuthenticationStateAsync (
             AuthenticationState authenticationState, CancellationToken cancellationToken)
         {
             // Get the user manager from a new scope to ensure it fetches fresh data
@@ -26,7 +26,7 @@ namespace TCSA.V2.Components.Account
             return await ValidateSecurityStampAsync(userManager, authenticationState.User);
         }
 
-        private async Task<bool> ValidateSecurityStampAsync(UserManager<ApplicationUser> userManager, ClaimsPrincipal principal)
+        private async Task<bool> ValidateSecurityStampAsync (UserManager<ApplicationUser> userManager, ClaimsPrincipal principal)
         {
             var user = await userManager.GetUserAsync(principal);
             if (user is null)

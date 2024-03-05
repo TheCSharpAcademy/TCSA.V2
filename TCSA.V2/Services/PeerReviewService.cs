@@ -9,25 +9,25 @@ namespace TCSA.V2.Services;
 
 public interface IPeerReviewService
 {
-    Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId, int currentReviewersPoints);
-    Task<List<DashboardProject>> GetProjectsForPeerReview(string userId);
-    Task AssignUserToCodeReview(string userId, int id);
-    string GetRevieweeName(string revieweeId);
-    Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
-    Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
+    Task MarkCodeReviewAsCompleted (string reviewerId, int dashboardProjectId, string userId, int currentReviewersPoints);
+    Task<List<DashboardProject>> GetProjectsForPeerReview (string userId);
+    Task AssignUserToCodeReview (string userId, int id);
+    string GetRevieweeName (string revieweeId);
+    Task<ApplicationUser> GetUserForPeerReview (string reviewerId);
+    Task<List<CodeReviewDetail>> GetCodeReviewDetails (string userId);
 }
 public class PeerReviewService : IPeerReviewService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<UserActivityService> _logger;
 
-    public PeerReviewService(ILogger<UserActivityService> logger, IDbContextFactory<ApplicationDbContext> factory)
+    public PeerReviewService (ILogger<UserActivityService> logger, IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
         _logger = logger;
     }
 
-    public async Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId, int currentReviewersPoints)
+    public async Task MarkCodeReviewAsCompleted (string reviewerId, int dashboardProjectId, string userId, int currentReviewersPoints)
     {
         try
         {
@@ -79,7 +79,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<List<DashboardProject>> GetProjectsForPeerReview(string userId)
+    public async Task<List<DashboardProject>> GetProjectsForPeerReview (string userId)
     {
         var url = "https://github.com/TheCSharpAcademy/CodeReviews";
         var beginnerProjects = new List<int> { 53, 11, 12, 13 };
@@ -111,7 +111,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task AssignUserToCodeReview(string userId, int id)
+    public async Task AssignUserToCodeReview (string userId, int id)
     {
         using (var context = _factory.CreateDbContext())
         {
@@ -125,7 +125,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public string GetRevieweeName(string revieweeId)
+    public string GetRevieweeName (string revieweeId)
     {
         try
         {
@@ -149,7 +149,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<ApplicationUser> GetUserForPeerReview(string reviewerId)
+    public async Task<ApplicationUser> GetUserForPeerReview (string reviewerId)
     {
         try
         {
@@ -172,7 +172,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId)
+    public async Task<List<CodeReviewDetail>> GetCodeReviewDetails (string userId)
     {
         var result = new List<CodeReviewDetail>();
 

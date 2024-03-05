@@ -4,7 +4,7 @@ using TCSA.V2.Models;
 
 namespace TCSA.V2.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
+    public class ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
         public virtual DbSet<DashboardProject> DashboardProjects { get; set; }
         public virtual DbSet<AppUserActivity> UserActivity { get; set; }

@@ -4,14 +4,14 @@ namespace TCSA.V2.Services;
 
 public interface ICountriesService
 {
-    Task<List<string>> GetCountries();
+    Task<List<string>> GetCountries ();
 }
 
 public class CountriesService : ICountriesService
 {
     static HttpClient client = new HttpClient();
 
-    public async Task<List<string>> GetCountries()
+    public async Task<List<string>> GetCountries ()
     {
         var result = new List<string>();
 
@@ -35,9 +35,9 @@ public class CountriesService : ICountriesService
     }
 }
 
-public record class Country(Name name);
+public record class Country (Name name);
 
-public record class Name(string common);
+public record class Name (string common);
 
 
 

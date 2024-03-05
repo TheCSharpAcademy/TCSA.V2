@@ -4,7 +4,7 @@ namespace TCSA.V2.Helpers;
 
 public static class BeltHelper
 {
-    public static List<string> GetBeltNotification(ApplicationUser user)
+    public static List<string> GetBeltNotification (ApplicationUser user)
     {
         var projectsForNotification = new List<string>();
 

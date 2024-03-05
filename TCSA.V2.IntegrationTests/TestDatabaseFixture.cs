@@ -18,7 +18,7 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
     public Mock<IHttpClientFactory> MockHttpClientFactory { get; private set; }
     public Mock<ILogger<ProjectService>> MockLogger { get; private set; }
 
-    public TestDatabaseFixture()
+    public TestDatabaseFixture ()
     {
         MockLogger = new Mock<ILogger<ProjectService>>();
 
@@ -88,14 +88,14 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
         }
     }
 
-    public ApplicationDbContext CreateContext()
+    public ApplicationDbContext CreateContext ()
       => new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
               .UseSqlServer(ConnectionString)
               .Options);
 
     public class ApplicationDbContextFactory : IDbContextFactory<ApplicationDbContext>
     {
-        public ApplicationDbContext CreateDbContext()
+        public ApplicationDbContext CreateDbContext ()
         {
             return new ApplicationDbContext(
                 new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -104,7 +104,7 @@ public class TestDatabaseFixture : IClassFixture<TestDatabaseFixture>
         }
     }
 
-    public IDbContextFactory<ApplicationDbContext> CreateDbContextFactory()
+    public IDbContextFactory<ApplicationDbContext> CreateDbContextFactory ()
     {
         return new ApplicationDbContextFactory();
     }

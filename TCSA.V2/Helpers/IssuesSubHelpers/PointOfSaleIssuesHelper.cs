@@ -3,7 +3,7 @@
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class PointOfSaleIssuesHelper
 {
-    internal static List<Issue> GetIssues()
+    internal static List<Issue> GetIssues ()
     {
         return new List<Issue>
         {

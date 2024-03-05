@@ -5,12 +5,12 @@ namespace TCSA.V2.Helpers;
 
 public static class ProjectHelper
 {
-    public static List<Project> GetProjects()
+    public static List<Project> GetProjects ()
     {
         var projects = new List<Project>();
-        
+
         return projects
-            .Concat(StandAloneProjectsHelper.GetProjects()) 
+            .Concat(StandAloneProjectsHelper.GetProjects())
             .Concat(ConsoleProjectsHelper.GetProjects())
             .Concat(StartApplyingProjectsHelper.GetProjects())
             .Concat(MVCProjectsHelper.GetProjects())
@@ -23,10 +23,10 @@ public static class ProjectHelper
             .Concat(MauiProjectsHelper.GetProjects())
             .Concat(ChallengeProjectsHelper.GetProjects())
             .Concat(OpenSourceProjectsHelper.GetProjects())
-            .ToList();  
+            .ToList();
     }
 
-    public static List<Project> GetProjectsInPortuguese()
+    public static List<Project> GetProjectsInPortuguese ()
     {
         var projects = new List<Project>();
 
@@ -34,8 +34,8 @@ public static class ProjectHelper
             .Concat(StandAloneProjectsHelper.GetProjectsInPortuguese())
             .ToList();
     }
-    
-    public static List<Project> GetProjectsInDutch()
+
+    public static List<Project> GetProjectsInDutch ()
     {
         var projects = new List<Project>();
 
@@ -45,16 +45,17 @@ public static class ProjectHelper
             .ToList();
     }
 
-    public static List<Project> GetProjectsInTurkish()
+    public static List<Project> GetProjectsInTurkish ()
     {
         var projects = new List<Project>();
 
         return projects
             .Concat(StandAloneProjectsHelper.GetProjectsInTurkish())
+            .Concat(ConsoleProjectsHelper.GetProjectsInTurkish())
             .ToList();
     }
 
-    public static List<Project> GetProjectsInKorean()
+    public static List<Project> GetProjectsInKorean ()
     {
         var projects = new List<Project>();
         return projects
@@ -63,7 +64,7 @@ public static class ProjectHelper
             .ToList();
     }
 
-    public static List<Project> GetProjectsInCroatian()
+    public static List<Project> GetProjectsInCroatian ()
     {
         var projects = new List<Project>();
 

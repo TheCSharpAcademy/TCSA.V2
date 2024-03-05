@@ -6,21 +6,21 @@ namespace TCSA.V2.Services;
 
 public interface IUserActivityService
 {
-    Task PostUserActivity(AppUserActivity activity);
-    Task<List<AppUserActivity>> GetActivityById(string userId);
+    Task PostUserActivity (AppUserActivity activity);
+    Task<List<AppUserActivity>> GetActivityById (string userId);
 }
 public class UserActivityService : IUserActivityService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<UserActivityService> _logger;
 
-    public UserActivityService(ILogger<UserActivityService> logger, IDbContextFactory<ApplicationDbContext> factory)
+    public UserActivityService (ILogger<UserActivityService> logger, IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
         _logger = logger;
     }
 
-    public async Task PostUserActivity(AppUserActivity activity)
+    public async Task PostUserActivity (AppUserActivity activity)
     {
         try
         {
@@ -44,7 +44,7 @@ public class UserActivityService : IUserActivityService
         }
     }
 
-    public async Task<List<AppUserActivity>> GetActivityById(string id)
+    public async Task<List<AppUserActivity>> GetActivityById (string id)
     {
         try
         {

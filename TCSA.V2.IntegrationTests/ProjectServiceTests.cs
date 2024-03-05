@@ -8,15 +8,15 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
 {
     private readonly TestDatabaseFixture _fixture;
 
-    public ProjectServiceTests(TestDatabaseFixture fixture)
+    public ProjectServiceTests (TestDatabaseFixture fixture)
     {
         _fixture = fixture;
     }
 
     [Theory]
-    [InlineData("testId", 1, true)] 
-    [InlineData("testId", 2, false)]  
-    public async Task CheckIfProjectExistsReturnCorrectResult(string userId, int projectId, bool expectedResult)
+    [InlineData("testId", 1, true)]
+    [InlineData("testId", 2, false)]
+    public async Task CheckIfProjectExistsReturnCorrectResult (string userId, int projectId, bool expectedResult)
     {
         var factory = _fixture.CreateDbContextFactory();
         var projectService = new ProjectService(_fixture.MockLogger.Object, factory);
@@ -27,7 +27,7 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task PostArticleThatAlreadyExistsReturn0()
+    public async Task PostArticleThatAlreadyExistsReturn0 ()
     {
         var factory = _fixture.CreateDbContextFactory();
         var projectService = new ProjectService(_fixture.MockLogger.Object, factory);
@@ -49,10 +49,10 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task GetCompletedProjectsById_ReturnsCorrectProjects()
+    public async Task GetCompletedProjectsById_ReturnsCorrectProjects ()
     {
         var userId = "testId";
-        var expectedCompletedProjects = new List<int> { 1, 12, 13 }; 
+        var expectedCompletedProjects = new List<int> { 1, 12, 13 };
 
         var projectService = new ProjectService(_fixture.MockLogger.Object, _fixture.CreateDbContextFactory());
 
@@ -63,7 +63,7 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task AddNewProject_ReturnsCorrectIdAndUpdatesCompletedProjects()
+    public async Task AddNewProject_ReturnsCorrectIdAndUpdatesCompletedProjects ()
     {
         var factory = _fixture.CreateDbContextFactory();
         var projectService = new ProjectService(_fixture.MockLogger.Object, factory);

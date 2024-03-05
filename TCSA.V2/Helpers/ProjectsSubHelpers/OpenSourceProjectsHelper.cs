@@ -3,7 +3,7 @@
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class OpenSourceProjectsHelper
 {
-    internal static List<Project> GetProjects()
+    internal static List<Project> GetProjects ()
     {
         return new List<Project>
         {

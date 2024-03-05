@@ -7,23 +7,23 @@ namespace TCSA.V2.Services;
 
 public interface IProjectService
 {
-    Task<bool> IsProjectCompleted(string userId, int projectId);
-    Task<int> PostArticle(DashboardProject project);
-    Task<List<int>> GetCompletedProjectsById(string userId);
-    Task<List<DashboardProject>> GetDetailedProjectsById(string userId);
+    Task<bool> IsProjectCompleted (string userId, int projectId);
+    Task<int> PostArticle (DashboardProject project);
+    Task<List<int>> GetCompletedProjectsById (string userId);
+    Task<List<DashboardProject>> GetDetailedProjectsById (string userId);
 }
 public class ProjectService : IProjectService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<ProjectService> _logger;
 
-    public ProjectService(ILogger<ProjectService> logger, IDbContextFactory<ApplicationDbContext> factory)
+    public ProjectService (ILogger<ProjectService> logger, IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
         _logger = logger;
     }
 
-    public async Task<List<int>> GetCompletedProjectsById(string userId)
+    public async Task<List<int>> GetCompletedProjectsById (string userId)
     {
         var projects = new List<DashboardProject>();
         try
@@ -43,7 +43,7 @@ public class ProjectService : IProjectService
         }
     }
 
-    public async Task<List<DashboardProject>> GetDetailedProjectsById(string userId)
+    public async Task<List<DashboardProject>> GetDetailedProjectsById (string userId)
     {
         var projects = new List<DashboardProject>();
         try
@@ -62,20 +62,20 @@ public class ProjectService : IProjectService
         }
     }
 
-    public async Task<bool> IsProjectCompleted(string userId, int projectId)
+    public async Task<bool> IsProjectCompleted (string userId, int projectId)
     {
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var result =  await context.DashboardProjects
+                var result = await context.DashboardProjects
                     .AnyAsync(x => x.ProjectId == projectId && x.AppUserId == userId);
 
                 _logger.LogInformation($"{nameof(IsProjectCompleted)} executed correctly");
 
                 return result;
             }
-        } 
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Error in {nameof(IsProjectCompleted)}");
@@ -83,7 +83,7 @@ public class ProjectService : IProjectService
         }
     }
 
-    public async Task<int> PostArticle(DashboardProject project)
+    public async Task<int> PostArticle (DashboardProject project)
     {
         try
         {
@@ -95,7 +95,7 @@ public class ProjectService : IProjectService
                 if (!alreadyExists)
                 {
                     await context.DashboardProjects.AddAsync(project);
-                    var result =  await context.SaveChangesAsync();
+                    var result = await context.SaveChangesAsync();
 
                     _logger.LogInformation($"{nameof(PostArticle)} executed correctly");
                     return result;

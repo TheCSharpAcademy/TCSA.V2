@@ -5,7 +5,7 @@ namespace TCSA.V2.Helpers;
 
 public static class ArticleHelper
 {
-    public static List<Article> GetArticles()
+    public static List<Article> GetArticles ()
     {
         return new List<Article>
         {

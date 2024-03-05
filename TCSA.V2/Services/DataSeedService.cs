@@ -7,19 +7,19 @@ namespace TCSA.V2.Services;
 
 public interface IDataSeedService
 {
-    public Task SeedData(DataSeedForm form);
+    public Task SeedData (DataSeedForm form);
 }
 
-public class DataSeedService: IDataSeedService
+public class DataSeedService : IDataSeedService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
 
-    public DataSeedService(IDbContextFactory<ApplicationDbContext> factory)
+    public DataSeedService (IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
     }
 
-    public async Task SeedData(DataSeedForm form)
+    public async Task SeedData (DataSeedForm form)
     {
         var appUsers = GetAppUsersForSeedData(form.NumberOfUsers);
 
@@ -30,13 +30,13 @@ public class DataSeedService: IDataSeedService
                 await context.AspNetUsers.AddRangeAsync(appUsers);
                 await context.SaveChangesAsync();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
     }
-    private List<ApplicationUser> GetAppUsersForSeedData(int quantity)
+    private List<ApplicationUser> GetAppUsersForSeedData (int quantity)
     {
         var users = new List<ApplicationUser>();
 

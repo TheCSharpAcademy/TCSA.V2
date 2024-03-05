@@ -9,22 +9,22 @@ namespace TCSA.V2.Services;
 
 public interface ILeaderboardService
 {
-    Task<int> GetUserRanking(string userId);
-    Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard(int pageNumber);
-    Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard();
+    Task<int> GetUserRanking (string userId);
+    Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard (int pageNumber);
+    Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard ();
 }
 public class LeaderboardService : ILeaderboardService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<UserActivityService> _logger;
 
-    public LeaderboardService(ILogger<UserActivityService> logger, IDbContextFactory<ApplicationDbContext> factory)
+    public LeaderboardService (ILogger<UserActivityService> logger, IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
         _logger = logger;
     }
 
-    public async Task<int> GetUserRanking(string userId)
+    public async Task<int> GetUserRanking (string userId)
     {
         try
         {
@@ -58,7 +58,7 @@ public class LeaderboardService : ILeaderboardService
         }
     }
 
-    public async Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard(int pageNumber)
+    public async Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard (int pageNumber)
     {
         var users = new List<ApplicationUser>();
         var result = new List<AppUserForLeaderboard>();
@@ -108,7 +108,7 @@ public class LeaderboardService : ILeaderboardService
         return result;
     }
 
-    public async Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard()
+    public async Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard ()
     {
         var queryYear = new DateTime(2024, 1, 1);
         var users = new List<ApplicationUser>();

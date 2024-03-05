@@ -10,10 +10,10 @@ namespace TCSA.V2.Services;
 
 public interface ICommunityService
 {
-    Task<DashboardProject> GetIssueById(int id);
-    Task<int> PostIssue(DashboardProject project, string id, bool isCommunityProject = false);
-    Task<int> GetAvailableIssues();
-    Task AssignUserToIssue(string id, Issue issue);
+    Task<DashboardProject> GetIssueById (int id);
+    Task<int> PostIssue (DashboardProject project, string id, bool isCommunityProject = false);
+    Task<int> GetAvailableIssues ();
+    Task AssignUserToIssue (string id, Issue issue);
 }
 
 public class CommunityService : ICommunityService
@@ -21,12 +21,12 @@ public class CommunityService : ICommunityService
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<CommunityService> _logger;
 
-    public CommunityService(ILogger<CommunityService> logger, IDbContextFactory<ApplicationDbContext> factory)
+    public CommunityService (ILogger<CommunityService> logger, IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
         _logger = logger;
     }
-    public async Task AssignUserToIssue(string id, Issue issue)
+    public async Task AssignUserToIssue (string id, Issue issue)
     {
         using (var context = _factory.CreateDbContext())
         {
@@ -41,7 +41,7 @@ public class CommunityService : ICommunityService
         }
     }
 
-    public async Task<DashboardProject> GetIssueById(int id)
+    public async Task<DashboardProject> GetIssueById (int id)
     {
         using (var context = _factory.CreateDbContext())
         {
@@ -49,7 +49,7 @@ public class CommunityService : ICommunityService
         }
     }
 
-    public async Task<int> GetAvailableIssues()
+    public async Task<int> GetAvailableIssues ()
     {
         var allIssues = IssueHelper.GetIssues();
         var issueIdsCsv = string.Join(",", allIssues.Select(issue => issue.Id));
@@ -67,7 +67,7 @@ public class CommunityService : ICommunityService
         }
     }
 
-    public async Task<int> PostIssue(DashboardProject project, string id, bool isCommunityProject = false)
+    public async Task<int> PostIssue (DashboardProject project, string id, bool isCommunityProject = false)
     {
         if (project.GithubUrl == null)
         {

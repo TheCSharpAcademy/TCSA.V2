@@ -9,10 +9,10 @@ namespace TCSA.V2.Services;
 
 public interface IUserService
 {
-    Task<ApplicationUser> GetUserById(string id);
-    Task<AppUserForProfile> GetProfile(string id);
-    Task<BaseResponse> UpdateProfile(AppUserForProfile user);
-    Task<Level> GetUserLevel(string userId);
+    Task<ApplicationUser> GetUserById (string id);
+    Task<AppUserForProfile> GetProfile (string id);
+    Task<BaseResponse> UpdateProfile (AppUserForProfile user);
+    Task<Level> GetUserLevel (string userId);
 }
 
 public class UserService : IUserService
@@ -20,13 +20,13 @@ public class UserService : IUserService
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<UserService> _logger;
 
-    public UserService(ILogger<UserService> logger, IDbContextFactory<ApplicationDbContext> factory)
+    public UserService (ILogger<UserService> logger, IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
         _logger = logger;
     }
 
-    public async Task<ApplicationUser> GetUserById(string id)
+    public async Task<ApplicationUser> GetUserById (string id)
     {
         try
         {
@@ -43,13 +43,13 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<Level> GetUserLevel(string userId)
+    public async Task<Level> GetUserLevel (string userId)
     {
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var result =  await context.AspNetUsers
+                var result = await context.AspNetUsers
                 .Where(x => x.Equals(userId))
                 .Select(x => new
                 {
@@ -67,7 +67,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<BaseResponse> UpdateProfile(AppUserForProfile user)
+    public async Task<BaseResponse> UpdateProfile (AppUserForProfile user)
     {
         var response = new BaseResponse
         {
@@ -113,7 +113,7 @@ public class UserService : IUserService
         return response;
     }
 
-    public async Task<AppUserForProfile> GetProfile(string id)
+    public async Task<AppUserForProfile> GetProfile (string id)
     {
         using (var context = _factory.CreateDbContext())
         {
@@ -144,7 +144,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task UpdateProfileProject(AppUserForProfile user, int currentPoints)
+    public async Task UpdateProfileProject (AppUserForProfile user, int currentPoints)
     {
         var project = ProjectHelper.GetProjects().Single(x => x.Id == 85);
 

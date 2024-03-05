@@ -27,7 +27,7 @@ public class AppUserForProfile
 
 public class LinkedInUrlAttribute : ValidationAttribute
 {
-    public override bool IsValid(object value)
+    public override bool IsValid (object value)
     {
         if (value == null)
         {

@@ -4,7 +4,7 @@ namespace TCSA.V2.Helpers;
 
 public static class UserActivityHelper
 {
-    public static int GetXPs(ActivityType type, int projectId)
+    public static int GetXPs (ActivityType type, int projectId)
     {
         var issues = IssueHelper.GetIssues().Select(x => x.ProjectId).ToList();
 
@@ -25,7 +25,7 @@ public static class UserActivityHelper
         return ProjectHelper.GetProjects().Single(x => x.Id == projectId).ExperiencePoints;
     }
 
-    public static string GetTitle(ActivityType type, int projectId)
+    public static string GetTitle (ActivityType type, int projectId)
     {
         var issues = IssueHelper.GetIssues().Select(x => x.ProjectId).ToList();
 
@@ -37,7 +37,7 @@ public static class UserActivityHelper
         return $"The project <b>{ProjectHelper.GetProjects().Single(x => x.Id == projectId).Title}</b> was marked as complete.";
     }
 
-    public static string GetIcon(ActivityType type, int projectId)
+    public static string GetIcon (ActivityType type, int projectId)
     {
         if (type == ActivityType.IssueSubmitted)
         {
@@ -51,7 +51,7 @@ public static class UserActivityHelper
         return ProjectHelper.GetProjects().Single(x => x.Id == projectId).IconUrl;
     }
 
-    public static string GetDescription(ActivityType type, int projectId)
+    public static string GetDescription (ActivityType type, int projectId)
     {
         switch (type)
         {
@@ -70,7 +70,7 @@ public static class UserActivityHelper
         }
     }
 
-    public static string GetRowStyle(ActivityType type)
+    public static string GetRowStyle (ActivityType type)
     {
         return type switch
         {

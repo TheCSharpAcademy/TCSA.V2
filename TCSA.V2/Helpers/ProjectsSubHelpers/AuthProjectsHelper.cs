@@ -5,7 +5,7 @@ namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
 internal static class AuthProjectsHelper
 {
-    internal static List<Project> GetProjects()
+    internal static List<Project> GetProjects ()
     {
         return new List<Project>
         {

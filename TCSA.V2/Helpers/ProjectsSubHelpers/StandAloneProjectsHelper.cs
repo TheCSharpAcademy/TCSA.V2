@@ -5,7 +5,7 @@ namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
 internal static class StandAloneProjectsHelper
 {
-    internal static List<Project> GetProjects()
+    internal static List<Project> GetProjects ()
     {
         return new List<Project>
         {
@@ -85,7 +85,7 @@ internal static class StandAloneProjectsHelper
             },
         };
     }
-    internal static List<Project> GetProjectsInPortuguese()
+    internal static List<Project> GetProjectsInPortuguese ()
     {
         return new List<Project>
         {
@@ -132,7 +132,7 @@ internal static class StandAloneProjectsHelper
         };
     }
 
-    internal static List<Project> GetProjectsInDutch()
+    internal static List<Project> GetProjectsInDutch ()
     {
         return new List<Project>
         {
@@ -178,7 +178,7 @@ internal static class StandAloneProjectsHelper
         };
     }
 
-    internal static List<Project> GetProjectsInCroatian()
+    internal static List<Project> GetProjectsInCroatian ()
     {
         return new List<Project>
         {
@@ -224,7 +224,7 @@ internal static class StandAloneProjectsHelper
         };
     }
 
-    internal static List<Project> GetProjectsInTurkish()
+    internal static List<Project> GetProjectsInTurkish ()
     {
         return new List<Project>
         {
@@ -270,8 +270,8 @@ internal static class StandAloneProjectsHelper
             },
         };
     }
-    internal static List<Project> GetProjectsInKorean()
-    {        
+    internal static List<Project> GetProjectsInKorean ()
+    {
         return new List<Project>
         {
              new Project

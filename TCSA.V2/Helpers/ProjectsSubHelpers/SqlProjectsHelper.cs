@@ -4,7 +4,7 @@ using TCSA.V2.Models;
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class SqlProjectsHelper
 {
-    internal static List<Project> GetProjects()
+    internal static List<Project> GetProjects ()
     {
         return new List<Project>
         {

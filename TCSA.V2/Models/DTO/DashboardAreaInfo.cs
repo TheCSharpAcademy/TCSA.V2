@@ -8,5 +8,5 @@ public class DashboardAreaInfo
 
     public string CardName { get; set; }
 
-    public List<Project> Projects { get; set; } 
+    public List<Project> Projects { get; set; }
 }

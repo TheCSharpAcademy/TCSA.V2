@@ -3,7 +3,7 @@
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class TCSAV2IssuesHelper
 {
-    internal static List<Issue> GetIssues()
+    internal static List<Issue> GetIssues ()
     {
         return new List<Issue>
         {

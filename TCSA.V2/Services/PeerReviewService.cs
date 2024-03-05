@@ -3,6 +3,7 @@ using System.Data;
 using TCSA.V2.Data;
 using TCSA.V2.Helpers;
 using TCSA.V2.Models;
+using TCSA.V2.Models.DTOs;
 
 namespace TCSA.V2.Services;
 
@@ -13,6 +14,7 @@ public interface IPeerReviewService
     Task AssignUserToCodeReview(string userId, int id);
     string GetRevieweeName(string revieweeId);
     Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
+    Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
 }
 public class PeerReviewService : IPeerReviewService
 {
@@ -165,8 +167,49 @@ public class PeerReviewService : IPeerReviewService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error in {nameof(GetRevieweeName)}");
+            _logger.LogError(ex, $"Error in {nameof(GetUserForPeerReview)}");
             return null;
         }
+    }
+
+    public async Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId)
+    {
+        var result = new List<CodeReviewDetail>();
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var reviews = await context.UserReviews
+                    .Where(x => x.AppUserId == userId)
+                    .ToListAsync();
+
+                foreach (var review in reviews)
+                {
+                    var project = context.DashboardProjects
+                        .AsNoTracking()
+                        .Include(x => x.AppUser)
+                        .SingleOrDefault(x => x.Id.Equals(review.DashboardProjectId));
+
+                    if (project != null)
+                    {
+                        result.Add(new CodeReviewDetail
+                        {
+                            ProjectId = project.ProjectId,
+                            IsCompleted = project.IsCompleted,
+                            UserName = $"{project.AppUser.FirstName + project.AppUser.LastName}"
+                        });
+                    }
+
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetCodeReviewDetails)}");
+            return null;
+        }
+
+        return result;
     }
 }

@@ -12,6 +12,7 @@ public interface IUserService
     Task<ApplicationUser> GetUserById(string id);
     Task<AppUserForProfile> GetProfile(string id);
     Task<BaseResponse> UpdateProfile(AppUserForProfile user);
+    Task<Level> GetUserLevel(string userId);
 }
 
 public class UserService : IUserService
@@ -39,6 +40,30 @@ public class UserService : IUserService
         {
             _logger.LogError(ex, $"Error in {nameof(GetUserById)}");
             return null;
+        }
+    }
+
+    public async Task<Level> GetUserLevel(string userId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var result =  await context.AspNetUsers
+                .Where(x => x.Equals(userId))
+                .Select(x => new
+                {
+                    UserLevel = x.Level
+                })
+                .FirstOrDefaultAsync();
+
+                return result.UserLevel;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUserLevel)}");
+            return Level.White;
         }
     }
 

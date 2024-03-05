@@ -1,67 +1,698 @@
 ﻿@page "/dashboard/roadmap"
-@using TCSA.V2.Components.Dashboard.Shared
 @layout DashboardLayout
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
-<h1>ROADMAP</h1>
+
+@using System.Security.Claims;
+@using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.DTO
+@using TCSA.V2.Services
+
+
+{
+    <div class="mt-5">
+        <RoadmapCard CardName="White Belt"
+                     IconUrl="belts/white-belt.png"
+                     Tasks=greenBeltTasks
+                     IsCompleted=@(UserLevel > Level.White)
+                     Requirements=greenBeltReqs />
+
+        <RoadmapCard CardName="Green Belt"
+                     IconUrl="belts/green-belt.png"
+                     Tasks=oliveGreenBeltTasks
+                     IsCompleted=@(UserLevel > Level.Green)
+                     Requirements=oliveGreenBeltReqs />
+
+        <RoadmapCard CardName="Olive Green Belt"
+                     IconUrl="belts/olivegreen-belt.png"
+                     Tasks="yellowBeltTasks"
+                     IsCompleted=@(UserLevel > Level.OliveGreen)
+                     Requirements=yellowBeltReqs />
+
+        <RoadmapCard CardName="Yellow Belt"
+                     IconUrl="belts/yellow-belt.png"
+                     Tasks="orangeBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Yellow)
+                     Requirements=orangeBeltReqs />
+
+        <RoadmapCard CardName="Orange Belt"
+                     IconUrl="belts/orange-belt.png"
+                     Tasks="redBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Orange)
+                     Requirements=redBeltReqs />
+
+        <RoadmapCard CardName="Red Belt"
+                     IconUrl="belts/red-belt.png"
+                     Tasks="purpleBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Red)
+                     Requirements=purpleBeltReqs />
+
+        <RoadmapCard CardName="Purple Belt"
+                     IconUrl="belts/purple-belt.png"
+                     Tasks="brownBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Purple)
+                     Requirements=brownBeltReqs />
+
+        <RoadmapCard CardName="Brown Belt"
+                     IconUrl="belts/brown-belt.png"
+                     Tasks="greyBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Brown)
+                     Requirements=greyBeltReqs />
+
+        <RoadmapCard CardName="Grey Belt"
+                     IconUrl="belts/grey-belt.png"
+                     Tasks="blueBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Grey)
+                     Requirements=blueBeltReqs />
+
+        <RoadmapCard CardName="Blue Belt"
+                     IconUrl="belts/blue-belt.png"
+                     Tasks="blackBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Blue)
+                     Requirements=blackBeltReqs />
+
+        <RoadmapCard CardName="Black Belt"
+                     IconUrl="belts/black-belt.png"
+                     IsCompleted=@(UserLevel > Level.Black) />
+    </div>
+}
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+
+    private List<Article>? articles;
+    private List<Project>? projects;
+    private List<Issue>? issues;
+
+    private List<string> greenBeltReqs = new();
+    private List<string> oliveGreenBeltReqs = new();
+    private List<string> yellowBeltReqs = new();
+    private List<string> orangeBeltReqs = new();
+    private List<string> redBeltReqs = new();
+    private List<string> purpleBeltReqs = new();
+    private List<string> brownBeltReqs = new();
+    private List<string> greyBeltReqs = new();
+    private List<string> blueBeltReqs = new();
+    private List<string> blackBeltReqs = new();
+
+    private List<RoadmapTask> greenBeltTasks = new();
+    private List<RoadmapTask> oliveGreenBeltTasks = new();
+    private List<RoadmapTask> yellowBeltTasks = new();
+    private List<RoadmapTask> orangeBeltTasks = new();
+    private List<RoadmapTask> redBeltTasks = new();
+    private List<RoadmapTask> purpleBeltTasks = new();
+    private List<RoadmapTask> brownBeltTasks = new();
+    private List<RoadmapTask> greyBeltTasks = new();
+    private List<RoadmapTask> blueBeltTasks = new();
+    private List<RoadmapTask> blackBeltTasks = new();
+
+    private List<int> completedProjects = new();
+    private List<int> mauiProjects = new();
+    private List<int> angularProjects = new();
+    private List<int> blazorProjects = new();
+    private List<int> reactProjects = new();
+    private List<int> mvcProjects = new();
+
+    private string userId = "";
+    private int reviewsCount = 0;
+    private int issuesCount = 0;
+    private Level UserLevel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = ProjectHelper.GetProjects();
+        articles = ArticleHelper.GetArticles();
+        issues = IssueHelper.GetIssues();
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        UserLevel = await UserService.GetUserLevel(userId);
+
+        completedProjects = await ProjectService.GetCompletedProjectsById(userId);
+
+        var codeReviews = await PeerReviewService.GetCodeReviewDetails(userId);
+        reviewsCount = codeReviews.Where(x => x.IsCompleted).Count();
+
+        var availableIssues = issues.Select(x => x.ProjectId).ToList();
+        issuesCount = completedProjects.Where(x => availableIssues.Contains(x)).Count();
+
+        mvcProjects = projects.Where(x => x.Area == Area.MVC).Select(x => x.Id).ToList();
+        blazorProjects = projects.Where(x => x.Area == Area.Blazor).Select(x => x.Id).ToList();
+        angularProjects = projects.Where(x => x.Area == Area.Angular).Select(x => x.Id).ToList();
+        reactProjects = projects.Where(x => x.Area == Area.React).Select(x => x.Id).ToList();
+        mauiProjects = projects.Where(x => x.Area == Area.MAUI).Select(x => x.Id).ToList();
+
+        GetGreenBeltTasks();
+        GetOliveGreenBeltTasks();
+        GetYellowBeltTasks();
+        GetOrangeBeltTasks();
+        GetRedBeltTasks();
+        GetPurpleBeltTasks();
+        GetBrownBeltTasks();
+        GetGreyBeltTasks();
+        GetBlueBeltTasks();
+        GetBlackBeltTasks();
+        GetAllRequirements();
+    }
+
+    protected void GetAllRequirements()
+    {
+        greenBeltReqs.AddRange(new List<string>
+            {
+                "Read the 5 articles below",
+                "Complete Freecodecamp C# Certification",
+                "Complete Math Game project"
+            });
+        oliveGreenBeltReqs.AddRange(new List<string>
+            {
+                "Complete Calculator project",
+                "Complete Habit Logger project",
+                "Complete Coding Tracker project"
+            });
+        yellowBeltReqs.AddRange(new List<string>
+            {
+                "Complete Flashcards project",
+                "Complete Drinks Info project",
+                "Complete Phone Book project",
+                "Complete Shifts Logger project"
+            });
+        orangeBeltReqs.AddRange(new List<string>
+            {
+                "Complete Exercise Tracker project",
+                "Complete Sports Results notifier project",
+                "Complete Excel Reader project",
+                "Complete Unit Testing project"
+            });
+        redBeltReqs.AddRange(new List<string>
+            {
+                "Complete Portfolio project",
+                "Complete Resume project",
+                "Complete 2 Code Reviews",
+                "Complete 1 Community Project Issue"
+            });
+        purpleBeltReqs.AddRange(new List<string>
+            {
+                "Complete 1 Full-stack area",
+                "Complete 2 Code Reviews",
+                "Complete 1 Community Project Issue",
+            });
+        brownBeltReqs.AddRange(new List<string>
+            {
+                "Complete Auth Area",
+                "Complete 1 Full-stack area",
+                "Complete 3 Code Reviews",
+                "Complete 2 Community Project Issues",
+            });
+        greyBeltReqs.AddRange(new List<string>
+            {
+                "Complete SQL Challenges",
+                "Complete 5 Code Reviews",
+                "Complete 3 Community Project Issues",
+            });
+        blueBeltReqs.AddRange(new List<string>
+            {
+                "Complete Azure Area",
+                "Complete 5 Code Reviews",
+                "Complete 3 Community Project Issues",
+            });
+        blackBeltReqs.AddRange(new List<string>
+            {
+                "Complete two full-stack areas. One of them has to be MAUI",
+                "Complete 8 Code Reviews",
+                "Complete 5 Community Project Issues",
+            });
+
+    }
+
+    protected void GetGreenBeltTasks()
+    {
+        greenBeltTasks = articles
+        .Where(x => x.Level == Level.Green)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+
+        var greenBeltProjectTasks = projects
+        .Where(x => x.Level == Level.Green)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+
+        greenBeltTasks.AddRange(greenBeltProjectTasks);
+    }
+    protected void GetOliveGreenBeltTasks()
+    {
+        oliveGreenBeltTasks = projects
+        .Where(x => x.Level == Level.OliveGreen)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+    }
+    protected void GetYellowBeltTasks()
+    {
+        yellowBeltTasks = projects
+        .Where(x => x.Level == Level.Yellow)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+    }
+    protected void GetOrangeBeltTasks()
+    {
+        orangeBeltTasks = projects
+        .Where(x => x.Level == Level.Orange)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+    }
+    protected void GetRedBeltTasks()
+    {
+        redBeltTasks = projects
+        .Where(x => x.Level == Level.Red)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+
+        redBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 1",
+                IsCompleted = reviewsCount >= 1,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 2",
+                IsCompleted = reviewsCount >= 2,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 1",
+                IsCompleted = issuesCount >= 1
+            }
+            });
+    }
+    protected void GetPurpleBeltTasks()
+    {
+        purpleBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "mvc.png",
+                Name = "MVC",
+                IsCompleted =  mvcProjects.All(x => completedProjects.Contains(x)),
+                Subtasks = projects
+                .Where(x => x.Area == Area.MVC)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-react-100.png",
+                Name = "React",
+                IsCompleted = reactProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.React)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-angularjs-96.png",
+                Name = "Angular",
+                IsCompleted = angularProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.Angular)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "blazor.png",
+                Name = "Blazor",
+                IsCompleted = blazorProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.Blazor)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+        });
+        purpleBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 3",
+                IsCompleted = reviewsCount >= 3,
+
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 4",
+                IsCompleted = reviewsCount >= 4,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 2",
+                IsCompleted = issuesCount >= 2
+            }
+            });
+    }
+    protected void GetBrownBeltTasks()
+    {
+        brownBeltTasks = projects
+        .Where(x => x.Level == Level.Brown)
+        .Select(x => new RoadmapTask
+            {
+                IconUrl = x.IconUrl,
+                Name = x.Title,
+                IsCompleted = completedProjects.Contains(x.Id)
+            })
+            .ToList();
+
+        brownBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 5",
+                IsCompleted = reviewsCount >= 5,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 6",
+                IsCompleted = reviewsCount >= 6,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 7",
+                IsCompleted = reviewsCount >= 7,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 3",
+                IsCompleted = issuesCount >= 3
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 4",
+                IsCompleted = issuesCount >= 4
+            }
+            });
+    }
+    protected void GetGreyBeltTasks()
+    {
+        greyBeltTasks = projects
+      .Where(x => x.Level == Level.Grey)
+      .Select(x => new RoadmapTask
+          {
+              IconUrl = x.IconUrl,
+              Name = x.Title,
+              IsCompleted = completedProjects.Contains(x.Id)
+          })
+          .ToList();
+        greyBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 8",
+                IsCompleted = reviewsCount >= 8,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 9",
+                IsCompleted = reviewsCount >= 9,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 10",
+                IsCompleted = reviewsCount >= 10,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 11",
+                IsCompleted = reviewsCount >= 11,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 12",
+                IsCompleted = reviewsCount >= 12,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 5",
+                IsCompleted = issuesCount >= 5,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 6",
+                IsCompleted = issuesCount >= 6,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 7",
+                IsCompleted = issuesCount >= 7,
+            },
+        });
+    }
+    protected void GetBlueBeltTasks()
+    {
+        blueBeltTasks = projects
+       .Where(x => x.Level == Level.Blue)
+       .Select(x => new RoadmapTask
+           {
+               IconUrl = x.IconUrl,
+               Name = x.Title,
+               IsCompleted = completedProjects.Contains(x.Id)
+           })
+           .ToList();
+        blueBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 13",
+                IsCompleted = reviewsCount >= 13,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 14",
+                IsCompleted = reviewsCount >= 14,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 15",
+                IsCompleted = reviewsCount >= 15,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 16",
+                IsCompleted = reviewsCount >= 16,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 17",
+                IsCompleted = reviewsCount >= 17,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 8",
+                IsCompleted = issuesCount >= 8,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 9",
+                IsCompleted = issuesCount >= 9,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 10",
+                IsCompleted = issuesCount >= 10,
+            },
+        });
+    }
+    protected void GetBlackBeltTasks()
+    {
+        blackBeltTasks.AddRange(new List<RoadmapTask> {
+            new RoadmapTask {
+                IconUrl = "maui.png",
+                Name = "MAUI",
+                IsCompleted = mauiProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.MAUI)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "mvc.png",
+                Name = "MVC",
+                IsCompleted =  mvcProjects.All(x => completedProjects.Contains(x)),
+                Subtasks = projects
+                .Where(x => x.Area == Area.MVC)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-react-100.png",
+                Name = "React",
+                IsCompleted = reactProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.React)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-angularjs-96.png",
+                Name = "Angular",
+                IsCompleted = angularProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.Angular)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "blazor.png",
+                Name = "Blazor",
+                IsCompleted = blazorProjects.All(x => completedProjects.Contains(x)),
+                 Subtasks = projects
+                .Where(x => x.Area == Area.Blazor)
+                .Select(x => new RoadmapTask
+                    {
+                        IconUrl = x.IconUrl,
+                        Name = x.Title,
+                        IsCompleted = completedProjects.Contains(x.Id)
+                    })
+                    .ToList()
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 18",
+                IsCompleted = reviewsCount >= 18,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 19",
+                IsCompleted = reviewsCount >= 19,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 20",
+                IsCompleted = reviewsCount >= 20,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 21",
+                IsCompleted = reviewsCount >= 21,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 22",
+                IsCompleted = reviewsCount >= 22,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 23",
+                IsCompleted = reviewsCount >= 23,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 24",
+                IsCompleted = reviewsCount >= 24,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-magnifying-glass-64.png",
+                Name = "Code Review 25",
+                IsCompleted = reviewsCount >= 25,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 11",
+                IsCompleted = issuesCount >= 11,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 12",
+                IsCompleted = issuesCount >= 12,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 13",
+                IsCompleted = issuesCount >= 13,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 14",
+                IsCompleted = issuesCount >= 14,
+            },
+            new RoadmapTask {
+                IconUrl = "icons8-community-96.png",
+                Name = "Community Project Issue 15",
+                IsCompleted = issuesCount >= 15,
+            },
+        });
+    }
 }
+
+<style>
+    .modal-dialog-roadmap {
+        max-width: 900px;
+    }
+</style>

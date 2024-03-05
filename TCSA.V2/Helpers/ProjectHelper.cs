@@ -56,6 +56,7 @@ public static class ProjectHelper
         var projects = new List<Project>();
         return projects
             .Concat(StandAloneProjectsHelper.GetProjectsInKorean())
+            .Concat(ConsoleProjectsHelper.GetProjectsInKorean())
             .ToList();
     }
 

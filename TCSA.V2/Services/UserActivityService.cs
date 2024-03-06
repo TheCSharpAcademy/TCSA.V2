@@ -8,6 +8,8 @@ public interface IUserActivityService
 {
     Task PostUserActivity(AppUserActivity activity);
     Task<List<AppUserActivity>> GetActivityById(string userId);
+    Task<List<AppUserActivity>> GetLatestActivity();
+    Task<(int, int, int)> GetTodaysActivityCount();
 }
 public class UserActivityService : IUserActivityService
 {
@@ -62,6 +64,53 @@ public class UserActivityService : IUserActivityService
         {
             _logger.LogError(ex, $"Error in {nameof(GetActivityById)}");
             return null;
+        }
+    }
+
+    public async Task<List<AppUserActivity>> GetLatestActivity()
+    {
+        var thisWeek = DateTimeOffset.Now.AddDays(-3);
+
+        try 
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var activity = await context.UserActivity
+                    .OrderByDescending(x => x.DateSubmitted)
+                    .Where(x => x.DateSubmitted > thisWeek)
+                    .ToListAsync();
+
+                return activity ??= null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetLatestActivity)}");
+            return null;
+        }
+    }
+
+    public async Task<(int, int, int)> GetTodaysActivityCount()
+    {
+        var today = DateTimeOffset.Now.AddHours(-DateTime.Now.Hour);
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var articles = await context.UserActivity.CountAsync(x => x.DateSubmitted > today && x.ActivityType == ActivityType.ArticleRead);
+
+                var reviews = await context.UserActivity.CountAsync(x => x.DateSubmitted > today && x.ActivityType == ActivityType.ProjectSubmitted);
+
+                var completed = await context.UserActivity.CountAsync(x => x.DateSubmitted > today && x.ActivityType == ActivityType.ProjectCompleted);
+
+                return (articles, reviews, completed);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetTodaysActivityCount)}");
+            return (0,0,0);
         }
     }
 }

@@ -13,6 +13,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav me-auto mb-2 mb-lg-0">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <AuthorizeView Roles="Admin">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </AuthorizeView>
                      <AuthorizeView>
                         <NotAuthorized>
                             <li class="nav-item text-start">
@@ -21,11 +24,11 @@
                             <li class="nav-item text-start">
                                 <a class="nav-link" href="Account/Login">Login</a>
                             </li>
+                        </NotAuthorized>
+                        <Authorized>
                             <li class="nav-item text-start">
                                 <a text-start class="nav-link" href="/admin/dataseed">Seed</a>
                             </li>
-                        </NotAuthorized>
-                        <Authorized>
                             <li class="nav-item text-start">
                                 <a text-start class="nav-link" href="/Dashboard">Dashboard</a>
                             </li>

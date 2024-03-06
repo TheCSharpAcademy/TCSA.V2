@@ -1,6 +1,7 @@
 ﻿@page "/admin/dataseed"
 @using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
+<!--attribute [Authorize(Roles = "Admin")]-->
 
 <div class="form-group mt-5">
     <EditForm Model="Model" OnValidSubmit="Submit" FormName="DataSeedForm">

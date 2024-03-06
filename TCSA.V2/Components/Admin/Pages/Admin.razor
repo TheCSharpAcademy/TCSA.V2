@@ -1,9 +1,12 @@
 ﻿@page "/admin"
+@using Microsoft.AspNetCore.Authorization
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
 @layout AdminLayout
 @rendermode InteractiveServer
+
+<!--attribute [Authorize(Roles = "Admin")]-->
 
 <div class="dashboard-content-wrapper col-md-8 col-lg-8 col-sm-12">
 

@@ -1,6 +1,7 @@
 ﻿@page "/admin/{UserId}"
 @layout AdminLayout
 @rendermode InteractiveServer
+<!--attribute [Authorize(Roles = "Admin")]-->
 
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.UI.Services

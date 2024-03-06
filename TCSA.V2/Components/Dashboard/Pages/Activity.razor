@@ -46,6 +46,7 @@
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IUserActivityService ActivityService { get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
     private List<AppUserActivity>? Activities { get; set; } = null;
     private List<Article>? Articles;
@@ -55,11 +56,17 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
         Projects = ProjectHelper.GetProjects();
         Articles = ArticleHelper.GetArticles();
         Issues = IssueHelper.GetIssues();
 
-        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         Activities = await ActivityService.GetActivityById(userId);

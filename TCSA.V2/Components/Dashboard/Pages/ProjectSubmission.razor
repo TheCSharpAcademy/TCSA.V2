@@ -59,6 +59,7 @@ else
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private IUserActivityService ActivityService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
     private List<int> DashboardProjects;
     private List<Project> ProjectsNotCompleted = new();
@@ -74,6 +75,11 @@ else
         Model ??= new();
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
 
         if (AuthSate.User.Identity.IsAuthenticated)
         {

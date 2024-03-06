@@ -51,10 +51,6 @@ h1:focus {
     border-color: #929292;
 }
 
-.area-title {
-    max-width: 250px;
-}
-
 @media (max-width: 992px) {
     .title-desktop {
         display: none !important;

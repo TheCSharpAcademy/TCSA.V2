@@ -1,4 +1,10 @@
 ﻿@page "/admin/{UserId}"
+@layout AdminLayout
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.UI.Services
+@using SendGrid.Helpers.Mail
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
@@ -212,7 +218,7 @@
     [Inject] protected ILeaderboardService LeaderboardService { get; set; }
     [Inject] protected IAdminService AdminService { get; set; }
     [Inject] protected IPeerReviewService PeerReviewService { get; set; }
-    //[Inject] protected IEmailSender EmailSender { get; set; }
+    [Inject] protected IEmailSender EmailSender { get; set; }
 
     private ApplicationUser User { get; set; }
     private AdminDashboardProject adminDashboardProject = new();
@@ -289,13 +295,13 @@
 
         var project = projects.FirstOrDefault(x => x.Id == adminDashboardProject.ProjectId);
 
-        //var rankingText = LeaderboardHelpers.GetRanking(LeaderBoardService.GetUserRanking(UserId));
+        var rankingText = await LeaderboardService.GetUserRanking(UserId);
 
         var firstName = User.FirstName ??= "";
 
-        //var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText);
+        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText.ToString());
 
-        //await EmailSender.SendEmailAsync(User.Email, "Your Project Was Marked as Complete", body);
+        await EmailSender.SendEmailAsync(User.Email, "Your Project Was Marked as Complete", body);
 
         await GetXPSum();
     }
@@ -308,13 +314,13 @@
 
         var project = ProjectHelper.GetProjects().Single(x => x.Id == 75);
 
-        //var rankingText = LeaderboardHelpers.GetRanking(LeaderBoardService.GetUserRanking(UserId));
+        var rankingText = LeaderboardService.GetUserRanking(UserId);
 
         var firstName = User.FirstName ??= "";
 
-        //var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText);
+        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText.ToString());
 
-        //await EmailSender.SendEmailAsync(User.Email, "Your Freecodecamp Certification Project Was Marked as Complete", body);
+        await EmailSender.SendEmailAsync(User.Email, "Your Freecodecamp Certification Project Was Marked as Complete", body);
 
         await GetXPSum();
     }

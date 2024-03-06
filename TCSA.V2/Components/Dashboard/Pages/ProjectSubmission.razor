@@ -8,33 +8,49 @@
 @using TCSA.V2.Models
 @using TCSA.V2.Services
 
-<div class="form-group mt-5">
-    <EditForm Model="@Model" OnValidSubmit="Submit" FormName="SubmitProjectForm">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <InputSelect shadow rounded @bind-Value="Model.ProjectId" class="form-select">
-            <option selected>Open this select menu</option>
-            @foreach (var project in ProjectsNotCompleted)
-            {
-                <option value="@project.Id">@project.Area - @project.Title</option>
-            }
-        </InputSelect>
-
-        <label>Pull Request Url</label>
-        <InputText class="form-control" @bind-Value="Model.GithubUrl" />
-        <InputText hidden class="form-control" @bind-Value="Model.AppUserId" />
-        @if (IsSubmitting)
-        {
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+@if (IsProjectSubmittedMessageShowing)
+{
+    <div class="mt-5 pt-5">
+        <div class="card submit-project-card @(IsSubmissionSuccessful ? "bg-success" : "bg-danger")">
+            <div class="card-body">
+                Your project has been submitted for review.
             </div>
-        }
-        else
-        {
-            <button class="btn btn-outline-secondary submit-code-review-btn" type="submit">Submit</button>
-        }
-    </EditForm>
-</div>
+        </div>
+    </div>
+} 
+else
+{
+    <div class="form-group mt-5 pt-5">
+        <EditForm Model="@Model" OnValidSubmit="Submit" FormName="SubmitProjectForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <InputSelect shadow rounded @bind-Value="Model.ProjectId" class="form-select">
+                <option selected>Open this select menu</option>
+                @foreach (var project in ProjectsNotCompleted)
+                {
+                    <option value="@project.Id">@project.Area - @project.Title</option>
+                }
+            </InputSelect>
+
+            <div class="form-floating mt-1">
+                <InputText id="githubUrl" class="form-control" @bind-Value="Model.GithubUrl" />
+                <label for="githubUrl">Pull Request Url</label>
+            </div>
+
+            <InputText hidden class="form-control" @bind-Value="Model.AppUserId" />
+            @if (IsSubmitting)
+            {
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            }
+            else
+            {
+                <button class="btn btn-outline-secondary mt-1" type="submit">Submit</button>
+            }
+        </EditForm>
+    </div>
+}
 
 @code {
     [SupplyParameterFromForm]
@@ -48,6 +64,8 @@
     private List<Project> ProjectsNotCompleted = new();
 
     private bool IsSubmitting;
+    private bool IsProjectSubmittedMessageShowing;
+    private bool IsSubmissionSuccessful;
     private string ResultMessage;
     private string UserId;
 
@@ -82,6 +100,7 @@
         if (response == 1)
         {
             ResultMessage = "Your project was submitted successfuly";
+            IsSubmissionSuccessful = true;
 
             await ActivityService.PostUserActivity(new AppUserActivity
                 {
@@ -96,6 +115,14 @@
             ResultMessage = "There was an error when submitting your project";
         }
 
+        IsProjectSubmittedMessageShowing = true;
         IsSubmitting = false;
     }
 }
+
+<style>
+    .submit-project-card {
+        color: white;
+        font-weight: 500;
+    }
+</style>

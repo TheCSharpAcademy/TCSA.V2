@@ -85,7 +85,7 @@
 
     private void GetAreas()
     {
-        var areas = new List<Area> { Area.StartApplying, Area.MVC, Area.Angular, Area.React, Area.Blazor, Area.MAUI, Area.Auth, Area.Azure, Area.SQL };
+        var areas = new List<Area> { Area.StartApplying, Area.MVC, Area.Angular, Area.React, Area.Blazor, Area.MAUI, Area.Auth, Area.Azure, Area.SQL, Area.MonthlyChallenge };
 
         var titles = new List<string>
         {
@@ -97,7 +97,8 @@
             "maui-title.png",
             "aa-title.png",
             "azure-title.png",
-            "sql",
+            "SQL",
+            "Challenge Projects",
         };
 
         var descriptions = new List<string>
@@ -110,7 +111,8 @@
             "Learn this fantastic technology to build apps for Android, iOS, MacOs and Windows.",
             "Learn to secure applications using .NET/C#",
             "Get started in cloud computing deploying applications to Microsoft's state-of-the-art cloud solution.",
-            "Learn the language used to communicate with databases."
+            "Learn the language used to communicate with databases.",
+            "Test your knowledge with a monthly challenge provided by a real-world company given to job candidates"
         };
 
         for (int i = 0; i < areas.Count; i++)

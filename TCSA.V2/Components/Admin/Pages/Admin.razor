@@ -26,7 +26,7 @@
                         <td>@DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted)</td>
                         <td>@DateTimeHelper.GetTime((DateTimeOffset)item.DateSubmitted)</td>
                         <td>@((MarkupString)(GetDescription(item, item.AppUserId)))</td>
-                        <td><a class="btn btn-success btn-side" href=@($"user/{item.AppUserId}")>View</a></td>
+                        <td><a class="btn btn-success btn-side" href=@($"admin/{item.AppUserId}")>View</a></td>
                     </tr>
                 }
             </tbody>

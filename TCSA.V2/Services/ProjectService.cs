@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using TCSA.V2.Data;
+using TCSA.V2.Helpers;
 using TCSA.V2.Models;
 
 namespace TCSA.V2.Services;
@@ -11,6 +12,7 @@ public interface IProjectService
     Task<int> PostArticle(DashboardProject project);
     Task<List<int>> GetCompletedProjectsById(string userId);
     Task<List<DashboardProject>> GetDetailedProjectsById(string userId);
+    Task<int> MarkCertificateAsCompleted(string userId, int currentPoints);
 }
 public class ProjectService : IProjectService
 {
@@ -110,4 +112,42 @@ public class ProjectService : IProjectService
             return 0;
         }
     }
+
+    public async Task<int> MarkCertificateAsCompleted(string userId, int currentPoints)
+    {
+        var project = ProjectHelper.GetProjects().Single(x => x.Id == 75);
+
+        using (var context = _factory.CreateDbContext())
+        {
+            var dashboardProject = new DashboardProject
+            {
+                ProjectId = 75,
+                AppUserId = userId,
+                DateSubmitted = DateTime.UtcNow,
+                IsCompleted = true,
+                IsPendingNotification = true,
+                IsPendingReview = false,
+                DateRequestedChange = DateTime.UtcNow,
+                GithubUrl = "Not applicable"
+            };
+
+            context.DashboardProjects
+                .Add(dashboardProject);
+
+            context.UserActivity.Add(new AppUserActivity
+            {
+                ProjectId = 75,
+                AppUserId = userId,
+                DateSubmitted = DateTime.UtcNow,
+                ActivityType = ActivityType.ProjectCompleted
+            });
+
+            context.Users
+                .Where(x => x.Id == userId)
+                .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, project.ExperiencePoints + currentPoints));
+
+            return await context.SaveChangesAsync();
+        }
+    }
+
 }

@@ -14,6 +14,10 @@ public interface IUserService
     Task<BaseResponse> UpdateProfile(AppUserForProfile user);
     Task<Level> GetUserLevel(string userId);
     Task<int> GetTodaysUserCount();
+    Task UpdateBelt(string id, int level);
+    Task<int> AddExperiencePoints(string id, int experiencePoints);
+    Task ActivateAccount(string userId);
+    Task<ApplicationUser> GetDetailedUserById(string id);
 }
 
 public class UserService : IUserService
@@ -27,6 +31,45 @@ public class UserService : IUserService
         _logger = logger;
     }
 
+    public async Task ActivateAccount(string userId)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                 .Where(x => x.Id == userId)
+                 .ExecuteUpdateAsync(y => y
+                    .SetProperty(u => u.EmailConfirmed, true));
+
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<int> AddExperiencePoints(string id, int experiencePoints)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(y => y.SetProperty(u => u.ExperiencePoints, experiencePoints));
+
+            return await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task UpdateBelt(string id, int level)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                 .Where(x => x.Id == id)
+                 .ExecuteUpdateAsync(y => y
+                    .SetProperty(u => u.Level, (Level)level)
+                    .SetProperty(u => u.HasPendingBeltNotification, true));
+
+            await context.SaveChangesAsync();
+        }
+    }
+
     public async Task<ApplicationUser> GetUserById(string id)
     {
         try
@@ -34,6 +77,25 @@ public class UserService : IUserService
             using (var context = _factory.CreateDbContext())
             {
                 return await context.AspNetUsers
+                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUserById)}");
+            return null;
+        }
+    }
+
+    public async Task<ApplicationUser> GetDetailedUserById(string id)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.AspNetUsers
+                .Include(x => x.DashboardProjects)
+                .Include(x => x.CodeReviewProjects)
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
             }
         }

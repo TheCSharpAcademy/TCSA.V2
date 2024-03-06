@@ -1,11 +1,12 @@
 ﻿@page "/admin/search"
+@layout AdminLayout
+@rendermode InteractiveServer
+
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
-@layout AdminLayout
-@rendermode InteractiveServer
 
 <div class="form-group">
     <EditForm Model="@searchForm" OnValidSubmit="SearchUser">
@@ -57,7 +58,7 @@
                 <th scope="row">@user.Id</th>
                 <td>@user.LastName, @user.FirstName</td>
                 <td>@user.ExperiencePoints</td>
-                <td><a class="btn btn-success btn-side" href=@($"user/{user.Id}")>View</a></td>
+                <td><a class="btn btn-success btn-side" href=@($"admin/{user.Id}")>View</a></td>
             </tr>
         }
     </tbody>

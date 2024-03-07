@@ -1,14 +1,13 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Models
 
-<div class="row horizontal-card horizontal-card-desktop shadow rounded-sm d-flex align-items-center @Status">
-    <div class="row g-0">
-        <div class="col-md-1">
-            <img src="img/Cards/@Project.IconUrl" class="img-fluid card-img horizontal-card-img" alt="...">
+<div class="m-1 row horizontal-card shadow rounded-sm d-flex align-items-center @Status">
+    <div class="row g-0 horizontal-card-desktop-project">
+        <div class="col-md-2">
+            <img src="img/Cards/@Project.IconUrl" width="60" alt="...">
         </div>
-        <div class="col-md-5">
-            <p class="card-title-dashboard">@Project.Title</p>
-            <p class="project-card-text">@Project.Description</p>
+        <div class="col-md-4 title-wrapper">
+            <p class="card-title-dashboard-project mt-3">@Project.Title</p>
         </div>
         <div class="col-md-3 text-center">
             @if (Status == "completed")
@@ -22,8 +21,17 @@
                 <PendingReviewSVG />
             }
         </div>
-        <div class="col-md-3 d-flex align-items-center">
-            <a href="project/@Project.Id" class="btn view-project-btn" target="_blank">View Project</a>
+        <div class="col-md-3">
+            <div class="row text-center">
+                <div class="col-12 view-btn">
+                    <a href=@($"Project/{Project.Id}/{Project.Slug}")>
+                        <ViewProjectSVG />
+                        <div class="col-12 view-project-btn">
+                            View
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -34,18 +42,20 @@
 }
 
 <style>
-    .horizontal-card-desktop {
-        padding: 20px;
+    .horizontal-card-desktop-project{
+        padding: 15px 0 0 10px !important;
     }
 
-    .horizontal-card-img {
-        width: 60px;
-    }
-
-    .card-title-dashboard {
-        font-size: 18px;
+    .card-title-dashboard-project {
+        font-size: 20px;
         font-family: Roboto, sans-serif;
         color: #1C236D;
+        font-weight: 600;
+    }
+
+    .view-project-btn {
+        color: #1c236d;
+        font-size: 16px;
         font-weight: 600;
     }
 </style>

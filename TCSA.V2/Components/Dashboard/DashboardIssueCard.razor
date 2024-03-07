@@ -1,9 +1,10 @@
-﻿@using TCSA.V2.Models
+﻿@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Models
 
 <div class="row horizontal-card horizontal-card-desktop shadow rounded-sm @Status">
     <div class="row g-0">
         <div class="col-md-1">
-            <img src="img/@Issue.IconUrl" class="img-fluid card-img" alt="...">
+            <img src="img/cards/@Issue.IconUrl" class="img-fluid card-img" alt="...">
         </div>
         <div class="col-lg-4">
             <p class="card-title-dashboard">@Issue.Description</p>
@@ -21,7 +22,7 @@
             {
                 @if (!IsPendingReview)
                 {
-                    <ProjectAssigned />
+                    <ProjectAssignedSVG />
                 }
             }
         </div>
@@ -37,7 +38,7 @@
                 }
                 else
                 {
-                    <PendingReview />
+                    <PendingReviewSVG />
                 }
             }
         </div>

@@ -5,47 +5,47 @@
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
-<div class="nav-scrollable dashboard-menu pt-5" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable dashboard-menu pt-5 h-100" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard">
+            <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
                 <span class="bi bi-plus-square-fill-nav-menu"></span> Main
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/submit-project">
-                <SubmitProjectSVG /> Submit Project
+                <SubmitProjectSVG /> <span class="ms-1 dashboard-menu-item-text">Submit Project</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/roadmap">
-                <MapSVG /> Roadmap
+                <MapSVG /> <span class="ms-1">Roadmap</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/leaderboard">
-                <TrophySVG /> Leaderboard
+                <TrophySVG /> <span class="ms-1">Leaderboard</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/activity">
-                <ActivitySVG /> Activity
+                <ActivitySVG /> <span class="ms-1">Activity </span>
             </NavLink>
         </div> 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/profile">
-                <ProfileSVG /> Profile
+                <ProfileSVG /> <span class="ms-1"> Profile </span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/peer-reviews">
-                <PeerReviewsSVG /> Peer Reviews
+                <PeerReviewsSVG /> <span class="ms-1"> Peer Reviews </span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/community">
-                <CommunitySVG /> Community 
+                <CommunitySVG /> <span class="ms-1"> Community </span>
             </NavLink>
         </div>
     </nav>
@@ -75,5 +75,10 @@
 <style>
     .dashboard-menu {
         background-color: #1C236D;
+    }
+
+    .dashboard-menu-item-text {
+        font-size: 16px;
+        font-weight: 500;
     }
 </style>

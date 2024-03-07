@@ -121,7 +121,10 @@
 
 @code {
     [Parameter] public EventCallback OnClickCallback { get; set; }
+
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private IUserActivityService ActivityService { get; set; }
@@ -145,18 +148,16 @@
     protected override async Task OnInitializedAsync()
     {
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
         var claims = AuthSate.User;
         userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        try
-        {
-            user = await UserService.GetUserById(userId);
-            userProjects = await ProjectService.GetDetailedProjectsById(userId);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        user = await UserService.GetUserById(userId);
+        userProjects = await ProjectService.GetDetailedProjectsById(userId);
 
         projects = ProjectHelper.GetProjects();
         issues = IssueHelper.GetIssues()

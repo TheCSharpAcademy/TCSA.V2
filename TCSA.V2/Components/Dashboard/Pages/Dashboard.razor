@@ -43,6 +43,7 @@
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private IUserService UserService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
     private ApplicationUser User;
     private string UserId;
@@ -59,11 +60,13 @@
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
-        if (AuthSate.User.Identity.IsAuthenticated)
+        if (!AuthSate.User.Identity.IsAuthenticated)
         {
-            var claims = AuthSate.User;
-            UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-            User = await UserService.GetUserById(UserId);
+            NavigationManager.NavigateTo("Account/Login");
         }
+
+        var claims = AuthSate.User;
+        UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        User = await UserService.GetUserById(UserId);
     }
 }

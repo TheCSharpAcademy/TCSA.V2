@@ -51,7 +51,10 @@
 
 @code {
     [Parameter] public EventCallback OnClickCallback { get; set; }
+
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
@@ -66,20 +69,20 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
         projects = ProjectHelper.GetProjects();
 
-        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        try
-        {
-            User = await PeerReviewService.GetUserForPeerReview(userId);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+
+        User = await PeerReviewService.GetUserForPeerReview(userId);
 
         availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
     }

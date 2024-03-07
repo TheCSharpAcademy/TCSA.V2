@@ -103,10 +103,11 @@
 </div>
 
 @code {
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private ILeaderboardService LeaderboardService { get; set; }
-
-    [Parameter] public EventCallback OnClickCallback { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
     private List<AppUserForLeaderboard>? users { get; set; } = null;
 
@@ -120,6 +121,12 @@
     protected override async Task OnInitializedAsync()
     {
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
         var claims = AuthSate.User;
         userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 

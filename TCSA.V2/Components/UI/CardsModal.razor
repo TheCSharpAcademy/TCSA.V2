@@ -1,0 +1,57 @@
+﻿@using System.Linq
+@if (Steps)
+{
+    <div class="modal fade @(Steps ? "show" : "")" style="display: @(Steps ? "block" : "none")">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="ToggleSteps"></button>
+                    @ChildContent
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@code {
+    [Parameter] public bool Steps { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public Action ToggleSteps { get; set; }
+}
+
+<style>
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Dark background color */
+        overflow: hidden;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 120%;
+        position: relative;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>

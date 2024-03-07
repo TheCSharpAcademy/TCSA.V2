@@ -1,0 +1,41 @@
+﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+
+<HorizontalCard CardName=@CardName
+                IsComplete=@IsComplete
+                IconUrl=@IconUrl
+                Description=@Description
+                OnClickCallback="@ToggleSteps"
+                HasButton=true />
+
+@if (Steps)
+{
+    <div class="ps-3">
+       <CardsModal Steps="@Steps" ToggleSteps="@ToggleSteps">
+        @foreach (var project in Projects)
+        {
+            <DashboardProjectCard Project=@project
+                                  Status="completed" />
+        }
+        </CardsModal>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsComplete { get; set; }
+    [Parameter] public string CardName { get; set; }
+    [Parameter] public string IconUrl { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public IEnumerable<Project> Projects { get; set; }
+
+    private bool Steps;
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+    private void ToggleSteps() => Steps = !Steps;
+}

@@ -18,10 +18,11 @@
             <DashboardArticleCard Article="@article" Status="completed" />
         }
     </CardsModal>
-
 }
 
 @code {
+    [Parameter] public bool IsComplete { get; set; }
+
     private List<Article> Articles;
     private bool Steps;
 

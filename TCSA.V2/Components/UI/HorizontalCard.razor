@@ -1,5 +1,5 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
-<div class="row horizontal-card-desktop horizontal-card d-flex align-items-center shadow rounded-lg">
+<div class="row horizontal-card-desktop horizontal-card d-flex align-items-center shadow rounded @(IsComplete ? "completed" : "")">
     <div class="row g-0">
         <div class="col-sm-1 col-md-1 d-flex align-items-center">
             <img src="img/cards/@IconUrl" class="img-fluid horizontal-card-img" alt="...">
@@ -29,6 +29,14 @@
 }
 
 <style>
+    .completed {
+        border: green solid 2px;
+    }
+
+    .card-text {
+        margin: 0 0 0 10px;
+    }
+
     table {
         width: 100%;
     }
@@ -62,6 +70,7 @@
     }
 
     .card-title-dashboard {
+        margin: 0 0 0 10px;
         font-size: 18px;
         font-family: Roboto, sans-serif;
         color: #1C236D;

@@ -106,8 +106,8 @@
     [Parameter] public EventCallback OnClickCallback { get; set; }
 
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
-    [Inject] private ILeaderboardService LeaderboardService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private ILeaderboardService LeaderboardService { get; set; }
 
     private List<AppUserForLeaderboard>? users { get; set; } = null;
 

@@ -110,7 +110,7 @@ else
 
             await ActivityService.PostUserActivity(new AppUserActivity
                 {
-                    ProjectId = Model.Id,
+                    ProjectId = Model.ProjectId,
                     AppUserId = UserId,
                     DateSubmitted = DateTimeOffset.UtcNow,
                     ActivityType = ActivityType.ProjectSubmitted

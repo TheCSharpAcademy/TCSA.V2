@@ -15,7 +15,7 @@
     @if (User != null)
     {
         <DashboardHeader Level=@User.Level
-                         BeltImgUrl="/img/Belts/white-belt.png"
+                         BeltImgUrl=@($"/img/Belts/{User.Level}-belt.png")
                          FlagUrl=@FlagHelper.GetFlag(User.Country)
                          ExperiencePoints=@User.ExperiencePoints
                          Ranking=1

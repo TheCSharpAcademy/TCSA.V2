@@ -23,7 +23,7 @@
                     @foreach (var task in Tasks)
                     {
                         <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50")"
-                             src='img/@task.IconUrl' width='50'
+                             src='img/Cards/@task.IconUrl' width='50'
                              title=@(!task.IsCompleted ? task.Name : $"{task.Name} - Completed") />
                     }
                 </div>

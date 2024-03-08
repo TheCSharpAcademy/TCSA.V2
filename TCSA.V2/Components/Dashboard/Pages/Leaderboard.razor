@@ -10,7 +10,7 @@
 @using TCSA.V2.Models.DTOs
 @using TCSA.V2.Services
 
-<div class="mt-5">
+<div class="mt-5 pt-3">
     @if (users != null && !isLoading)
     {
         <nav aria-label="Page navigation example">
@@ -175,3 +175,82 @@
         }
     }
 }
+
+<style>
+    .how-it-works-wrapper {
+        padding: 30px;
+    }
+
+    p {
+        padding: 5px 0;
+    }
+
+    .img-faq {
+        padding: 20px 0;
+    }
+
+    .leaderboard-table {
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+
+    .belt-label {
+        display: inline-block;
+        color: black;
+    }
+
+    .belt-label-wrap {
+        white-space: nowrap;
+    }
+
+    .leaderboard-cell {
+        vertical-align: middle;
+    }
+
+    .index-cell {
+        width: 10% !important;
+    }
+
+    .country-cell {
+        width: 20% !important;
+    }
+
+    .img-xp-leaderboard {
+        padding-bottom: 5px;
+        margin-right: -5px;
+    }
+
+    .dashboard-flag {
+        margin-bottom: 5px;
+        border: 1px solid lightgrey;
+    }
+
+    .dashboard-belt {
+        margin-bottom: 5px;
+    }
+
+    .name-cell {
+        display: grid;
+    }
+
+    .name-cell-name {
+        grid-column-start: 1;
+        grid-row-start: 1
+    }
+
+    .name-cell-level {
+        grid-column-start: 1;
+        grid-row-start: 2;
+        color: gray;
+        font-size: 12px
+    }
+
+    .leaderboard-link {
+        color: #1C236D;
+    }
+
+    .is-user {
+        border: solid black 2px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); /* Adjust the values as needed */
+    }
+</style>

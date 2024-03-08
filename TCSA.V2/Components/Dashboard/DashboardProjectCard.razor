@@ -13,7 +13,6 @@
             @if (Status == "completed")
             {
                 <CheckCircleSVG />
-
                 <p class="card-text-complete"><small>Completed</small></p>
             }
             else if (Status == "pending-review")
@@ -24,7 +23,7 @@
         <div class="col-md-3">
             <div class="row text-center">
                 <div class="col-12 view-btn">
-                    <a href=@($"Project/{Project.Id}/{Project.Slug}")>
+                    <a target="_blank" href=@($"Project/{Project.Id}/{Project.Slug}")>
                         <ViewProjectSVG />
                         <div class="col-12 view-project-btn">
                             View

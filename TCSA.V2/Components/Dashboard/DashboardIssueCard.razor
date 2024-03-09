@@ -1,69 +1,69 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Models
 
-<div class="row horizontal-card horizontal-card-desktop shadow rounded-sm @Status">
-    <div class="row g-0">
-        <div class="col-md-1">
-            <img src="img/cards/@Issue.IconUrl" class="img-fluid card-img" alt="...">
+<div class="row p-2 horizontal-card-issue shadow rounded @Status">
+    <div class="col-md-2">
+        <img src="img/cards/@Issue.IconUrl" width="50" alt="...">
+    </div>
+    <div class="col-lg-6">
+        <div class-issue-description>
+            <p class="card-title-issue">@Issue.Description</p>
         </div>
-        <div class="col-lg-4">
-            <p class="card-title-dashboard">@Issue.Description</p>
-            <p class="project-card-text">@Issue.Type</p>
-            <span class="experience-points-issue">
-                <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
-                @Issue.ExperiencePoints
-            </span>
-        </div>
-        <div class="col-md-4 d-flex align-items-center justify-content-center">
-            @if (!IsAssigned)
-            {
-                <a href="@Issue.GithubUrl" target="_blank" class="btn community-btn">View Issue</a>
-            } else
-            {
-                @if (!IsPendingReview)
-                {
-                    <ProjectAssignedSVG />
-                }
-            }
-        </div>
-        <div class="col-md-3 d-flex align-items-center justify-content-start">
-            @if (!IsAssigned)
-            {
-                <button type="button" @onclick="OnAssignCallBack" target="_blank" class="btn community-btn">Assign Myself</button>
-            } else
-            {
-                @if (!IsPendingReview)
-                {
-                        <button type="button" @onclick="OnSubmitPullRequestCallBack" target="_blank" class="btn community-btn">Submit PR</button>
-                }
-                else
-                {
-                    <PendingReviewSVG />
-                }
-            }
+        <div class="experience-points-issue d-flex align-items-center">
+            <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
+            @Issue.ExperiencePoints
         </div>
     </div>
-</div>
-
-<div class="horizontal-card-mobile horizontal-card-mobile shadow rounded-3 @Status">
-    <table>
-        <tr>
-            <th class="icon"><img src="img/@Issue.IconUrl" class="img-fluid card-img" alt="..."></th>
-            <th class="text-th">
-                <p class="card-title-dashboard">@Issue.Description</p>
-                <p class="card-text"><small class="text-muted">@Title<a href="project/@Issue.">(View Project Page)</a></small></p>
-            </th>
-            <th class="button-th">
-                <div class="col-sm-1 col-md-3 d-flex align-items-center">
-                    <a href="@Issue.GithubUrl" target="_blank" class="btn btn-outline-secondary shadow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="%231C236D" class="bi bi-folder2-open" viewBox="0 0 16 16">
-                            <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14V3.5zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5V6zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7H1.633z" />
-                        </svg>
+    <div class="col-md-2 d-flex align-items-center justify-content-center">
+        @if (!IsAssigned)
+        {
+            <div class="row text-center">
+                <div class="col-12 view-btn">
+                    <a target="_blank" href=@Issue.GithubUrl>
+                        <ViewProjectSVG />
+                        <div class="col-12 view-project-btn">
+                            View
+                        </div>
                     </a>
                 </div>
-            </th>
-        </tr>
-    </table>
+            </div>
+        }
+    </div>
+    <div class="col-md-2 d-flex align-items-center justify-content-start">
+        @if (!IsAssigned)
+        {
+            <div class="row text-center">
+                <div class="col-12 view-btn">
+                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnAssignCallBack">
+                        <TakeSVG />
+                        <div class="col-12 view-project-btn">
+                            Take
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            @if (!IsPendingReview)
+            {
+                <div class="row text-center">
+                    <div class="col-12 submit-btn">
+                        <a target="_blank" href="" @onclick:preventDefault @onclick="OnSubmitPullRequestCallBack">
+                            <SubmitPRSVG />
+                            <div class="col-12 view-project-btn me-2">
+                                Submit
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <PendingReviewSVG />
+            }
+        }
+    </div>
 </div>
 
 @code {
@@ -77,6 +77,16 @@
 }
 
 <style>
+    .submit-btn {
+        margin-left: -10px;
+    }
+
+    .submit-project-btn {
+        color: #1c236d;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
     .is-assigned {
         border: darkgoldenrod solid 1px;
     }
@@ -85,16 +95,16 @@
         max-width: 50px !important;
     }
 
-    .horizontal-card {
+    .horizontal-card-issue {
         border-radius: 15px;
         margin: 5px 0 !important;
         transition: all 200ms ease-in-out;
     }
 
-    .card-title-dashboard {
+    .card-title-issue {
         padding-left: 10px;
-        font-size: 18px;
-        font-family: Roboto;
+        font-size: 16px;
+        font-family: Roboto, sans-serif;
         color: #1C236D;
         font-weight: 600;
     }
@@ -104,7 +114,7 @@
         margin-top: -15px !important;
     }
 
-    .card-text-complete { 
+    .card-text-complete {
         margin-bottom: -20px;
         font-size: 18px;
         color: green;
@@ -125,10 +135,6 @@
         filter: grayscale(100%);
     }
 
-    .completed {
-        border: green solid 2px;
-    }
-
     .community-btn {
         width: 150px;
         background-color: #1c236d;
@@ -138,13 +144,13 @@
     .project-card-text {
         padding-left: 10px !important;
         margin-top: -15px !important;
-        margin-bottom: -5px !important ;
+        margin-bottom: -5px !important;
         color: black !important;
         font-size: 15px;
     }
 
     .experience-points-issue {
-        margin-top: -10px;
+        margin-top: -20px !important;
         font-weight: 600;
     }
 

@@ -11,31 +11,28 @@
 @layout DashboardLayout
 @rendermode InteractiveServer
 
-<div class="mt-5">
+<div class="pt-5 mt-2">
     @if (User != null)
     {
         <DashboardHeader Level=@User.Level
-                         BeltImgUrl="/img/Belts/white-belt.png"
+                         BeltImgUrl=@($"/img/Belts/{User.Level}-belt.png")
                          FlagUrl=@FlagHelper.GetFlag(User.Country)
                          ExperiencePoints=@User.ExperiencePoints
                          Ranking=1
                          DisplayName=@User.DisplayName />
 
-        <DashboardFoundationsArea />
-
-        <DashboardConsoleArea />
-
-        <DashboardApplyForJobsArea />
-
-        <DashboardFullStackArea />
-
-        <DashboardAuthArea />
-
-        <DashboardCloudArea />
-
-        <DashboardSQLArea />
-
-        <DashboardChallengesArea />
+        <div class="row">
+            @foreach (var area in Areas)
+            {
+                <div class="col-6 dashboard-area-card">
+                    <DashboardAreaCard CardName=@area.CardName
+                                       IsComplete=@area.IsCompleted
+                                       IconUrl=@area.ImgUrl
+                                       Description=@area.Description
+                                       Projects="@area.Projects" />
+                </div>
+            }
+        </div>
     }
 </div>
 
@@ -50,8 +47,9 @@
     private bool FoundationSteps;
 
     private List<Article>? Articles;
-    private List<Project>? Projects;
+    private List<Project> Projects;
     protected List<DashboardAreaInfo> Areas = new();
+    private List<int>? CompletedProjects;
 
     protected async override Task OnInitializedAsync()
     {
@@ -68,5 +66,229 @@
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
+        CompletedProjects = await ProjectService.GetCompletedProjectsById(UserId);
+
+        var areaIconUrls = new List<string> { "" };
+
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Beginner Console",
+                ImgUrl = "icons8-mommy-and-me-classes-96.png",
+                Projects = Projects.Where(x => x.Area == Area.Console && x.Difficulty == Difficulty.Beginner),
+                Description = GetNotCompletedMessage(Area.Console, Difficulty.Beginner),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Beginner),
+            });
+
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Intermediate Console",
+                ImgUrl = "icons8-teenager-64.png",
+                Projects = Projects.Where(x => x.Area == Area.Console && x.Difficulty == Difficulty.Intermediate),
+                Description = GetNotCompletedMessage(Area.Console, Difficulty.Intermediate),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Intermediate)
+            });
+
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Advanced Console",
+                ImgUrl = "icons8-executive-64.png",
+                Projects = Projects.Where(x => x.Area == Area.Console && x.Difficulty == Difficulty.Advanced),
+                Description = GetNotCompletedMessage(Area.Console, Difficulty.Advanced),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Advanced)
+            });
+
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Start Applying",
+                ImgUrl = "icons8-permanent-job-96.png",
+                Projects = Projects.Where(x => x.Area == Area.StartApplying),
+                Description = GetNotCompletedMessage(Area.StartApplying, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.StartApplying, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "SQL",
+                ImgUrl = "icons8-sql-server-64.png",
+                Projects = Projects.Where(x => x.Area == Area.SQL),
+                Description = GetNotCompletedMessage(Area.SQL, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.SQL, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "ASP.NET Core MVC",
+                ImgUrl = "mvc.png",
+                Projects = Projects.Where(x => x.Area == Area.MVC),
+                Description = GetNotCompletedMessage(Area.MVC, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.MVC, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Auth Area",
+                ImgUrl = "icons8-authentication-100.png",
+                Projects = Projects.Where(x => x.Area == Area.Auth),
+                Description = GetNotCompletedMessage(Area.Auth, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Auth, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "React",
+                ImgUrl = "icons8-react-80.png",
+                Projects = Projects.Where(x => x.Area == Area.React),
+                Description = GetNotCompletedMessage(Area.React, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.React, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Angular",
+                ImgUrl = "icons8-angularjs-96.png",
+                Projects = Projects.Where(x => x.Area == Area.Angular),
+                Description = GetNotCompletedMessage(Area.Angular, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Angular, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Blazor",
+                ImgUrl = "blazor.png",
+                Projects = Projects.Where(x => x.Area == Area.Blazor),
+                Description = GetNotCompletedMessage(Area.Blazor, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Blazor, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "MAUI",
+                ImgUrl = "maui.png",
+                Projects = Projects.Where(x => x.Area == Area.MAUI),
+                Description = GetNotCompletedMessage(Area.MAUI, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.MAUI, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Cloud Development",
+                ImgUrl = "icons8-cloud-connection-480.png",
+                Projects = Projects.Where(x => x.Area == Area.Auth),
+                Description = GetNotCompletedMessage(Area.Auth, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Auth, null)
+            });
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Challenge Projects",
+                ImgUrl = "icons8-challenge-64.png",
+                Projects = Projects.Where(x => x.Area == Area.MonthlyChallenge),
+                Description = GetNotCompletedMessage(Area.MonthlyChallenge, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.MonthlyChallenge, null)
+            });
+
+
+    }
+
+    // TODO: Move this to helper and add unit test
+    private bool CheckIfAreaIsCompleted(Area area, Difficulty? difficulty)
+    {
+        if (difficulty != null)
+        {
+            var ids = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Select(x => x.Id).ToList();
+
+            foreach (int id in ids)
+            {
+                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                {
+                    return false;
+                }
+            }
+        }
+
+        if (area != Area.StartHere)
+        {
+            var projectIds = Projects.Where(x => x.Area == area).Select(x => x.Id);
+
+            foreach (int id in projectIds)
+            {
+                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            var articleIds = Articles.Where(x => x.Area == Area.StartHere).Select(x => x.Id);
+
+            foreach (int id in articleIds)
+            {
+                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private string GetNotCompletedMessage(Area? area, Difficulty? difficulty)
+    {
+        var count = 0;
+        var completedProjects = 0;
+
+        if (difficulty != null)
+        {
+            count = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Count();
+            var ids = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Select(x => x.Id).ToList();
+
+            foreach (int id in ids)
+            {
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
+                {
+                    completedProjects += 1;
+                }
+            }
+        }
+
+        if (area == Area.StartHere)
+        {
+            count = Articles.Where(x => x.Area == area).Count();
+            var ids = Articles.Where(x => x.Area == area).Select(x => x.Id).ToList();
+
+            foreach (int id in ids)
+            {
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
+                {
+                    completedProjects += 1;
+                }
+            }
+        }
+
+        else if (area == Area.SQL)
+        {
+            count = Projects.Where(x => x.Area == Area.SQL && !x.IsClosed).Count();
+            var ids = Projects.Where(x => x.Area == Area.SQL).Select(x => x.Id).ToList();
+
+            foreach (int id in ids)
+            {
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
+                {
+                    completedProjects += 1;
+                }
+            }
+        }
+        else
+        {
+            count = Projects.Where(x => x.Area == area).Count();
+            var ids = Projects.Where(x => x.Area == area).Select(x => x.Id).ToList();
+
+            foreach (int id in ids)
+            {
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
+                {
+                    completedProjects += 1;
+                }
+            }
+        }
+
+        return $"{completedProjects} out of {count} tasks completed";
     }
 }
+
+<style>
+
+</style>

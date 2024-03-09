@@ -1,8 +1,9 @@
 ﻿@page "/admin/{UserId}"
 @layout AdminLayout
 @rendermode InteractiveServer
-<!--attribute [Authorize(Roles = "Admin")]-->
+@attribute [Authorize(Roles = "Admin")]
 
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.UI.Services
 @using SendGrid.Helpers.Mail

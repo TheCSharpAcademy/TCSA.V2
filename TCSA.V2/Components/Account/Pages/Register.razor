@@ -109,6 +109,8 @@
         {
             var user = Activator.CreateInstance<ApplicationUser>();
             user.Country = "";
+            user.FirstName = "Anonymous";
+            user.LastName = "";
             return user;
         }
         catch

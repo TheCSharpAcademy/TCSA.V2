@@ -11,13 +11,11 @@
 @using TCSA.V2.Models.FormModels
 @using TCSA.V2.Services
 
-<div class="mt-5">
+<div class="mt-5 pt-3">
     @if (user != null)
     {
-        <DashboardProjectCard Project="@currentProject" />
-        if (issues != null)
-        {
-            if (projectSubmitted)
+        <div class="row">
+            @if (projectSubmitted)
             {
                 <CloseButtonSVG OnClickCallback="@DismissProjectSubmitted" />
                 <div class="horizontal-card card-success">
@@ -27,7 +25,7 @@
                 </div>
             }
 
-            if (userAssigned)
+            @if (userAssigned)
             {
                 <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
                 <div class="horizontal-card card-success">
@@ -37,7 +35,7 @@
                 </div>
             }
 
-            if (submitProject)
+            @if (submitProject)
             {
                 <div class="col horizontal-card submit-project-card shadow rounded-sm">
                     <CloseButtonSVG OnClickCallback="@CloseSubmitProjectForm" />
@@ -60,58 +58,47 @@
                     </div>
                 </div>
             }
-
-            if (issuesToShow != null)
-            {
-                foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
+        </div>
+        <div class="row">
+            <div class="col-6 issues-col">
+                <DashboardProjectCard Project="@PointOfSale" />
+                @if (issues != null)
                 {
-                    <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
-                                        Issue="issue"
-                                        Title="Bolotas"
-                                        IsAssigned="@CheckIfAssigned(issue.ProjectId)"
-                                        IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
-                                        OnAssignCallBack="@(() => AssignMyself(issue))"
-                                        OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
+                    if (issuesToShow != null)
+                    {
+                        foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
+                        {
+                            <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
+                                                Issue="issue"
+                                                Title="Bolotas"
+                                                IsAssigned="@CheckIfAssigned(issue.ProjectId)"
+                                                IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
+                                                OnAssignCallBack="@(() => AssignMyself(issue))"
+                                                OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
+                        }
+                    }
                 }
-            }
-        }
-        <DashboardProjectCard Project="@currentProject2" />
-        if (issues != null)
-        {
-            if (projectSubmitted)
-            {
-                <CloseButtonSVG OnClickCallback="@DismissProjectSubmitted" />
-                <div class="horizontal-card card-success">
-                    <div class="card-body card-body-success">
-                        Your project has been submitted for review.
-                    </div>
-                </div>
-            }
-
-            if (userAssigned)
-            {
-                <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
-                <div class="horizontal-card card-success">
-                    <div class="card-body card-body-success">
-                        You have been assigned to the issue. Don't forget to assign yourself to the issue on Github as well if you haven't yet.
-                    </div>
-                </div>
-            }
-
-            if (issuesToShow != null)
-            {
-                foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
+            </div>
+            <div class="col-6 issues-col">
+                <DashboardProjectCard Project="@AcademyV2" />
+                @if (issues != null)
                 {
-                    <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
-                                        Issue="issue"
-                                        Title="Bolotas"
-                                        IsAssigned="@CheckIfAssigned(issue.ProjectId)"
-                                        IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
-                                        OnAssignCallBack="@(() => AssignMyself(issue))"
-                                        OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
+                    if (issuesToShow != null)
+                    {
+                        foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
+                        {
+                            <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
+                                                Issue="issue"
+                                                Title="Bolotas"
+                                                IsAssigned="@CheckIfAssigned(issue.ProjectId)"
+                                                IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
+                                                OnAssignCallBack="@(() => AssignMyself(issue))"
+                                                OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
+                        }
+                    }
                 }
-            }
-        }
+            </div>
+        </div>
     }
     else
     {
@@ -142,8 +129,8 @@
     private bool userAssigned = false;
     private DashboardProject dashboardProject = new();
     private SubmitIssuePullRequestForm form = new();
-    private Project currentProject = new Project();
-    private Project currentProject2 = new Project();
+    private Project PointOfSale = new Project();
+    private Project AcademyV2 = new Project();
 
     protected override async Task OnInitializedAsync()
     {
@@ -172,8 +159,8 @@
             }
         }
 
-        currentProject = projects.FirstOrDefault(x => x.Id == 54);
-        currentProject2 = projects.FirstOrDefault(x => x.Id == 87);
+        PointOfSale = projects.Single(x => x.Id == 54);
+        AcademyV2 = projects.Single(x => x.Id == 87);
     }
 
     // TODO Change this in service
@@ -259,5 +246,9 @@
     .modal-dialog {
         margin-top: 100px;
         max-width: 750px;
+    }
+
+    .issues-col {
+        padding: 2px !important
     }
 </style>

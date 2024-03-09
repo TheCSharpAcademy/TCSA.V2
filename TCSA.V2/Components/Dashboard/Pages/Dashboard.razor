@@ -237,13 +237,11 @@
 
             foreach (int id in ids)
             {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
                 {
                     completedProjects += 1;
                 }
             }
-
-            return $"{completedProjects} out of {count} projects completed";
         }
 
         if (area == Area.StartHere)
@@ -253,13 +251,11 @@
 
             foreach (int id in ids)
             {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
                 {
                     completedProjects += 1;
                 }
             }
-
-            return $"{completedProjects}/{count} tasks completed";
         }
 
         else if (area == Area.SQL)
@@ -269,13 +265,11 @@
 
             foreach (int id in ids)
             {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
                 {
                     completedProjects += 1;
                 }
             }
-
-            return $"{completedProjects}/{count} projects completed";
         }
         else
         {
@@ -284,14 +278,14 @@
 
             foreach (int id in ids)
             {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
+                if (CompletedProjects != null && CompletedProjects.Contains(id))
                 {
                     completedProjects += 1;
                 }
             }
-
-            return $"{completedProjects}/{count} projects completed";
         }
+
+        return $"{completedProjects} out of {count} tasks completed";
     }
 }
 

@@ -1,8 +1,9 @@
 ﻿@page "/admin/search"
 @layout AdminLayout
 @rendermode InteractiveServer
-<!--attribute [Authorize(Roles = "Admin")]-->
+@attribute [Authorize(Roles = "Admin")]
 
+@using Microsoft.AspNetCore.Authorization
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models

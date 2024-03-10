@@ -12,17 +12,17 @@
 
 @if (Steps)
 {
-    <div class="ps-3">
-        <CloseButtonSVG OnClickCallback="@ToggleSteps" />
+    <CardsModal Steps="@Steps" ToggleSteps="@ToggleSteps">
         @foreach (var article in Articles.Where(x => x.Area == Area.StartHere))
         {
-            <DashboardArticleCard Article=@article
-                                  Status="completed" />
+            <DashboardArticleCard Article="@article" Status="completed" />
         }
-    </div>
+    </CardsModal>
 }
 
 @code {
+    [Parameter] public bool IsComplete { get; set; }
+
     private List<Article> Articles;
     private bool Steps;
 
@@ -33,3 +33,7 @@
 
     private void ToggleSteps() => Steps = !Steps;
 }
+
+<style>
+  
+</style>

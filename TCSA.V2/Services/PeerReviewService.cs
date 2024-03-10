@@ -9,12 +9,12 @@ namespace TCSA.V2.Services;
 
 public interface IPeerReviewService
 {
-    Task MarkCodeReviewAsCompleted (string reviewerId, int dashboardProjectId, string userId, int currentReviewersPoints);
-    Task<List<DashboardProject>> GetProjectsForPeerReview (string userId);
-    Task AssignUserToCodeReview (string userId, int id);
-    string GetRevieweeName (string revieweeId);
-    Task<ApplicationUser> GetUserForPeerReview (string reviewerId);
-    Task<List<CodeReviewDetail>> GetCodeReviewDetails (string userId);
+    Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId);
+    Task<List<DashboardProject>> GetProjectsForPeerReview(string userId);
+    Task AssignUserToCodeReview(string userId, int id);
+    string GetRevieweeName(string revieweeId);
+    Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
+    Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
 }
 public class PeerReviewService : IPeerReviewService
 {
@@ -27,14 +27,21 @@ public class PeerReviewService : IPeerReviewService
         _logger = logger;
     }
 
-    public async Task MarkCodeReviewAsCompleted (string reviewerId, int dashboardProjectId, string userId, int currentReviewersPoints)
+    public async Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId)
     {
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var reviewee = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
-                var currentPoints = reviewee.ExperiencePoints;
+                var currentRevieweePoints = context.Users
+                    .Where(x => x.Id == userId)
+                    .Select(x => x.ExperiencePoints)
+                    .FirstOrDefault();
+
+                var currentReviewerPoints = context.Users
+                   .Where(x => x.Id == reviewerId)
+                   .Select(x => x.ExperiencePoints)
+                   .FirstOrDefault();
 
                 var dashboardProject = await context.DashboardProjects.FirstOrDefaultAsync(x => x.Id == dashboardProjectId);
 
@@ -64,11 +71,11 @@ public class PeerReviewService : IPeerReviewService
 
                 context.Users
                     .Where(x => x.Id == dashboardProject.AppUserId)
-                    .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentPoints));
+                    .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentRevieweePoints));
 
                 context.Users
                     .Where(x => x.Id == reviewerId)
-                    .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentReviewersPoints));
+                    .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentReviewerPoints));
 
                 await context.SaveChangesAsync();
             }
@@ -118,6 +125,7 @@ public class PeerReviewService : IPeerReviewService
             await context.UserReviews.AddAsync(new UserReview
             {
                 AppUserId = userId,
+                ApplicationUserId = userId,
                 DashboardProjectId = id
             });
 
@@ -156,13 +164,8 @@ public class PeerReviewService : IPeerReviewService
             using (var context = _factory.CreateDbContext())
             {
                 return await context.AspNetUsers
-                    .Where(x => x.Id.Equals(reviewerId))
                     .Include(x => x.CodeReviewProjects)
-                    .Select(x => new ApplicationUser
-                    {
-                        ExperiencePoints = x.ExperiencePoints
-                    })
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(x => x.Id.Equals(reviewerId));
             }
         }
         catch (Exception ex)

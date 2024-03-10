@@ -1,0 +1,86 @@
+﻿@page "/admin/search"
+@layout AdminLayout
+@rendermode InteractiveServer
+@attribute [Authorize(Roles = "Admin")]
+
+@using Microsoft.AspNetCore.Authorization
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.Forms
+@using TCSA.V2.Services
+
+<div class="form-group">
+    <EditForm Model="@searchForm" OnValidSubmit="SearchUser">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder=" " @bind="searchForm.FirstName">
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder=" " @bind="searchForm.LastName">
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder=" " @bind="searchForm.Email">
+        </div>
+
+        <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id" placeholder=" " @bind="searchForm.Id">
+        </div>
+
+        <div class="mb-3">
+            <label for="discordAlias" class="form-label">Discord Alias</label>
+            <input type="text" class="form-control" id="discordAlias" placeholder=" " @bind="searchForm.DiscordAlias">
+        </div>
+        <button class="btn btn-outline-secondary" type="submit">Submit</button>
+
+    </EditForm>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">XPs</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            ++Ranking;
+            <tr>
+                <th scope="row">@user.Id</th>
+                <td>@user.LastName, @user.FirstName</td>
+                <td>@user.ExperiencePoints</td>
+                <td><a class="btn btn-success btn-side" href=@($"admin/{user.Id}")>View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Inject] private IAdminService AdminService { get; set; }
+
+    private SearchForm searchForm = new();
+    private List<ApplicationUser>? users = new();
+    private ApplicationUser? user = new ();
+
+    private bool userDetail = false;
+
+    private int Ranking;
+
+    private async Task SearchUser()
+    {
+        users = await AdminService.SearchUsers(searchForm);
+    }
+}
+
+

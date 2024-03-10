@@ -1,7 +1,8 @@
-﻿<div class="horizontal-card-desktop row horizontal-card d-flex align-items-center shadow rounded-sm">
+﻿@using TCSA.V2.Components.UI.SVGs
+<div class="row horizontal-card-desktop horizontal-card d-flex align-items-center shadow rounded @(IsComplete ? "completed" : "")">
     <div class="row g-0">
         <div class="col-sm-1 col-md-1 d-flex align-items-center">
-            <img src="img/cards/@IconUrl" class="img-fluid card-img" alt="...">
+            <img src="img/cards/@IconUrl" class="img-fluid horizontal-card-img" alt="...">
         </div>
         <div class="col-sm-8 @(HasButton ? "col-md-8" : "col-md-11")">
             <p class="card-title-dashboard">@CardName</p>
@@ -10,7 +11,9 @@
         @if (HasButton)
         {
             <div class="col-sm-1 col-md-3 d-flex align-items-center">
-                <button class="btn view-articles-btn" @onclick="OnClickCallback">View Projects</button>
+                <button class="btn view-articles-btn" @onclick="OnClickCallback">
+                    <DropdownSVG />
+                </button>
             </div>
         }
     </div>
@@ -24,3 +27,54 @@
     [Parameter] public bool IsComplete { get; set; }
     [Parameter] public bool HasButton { get; set; } = true;
 }
+
+<style>
+    .completed {
+        border: green solid 2px;
+    }
+
+    .card-text {
+        margin: 0 0 0 10px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .button-th {
+        text-align: right;
+        width: 10%
+    }
+
+    .text-th {
+        text-align: left;
+        width: 70%;
+    }
+
+    .icon-th {
+        text-align: center;
+        width: 20%;
+    }
+
+    .view-articles-btn {
+        background-color: #1c236d;
+        color: white;
+    }
+
+    .horizontal-card-desktop {
+        padding: 20px;
+    }
+
+    .horizontal-card-img {
+        width: 60px;
+    }
+
+    .card-title-dashboard {
+        margin: 0 0 0 10px;
+        font-size: 18px;
+        font-family: Roboto, sans-serif;
+        color: #1C236D;
+        font-weight: 600;
+    }
+
+</style>

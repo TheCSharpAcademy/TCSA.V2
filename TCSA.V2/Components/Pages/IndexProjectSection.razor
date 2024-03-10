@@ -2,10 +2,17 @@
 @using TCSA.V2.Models
 @using static TCSA.V2.Helpers.Enums
 
-<div class="container w-75">
+<div class="container mt-5">
     <div class="row d-flex justify-content-center text-center title">
-        <img class="area-title" src="img/Titles/@TitleImgUrl" />
-        <p id="mvc-area" class="lead">@Description</p>
+        @if (!string.IsNullOrEmpty(TitleImgUrl) && !TitleImgUrl.Contains("."))
+        {
+            <p class="title">@TitleImgUrl</p>
+        }
+        else if (!string.IsNullOrEmpty(TitleImgUrl))
+        {
+            <img class=@(TitleImgUrl.Contains("aa") ? "aa-title" : "area-title") src="img/Titles/@TitleImgUrl" />
+        }
+        <p id=@AnchorName class="lead">@Description</p>
     </div>
     <div class="row d-flex justify-content-center">
         @foreach (var project in Projects)
@@ -23,4 +30,20 @@
     [Parameter] public List<Project> Projects { get; set; }
     [Parameter] public string TitleImgUrl { get; set; }
     [Parameter] public string Description { get; set; }
+    [Parameter] public string AnchorName { get; set; }
 }
+
+<style>
+    .title {
+        font-size: 40px;
+        font-weight: 600
+    }
+
+    .aa-title {
+        max-width: 600px;
+    }
+
+    .area-title {
+        max-width: 250px;
+    }
+</style>

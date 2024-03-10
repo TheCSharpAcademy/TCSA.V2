@@ -11,7 +11,7 @@
 @using TCSA.V2.Models
 @using TCSA.V2.Services
 
-<div class="mt-5">
+<div class="mt-5 pt-3">
     @if (userAssigned)
     {
         <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
@@ -34,24 +34,31 @@
 
     @if (availableProjects != null)
     {
-        foreach (var project in availableProjects)
-        {
-            <DashboardReviewCard Status="@(@CheckIfAssigned(project.Id) ? "is-assigned" : "")"
-                                 Title=@GetProject(project.ProjectId).Title
-                                 Name=@GetName(project.AppUserId)
-                                 IconUrl=@GetProject(project.ProjectId).IconUrl
-                                 ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
-                                 GithubUrl=@project.GithubUrl
-                                 OnAssignCallBack="@(() => AssignMyself(project.Id))"
-                                 OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))" />
-        }
+        <div class="row">
+            @foreach (var project in availableProjects)
+            {
+                <div class="col-6">
+                    <DashboardReviewCard Status="@(@CheckIfAssigned(project.Id) ? "is-assigned" : "")"
+                                         Title=@GetProject(project.ProjectId).Title
+                                         Name=@GetName(project.AppUserId)
+                                         IconUrl=@GetProject(project.ProjectId).IconUrl
+                                         ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
+                                         GithubUrl=@project.GithubUrl
+                                         OnAssignCallBack="@(() => AssignMyself(project.Id))"
+                                         OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))" />
+                </div>
+            }
+        </div>
     }
 </div>
 
 
 @code {
     [Parameter] public EventCallback OnClickCallback { get; set; }
+
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
@@ -66,20 +73,19 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
         projects = ProjectHelper.GetProjects();
 
-        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        try
-        {
-            User = await PeerReviewService.GetUserForPeerReview(userId);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        User = await PeerReviewService.GetUserForPeerReview(userId);
 
         availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
     }
@@ -96,7 +102,7 @@
 
     private async Task MarkAsComplete(int dashboardProjectId, string id)
     {
-        await PeerReviewService.MarkCodeReviewAsCompleted(userId, dashboardProjectId, id, User.ExperiencePoints);
+        await PeerReviewService.MarkCodeReviewAsCompleted(userId, dashboardProjectId, id);
 
         projectCompleted = true;
 

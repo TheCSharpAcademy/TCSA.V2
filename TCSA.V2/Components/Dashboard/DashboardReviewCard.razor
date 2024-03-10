@@ -1,29 +1,55 @@
-﻿<div class="row horizontal-card horizontal-card-desktop shadow rounded-sm @Status">
-    <div class="row g-0">
-        <div class="col-md-1">
-            <img src="img/@IconUrl" class="img-fluid card-img" alt="...">
+﻿@using TCSA.V2.Components.UI.SVGs
+<div class="row horizontal-card-review shadow rounded @Status">
+    <div class="col-md-2">
+        <img src="img/cards/@IconUrl" width="60" alt="...">
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <p class="card-title-dashboard-review">@Title</p>
+        <p class="project-card-text">@Name</p>
+        <div class="experience-points-reviews d-flex align-items-center">
+            <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
+            @ExperiencePoints
         </div>
-        <div class="col-md-4 col-lg-4">
-            <p class="card-title-dashboard">@Title</p>
-            <p class="project-card-text">@Name</p>
-            <span class="experience-points-issue">
-                <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
-                @ExperiencePoints
-            </span>
+    </div>
+    <div class="col-md-3 d-flex align-items-center justify-content-center">
+        <div class="row text-center">
+            <div class="col-12 view-btn">
+                <a target="_blank" href=@GithubUrl>
+                    <ViewProjectSVG />
+                    <div class="col-12 dashboard-review-action-text">
+                        View PR
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <a href="@GithubUrl" target="_blank" class="btn community-btn">View PR</a>
-        </div>
-        <div class="col-md-3 d-flex align-items-center justify-content-start">
-            @if (Status != "is-assigned")
-            {
-                <button type="button" @onclick="OnAssignCallBack" target="_blank" class="btn community-btn">Assign Myself</button>
-            }
-            else
-            {
-                <button type="button" @onclick="OnMarkAsCompleteCallBack" target="_blank" class="btn btn-danger">Mark As Complete</button>
-            }
-        </div>
+    </div>
+    <div class="col-md-3 d-flex align-items-center justify-content-start">
+        @if (Status != "is-assigned")
+        {
+            <div class="row text-center">
+                <div class="col-12 view-btn">
+                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnAssignCallBack">
+                        <TakeSVG />
+                        <div class="col-12 dashboard-review-action-text">
+                            Take
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row text-center">
+                <div class="col-12 view-btn">
+                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsCompleteCallBack">
+                        <ApproveSVG />
+                        <div class="col-12 dashboard-review-action-approve">
+                            Approve
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -38,3 +64,97 @@
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
 }
 
+<style>
+    .dashboard-review-action-text {
+        color: #1C236D;
+    }
+
+    .dashboard-review-action-approve {
+        color: green;
+    }
+
+    .dashboard-review-action-take {
+        color: red;
+    }
+
+    .is-assigned {
+        border: darkgoldenrod solid 2px;
+    }
+
+    .card-img-top {
+        max-width: 50px !important;
+    }
+
+    .horizontal-card-review {
+        padding: 10px;
+        border-radius: 15px;
+        margin: 5px 0 !important;
+        transition: all 200ms ease-in-out;
+    }
+
+    .card-title-dashboard-review {
+        padding-left: 10px;
+        font-size: 18px;
+        font-family: Roboto, sans-serif;
+        color: #1C236D;
+        font-weight: 600;
+    }
+
+    .card-text {
+        padding-left: 10px !important;
+        margin-top: -15px !important;
+    }
+
+    .card-text-complete {
+        margin-bottom: -20px;
+        font-size: 18px;
+        color: green;
+        font-weight: 600;
+    }
+
+    .card-text-incomplete {
+        font-size: 18px;
+        color: red;
+    }
+
+    .incomplete-project {
+        max-width: 80px;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
+
+    .completed {
+        border: green solid 2px;
+    }
+
+    .community-btn {
+        background-color: #1c236d;
+        color: white;
+    }
+
+    .project-card-text {
+        padding-left: 10px !important;
+        margin-top: -15px !important;
+        margin-bottom: -5px !important;
+        color: black !important;
+        font-size: 15px;
+    }
+
+    .experience-points-reviews {
+        margin-top: 5px;
+        margin-left: 4px;
+        font-weight: 600;
+    }
+
+    .community-btn {
+        width: 150px;
+    }
+
+    .card-img {
+        margin-top: 10px;
+    }
+
+</style>

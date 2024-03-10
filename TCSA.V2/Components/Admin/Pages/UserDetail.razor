@@ -1,0 +1,409 @@
+﻿@page "/admin/{UserId}"
+@layout AdminLayout
+@rendermode InteractiveServer
+@attribute [Authorize(Roles = "Admin")]
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.UI.Services
+@using SendGrid.Helpers.Mail
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.DTOs
+@using TCSA.V2.Models.FormModels
+@using TCSA.V2.Services
+
+<div class="container container-dashboard">
+    @if (User != null)
+    {
+        <div class="row">
+            <div class="col shadow rounded user-detail-row">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>@UserId</td>
+                        </tr>
+                        <tr>
+                            <th>Discord</th>
+                            <td>@User.DiscordAlias</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>@User.FirstName @User.LastName</td>
+                        </tr>
+                        <tr>
+                            <th>Linkedin</th>
+                            <td><a target="_blank" href="@User.LinkedInUrl">@User.LinkedInUrl</a></td>
+                        </tr>
+                        <tr>
+                            <th>Github</th>
+                            <td><a target="_blank" href="https://github.com/@User.GithubUsername">@User.GithubUsername</a></td>
+                        </tr>
+                        <tr>
+                            <th>Country</th>
+                            <td>@User.Country</td>
+                        </tr>
+                        <tr>
+                            <th>E-mail</th>
+                            <td>@User.UserName</td>
+                        </tr>
+                        <tr>
+                            <th>XPs</th>
+                            <td>@User.ExperiencePoints</td>
+                        </tr>
+                        <tr>
+                            <th>Ranking</th>
+                            <td>@ranking</td>
+                        </tr>
+                        <tr>
+                            <th>Confirmed</th>
+                            <td>
+                                @if (User.EmailConfirmed)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+
+                                    <button @onclick="ActivateAccount" class="btn btn-success activate-account-button">Activate</button>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Freecodecamp Certification</th>
+                            <td>
+                                @if (User.DashboardProjects.Any(x => x.ProjectId == 75))
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+
+                                    <button @onclick="MarkCertificateAsComplete" class="btn btn-success activate-account-button">Activate</button>
+                                }
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Belt</th>
+                            <td>@((Level)User.Level)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row user-detail-row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @onclick="ResetUser">ResetUser</button>
+            </div>
+        </div>
+
+        <div class="row user-detail-row">
+            <div class="col">
+                <h3>Mark Project As Complete</h3>
+                <div class="form-group">
+                    <EditForm Model="@adminDashboardProject" OnValidSubmit="MarkProjectAsComplete">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <InputSelect shadow rounded @bind-Value="adminDashboardProject.ProjectId" class="form-select">
+                            <option selected>Open this select menu</option>
+                            @foreach (var project in projects.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.Id && y.IsPendingReview)))
+                            {
+                                <option value="@project.Id">@project.Area - @project.Title</option>
+                            }
+                        </InputSelect>
+                        <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                    </EditForm>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Mark Issue As Complete</h3>
+                <div class="form-group">
+                    <EditForm Model="@adminDashboardProject" OnValidSubmit="MarkProjectAsComplete">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <InputSelect shadow rounded @bind-Value="adminDashboardProject.ProjectId" class="form-select">
+                            <option selected>Open this select menu</option>
+                            @foreach (var issue in issues.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.Id && y.IsPendingReview)))
+                            {
+                                <option value="@issue.Id">@issue.Description</option>
+                            }
+                        </InputSelect>
+                        <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+        <div class="row user-detail-row">
+            <h3>Update Experience Points</h3>
+            <div class="form-group">
+                <EditForm Model="@addExperiencePointsForm" OnValidSubmit="UpdateExperiencePoints">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <p>
+                        <label>
+                            <InputNumber class="form-control" @bind-Value="addExperiencePointsForm.Points" />
+                        </label>
+                    </p>
+                    <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                </EditForm>
+            </div>
+        </div>
+
+        <div class="row user-detail-row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @onclick="UpdateBelt">UpdateBelt</button>
+            </div>
+        </div>
+
+        <div class="row user-detail-row">
+            <div class="col">
+                @if (User.DashboardProjects != null)
+                {
+                    <h4>Expected Points: @XPSum</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        @foreach (var dp in User.DashboardProjects.OrderBy(x => x.DateSubmitted))
+                        {
+                            <tr>
+                                <th scope="row">@GetTitle(dp.ProjectId)</th>
+                                <td>@dp.DateSubmitted</td>
+                                <td>@GetStatus(dp)</td>
+                            </tr>
+                        }
+                    </table>
+                }
+
+                @if (reviews != null)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        @foreach (var review in reviews)
+                        {
+                            <tr>
+                                <th scope="row">@GetTitle(review.ProjectId)</th>
+                                <td>@review.UserName</td>
+                                <td>@(review.IsCompleted ? "Completed" : "Pending")</td>
+                            </tr>
+                        }
+                    </table>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string UserId { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    [Inject] protected IUserService UserService { get; set; }
+    [Inject] protected IProjectService ProjectService { get; set; }
+    [Inject] protected ILeaderboardService LeaderboardService { get; set; }
+    [Inject] protected IAdminService AdminService { get; set; }
+    [Inject] protected IPeerReviewService PeerReviewService { get; set; }
+    [Inject] protected IEmailSender EmailSender { get; set; }
+
+    private ApplicationUser User { get; set; }
+    private AdminDashboardProject adminDashboardProject = new();
+    private AddExperiencePointsForm addExperiencePointsForm = new();
+
+    private List<Project>? projects;
+    private List<Article>? articles;
+    private List<Issue>? issues;
+    private List<CodeReviewDetail>? reviews;
+
+    private int XPSum;
+    private int ranking;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = ProjectHelper.GetProjects();
+        articles = ArticleHelper.GetArticles();
+        issues = IssueHelper.GetIssues();
+
+        try
+        {
+            User = await UserService.GetDetailedUserById(UserId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        if (User != null)
+        {
+            await GetXPSum();
+        }
+
+        ranking = await LeaderboardService.GetUserRanking(UserId);
+    }
+
+    private string GetTitle(int projectId)
+    {
+        if (projects.Any(x => x.Id == projectId))
+        {
+            return projects.Single(x => x.Id == projectId).Title;
+        }
+        else if (articles.Any(x => x.Id == projectId))
+        {
+            return articles.Single(x => x.Id == projectId).Title;
+        }
+        else
+        {
+            return issues.Single(x => x.Id == projectId).Description;
+        }
+
+    }
+
+    private string GetStatus(DashboardProject project)
+    {
+        @if (project.IsPendingReview)
+        {
+            return "Pending";
+        }
+
+        if (project.IsCompleted)
+        {
+            return "Completed";
+        }
+
+        return "";
+    }
+
+    private async Task MarkProjectAsComplete()
+    {
+        await AdminService.MarkProjectAsCompleted(adminDashboardProject.ProjectId, UserId, User.ExperiencePoints);
+
+        User = await UserService.GetUserById(UserId);
+
+        var project = projects.FirstOrDefault(x => x.Id == adminDashboardProject.ProjectId);
+
+        var rankingText = await LeaderboardService.GetUserRanking(UserId);
+
+        var firstName = User.FirstName ??= "";
+
+        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText.ToString());
+
+        await EmailSender.SendEmailAsync(User.Email, "Your Project Was Marked as Complete", body);
+
+        await GetXPSum();
+    }
+
+    private async Task MarkCertificateAsComplete()
+    {
+        await ProjectService.MarkCertificateAsCompleted(UserId, User.ExperiencePoints);
+
+        User = await UserService.GetUserById(UserId);
+
+        var project = ProjectHelper.GetProjects().Single(x => x.Id == 75);
+
+        var rankingText = LeaderboardService.GetUserRanking(UserId);
+
+        var firstName = User.FirstName ??= "";
+
+        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText.ToString());
+
+        await EmailSender.SendEmailAsync(User.Email, "Your Freecodecamp Certification Project Was Marked as Complete", body);
+
+        await GetXPSum();
+    }
+
+    private async Task UpdateBelt()
+    {
+        await UserService.UpdateBelt(UserId, (int)User.Level + 1);
+        User = await UserService.GetUserById(UserId);
+    }
+
+    private async Task UpdateExperiencePoints()
+    {
+        await UserService.AddExperiencePoints(UserId, addExperiencePointsForm.Points);
+        User = await UserService.GetUserById(UserId);
+    }
+
+    private async Task GetXPSum()
+    {
+        var ids = new List<int>();
+
+        var projectIds = User.DashboardProjects?
+           .Where(x => x.IsCompleted)
+           .Select(x => x.ProjectId)
+           .ToList();
+
+        if (projectIds != null)
+        {
+            ids.AddRange(projectIds);
+        }
+
+        if (User.CodeReviewProjects != null)
+        {
+            reviews = await PeerReviewService.GetCodeReviewDetails(UserId);
+        }
+
+        if (reviews != null)
+        {
+            var reviewIds = reviews
+          .Where(x => x.IsCompleted)
+          .Select(x => x.ProjectId)
+          .ToList();
+
+            ids.AddRange(reviewIds);
+        }
+
+        foreach (int id in ids)
+        {
+            if (projects.Any(x => x.Id == id))
+            {
+                XPSum = projects.Single(x => x.Id == id).ExperiencePoints + XPSum;
+            }
+            else if (articles.Any(x => x.Id == id))
+            {
+                XPSum = articles.Single(x => x.Id == id).ExperiencePoints + XPSum;
+            }
+            else
+            {
+                XPSum = issues.Single(x => x.Id == id).ExperiencePoints + XPSum;
+            }
+        }
+    }
+
+    private async Task ActivateAccount()
+    {
+        await UserService.ActivateAccount(User.Id);
+        User = await UserService.GetUserById(UserId);
+    }
+
+    private async Task ResetUser()
+    {
+        await AdminService.ResetUserData(UserId);
+        User = await UserService.GetUserById(UserId);
+    }
+}
+
+<style>
+    .activate-account-button {
+        margin-left: 10px;
+    }
+
+    .user-detail-row {
+        margin-bottom: 20px;
+    }
+</style>

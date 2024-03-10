@@ -7,7 +7,7 @@
 @using TCSA.V2.Models.DTOs
 @using TCSA.V2.Services
 
-<div class="mt-5">
+<div class="mt-5 pt-3">
     @if (profile != null)
     {
         @if (!UpdateSubmitted)
@@ -91,9 +91,12 @@
     [Parameter] public EventCallback OnClickCallback { get; set; }
 
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
     [Inject] private IUserService UserService { get; set; }
     [Inject] private ICountriesService CountriesService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
+
 
     private AppUserForProfile profile { get; set; }
 
@@ -105,19 +108,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        countries = await CountriesService.GetCountries();
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
+        countries = await CountriesService.GetCountries();
+
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        try
-        {
-            profile = await UserService.GetProfile(userId);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        profile = await UserService.GetProfile(userId);
+
     }
 
     private async Task Submit()

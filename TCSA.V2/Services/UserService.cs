@@ -9,10 +9,15 @@ namespace TCSA.V2.Services;
 
 public interface IUserService
 {
-    Task<ApplicationUser> GetUserById (string id);
-    Task<AppUserForProfile> GetProfile (string id);
-    Task<BaseResponse> UpdateProfile (AppUserForProfile user);
-    Task<Level> GetUserLevel (string userId);
+    Task<ApplicationUser> GetUserById(string id);
+    Task<AppUserForProfile> GetProfile(string id);
+    Task<BaseResponse> UpdateProfile(AppUserForProfile user);
+    Task<Level> GetUserLevel(string userId);
+    Task<int> GetTodaysUserCount();
+    Task UpdateBelt(string id, int level);
+    Task<int> AddExperiencePoints(string id, int experiencePoints);
+    Task ActivateAccount(string userId);
+    Task<ApplicationUser> GetDetailedUserById(string id);
 }
 
 public class UserService : IUserService
@@ -26,7 +31,46 @@ public class UserService : IUserService
         _logger = logger;
     }
 
-    public async Task<ApplicationUser> GetUserById (string id)
+    public async Task ActivateAccount(string userId)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                 .Where(x => x.Id == userId)
+                 .ExecuteUpdateAsync(y => y
+                    .SetProperty(u => u.EmailConfirmed, true));
+
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<int> AddExperiencePoints(string id, int experiencePoints)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(y => y.SetProperty(u => u.ExperiencePoints, experiencePoints));
+
+            return await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task UpdateBelt(string id, int level)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                 .Where(x => x.Id == id)
+                 .ExecuteUpdateAsync(y => y
+                    .SetProperty(u => u.Level, (Level)level)
+                    .SetProperty(u => u.HasPendingBeltNotification, true));
+
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<ApplicationUser> GetUserById(string id)
     {
         try
         {
@@ -43,7 +87,26 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<Level> GetUserLevel (string userId)
+    public async Task<ApplicationUser> GetDetailedUserById(string id)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.AspNetUsers
+                .Include(x => x.DashboardProjects)
+                .Include(x => x.CodeReviewProjects)
+                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUserById)}");
+            return null;
+        }
+    }
+
+    public async Task<Level> GetUserLevel(string userId)
     {
         try
         {
@@ -108,6 +171,7 @@ public class UserService : IUserService
         {
             response.Status = ResponseStatus.Fail;
             response.Message = ex.Message;
+            _logger.LogError(ex, $"Error in {nameof(UpdateProfile)}");
         }
 
         return response;
@@ -115,36 +179,65 @@ public class UserService : IUserService
 
     public async Task<AppUserForProfile> GetProfile (string id)
     {
-        using (var context = _factory.CreateDbContext())
+        try
         {
-
-            var appUserForProfile = await context.Users
-                .Where(x => x.Id == id)
-                .Select(x => new AppUserForProfile
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    LinkedInUrl = x.LinkedInUrl,
-                    CodeWarsUsername = x.CodeWarsUsername,
-                    GithubUsername = x.GithubUsername,
-                    DiscordAlias = x.DiscordAlias,
-                    DisplayName = x.DisplayName,
-                    Country = x.Country,
-                })
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            if (appUserForProfile == null)
+            using (var context = _factory.CreateDbContext())
             {
-                return null;
-            }
 
-            return appUserForProfile;
+                var appUserForProfile = await context.Users
+                    .Where(x => x.Id == id)
+                    .Select(x => new AppUserForProfile
+                    {
+                        Id = x.Id,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        LinkedInUrl = x.LinkedInUrl,
+                        CodeWarsUsername = x.CodeWarsUsername,
+                        GithubUsername = x.GithubUsername,
+                        DiscordAlias = x.DiscordAlias,
+                        DisplayName = x.DisplayName,
+                        Country = x.Country,
+                    })
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+                if (appUserForProfile == null)
+                {
+                    return null;
+                }
+
+                return appUserForProfile;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetProfile)}");
+            return null;
         }
     }
 
-    public async Task UpdateProfileProject (AppUserForProfile user, int currentPoints)
+    public async Task<int> GetTodaysUserCount()
+    {
+        var today = DateTimeOffset.Now.AddHours(-DateTime.Now.Hour);
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var td = await context.Users.Where(x => x.CreatedDate > today).ToListAsync();
+
+                return await context.Users
+                .CountAsync(x => x.CreatedDate > today);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUserLevel)}");
+            return 0;
+        }
+    }
+
+    public async Task UpdateProfileProject(AppUserForProfile user, int currentPoints)
     {
         var project = ProjectHelper.GetProjects().Single(x => x.Id == 85);
 
@@ -184,7 +277,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            Console.Write(ex.Message);
+            _logger.LogError(ex, $"Error in {nameof(GetUserLevel)}");
         }
     }
 }

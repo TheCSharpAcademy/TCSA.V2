@@ -1,6 +1,8 @@
-﻿@page "/Admin/Dataseed"
+﻿@page "/admin/dataseed"
+@using Microsoft.AspNetCore.Authorization
 @using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
+@attribute [Authorize(Roles = "Admin")]
 
 <div class="form-group mt-5">
     <EditForm Model="Model" OnValidSubmit="Submit" FormName="DataSeedForm">
@@ -9,6 +11,10 @@
         <div class="form-floating">
             <InputNumber id="numberOfUsers" class="form-control number-input" @bind-Value="Model.NumberOfUsers" />
             <label for="numberOfUsers">Number of Users</label>
+        </div>
+        <div class="form-floating">
+            <InputNumber id="numberOfProjects" class="form-control number-input" @bind-Value="Model.NumberOfProjects" />
+            <label for="numberOfProjects">Number of Projects</label>
         </div>
         <button class="btn btn-outline-secondary" type="submit">Submit</button>
     </EditForm>

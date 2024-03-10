@@ -5,6 +5,7 @@
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
 
 @inject UserManager<ApplicationUser> UserManager
@@ -19,38 +20,58 @@
 
 <h1>Register</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
-            <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </EditForm>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
+<div class="container d-flex justify-content-center mt-5 pt-3">
+    <div class="row w-75">
+        <div class="col-md-6">
+            <StatusMessage Message="@Message" />
+            <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+                <DataAnnotationsValidator />
+                <h2>Create a new account</h2>
+                <ValidationSummary class="text-danger" role="alert" />
+                <div class="form-floating mb-3">
+                    <InputText @bind-Value="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true" placeholder="" />
+                    <label for="lastname">Last Name</label>
+                    <ValidationMessage For="() => Input.LastName" class="text-danger" />
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText @bind-Value="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true" placeholder="" />
+                    <label for="firstname">First Name</label>
+                    <ValidationMessage For="() => Input.FirstName" class="text-danger" />
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label for="email">Email</label>
+                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label for="password">Password</label>
+                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label for="confirm-password">Confirm Password</label>
+                    <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary submit-button">Register</button>
+            </EditForm>
+        </div>
+        <div class="col-md-6 col-md-offset-2 d-flex justify-content-center">
+            <section>
+                <h3>Or Use Github</h3>
+                <form class="form-horizontal" action="Account/PerformExternalLogin" method="post">
+                    <div class="d-flex justify-content-center">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
+                        <p>
+                            <button type="submit" class="btn btn-dark btn-lg border-dark rounded" name="provider" value="GitHub" title="Log in using your Github account">
+                                <GithubSVG />
+                            </button>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
     </div>
 </div>
 
@@ -68,7 +89,6 @@
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
-        user.Country = "";
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -109,6 +129,10 @@
         {
             var user = Activator.CreateInstance<ApplicationUser>();
             user.Country = "";
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            user.Level = Level.White;
+            user.CreatedDate = DateTimeOffset.UtcNow;
             return user;
         }
         catch
@@ -130,6 +154,14 @@
     private sealed class InputModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; } = "";
@@ -146,3 +178,10 @@
         public string ConfirmPassword { get; set; } = "";
     }
 }
+
+<style>
+    .submit-button {
+        background-color: #1D256E;
+        color: white;
+    }
+</style>

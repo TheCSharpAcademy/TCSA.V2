@@ -1,87 +1,102 @@
-﻿@page "/Admin"
+﻿@page "/admin"
+@using Microsoft.AspNetCore.Authorization
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Services
 @layout AdminLayout
+@rendermode InteractiveServer
+@attribute [Authorize(Roles = "Admin")]
 
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
-<h3>Dashboard</h3>
+<div class="dashboard-content-wrapper col-md-8 col-lg-8 col-sm-12">
+
+    <h1>Completed Projects: <b>@completedCount</b></h1>
+
+    @if (activity != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in activity)
+                {
+                    <tr>
+                        <td>@DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted)</td>
+                        <td>@DateTimeHelper.GetTime((DateTimeOffset)item.DateSubmitted)</td>
+                        <td>@((MarkupString)(GetDescription(item, item.AppUserId)))</td>
+                        <td><a class="btn btn-success btn-side" href=@($"admin/{item.AppUserId}")>View</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
 
 @code {
+    [Inject] protected IUserService UserService { get; set; }
+    [Inject] protected IUserActivityService ActivityService { get; set; }
 
+    [Inject] public AuthenticationStateProvider AuthenticationState { get; set; }
+
+    private List<AppUserActivity>? activity { get; set; } = null;
+    private List<Article>? articles;
+    private List<Project>? projects;
+    private List<Issue>? issues;
+
+    private int userCount;
+    private int articlesCount;
+    private int reviewsCount;
+    private int completedCount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = ProjectHelper.GetProjects();
+        articles = ArticleHelper.GetArticles();
+        issues = IssueHelper.GetIssues();
+        activity = await ActivityService.GetLatestActivity();
+        userCount = await UserService.GetTodaysUserCount();
+
+        var activityCount = await ActivityService.GetTodaysActivityCount();
+        articlesCount = activityCount.Item1;
+        reviewsCount = activityCount.Item2;
+        completedCount = activityCount.Item3;
+
+    }
+
+    private string GetDescription(AppUserActivity activity, string appUserId)
+    {
+        if (activity != null)
+        {
+            switch (activity.ActivityType)
+            {
+                case ActivityType.ArticleRead:
+                    return $"<span class='activity-completed'>User {appUserId} marked <b>{articles.FirstOrDefault(x => x.Id == activity.ProjectId)?.Title}</b> as read.<span>";
+                case ActivityType.ProjectSubmitted:
+                    return $"<span class='activity-pending'>User {appUserId} submitted the Project <b>{projects.FirstOrDefault(x => x.Id == activity.ProjectId)?.Title}</b> for review.</span>";
+                case ActivityType.IssueSubmitted:
+                    return $"<span class='activity-pending'>User {appUserId} submitted the Issue <b>{issues.FirstOrDefault(x => x.Id == activity.ProjectId)?.Description}</b> for review.</span>";
+                case ActivityType.ProjectCompleted:
+                    return GetTitle(appUserId, activity.ProjectId);
+                default:
+                    return "";
+            }
+        }
+
+        return "";
+    }
+
+    private string GetTitle(string appUserId, int projectId)
+    {
+        if (String.IsNullOrEmpty(projects.FirstOrDefault(x => x.Id == projectId)?.Title))
+        {
+            return $"<span class='project-completed'>You marked {appUserId}'s issue <b>{issues.FirstOrDefault(x => x.Id == projectId)?.Description}</b> as complete.</span>";
+        }
+
+        return $"<span class='project-completed'>You marked {appUserId}'s project <b>{projects.FirstOrDefault(x => x.Id == projectId)?.Title}</b> as complete.</span>";
+    }
 }

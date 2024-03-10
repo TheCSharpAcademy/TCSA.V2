@@ -13,6 +13,7 @@ internal static class OpenSourceProjectsHelper
                 Title = "Point Of Sale",
                 IconUrl = "icons8-point-of-sale-64.png",
                 BannerUrl = "",
+                Slug = "point-of-sale",
                 Description = "Help create a Point of Sale app along with the C# Academy community. See available issues below:",
                 Area = Area.OpenSource,
                 Difficulty = Difficulty.Beginner,
@@ -59,9 +60,10 @@ internal static class OpenSourceProjectsHelper
             new Project
             {
                 Id = 87,
-                Title = "The C# Academy Rebuild",
+                Title = "Academy V2",
                 IconUrl = "icons8-construction-64.png",
                 BannerUrl = "",
+                Slug = "academy-upgrade",
                 Description = "Help create The New C# Academy Website. See available issues below:",
                 Area = Area.OpenSource,
                 Difficulty = Difficulty.Beginner,

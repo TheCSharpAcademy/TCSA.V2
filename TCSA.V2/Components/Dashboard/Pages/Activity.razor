@@ -46,6 +46,7 @@
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IUserActivityService ActivityService { get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
     private List<AppUserActivity>? Activities { get; set; } = null;
     private List<Article>? Articles;
@@ -55,11 +56,17 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
         Projects = ProjectHelper.GetProjects();
         Articles = ArticleHelper.GetArticles();
         Issues = IssueHelper.GetIssues();
 
-        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         Activities = await ActivityService.GetActivityById(userId);
@@ -69,3 +76,81 @@
         });
     }
 }
+
+<style>
+    .article-read {
+        color: white;
+        background-color: green !important;
+    }
+
+    .project-submitted {
+        background-color: gold !important;
+    }
+
+    .project-completed {
+        background-color: navy !important;
+        color: white;
+    }
+
+    .issue-submitted {
+        background-color: orangered !important;
+        color: white;
+    }
+
+    .review-completed {
+        background-color: purple !important;
+        color: white;
+    }
+
+    .modal-dialog {
+        margin-top: 100px;
+        max-width: 1000px;
+    }
+
+    .day-of-the-week {
+        font-size: 14px;
+    }
+
+    .day-of-the-week-cell {
+        margin-top: -5px;
+    }
+
+    .activity-cell {
+        vertical-align: middle;
+    }
+
+    .xp-cell {
+        vertical-align: middle;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 4px;
+    }
+
+    .date-cell {
+        width: 20%;
+        border: none;
+    }
+
+    .xp-cell {
+        width: 10% !important;
+    }
+
+    td {
+        border: none;
+    }
+
+    th {
+        border: none;
+    }
+
+    .activity-row {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+        margin: 1px 0;
+    }
+
+</style>

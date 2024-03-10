@@ -1,38 +1,79 @@
-﻿@implements IDisposable
-
+﻿@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Services
 @inject NavigationManager NavigationManager
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable dashboard-menu pt-5" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        
-    </nav>
+<div class="dashboard-menu pt-5 text-center h-100">
+    <div class="row dashboard-side-card rounded">
+        <div class="col-12 dashboard-side-card-text">
+            Code Reviews Available
+        </div>
+        <div class="col-12 dashboard-side-card-number">
+            @AvailableReviews
+        </div>
+    </div>
+    <div class="row dashboard-side-card rounded">
+        <div class="col-12 dashboard-side-card-text">
+            Community Project Issues Available
+        </div>
+        <div class="col-12 dashboard-side-card-number">
+            @AvailableIssues
+        </div>
+    </div>
 </div>
 
 @code {
-    private string? currentUrl;
+    [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private ICommunityService CommunityService { get; set; }
+    private List<Issue>? Issues;
 
-    protected override void OnInitialized()
+    public int AvailableReviews { get; set; }
+    public int AvailableIssues { get; set; }
+    public bool CodeReviewsAvailable { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-        NavigationManager.LocationChanged += OnLocationChanged;
+        Issues = IssueHelper.GetIssues();
+        await GetAvailableIssues();
     }
 
-    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    private async Task NavigateToCodeReviews()
     {
-        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-        StateHasChanged();
+        NavigationManager.NavigateTo("/dashboard/peer-reviews"); // Replace "/otherpage" with the desired URL
     }
 
-    public void Dispose()
+    private async Task GetAvailableIssues()
     {
-        NavigationManager.LocationChanged -= OnLocationChanged;
+        foreach (var issue in Issues)
+        {
+            var project = await CommunityService.GetIssueById(issue.Id);
+
+            if (project == null)
+            {
+                AvailableIssues += 1;
+            }
+        };
     }
 }
 
 <style>
     .dashboard-menu {
         background-color: #1C236D;
+    }
+
+    .dashboard-side-card {
+        padding-top: 10px;
+        margin: 10px;
+        color: white;
+        background-color: rgba(255, 255, 255, 0.37);
+    }
+
+    .dashboard-side-card-text {
+        font-weight: 600;
+    }
+
+    .dashboard-side-card-number {
+        font-size: 60px;
+        font-weight: 600;
     }
 </style>

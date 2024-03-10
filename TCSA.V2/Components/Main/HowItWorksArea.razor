@@ -1,21 +1,15 @@
-﻿@using TCSA.V2.Models
+﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
 <div class="container w-75">
     <div class="row justify-content-center">
         <h1 class="display-4 justify-content-center area-title-text">How it Works</h1>
         @foreach (var article in Articles.Where(x => x.Area == Area.HowItWorks))
         {
-            <div class="col-lg col-md-3">
-                <div class="card-no-transition card text-center w-75" style="width: 18rem;">
-                    <div class="text-center">
-                        <img class="card-img-top" mx-auto d-block src="img/Cards/@article.IconUrl" />
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">@article.Title</h5>
-                        <p class="card-text">@article.Description</p>
-                    </div>
-                </div>
-            </div>
+             <Card Type=Enums.CardType.Article
+                   Title=@article.Title
+                   Description=@article.Description
+                   IconUrl=@article.IconUrl />
         }
     </div>
 </div>

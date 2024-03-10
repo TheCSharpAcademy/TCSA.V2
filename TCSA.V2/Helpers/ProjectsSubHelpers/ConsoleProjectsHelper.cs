@@ -3033,4 +3033,8 @@ public class ConsoleProjectsHelper
              }
         };
     }
+    internal static List<Project> GetProjectsInRussian()
+    {
+        return new List<Project>();
+    }
 }

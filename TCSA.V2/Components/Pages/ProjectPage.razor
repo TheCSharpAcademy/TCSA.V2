@@ -299,7 +299,8 @@
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
             Language.Turkish => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
             Language.Korean => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
-            Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId)
+            Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId),
+            Language.Russian => ProjectHelper.GetProjectsInRussian().Single(x => x.Id == ProjectId)
         };
 
         GetAvailableLanguages();
@@ -328,7 +329,8 @@
             { () => ProjectHelper.GetProjectsInDutch(), Language.Dutch },
             { () => ProjectHelper.GetProjectsInTurkish(), Language.Turkish },
             { () => ProjectHelper.GetProjectsInKorean(), Language.Korean },
-            { () => ProjectHelper.GetProjectsInCroatian(), Language.Croatian }
+            { () => ProjectHelper.GetProjectsInCroatian(), Language.Croatian },
+            { () => ProjectHelper.GetProjectsInRussian(), Language.Russian }
         };
 
         foreach (var pair in languagesToCheck)
@@ -356,7 +358,8 @@
             Language.Dutch => ProjectHelper.GetProjectsInDutch()?.Single(x => x.Id == ProjectId),
             Language.Turkish => ProjectHelper.GetProjectsInTurkish()?.Single(x => x.Id == ProjectId),
             Language.Korean => ProjectHelper.GetProjectsInKorean()?.Single(x => x.Id == ProjectId),
-            Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId)
+            Language.Croatian => ProjectHelper.GetProjectsInCroatian()?.Single(x => x.Id == ProjectId),
+            Language.Russian => ProjectHelper.GetProjectsInRussian()?.Single(x => x.Id == ProjectId)
 
         };
 

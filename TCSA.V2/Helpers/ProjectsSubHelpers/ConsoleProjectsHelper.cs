@@ -3028,126 +3028,18 @@ public class ConsoleProjectsHelper
                                 Body = "C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
                             }
                         }
-                    },
-                }
-             }
-        };
-    }
-
-    internal static List<Project> GetProjectsInTurkish ()
-    {
-        return new List<Project>
-        {
-             new Project
-             {
-                Id = 53,
-                Title = "Matematik Oyunu",
-                IconUrl = "icons8-maths-376.png",
-                BannerUrl = "",
-                Slug = "math-game",
-                Description = "İlk projenizde Temeller alanında öğrendiklerinizi pekiştirmek için bir matematik oyunu oluşturacaksınız",
-                Area = Area.Console,
-                Level = Level.Green,
-                ExperiencePoints = 10,
-                Difficulty = Difficulty.Beginner,
-                DisplayOrder= 1,
-                Introduction = new List<Paragraph>
-                {
-                    new Paragraph
-                    {
-                        Body="İlk projenizde çok basit bir Matematik Oyunu uygulaması oluşturacaksınız. İlk kez kendi başınıza bir proje oluşturuyorsanız, <a target='blank' href='https://www.youtube.com/watch?v=YUc5NZZVtjA&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'> C#  Temelleri bölümümüzdeki C# Academy serisinden </a>.yararlanmanızı öneririm. Bu seri, önemli C# kavramlarını açıklarken, sıfırdan bir konsol uygulaması oluşturma sürecinde size rehberlik edecektir. Daha önce izlediyseniz veya C# uygulamaları oluşturma konusunda önceden deneyiminiz varsa, bu proje size çocuk oyuncağı gelecektir. Yinede bilgilerinizi pekiştirmek faydalı olacaktır."
-                    },
-                    new Paragraph
-                    {
-                        Body="Bu projenin ve C# Akademisi'ndeki diğer tüm projelerin sonunda kodlama yarışması ile karşılaşacaksınız. Bu yarışmalar zorunlu değildir. Tamamlamasanızda projeniz yine de onaylanacak ve ilgili deneyim puanlarını kazanacaksınız. Ancak yarışmalar öğrendiklerinizi pekiştirecektir. Bunları tamamladığınızda ekstra puan alamayabilirsiniz, ancak her mücadeleyi tamamladığınızda daha iyi bir yazılımcı olacaksınız."
                     }
-                },
-                Requirements = new List<string>
-                {
-                    @"Dört temel işlemi içeren bir Matematik oyunu oluşturmanız gerekiyor",
-                    @"Bölme işlemleri YALNIZCA TAM SAYILAR ile sonuçlanmalı ve bölünen 0'dan 100'e kadar olmalıdır. Örnek: 7/2 işlemi bir tam sayıyla sonuçlanmadığından uygulamanız kullanıcıya 7/2 işlemini sormamalıdır.",
-                    @"Kullanıcılara yapılacak işlemi seçebilecekleri bir menü sunulmalıdır",
-                    @"Oynanan oyunları bir Listeye kaydetmelisiniz ve menüde kullanıcının önceki oyunları görebilmesi için bir seçenek bulunmalıdır.",
-                    @"Sonuçları bir veritabanına kaydetmenize gerek yok. Program kapatıldığında sonuçlar silinecektir."
-                },
-                Resources = new List<string>
-                {
-                    "<a href='https://www.youtube.com/watch?v=iLByqqLGYEc&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'>Youtube'da Matematik oyunu dersi</a>",
-                },
-                ResourcesIntro = "Daha önce C# deneyiminiz varsa bu projeyi herhangi bir yardım almadan tamamlayabilirsiniz. Deneyiminiz yoksa, bu dersi izleyin: ",
-                ResourcesConclusion = "Bu projeyi tamamlamak için bu eğitimin ikinci bölümünü (.NET Maui uygulaması oluşturma) izlemenize gerek yoktur. Yalnızca Konsol Uygulaması gereklidir",
-                Tips = new List<string>
-                {
-                    "HER ZAMAN ama HER ZAMAN kodunuzu Github'a (veya kullandığınız benzer bir sürüm kontrol ortamına) kaydetmeyi unutmayın. Bu şekilde çalışmanızı kaybetmezsiniz ve gelecekte her zaman ona başvurabilirsiniz. Kendinize ait bir kütüphane inşa ediyorsunuz!",
-                    "Bu eğitim sizin için kolay olsa bile bitirmek için acele etmeyin. Kodun HER KELİMESİNİ anladığınızdan emin olun. Altına bakılmadık taş bırakmayın.",
-                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoveflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
-                    "Bu ilk projenizse, iki kez yapmanızı öneririm. Akılda kalma miktarının ne kadar arttığına ve ilk seferde ne kadar boşluk kaldığına şaşıracaksınız.",
-                    "Projenizi tamamladıktan sonra <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord topluluğumuza</a> gidin ve projenizden övgüyle bahsedin! Bir projeyi tamamlamak çok önemli bir adımdır ve kutlamanız gerekir."
-                },
-                Challenges = new List<string>
-                {
-                    "Zorluk dereceleri eklemeyi deneyin.",
-                    "Kullanıcının oyunu nekadar sürede bitirdiğini gösteren zamanlayıcı ekleyin.",
-                    "Kullanıcının soru sayısını belirleyebileceği bir fonksiyon ekleyin.",
-                    "Oyuna, kullacıya rastgele işlemlerden oluşan sorular soran 'Rastgele İşlem' seçeneği ekleyin",
-                },
-                Blocks = new List<Block>
-                {
-                    new Block
-                    {
-                        Title = "Sürüm kontrolü",
-                        ImgUrl = "icons8-git-96.png",
-                        Paragraphs = new List<Paragraph>
-                        {
-                            new Paragraph
-                            {
-                                Body = "Bu ilk eğitiminizse, bu adımı atlayıp kodlamaya başlamak isteyebilirsiniz. Bunu yapmayın yoksa bazı şeyleri zor yoldan öğrenirsiniz. Zor bir problem üzerinde saatlerce çalıştıktan sonra çalışmanızı bir sürüm kontrol deposuna kaydetmediyseniz, her ne sebeple olursa olsun bir gün kaybolacaktır."
-                            },
-                            new Paragraph
-                            {
-                                Body = "Yazdığınız her kod satırını kaydetme alışkanlığı edinin. İleride sizi birçok baş ağrısından kurtaracağına söz veriyorum. Tüm gerçek yazılımcılar çalışmalarını bir yedekleme havuzuna kaydeder. En yaygın kullanılanı Github'dur. Henüz yapmadıysanız bir hesap oluşturun. "
-                            },
-                            new Paragraph
-                            {
-                                Body="1. Visual Studio'da Git > Git Deposu Oluştur<br>2. Oturum Açma ayrıntılarınızı girin<br>3. Oluştur (create) ve Gönder(push)'e tıklayın. "
-                            },
-                            new Paragraph
-                            {
-                                Body="✅ İşe oldu! Deponuz kullanıma hazır. Her adımdan sonra değişikliklerinizi eklemeyi(commit) ve göndermeyi(push) unutmayın!"
-                            }, new Paragraph
-                            {
-                                Body="Bir adım iler gitmek isterseniz, bu dersi izleyerek Github'u Visual Studio ile nasıl entegre edeceğinizi öğrenebilirsiniz.:"
-                            },
-                            new Paragraph
-                            {
-                                IsVideo = true,
-                                VideoUrl = "https://www.youtube.com/embed/oCvb-Q5lXb8"
-                            }
-                        }
-                    },
-                    new Block
-                    {
-                        Title = "Kod değerlendirmesi",
-                        ImgUrl= "icons8-code-review-64.png",
-                        Paragraphs = new List<Paragraph>
-                        {
-                            new Paragraph
-                            {
-                                Body = "C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
-                            }
-                        }
-                    },
                 }
-            }/*,
+             },    
              new Project
             {
                 Id = 11,
-                Title = "Calculator",
+                Title = "Hesap Makinası",
                 IconUrl = "icons8-calculator-512.png",
                 Slug = "calculator",
                 BannerUrl = "",
                 Level = Level.OliveGreen,
-                Description = "This you’ll create a calculator with the help of Microsoft's Documentation",
+                Description = "Bu projede Microsoft'un eğitim materyallerini kullanarak bir hesap makinası oluşturacaksınız.",
                 Area = Area.Console,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 10,
@@ -3156,50 +3048,51 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="For your second project you'll build a Console Calculator App with the help of Microsoft’s Documentation. This project shouldn't be more difficult than the first, but you'll learn important skills such as having multiple projects in a solution, writing to files, and debugging. It will also serve as practice in a very important skill: following written documentation. This is something you’ll be doing on a regular basis as a professional developer, so it’s essential that you’re comfortable applying text-based instructions when developing software."
+                        Body="İkinci projeniz olarak Microsoft eğitim materyallerinin yardımıyla bir Konsol Hesap Makinası uygulaması oluşturacaksınız. Bu proje ilkinden daha zor olmamakla birlikte, aynı çözümde birden fazla projeye sahip olma, dosyaya yazma ve hata ayıklama gibi önemli becerileri öğreneceksiniz. Aynı zamanda yazılı talimatları takip etmek gibi çok önemli bir becerinin gelişmesine yardım edecektir. Bu, profesyonel bir geliştirici olarak herzaman yapacağınız bir şeydir. Bu nedenle, yazılım geliştirirken metin tabanlı talimatları rahatça uygulayabilmeniz çok önemlidir."
                     }
                 },
                 Requirements = new List<string>
                 {
-                    @"Complete the following tutorial (parts 1 and 2): <a href='https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022'>Create a Calculator App (Microsoft Docs)</a>. You can find a link to part two at the bottom of the page."
+                    @"Verilen eğitimi tamamlayın (1. ve 2. kısımlar): <a href='https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022'>Hesap makinası uygulaması oluşturun (Microsoft Docs)</a>. Sayfanın sonunda 2. kısım için link bulabilirsiniz."
                 },
-                RequirementsIntro = "This project has only one requirement:",
+                RequirementsIntro = "Bu projenin tek bir koşulu vardır:",
                 Resources = new List<string>
                 {
-                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-mac'>Visual Studio For Mac</a>",
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-mac'>Mac için Visual Studio</a>",
                     "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0'>Visual Studio Code</a>"
                 },
-                ResourcesIntro = "The instructions for this project are based on Visual Studio for Windows. The code you will write will be the same regardless of the code editor, but the process of creating a new project will differ. Here are links about how to create a console app with different editors: ",
+                ResourcesIntro = "Bu proje için verilen yönergeler Windows için  Visual Studio üzerindendir. Kod editörü ne olursa olsun yazacağınız kod aynı olacaktır ancak yeni bir proje oluşturma süreci farklılık gösterecektir. Farklı editörler ile konsol uygulamasının nasıl oluşturulacağıyla ilgili bağlantıları burada bulabilirsiniz: ",
                 Tips = new List<string>
                 {
-                    "Don't rush through the steps, even if this tutorial is easy for you. Make sure you understand EACH WORD of the code. Leave no stone unturned.",
-                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google and chat gpt are your best friends. And you can find thorough explanations about pretty much everything in forums like stackoveflow.com.",
-                    "Don't skip the debugging section in Part II. This is one of the most important skills you'll learn in this tutorial and it will be vital for future projects."
+                    "Bu eğitim sizin için kolay olsa bile bitirmek için acele etmeyin. Kodun HER KELİMESİNİ anladığınızdan emin olun. Altına bakılmadık taş bırakmayın.",
+                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoveflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
+                    "2. Kısımdaki hata ayıklama kısmını atlamayın. Bu projede öğreneceğiniz ve ileriki projelerde hayati öneme sahip olan en önemli becerilerden birisidir."
                 },
                  Challenges = new List<string>
                 {
-                    "Create a functionality that will count the amount of times the calculator was used.",
-                    "Store a list with the latest calculations. And give the users the ability to delete that list.",
-                    "Allow the users to use the results in the list above to perform new calculations.",
-                    "Add extra calculations: Square Root, Taking the Power, 10x, Trigonometry functions.",
+                    "Hesap makinasının kaç kez kullanıldığını gösteren bir işlev ekleyin",
+                    "En son hesaplamaları bir listeye kaydedin ve kullanıcıya bu listeyi silebileceği bir imkan sağlayın.",
+                    "Kullanıcıya bu listedeki sonuçları yeni işlemlerde kullanabilmesi için imkan sağlayın",
+                    "Ekstra hesaplamalar ekleyin: Karekök, üs alma, 10x, trigonometrik fonksiyonlar.",
                 },
                  Blocks = new List<Block>
                 {
                     new Block
                     {
-                        Title = "Code Review",
+                        Title = "Kod değerlendirmesi",
                         ImgUrl= "icons8-code-review-64.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
                             }
                         }
                     }
                 }
 
-            },
+            }
+             /*,
              new Project
             {
                 Id = 12,

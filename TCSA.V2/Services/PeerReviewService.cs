@@ -10,11 +10,12 @@ namespace TCSA.V2.Services;
 public interface IPeerReviewService
 {
     Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId);
-    Task<List<DashboardProject>> GetProjectsForPeerReview(string userId);
+    Task<List<DashboardProject>> GetProjectsForPeerReview();
     Task AssignUserToCodeReview(string userId, int id);
     string GetRevieweeName(string revieweeId);
     Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
     Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
+    Task<int> GetAvailablePeerReviews();
 }
 public class PeerReviewService : IPeerReviewService
 {
@@ -86,7 +87,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<List<DashboardProject>> GetProjectsForPeerReview(string userId)
+    public async Task<List<DashboardProject>> GetProjectsForPeerReview()
     {
         var url = "https://github.com/TheCSharpAcademy/CodeReviews";
         var beginnerProjects = new List<int> { 53, 11, 12, 13 };
@@ -96,7 +97,6 @@ public class PeerReviewService : IPeerReviewService
             using (var context = _factory.CreateDbContext())
             {
                 var reviewProjects = context.UserReviews
-                    .Where(x => x.AppUserId != userId)
                     .Select(x => x.DashboardProjectId)
                     .ToList();
 
@@ -118,6 +118,36 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
+    public async Task<int> GetAvailablePeerReviews()
+    {
+        var url = "https://github.com/TheCSharpAcademy/CodeReviews";
+        var beginnerProjects = new List<int> { 53, 11, 12, 13 };
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var reviewProjects = context.UserReviews
+                    .Select(x => x.DashboardProjectId)
+                    .ToList();
+
+                var count = await context.DashboardProjects
+                    .Where(x => x.IsPendingReview
+                        && beginnerProjects.Contains(x.ProjectId)
+                        && !reviewProjects.Contains(x.Id)
+                        && x.GithubUrl.StartsWith(url))
+                    .CountAsync(); // Use CountAsync to get the count directly
+
+                return count;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetProjectsForPeerReview)}");
+            return 0;
+        }
+    }
+
     public async Task AssignUserToCodeReview(string userId, int id)
     {
         using (var context = _factory.CreateDbContext())
@@ -125,7 +155,6 @@ public class PeerReviewService : IPeerReviewService
             await context.UserReviews.AddAsync(new UserReview
             {
                 AppUserId = userId,
-                ApplicationUserId = userId,
                 DashboardProjectId = id
             });
 

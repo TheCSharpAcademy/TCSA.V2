@@ -87,7 +87,7 @@
 
         User = await PeerReviewService.GetUserForPeerReview(userId);
 
-        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview();
     }
 
     private Project GetProject(int id)
@@ -106,7 +106,7 @@
 
         projectCompleted = true;
 
-        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview();
 
         User = await PeerReviewService.GetUserForPeerReview(userId);
     }
@@ -118,7 +118,7 @@
 
         userAssigned = true;
 
-        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview();
     }
 
     private bool CheckIfAssigned(int id)

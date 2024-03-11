@@ -14,6 +14,7 @@ public interface ICommunityService
     Task<int> PostIssue(DashboardProject project, string id, bool isCommunityProject = false);
     Task<int> GetAvailableIssues();
     Task AssignUserToIssue(string id, Issue issue);
+    Task<int> GetAvailableIssuesForDashboard();
 }
 
 public class CommunityService : ICommunityService
@@ -64,6 +65,25 @@ public class CommunityService : ICommunityService
             var result = await context.Database.ExecuteSqlRawAsync("EXEC CountNonExistingIssues @IssueIds", parameter);
 
             return result;
+        }
+    }
+
+    public async Task<int> GetAvailableIssuesForDashboard()
+    {
+        var allIssues = IssueHelper.GetIssues().Where(x => !x.IsClosed).ToList();
+
+        var issueIds = allIssues.Select(issue => issue.Id).ToList();
+
+        using (var context = _factory.CreateDbContext())
+        {
+            var existingIssueIds = await context.DashboardProjects
+                                                .Where(dp => issueIds.Contains(dp.ProjectId))
+                                                .Select(dp => dp.ProjectId)
+                                                .ToListAsync();
+
+            var nonExistingCount = issueIds.Except(existingIssueIds).Count();
+
+            return nonExistingCount;
         }
     }
 

@@ -52,6 +52,20 @@ h1:focus {
     border-color: #929292;
 }
 
+.container {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+}
+
+.area-title-text {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+}
+
 @media (max-width: 992px) {
     .title-desktop {
         display: none !important;

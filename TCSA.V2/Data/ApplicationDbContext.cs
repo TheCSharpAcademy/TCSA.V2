@@ -10,5 +10,16 @@ namespace TCSA.V2.Data
         public virtual DbSet<AppUserActivity> UserActivity { get; set; }
         public virtual DbSet<UserReview> UserReviews { get; set; }
         public virtual DbSet<ApplicationUser> AspNetUsers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UserReview>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.CodeReviewProjects)
+                .HasForeignKey(ur => ur.AppUserId)
+                .IsRequired();
+        }
     }
 }

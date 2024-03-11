@@ -17,7 +17,7 @@
         @foreach (var project in Projects)
         {
             <DashboardProjectCard Project=@project
-                                  Status="completed" />
+                                  Status=@GetStatus(project.Id) />
         }
         </CardsModal>
     </div>
@@ -28,13 +28,25 @@
     [Parameter] public string CardName { get; set; }
     [Parameter] public string IconUrl { get; set; }
     [Parameter] public string Description { get; set; }
-    [Parameter] public IEnumerable<Project> Projects { get; set; }
+    [Parameter] public IEnumerable<Article> Projects { get; set; }
+    [Parameter] public List<int> PendingProjects { get; set; }
+    [Parameter] public List<int> CompleteProjects { get; set; }
 
     private bool Steps;
 
-    protected async override Task OnInitializedAsync()
+    private string GetStatus(int id)
     {
+        if (PendingProjects.Contains(id))
+        {
+            return "pending-review";
+        }
 
+        if (CompleteProjects.Contains(id))
+        {
+            return "completed";
+        }
+
+        return "";
     }
 
     private void ToggleSteps() => Steps = !Steps;

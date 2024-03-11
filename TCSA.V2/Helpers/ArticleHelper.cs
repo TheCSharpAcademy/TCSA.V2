@@ -893,6 +893,376 @@ But I'll be surprised if you get to the end of this list and you don't have a jo
                     }
                 }
             },
+            new Article
+            {
+                Id = 52,
+                Title = "Code Reviews",
+                Area = Area.StandAlone,
+                ExperiencePoints = 5,
+                Slug="code-reviews",
+                BannerUrl = "code-review-banner.png",
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Introduction",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"In this article you’ll find out how to submit code to The C# Academy for review. The objective is to make it easy for reviewers to clone and test code and submit comments directly on code. It’s also similar to the work flow used in real life production applications and will force you to get familiar with how to submit pull requests on Github. Here’s a step by step list with the process. You’ll probably need it for the first few projects and then it will become second nature."
+                            },
+                            new Paragraph
+                            {
+                                Body = @"Once your pull request is approved, your repository will be part of the C# Academy archive. The reviewers will be relatively strict with coding standards, so you'll have a good taste of the demands of the software engineering industry. Below is a video tutorial plus a list of steps on how to create a pull-request for your code to be reviewed."
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/0A5-iLbfo8k"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "1. Forking the Review Repository",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Log into Github and create a fork of our review repository. Each project in the academy has a different review repository .They can be found <a href='https://github.com/stars/TheCSharpAcademy/lists/code-reviews' target='_blank'>here</a>. If you can't find a repository for a project, let us know by reaching out via our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a>. "
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-1.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "2. Clone The Fork",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Click on the green “Code” button to see the repository name. You can click on the two-square icon to copy the repository’s address. "
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-3.png"
+                            },
+                            new Paragraph
+                            {
+                                Body = @"Using the command line, navigate to a folder of your choice and use the following command:<br><br>
+<code>git clone your-repository-name</code>. The repository consists of a list of folders, one for each project from other students, that has been submitted, approved and merged."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "3. Create Your Project",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"Using visual studio, create a new project with the following name: 'projectName.yourGithubName' and when prompted for its location, choose the folder that was created when cloned the repository. It will inside the folder you used in step 2."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "4. Commit and Push your Changes",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"After finishing working on your project, stage, commit and push your changes to your fork. You won't be able to push your changes from your projects folder, since the repository was initiated in the parent folder. You can either open the parent folder with Visual Studio, or push your changes via the command line, from the parent folder, where you can use the following commands: <br><br>
+<code>git add . <br>
+git commit -m ""type your message here""<br>
+git push</code>"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "5. Create a Pull Request",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Back in Github, go to your fork where you’ll see a message saying your branch is ahead of the master. Click on contribute and “Open Pull Request”. By default, the title will be the message in your last commit. You can choose to change the title or leave as it is. Then click on “Create Pull Request”. "
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-4.png"
+                            }
+                        }
+                    },
+                     new Block
+                    {
+                        Title = "6. Fix any code-analysis issues",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "\nWe're currently implementing automatic code-analysis to speed up the code review process. In some projects, after submitting a pull request, you'll see the following:"
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-6.png"
+                            },
+                             new Paragraph
+                            {
+                                Body = "\nThis means your code is currently being scanned by a code-analysis tool. Wait a few minutes and you'll see if any issues have been picked up. If  no problems were found, you don't need to do anything. You'll see the following message: "
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-7.png"
+                            },
+                             new Paragraph
+                            {
+                                Body = "If issues were found, you'll see the following message. Click on    the 'details' link on the right side:  "
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-8.png"
+                            },
+                            new Paragraph
+                            {
+                                Body = "Another screen will be opened. Click on 'Resolve' or 'View more details on Codacy Production':"
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-9.png"
+                            },
+                             new Paragraph
+                            {
+                                Body = "In the next screen you'll be able to see all pending issues. You can expand each alert to see exactly where the error is by click on the down arrow on the right side. Go back to your code, fix those errors, commit and push. Your PR will be updated automatically and the code-analysis will run again. Check if all tests passed and wait for The C# Academy to review your code."
+                            },
+                              new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-10.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "7. Rework your project",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Once you change your project based on the comments, all you need to do is repeat step 4 (stage, commit, push) and the pull request will be updated. You don’t need to submit another Pull request. Once your project is accepted, go to the Academy's repository where you'll see your project included."
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-review-5.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Ask Questions",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Dealing with source control can be cumbersome and there's a bit to learn. But it's a vital aspect of a developer's knowledge and it's important you get used to troubleshooting it, since you'll inevitably need it when working in any organization. Feel free to get help on our <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> if you get stuck."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Common Issues",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"<ul> 
+                                       <li>Before submitting your code, make sure it follows <a href='https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions' target='_blank'>C# coding conventions</a>.</li>
+                                       <li>Remove unused 'using' statements and any other code that's not being used.</li>
+                                       <li>Don't write too many statements without spacing. It makes your code harder to read.</li>
+                        <li>On the other hand, never have more than one empty line. Or empty lines between code and brackets.</li>
+                                       <li>Use the <a href='https://www.honlsoft.com/blog/2021-06-06-new-namespace-features-in-csharp-10' target='_blank'>latest namespaces and usings</a> convention to prevent extra indentation of your classes and to write less code.</li>
+                                       <li>Double check the project's requirements to make sure your project fulfils them.</li>
+                                       <li>Refactor your code. You'll be surprised about how many improvements you can think of by checking your code a couple more times after completion.</li>
+                                        </ul>"
+                            }
+                        }
+                    }
+                }
+            },
+            new Article
+            {
+                Id = 58,
+                Title = "Code Conventions",
+                Area = Area.StandAlone,
+                Slug="code-conventions",
+                ExperiencePoints = 5,
+                BannerUrl = "code-review-banner.png",
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Introduction",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"Coding conventions are a set of guidelines for a specific programming language that recommend programming style, practices, and methods for each aspect of a program written in that language. These conventions usually cover file organization, indentation, comments, declarations, statements, white space, naming conventions, programming practices, programming principles, programming rules of thumb, architectural best practices, etc. "
+                            },
+                             new Paragraph
+                            {
+                                Body = @"These are guidelines for software structural quality. Software programmers are highly recommended to follow these guidelines to help improve the readability of their source code and make software maintenance easier. Coding conventions are only applicable to the human maintainers and peer reviewers of a software project. Conventions may be formalized in a documented set of rules that an entire team or company follows or may be as informal as the habitual coding practices of an individual. Coding conventions are not enforced by compilers. (<b>This paragraph was stolen from</b> <a href='https://en.wikipedia.org/wiki/Coding_conventions' target='_blank'>Wikipedia</a>)"
+                            },
+                            new Paragraph
+                            {
+                                Body = @"You might disagree with some of these conventions and do things your own way in your personal projects. And that is perfectly fine. However we think it's important that our students abide to a certain set of standards because that's what will be required from them in companies. More often than not, especially when starting, you'll have to meet certain requirements that might be different from what you would do. That will assure the code base is consistent, which is very important for the efficiency of software development teams. "
+                            }
+                        }
+                    },
+                      new Block
+                    {
+                        Title = "Microsoft Documentation's Coding Style Guide",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"Please read through <a href='https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names' target='_blank'>this guide</a>. It contains widely adopted coding style conventions widely used in the industry."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "1. Spacing",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"
+                                     <ul> 
+                                       <li>The first line of a file shouldn't be empty.</li>
+                                       <li>No empty lines are necessary after the last closing bracket.</li>
+                                       <li>Have one empty line between using statements and namespace.</li>
+                                       <li>Have one empty line between namespace and class name.</li>
+                                       <li>Have one empty line between methods.</li>
+                                       <li>Remove empty lines after opening curly brackets and before closing curly brackets.</li>
+                                       <li>Group related statements in blocks separated by an empty line. It prevents your code from looking like spaghetti.</li>    
+                                     </ul>"
+                            },
+
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-convention-1.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "2. Remove unused code",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Remove anything that's not being used. It makes your code less readable and mantainable. In Visual Studio the compilers will tell you when code isn't being used by slightly fading it."
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-convention-2.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "3. Refrain from commenting",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Code should be self-explanatory. Name your classes/methods/properties/fields so that you don't need to compensate by writing comments. Only write comments that are reminders for your future self or to let other developers know about aspects that the code can't possibly explain."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "4. Don't abbreviate",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"A variable called <b><i>getUserByIdButton</b></i> is infinitely better then one called <b><i>btn</b></i>. Be verbose so that readers don't have to guess what's going on in your code."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "5. Write less code",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"It might sound contradictory to item 4, but it's not. Verbose naming is fine. Writing unnecessary code isn't. (i.e. Don't assign variables that have a default assignment, example: int myInteger = 0 or bool myBoolean = false and use ternaries when possible)."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "6. Use the newest namespaces",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"From C# 10 we are able to ditch the namespace block and save one indentation level, which optimizes the use of space."
+                            }
+                            ,
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-convention-6.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "7. Var or Int?",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"Up to you."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "8. Use string interpolation and string literals.",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"You can mix strings with variables elegantly using the $ sign. And you can write multiline strings verbatim using the @ sign."
+                            }
+                            ,
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "code-convention-7.png"
+                            }
+                        }
+                    }
+                }
+            }
         };
     }
 }

@@ -11,5 +11,5 @@ public class DashboardAreaInfo
     public bool IsCompleted {  get; set; }
     public string CardName { get; set; }
 
-    public IEnumerable<Project> Projects { get; set; } 
+    public IEnumerable<Article> Projects { get; set; } 
 }

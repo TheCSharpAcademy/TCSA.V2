@@ -1,6 +1,6 @@
 ﻿@using TCSA.V2.Models.DTO
 
-<div class="@CardName.ToLower() horizontal-card-desktop row horizontal-card d-flex shadow rounded-3 @(IsCompleted ? "roadmap-completed border border-5 border-warning opacity-75" : "")">
+<div class="@CardName.ToLower() horizontal-card-roadmap d-flex shadow rounded-3 mb-1 @(IsCompleted ? "roadmap-completed border border-5 border-warning opacity-75" : "")">
     @if (CardName == "Black Belt")
     {
         <div class="col-12 d-flex pt-5 pb-5 align-items-center justify-content-center">@CardName</div>
@@ -42,6 +42,10 @@
 }
 
 <style>
+    .horizontal-card-roadmap {
+
+    }
+
     .green {
         background-color: green;
         color: white;

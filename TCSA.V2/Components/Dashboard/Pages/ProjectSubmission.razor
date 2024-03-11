@@ -25,7 +25,7 @@ else
             <DataAnnotationsValidator />
             <ValidationSummary />
             <InputSelect shadow rounded @bind-Value="Model.ProjectId" class="form-select">
-                <option selected>Open this select menu</option>
+                <option selected>Select Project</option>
                 @foreach (var project in ProjectsNotCompleted)
                 {
                     <option value="@project.Id">@project.Area - @project.Title</option>

@@ -33,7 +33,7 @@ public class ProjectService : IProjectService
             using (var context = _factory.CreateDbContext())
             {
                 return await context.DashboardProjects
-                    .Where(x => x.AppUserId == userId)
+                    .Where(x => x.AppUserId == userId && x.IsCompleted)
                     .Select(x => x.ProjectId)
                     .ToListAsync();
             }

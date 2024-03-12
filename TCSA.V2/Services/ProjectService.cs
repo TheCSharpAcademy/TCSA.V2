@@ -11,6 +11,7 @@ public interface IProjectService
     Task<bool> IsProjectCompleted(string userId, int projectId);
     Task<int> PostArticle(DashboardProject project);
     Task<List<int>> GetCompletedProjectsById(string userId);
+    Task<List<int>> GetPendingProjects(string userId);
     Task<List<DashboardProject>> GetDetailedProjectsById(string userId);
     Task<int> MarkCertificateAsCompleted(string userId, int currentPoints);
 }
@@ -27,7 +28,6 @@ public class ProjectService : IProjectService
 
     public async Task<List<int>> GetCompletedProjectsById(string userId)
     {
-        var projects = new List<DashboardProject>();
         try
         {
             using (var context = _factory.CreateDbContext())
@@ -40,7 +40,7 @@ public class ProjectService : IProjectService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error in {nameof(IsProjectCompleted)}");
+            _logger.LogError(ex, $"Error in {nameof(GetCompletedProjectsById)}");
             return null;
         }
     }
@@ -70,14 +70,14 @@ public class ProjectService : IProjectService
         {
             using (var context = _factory.CreateDbContext())
             {
-                var result =  await context.DashboardProjects
+                var result = await context.DashboardProjects
                     .AnyAsync(x => x.ProjectId == projectId && x.AppUserId == userId);
 
                 _logger.LogInformation($"{nameof(IsProjectCompleted)} executed correctly");
 
                 return result;
             }
-        } 
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Error in {nameof(IsProjectCompleted)}");
@@ -97,7 +97,7 @@ public class ProjectService : IProjectService
                 if (!alreadyExists)
                 {
                     await context.DashboardProjects.AddAsync(project);
-                    var result =  await context.SaveChangesAsync();
+                    var result = await context.SaveChangesAsync();
 
                     _logger.LogInformation($"{nameof(PostArticle)} executed correctly");
                     return result;
@@ -150,4 +150,24 @@ public class ProjectService : IProjectService
         }
     }
 
+    public async Task<List<int>> GetPendingProjects(string userId)
+    {
+        var projects = new List<int>();
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.DashboardProjects
+                    .Where(x => x.AppUserId == userId && x.IsPendingReview)
+                    .Select(x => x.ProjectId)
+                    .ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetCompletedProjectsById)}");
+            return null;
+        }
+    }
 }

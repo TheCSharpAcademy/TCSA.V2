@@ -6,6 +6,7 @@
 @using static TCSA.V2.Helpers.Enums
 
 <MainBanner />
+<LatestUpdates />
 <HowItWorksArea Articles=@Articles />
 <FirstStepsArea Articles=@Articles />
 
@@ -59,7 +60,8 @@
     {
         <IndexProjectSection Projects=@area.Projects
                              TitleImgUrl=@area.TitleImgUrl
-                             Description=@area.Description />
+                             Description=@area.Description
+                             Id=@area.Id/>
     }
 </div>
 
@@ -115,6 +117,20 @@
             "Test your knowledge with a monthly challenge provided by a real-world company given to job candidates"
         };
 
+        var ids = new List<string>
+        {
+            "jobs-area",
+            "mvc-area",
+            "angular-area",
+            "react-area",
+            "blazor-area",
+            "maui-area",
+            "auth-area",
+            "cloud-area",
+            "sql-area",
+            "challenges-area"
+        };
+
         for (int i = 0; i < areas.Count; i++)
         {
             Areas.Add(new IndexAreaInfo
@@ -124,7 +140,8 @@
                         : Projects.Where(x => x.Area == areas[i])
                         .ToList(),
                     TitleImgUrl = titles[i],
-                    Description = descriptions[i]
+                    Description = descriptions[i],
+                    Id = ids[i]
                 });
         }
     }

@@ -23,7 +23,7 @@
         <div class="col-md-3">
             <div class="row text-center">
                 <div class="col-12 view-btn">
-                    <a target="_blank" href=@($"Project/{Project.Id}/{Project.Slug}")>
+                    <a target="_blank" href=@GetUrl()>
                         <ViewProjectSVG />
                         <div class="col-12 view-project-btn">
                             View
@@ -37,7 +37,13 @@
 
 @code {
     [Parameter] public string Status { get; set; }
-    [Parameter] public Project Project { get; set; }
+    [Parameter] public Article Project { get; set; }
+
+    private string GetUrl()
+    {
+        var firstPart = Project.Area == Area.StartHere ? "article" : "project";
+        return $"{firstPart}/{Project.Id}/{Project.Slug}";
+    }
 }
 
 <style>

@@ -29,7 +29,9 @@
                                        IsComplete=@area.IsCompleted
                                        IconUrl=@area.ImgUrl
                                        Description=@area.Description
-                                       Projects="@area.Projects" />
+                                       Projects="@area.Projects"
+                                       PendingProjects="@PendingProjects"
+                                       CompleteProjects="@CompletedProjects"/>
                 </div>
             }
         </div>
@@ -50,6 +52,7 @@
     private List<Project> Projects;
     protected List<DashboardAreaInfo> Areas = new();
     private List<int>? CompletedProjects;
+    private List<int>? PendingProjects;
 
     protected async override Task OnInitializedAsync()
     {
@@ -67,8 +70,18 @@
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
         CompletedProjects = await ProjectService.GetCompletedProjectsById(UserId);
+        PendingProjects = await ProjectService.GetPendingProjects(UserId);
 
         var areaIconUrls = new List<string> { "" };
+
+        Areas.Add(new DashboardAreaInfo
+            {
+                CardName = "Start Here",
+                ImgUrl = "icons8-mommy-and-me-classes-96.png",
+                Projects = Articles.Where(x => x.Area == Area.StartHere),
+                Description = GetNotCompletedMessage(Area.StartHere, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.StartHere, null),
+            });
 
         Areas.Add(new DashboardAreaInfo
             {
@@ -229,25 +242,12 @@
     {
         var count = 0;
         var completedProjects = 0;
-
-        if (difficulty != null)
-        {
-            count = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Count();
-            var ids = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Select(x => x.Id).ToList();
-
-            foreach (int id in ids)
-            {
-                if (CompletedProjects != null && CompletedProjects.Contains(id))
-                {
-                    completedProjects += 1;
-                }
-            }
-        }
+        List<int> ids = new();
 
         if (area == Area.StartHere)
         {
             count = Articles.Where(x => x.Area == area).Count();
-            var ids = Articles.Where(x => x.Area == area).Select(x => x.Id).ToList();
+            ids = Articles.Where(x => x.Area == area).Select(x => x.Id).ToList();
 
             foreach (int id in ids)
             {
@@ -261,7 +261,7 @@
         else if (area == Area.SQL)
         {
             count = Projects.Where(x => x.Area == Area.SQL && !x.IsClosed).Count();
-            var ids = Projects.Where(x => x.Area == Area.SQL).Select(x => x.Id).ToList();
+            ids = Projects.Where(x => x.Area == Area.SQL).Select(x => x.Id).ToList();
 
             foreach (int id in ids)
             {
@@ -273,8 +273,16 @@
         }
         else
         {
-            count = Projects.Where(x => x.Area == area).Count();
-            var ids = Projects.Where(x => x.Area == area).Select(x => x.Id).ToList();
+            if (difficulty != null)
+            {
+                count = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Count();
+                ids = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Select(x => x.Id).ToList();
+            }
+            else
+            {
+                count = Projects.Where(x => x.Area == area).Count();
+                ids = Projects.Where(x => x.Area == area).Select(x => x.Id).ToList();
+            }
 
             foreach (int id in ids)
             {

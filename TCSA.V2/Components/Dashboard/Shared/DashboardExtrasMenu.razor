@@ -25,6 +25,7 @@
 @code {
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private ICommunityService CommunityService { get; set; }
+    [Inject] private IPeerReviewService PeerReviewService { get; set; }
     private List<Issue>? Issues;
 
     public int AvailableReviews { get; set; }
@@ -34,7 +35,9 @@
     protected override async Task OnInitializedAsync()
     {
         Issues = IssueHelper.GetIssues();
-        await GetAvailableIssues();
+        AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
+        AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
+        //await GetAvailableIssues();
     }
 
     private async Task NavigateToCodeReviews()

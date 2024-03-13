@@ -162,6 +162,7 @@ internal static class TCSAV2IssuesHelper
                 ExperiencePoints = 20,
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = false,
+            new Issue
             }
         };
     }

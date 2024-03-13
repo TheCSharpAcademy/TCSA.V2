@@ -202,7 +202,7 @@ internal static class TCSAV2IssuesHelper
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = true,
             },
-             new Issue
+            new Issue
             {
                 Id = 103,
                 Description = "Math Game in Russian",
@@ -215,7 +215,7 @@ internal static class TCSAV2IssuesHelper
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = true,
             },
-             new Issue
+            new Issue
             {
                 Id = 104,
                 Description = "Calculator In Russian",
@@ -228,7 +228,7 @@ internal static class TCSAV2IssuesHelper
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = true,
             },
-             new Issue
+            new Issue
             {
                 Id = 105,
                 Description = "Habit Logger in Russian",
@@ -241,7 +241,7 @@ internal static class TCSAV2IssuesHelper
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = true,
             },
-              new Issue
+            new Issue
             {
                 Id = 106,
                 Description = "Coding Tracker in Russian",

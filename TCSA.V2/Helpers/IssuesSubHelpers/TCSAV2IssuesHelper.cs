@@ -122,7 +122,7 @@ internal static class TCSAV2IssuesHelper
                 ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
                 ExperiencePoints = 20,
                 IconUrl = "icons8-foreign-language-66.png",
-                IsClosed = false,
+                IsClosed = true,
             },
             new Issue
             {
@@ -149,6 +149,19 @@ internal static class TCSAV2IssuesHelper
                 ExperiencePoints = 20,
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = true,
+            },
+            new Issue
+            {
+                Id = 99,
+                Description = "Translate Calculator to Turkish",
+                Type = IssueType.Feature,
+                CommunityProjectId = 87,
+                ProjectId = 99,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/66",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-foreign-language-66.png",
+                IsClosed = false,
             }
         };
     }

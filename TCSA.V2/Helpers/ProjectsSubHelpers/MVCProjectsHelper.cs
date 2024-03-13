@@ -164,7 +164,9 @@ internal static class MVCProjectsHelper
                     "You need to use Entity Framework, raw SQL isn't allowed.",
                     "You don't need a navigation bar. No menu is necessary since you'll only have one page.",
                     "Once you execute any operation, the todo-list needs to be updated accordingly.",
-                    "Your data model is only one table with to-dos. You. might be tempted to create more complex data-models (categories of todos for example) but avoid that for now. We're focusing on the front-end."
+                    "Your data model is only one table with to-dos. You. might be tempted to create more complex data-models (categories of todos for example) but avoid that for now. We're focusing on the front-end.",
+                    "When deleting, present an 'Are you sure?' confirmation message",
+                    "Upon updating, present a message saying the record hasn't been updated until the user submits the new todo. Then present a success message."
                 },
                 ResourcesIntro = "Here are a few resources that might be helpful.",
                 Resources = new List<string>

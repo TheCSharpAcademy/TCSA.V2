@@ -74,6 +74,27 @@ h1:focus {
     .title-mobile {
         margin-top: 150px;
     }
+
+    .container {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .latest-updates {
+        padding-left: 10px !important;
+    }
+
+    .container {
+        width: 90% !important;
+    }
+
+    .right-side {
+        margin-left: 0px !important; 
+    }
+
+    .dashboard-layout-wrapper {
+        margin-top: 100px;
+    }
 }
 
 @media (min-width: 992px) {

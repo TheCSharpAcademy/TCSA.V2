@@ -3,23 +3,28 @@
 @using TCSA.V2.Services
 @inject NavigationManager NavigationManager
 
-<div class="dashboard-menu pt-5 text-center h-100">
-    <div class="row dashboard-side-card rounded">
-        <div class="col-12 dashboard-side-card-text">
-            Code Reviews Available
+
+<div class="nav-scrollable dashboard-menu pt-5 h-100" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="dashboard-menu pt-5 text-center h-100">
+            <div class="row dashboard-side-card rounded">
+                <div class="col-12 dashboard-side-card-text">
+                    Code Reviews Available
+                </div>
+                <div class="col-12 dashboard-side-card-number">
+                    @AvailableReviews
+                </div>
+            </div>
+            <div class="row dashboard-side-card rounded">
+                <div class="col-12 dashboard-side-card-text">
+                    Community Project Issues Available
+                </div>
+                <div class="col-12 dashboard-side-card-number">
+                    @AvailableIssues
+                </div>
+            </div>
         </div>
-        <div class="col-12 dashboard-side-card-number">
-            @AvailableReviews
-        </div>
-    </div>
-    <div class="row dashboard-side-card rounded">
-        <div class="col-12 dashboard-side-card-text">
-            Community Project Issues Available
-        </div>
-        <div class="col-12 dashboard-side-card-number">
-            @AvailableIssues
-        </div>
-    </div>
+    </nav>
 </div>
 
 @code {

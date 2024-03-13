@@ -9,14 +9,17 @@
 }
 else
 {
+    <div class="row dashboard-menu-mobile d-lg-none d-xl-none mt-5 pt-5">
+        <DashboardNavMenuMobile />
+    </div>
     <div class="dashboard-layout-wrapper row vh-100">
-        <div class="col-2">
+        <div class="col-lg-2 d-lg-block col-sm-12 d-sm-none">
             <DashboardNavMenu />
         </div>
-        <div class="col-8">
+        <div class="col-lg-8 col-sm-12">
             @Body
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 d-lg-block d-sm-none">
             <DashboardExtrasMenu />
         </div>
     </div>

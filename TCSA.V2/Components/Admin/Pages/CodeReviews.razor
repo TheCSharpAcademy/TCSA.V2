@@ -1,0 +1,182 @@
+﻿@page "/admin/codereviews"
+@layout AdminLayout
+@rendermode InteractiveServer
+@attribute [Authorize(Roles = "Admin")]
+
+@using Microsoft.AspNetCore.Authorization
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.FormModels
+@using TCSA.V2.Services
+
+<div class="container container-dashboard">
+    @if (dashboardProjects != null)
+    {
+        <h1>Total Projects:  <b>@TotalProjectsPending</b></h1>
+        <h1>Untouched Projects:  <b>@UntouchedProjects</b></h1>
+        <h1>Due Projects <b>@DueProjects</b></h1>
+
+        <div class="row user-detail-row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" @onclick="FilterUntouched">Get Untouched</button>
+                <button type="button" class="btn btn-primary" @onclick="FilterDue">Get Due</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <EditForm Model="@ProjectIdForm" OnValidSubmit="FilterList">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <InputSelect shadow rounded @bind-Value="ProjectIdForm.ProjectId" class="form-select">
+                    <option selected>Open this select menu</option>
+                    @foreach (var project in projects)
+                    {
+                        <option value="@project.Id">@project.Area - @project.Title</option>
+                    }
+                </InputSelect>
+                <button class="btn btn-outline-secondary" type="submit">Submit</button>
+            </EditForm>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">1st Touch</th>
+                    <th scope="col">Last Touch</th>
+                    <th scope="col">Changes Requested</th>
+                    <th scope="col">Reviewer</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in dashboardProjects)
+                {
+                    <tr>
+                        <td>@DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted)</td>
+                        <td>@GetProject(item)</td>
+                        <td>@((MarkupString)(DateTimeHelper.GetTimeSpan((DateTimeOffset)item.DateSubmitted, DateTime.UtcNow)))</td>
+                        <td>@((MarkupString)(DateTimeHelper.GetTimeSpan((DateTimeOffset)item.DateRequestedChange, DateTime.UtcNow)))</td>
+                        <td>@item.DateRequestedChange</td>
+                        <td>@item.Reviewer</td>
+                        <td><button type="button" @onclick="(() => RequestChange(item.Id))" class="btn">Changes</button></td>
+                        <td><a href="@item.GithubUrl" target="_blank" class="btn">View</a></td>
+                        <td><button type="button" @onclick="(() => DeleteFromDashboard(item.Id))" class="btn">Delete</button></td>
+                        <td><a target="_blank" class="btn btn-success btn-side" href=@($"user/{item.AppUserId}")>View User</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    [Inject] protected IUserService UserService { get; set; }
+    [Inject] protected IProjectService ProjectService { get; set; }
+    [Inject] protected IAdminService AdminService { get; set; }
+
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private List<Project>? projects;
+    private List<Issue>? issues;
+    private List<DashboardProject>? dashboardProjects;
+    private List<DashboardProject>? dashboardProjectsCopy;
+    private FilterProjectListForm ProjectIdForm = new();
+    private int TotalProjectsPending = 0;
+    private int DueProjects = 0;
+    private int UntouchedProjects = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = ProjectHelper.GetProjects();
+        issues = IssueHelper.GetIssues();
+        dashboardProjects = await AdminService.GetProjectsPendingReview();
+        dashboardProjectsCopy = dashboardProjects;
+
+        TotalProjectsPending = dashboardProjects.Count;
+        UntouchedProjects = dashboardProjects.Where(x => x.DateRequestedChange < new DateTimeOffset(new DateTime(2022, 1, 1), TimeSpan.Zero)).Count();
+        DueProjects = dashboardProjects.Where(x => x.DateRequestedChange < DateTime.Now.AddDays(-1) && !(x.DateRequestedChange < new DateTimeOffset(new DateTime(2023, 6, 1), TimeSpan.Zero))).Count();
+    }
+
+    private string GetProject(DashboardProject dashboardProject)
+    {
+        var project = projects.FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
+
+        if (project == null)
+        {
+            var issue = issues.FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
+
+            return $"{issue.Description} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
+        }
+
+        return $"{project.Title} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
+    }
+
+    private void RequestChange(int id) => AdminService.RequestChanges(id);
+
+    private async Task DeleteFromDashboard(int id)
+    {
+        await AdminService.DeleteFromDashboard(id);
+        dashboardProjects = await AdminService.GetProjectsPendingReview();
+        dashboardProjectsCopy = dashboardProjects;
+    }
+
+    private async Task FilterList()
+    {
+        dashboardProjects = dashboardProjectsCopy;
+        dashboardProjects = dashboardProjects.Where(x => x.ProjectId == ProjectIdForm.ProjectId).ToList();
+    }
+
+    private async Task FilterUntouched()
+    {
+        dashboardProjects = dashboardProjectsCopy;
+        dashboardProjects = dashboardProjects.Where(x => x.DateRequestedChange < new DateTimeOffset(new DateTime(2022, 1, 1), TimeSpan.Zero)).ToList();
+    }
+
+    private async Task FilterDue()
+    {
+        dashboardProjects = dashboardProjectsCopy;
+        dashboardProjects = dashboardProjects.Where(x => x.DateRequestedChange < DateTime.Now.AddDays(-1) && !(x.DateRequestedChange < new DateTimeOffset(new DateTime(2023, 6, 1), TimeSpan.Zero))).ToList();
+    }
+}
+
+<style>
+    .side-card {
+        padding-top: 20px;
+        height: 100%;
+        border-radius: 15px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .activity-completed {
+        color: darkgreen;
+        border: none;
+    }
+
+    .activity-pending {
+        color: darkgoldenrod;
+        border: none;
+    }
+
+    .project-completed {
+        color: navy;
+        border: none;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .btn-side {
+        width: 130px;
+        margin: 2px 0 2px -25px;
+    }
+
+    .overdue {
+        color: red;
+    }
+
+</style>

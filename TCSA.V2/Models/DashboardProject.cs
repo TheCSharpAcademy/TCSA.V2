@@ -1,4 +1,5 @@
-﻿using TCSA.V2.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using TCSA.V2.Data;
 
 namespace TCSA.V2.Models;
 
@@ -38,4 +39,7 @@ public class DashboardProject
     }
 
     public ApplicationUser AppUser { get; set; }
+
+    [NotMapped]
+    public string? Reviewer { get; set; }
 }

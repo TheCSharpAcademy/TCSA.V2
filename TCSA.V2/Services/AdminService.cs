@@ -11,6 +11,10 @@ public interface IAdminService
     Task ResetUserData(string userId);
     Task<List<ApplicationUser>> SearchUsers(SearchForm searchForm);
     Task<int> MarkProjectAsCompleted(int projectId, string userId, int currentPoints);
+    Task<List<DashboardProject>> GetProjectsPendingReview();
+    Task RequestChanges(int id);
+    Task DeleteFromDashboard(int id);
+
 }
 public class AdminService : IAdminService
 {
@@ -19,6 +23,78 @@ public class AdminService : IAdminService
     public AdminService(IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
+    }
+
+    public async Task DeleteFromDashboard(int id)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            context.DashboardProjects
+            .Remove(new DashboardProject { Id = id });
+
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task RequestChanges(int id)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.DashboardProjects
+            .Where(x => x.Id == id)
+                 .ExecuteUpdateAsync(y => y.SetProperty(u => u.DateRequestedChange, DateTime.UtcNow));
+
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task<List<DashboardProject>> GetProjectsPendingReview()
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            var peerReviews = context.UserReviews.ToList();
+
+            var pendingReviewProjects = await context.DashboardProjects
+            .Include(x => x.AppUser)
+            .Where(x => x.IsPendingReview)
+            .OrderBy(x => x.DateSubmitted)
+            .ToListAsync();
+
+            foreach (var prp in pendingReviewProjects)
+            {
+                if (peerReviews.Any(x => x.DashboardProjectId == prp.Id))
+                {
+                    Console.WriteLine($"{prp.ProjectId} matched!");
+
+                    var reviewerId = "";
+                    try
+                    {
+                        reviewerId = peerReviews.SingleOrDefault(x => x.DashboardProjectId == prp.Id).AppUserId;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    try
+                    {
+                        var reviewer = context.Users.SingleOrDefault(x => x.Id == reviewerId);
+
+                        prp.Reviewer = $"{reviewer.FirstName} {reviewer.LastName}";
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
+            return await context.DashboardProjects
+            .Include(x => x.AppUser)
+            .Where(x => x.IsPendingReview)
+            .OrderBy(x => x.DateSubmitted)
+            .ToListAsync();
+        }
     }
 
     public async Task<List<ApplicationUser>> SearchUsers(SearchForm searchForm)

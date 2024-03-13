@@ -162,7 +162,32 @@ internal static class TCSAV2IssuesHelper
                 ExperiencePoints = 20,
                 IconUrl = "icons8-foreign-language-66.png",
                 IsClosed = false,
+            },
             new Issue
+            {
+                Id = 100,
+                Description = "Fix Discord and Youtube Icons",
+                Type = IssueType.Bugfix,
+                CommunityProjectId = 87,
+                ProjectId = 100,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/149",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-insect-64.png",
+                IsClosed = true,
+            },
+            new Issue
+            {
+                Id = 101,
+                Description = "Fix Completed Projects Roadmap",
+                Type = IssueType.Bugfix,
+                CommunityProjectId = 87,
+                ProjectId = 101,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/144",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-insect-64.png",
+                IsClosed = true,
             }
         };
     }

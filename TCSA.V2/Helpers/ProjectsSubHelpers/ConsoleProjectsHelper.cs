@@ -3030,6 +3030,66 @@ public class ConsoleProjectsHelper
                         }
                     },
                 }
+             },
+            new Project
+            {
+                Id = 11,
+                Title = "Hesap Makinası",
+                IconUrl = "icons8-calculator-512.png",
+                Slug = "calculator",
+                BannerUrl = "",
+                Level = Level.OliveGreen,
+                Description = "Bu projede Microsoft'un eğitim materyallerini kullanarak bir hesap makinası oluşturacaksınız.",
+                Area = Area.Console,
+                Difficulty = Difficulty.Beginner,
+                ExperiencePoints = 10,
+                DisplayOrder = 2,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="İkinci projeniz olarak Microsoft eğitim materyallerinin yardımıyla bir Konsol Hesap Makinası uygulaması oluşturacaksınız. Bu proje ilkinden daha zor olmamakla birlikte, aynı çözümde birden fazla projeye sahip olma, dosyaya yazma ve hata ayıklama gibi önemli becerileri öğreneceksiniz. Aynı zamanda yazılı talimatları takip etmek gibi çok önemli bir becerinin gelişmesine yardım edecektir. Bu, profesyonel bir geliştirici olarak herzaman yapacağınız bir şeydir. Bu nedenle, yazılım geliştirirken metin tabanlı talimatları rahatça uygulayabilmeniz çok önemlidir."
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"Verilen eğitimi tamamlayın (1. ve 2. kısımlar): <a href='https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022'>Hesap makinası uygulaması oluşturun (Microsoft Docs)</a>. Sayfanın sonunda 2. kısım için link bulabilirsiniz."
+                },
+                RequirementsIntro = "Bu projenin tek bir koşulu vardır:",
+                Resources = new List<string>
+                {
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-mac'>Mac için Visual Studio</a>",
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0'>Visual Studio Code</a>"
+                },
+                ResourcesIntro = "Bu proje için verilen yönergeler Windows için  Visual Studio üzerindendir. Kod editörü ne olursa olsun yazacağınız kod aynı olacaktır ancak yeni bir proje oluşturma süreci farklılık gösterecektir. Farklı editörler ile konsol uygulamasının nasıl oluşturulacağıyla ilgili bağlantıları burada bulabilirsiniz: ",
+                Tips = new List<string>
+                {
+                    "Bu eğitim sizin için kolay olsa bile bitirmek için acele etmeyin. Kodun HER KELİMESİNİ anladığınızdan emin olun. Altına bakılmadık taş bırakmayın.",
+                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoveflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
+                    "2. Kısımdaki hata ayıklama kısmını atlamayın. Bu projede öğreneceğiniz ve ileriki projelerde hayati öneme sahip olan en önemli becerilerden birisidir."
+                },
+                 Challenges = new List<string>
+                {
+                    "Hesap makinasının kaç kez kullanıldığını gösteren bir işlev ekleyin",
+                    "En son hesaplamaları bir listeye kaydedin ve kullanıcıya bu listeyi silebileceği bir imkan sağlayın.",
+                    "Kullanıcıya bu listedeki sonuçları yeni işlemlerde kullanabilmesi için imkan sağlayın",
+                    "Ekstra hesaplamalar ekleyin: Karekök, üs alma, 10x, trigonometrik fonksiyonlar.",
+                },
+                 Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Kod değerlendirmesi",
+                        ImgUrl= "icons8-code-review-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
+                            }
+                        }
+                    }
+                }
              }
         };
     }

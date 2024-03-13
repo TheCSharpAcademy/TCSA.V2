@@ -188,6 +188,71 @@ internal static class TCSAV2IssuesHelper
                 ExperiencePoints = 20,
                 IconUrl = "icons8-insect-64.png",
                 IsClosed = true,
+            },
+            new Issue
+            {
+                Id = 102,
+                Description = "Free Code Camp In Russian",
+                Type = IssueType.Infrastructure,
+                CommunityProjectId = 87,
+                ProjectId = 102,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/144",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-foreign-language-66.png",
+                IsClosed = true,
+            },
+             new Issue
+            {
+                Id = 103,
+                Description = "Math Game in Russian",
+                Type = IssueType.Infrastructure,
+                CommunityProjectId = 87,
+                ProjectId = 103,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/144",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-foreign-language-66.png",
+                IsClosed = true,
+            },
+             new Issue
+            {
+                Id = 104,
+                Description = "Calculator In Russian",
+                Type = IssueType.Infrastructure,
+                CommunityProjectId = 87,
+                ProjectId = 104,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/144",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-foreign-language-66.png",
+                IsClosed = true,
+            },
+             new Issue
+            {
+                Id = 105,
+                Description = "Habit Logger in Russian",
+                Type = IssueType.Infrastructure,
+                CommunityProjectId = 87,
+                ProjectId = 105,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/144",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-foreign-language-66.png",
+                IsClosed = true,
+            },
+              new Issue
+            {
+                Id = 106,
+                Description = "Coding Tracker in Russian",
+                Type = IssueType.Infrastructure,
+                CommunityProjectId = 87,
+                ProjectId = 106,
+                GithubUrl = "https://github.com/TheCSharpAcademy/TCSA.V2/issues/144",
+                ProjectGithubUrl ="https://github.com/users/TheCSharpAcademy/projects/5",
+                ExperiencePoints = 20,
+                IconUrl = "icons8-foreign-language-66.png",
+                IsClosed = true,
             }
         };
     }

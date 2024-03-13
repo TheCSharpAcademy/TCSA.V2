@@ -73,4 +73,14 @@ public static class ProjectHelper
             .Concat(StandAloneProjectsHelper.GetProjectsInCroatian())
             .ToList();
     }
+
+    public static List<Project> GetProjectsInRussian()
+    {
+        var projects = new List<Project>();
+
+        return projects
+            .Concat(StandAloneProjectsHelper.GetProjectsInRussian())
+            .Concat(ConsoleProjectsHelper.GetProjectsInRussian())
+            .ToList();
+    }
 }

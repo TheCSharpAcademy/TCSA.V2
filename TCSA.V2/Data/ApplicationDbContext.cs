@@ -21,6 +21,11 @@ namespace TCSA.V2.Data
                 .WithMany(u => u.CodeReviewProjects)
                 .HasForeignKey(ur => ur.AppUserId)
                 .IsRequired();
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(x => x.Issues)
+                .WithOne(u => u.User)
+                .HasForeignKey(ur => ur.AppUserId);
         }
     }
 }

@@ -131,7 +131,7 @@
                             <option selected>Open this select menu</option>
                             @foreach (var issue in issues.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.Id && y.IsPendingReview)))
                             {
-                                <option value="@issue.Id">@issue.Description</option>
+                                <option value="@issue.Id">@issue.Title</option>
                             }
                         </InputSelect>
                         <button class="btn btn-outline-secondary" type="submit">Submit</button>
@@ -178,7 +178,7 @@
                         @foreach (var dp in User.DashboardProjects.OrderBy(x => x.DateSubmitted))
                         {
                             <tr>
-                                <th scope="row">@GetTitle(dp.ProjectId)</th>
+                                <th scope="row">@((MarkupString)GetTitle(dp.ProjectId))</th>
                                 <td>@dp.DateSubmitted</td>
                                 <td>@GetStatus(dp)</td>
                             </tr>
@@ -188,6 +188,7 @@
 
                 @if (reviews != null)
                 {
+                    <h1>Code Reviews</h1>
                     <table class="table">
                         <thead>
                             <tr>
@@ -199,7 +200,7 @@
                         @foreach (var review in reviews)
                         {
                             <tr>
-                                <th scope="row">@GetTitle(review.ProjectId)</th>
+                                <th scope="row">@(GetTitle(review.ProjectId))</th>
                                 <td>@review.UserName</td>
                                 <td>@(review.IsCompleted ? "Completed" : "Pending")</td>
                             </tr>
@@ -220,6 +221,7 @@
     [Inject] protected ILeaderboardService LeaderboardService { get; set; }
     [Inject] protected IAdminService AdminService { get; set; }
     [Inject] protected IPeerReviewService PeerReviewService { get; set; }
+    [Inject] protected ICommunityService CommunityService { get; set; }
     [Inject] protected IEmailSender EmailSender { get; set; }
 
     private ApplicationUser User { get; set; }
@@ -228,7 +230,7 @@
 
     private List<Project>? projects;
     private List<Article>? articles;
-    private List<Issue>? issues;
+    private List<CommunityIssue>? issues;
     private List<CodeReviewDetail>? reviews;
 
     private int XPSum;
@@ -238,7 +240,6 @@
     {
         projects = ProjectHelper.GetProjects();
         articles = ArticleHelper.GetArticles();
-        issues = IssueHelper.GetIssues();
 
         try
         {
@@ -248,6 +249,8 @@
         {
             Console.WriteLine(ex.Message);
         }
+
+        issues = User.Issues;
 
         if (User != null)
         {
@@ -269,7 +272,7 @@
         }
         else
         {
-            return issues.Single(x => x.Id == projectId).Description;
+            return $"<span style='color:red'>(Community Issue)</span>{issues.Single(x => x.ProjectId == projectId).Title}";
         }
 
     }
@@ -380,7 +383,7 @@
             }
             else
             {
-                XPSum = issues.Single(x => x.Id == id).ExperiencePoints + XPSum;
+                XPSum = issues.Single(x => x.ProjectId == id).ExperiencePoints + XPSum;
             }
         }
     }

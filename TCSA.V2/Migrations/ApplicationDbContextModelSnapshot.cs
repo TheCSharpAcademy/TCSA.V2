@@ -288,7 +288,7 @@ namespace TCSA.V2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserActivity");
+                    b.ToTable("UserActivity", (string)null);
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.CommunityIssue", b =>
@@ -331,7 +331,7 @@ namespace TCSA.V2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Issues");
+                    b.ToTable("Issues", (string)null);
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.DashboardProject", b =>
@@ -375,7 +375,7 @@ namespace TCSA.V2.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("DashboardProjects");
+                    b.ToTable("DashboardProjects", (string)null);
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.UserReview", b =>
@@ -397,7 +397,7 @@ namespace TCSA.V2.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("UserReviews");
+                    b.ToTable("UserReviews", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

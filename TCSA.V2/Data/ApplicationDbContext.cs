@@ -10,6 +10,7 @@ namespace TCSA.V2.Data
         public virtual DbSet<AppUserActivity> UserActivity { get; set; }
         public virtual DbSet<UserReview> UserReviews { get; set; }
         public virtual DbSet<ApplicationUser> AspNetUsers { get; set; }
+        public virtual DbSet<CommunityIssue> Issues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

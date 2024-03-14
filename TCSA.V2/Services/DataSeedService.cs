@@ -9,7 +9,8 @@ namespace TCSA.V2.Services;
 
 public interface IDataSeedService
 {
-    public Task SeedData(DataSeedForm form);
+    Task SeedData(DataSeedForm form);
+    Task SeedIssues();
 }
 
 public class DataSeedService: IDataSeedService
@@ -19,6 +20,45 @@ public class DataSeedService: IDataSeedService
     public DataSeedService(IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
+    }
+
+    public async Task SeedIssues()
+    {
+        var communityIssues = new List<CommunityIssue>();
+        var currentIssues = new List<int>();
+
+        using (var context = _factory.CreateDbContext())
+        {
+            currentIssues = context.Issues.Select(x => x.ProjectId).ToList();
+
+            foreach (var issue in IssueHelper.GetIssues())
+            {
+                if (!currentIssues.Contains(issue.ProjectId))
+                {
+                    communityIssues.Add(new CommunityIssue
+                    {
+                        AppUserId = "",
+                        ProjectId = issue.ProjectId,
+                        CommunityProjectId = issue.CommunityProjectId,
+                        GithubUrl = issue.GithubUrl,
+                        Title = issue.Description,
+                        IconUrl = issue.IconUrl,
+                        ExperiencePoints = issue.ExperiencePoints,
+                        IsClosed = issue.IsClosed
+                    });
+                }
+            }
+
+            try
+            {
+                await context.Issues.AddRangeAsync(communityIssues);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 
     public async Task SeedData(DataSeedForm form)

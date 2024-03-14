@@ -15,6 +15,8 @@ public interface ICommunityService
     Task<int> GetAvailableIssues();
     Task AssignUserToIssue(string id, Issue issue);
     Task<int> GetAvailableIssuesForDashboard();
+    Task<CommunityIssue> GetIssueByProjectId(int projectId);
+    Task<List<int>> GetIssuesIds();
 }
 
 public class CommunityService : ICommunityService
@@ -27,6 +29,38 @@ public class CommunityService : ICommunityService
         _factory = factory;
         _logger = logger;
     }
+    public async Task<List<int>> GetIssuesIds()
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.Select(x => x.ProjectId).ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssuesIds)}");
+            return null;
+        }
+    }
+
+    public async Task<CommunityIssue> GetIssueByProjectId(int projectId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssueByProjectId)}");
+            return null;
+        }
+    }
+
     public async Task AssignUserToIssue(string id, Issue issue)
     {
         using (var context = _factory.CreateDbContext())

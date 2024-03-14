@@ -33,11 +33,13 @@ public class DataSeedService: IDataSeedService
 
             foreach (var issue in IssueHelper.GetIssues())
             {
+                var project = context.DashboardProjects.FirstOrDefault(x => x.ProjectId == issue.ProjectId);
+
                 if (!currentIssues.Contains(issue.ProjectId))
                 {
                     communityIssues.Add(new CommunityIssue
                     {
-                        AppUserId = "",
+                        AppUserId = project == null ? "" : project.AppUserId,
                         ProjectId = issue.ProjectId,
                         CommunityProjectId = issue.CommunityProjectId,
                         GithubUrl = issue.GithubUrl,

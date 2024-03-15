@@ -1046,15 +1046,15 @@ public class ConsoleProjectsHelper
                     },
                 }
             },
-            /* new Project
+            new Project
             {
                 Id = 11,
-                Title = "Calculator",
+                Title = "Rekenmachine",
                 IconUrl = "icons8-calculator-512.png",
                 Slug = "calculator",
                 BannerUrl = "",
                 Level = Level.OliveGreen,
-                Description = "This you’ll create a calculator with the help of Microsoft's Documentation",
+                Description = "We gaan een rekenmachine bouwen met behulp van Microsoft's Documentatie",
                 Area = Area.Console,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 10,
@@ -1063,32 +1063,32 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="For your second project you'll build a Console Calculator App with the help of Microsoft’s Documentation. This project shouldn't be more difficult than the first, but you'll learn important skills such as having multiple projects in a solution, writing to files, and debugging. It will also serve as practice in a very important skill: following written documentation. This is something you’ll be doing on a regular basis as a professional developer, so it’s essential that you’re comfortable applying text-based instructions when developing software."
+                        Body="In ons tweede project gaan we een rekenmachine console app bouwen met behulp van Microsoft's Documentatie. Dit project is op vlak van moeilijkheid gelijkaardig als ons eerste project, met het verschil dat we nu enkele belangrijke zaken aanleren zoals werken met meerdere projecten in een solution, bestanden wegschrijven en debuggen. Het is ook een goede oefening voor een heel belangrijke eigenschap: het volgen van geschreven documentatie. Dit is iets wat je op regelmatige basis zult moeten doen als een professionele developer, dus het is essentieel om vertrouwd te geraken met het toepassen van geschreven instructies wanneer we software ontwikkelen."
                     }
                 },
                 Requirements = new List<string>
                 {
-                    @"Complete the following tutorial (parts 1 and 2): <a href='https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022'>Create a Calculator App (Microsoft Docs)</a>. You can find a link to part two at the bottom of the page."
+                    @"Voltooi volgende tutorial (deel 1 en 2): <a href='https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022'>Creëer een Rekenmachine applicatie (Microsoft Docs)</a>. Je vindt de link naar deel twee onderaan de pagina."
                 },
-                RequirementsIntro = "This project has only one requirement:",
+                RequirementsIntro = "Dit project heeft slechts één vereiste:",
                 Resources = new List<string>
                 {
-                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-mac'>Visual Studio For Mac</a>",
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-mac'>Visual Studio voor Mac</a>",
                     "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0'>Visual Studio Code</a>"
                 },
-                ResourcesIntro = "The instructions for this project are based on Visual Studio for Windows. The code you will write will be the same regardless of the code editor, but the process of creating a new project will differ. Here are links about how to create a console app with different editors: ",
+                ResourcesIntro = "De instructies in dit project zijn gebaseerd op Visual Studio voor Windows. De code die je gebruikt blijft dezelfde ongeacht welke code editor je gebruikt. Maar hoe je een nieuw project aanmaakt, verschilt een beetje. Hier vind je links terug hoe je een console app aanmaakt in de verschillende editors: ",
                 Tips = new List<string>
                 {
-                    "Don't rush through the steps, even if this tutorial is easy for you. Make sure you understand EACH WORD of the code. Leave no stone unturned.",
-                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google and chat gpt are your best friends. And you can find thorough explanations about pretty much everything in forums like stackoveflow.com.",
-                    "Don't skip the debugging section in Part II. This is one of the most important skills you'll learn in this tutorial and it will be vital for future projects."
+                    "Haast je niet doorheen de tutorial, ook al is deze tutorial gemakkelijk voor jou. Zorg er altijd voor dat je IEDER WOORD verstaat uit je code. Dit is heel belangrijk.",
+                    "Wanneer je iets niets begrijpt, ga dan op de code staan met je cursor, er zal een uitleg verschijnen bij elke term met uitleg. Begrijp je de code nog steeds niet dan zijn Google of ChatGPT je beste vrienden om meer uitleg te vinden. Je kan ook altijd uitgebreide uitleg vinden over zowat elk item op diverse forums zoals stackoverflow.com.",
+                    "Sla zeker het debugging gedeelte niet over in deel twee. Dit is één van de meest belangrijke eigenschappen die je zal aanleren in deze tutorial en van vitaal belang in onze toekomstige projecten."
                 },
                  Challenges = new List<string>
                 {
-                    "Create a functionality that will count the amount of times the calculator was used.",
-                    "Store a list with the latest calculations. And give the users the ability to delete that list.",
-                    "Allow the users to use the results in the list above to perform new calculations.",
-                    "Add extra calculations: Square Root, Taking the Power, 10x, Trigonometry functions.",
+                    "Creëer een functie die bijhoudt hoeveel keer de rekenmachine is gebruikt.",
+                    "Creëer een lijst die de laatste berekeningen bewaart. En geef de gebruiker de mogelijkheid om deze lijst te verwijderen.",
+                    "Sta de gebruiker toe om de berekeningen uit deze lijst te herbruiken om nieuwe berekeningen mee uit te voeren.",
+                    "Voeg enkele extra berekeningsmogelijkheden toe: het nemen van de vierkantswortel, het nemen tot de n-de macht, x10, de Trigonometrie functies toepassen.",
                 },
                  Blocks = new List<Block>
                 {
@@ -1100,14 +1100,15 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "Als je wil dat je code beoordeeld wordt door een lid van de C# Academy, werk dan niet vanuit een eigen repository maar <a href='article/52' target='blank'>volg dit artikel</a>, hierin leer je hoe je een fork maakt van onze basis repository waardoor we jouw project kunnen reviewen."
                             }
                         }
                     }
                 }
 
             },
-             new Project
+
+            /* new Project
             {
                 Id = 12,
                 Title = "Habit Logger",

@@ -9,6 +9,7 @@ public class ApplicationUser : IdentityUser
     public string LastName { get; set; }
     public List<DashboardProject>? DashboardProjects { get; set; }
     public List<UserReview>? CodeReviewProjects { get; set; }
+    public List<CommunityIssue>? Issues { get; set; }
     public Level Level { get; set; }
     public int ExperiencePoints { get; set; }
     public DateTimeOffset CreatedDate { get; set; }

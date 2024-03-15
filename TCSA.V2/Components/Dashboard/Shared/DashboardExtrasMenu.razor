@@ -4,7 +4,7 @@
 @inject NavigationManager NavigationManager
 
 
-<div class="nav-scrollable dashboard-menu pt-5 h-100" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable dashboard-menu pt-5 h-100">
     <nav class="flex-column">
         <div class="dashboard-menu pt-5 text-center h-100">
             <div class="row dashboard-side-card rounded">
@@ -28,39 +28,24 @@
 </div>
 
 @code {
-    [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
-    private List<Issue>? Issues;
 
-    public int AvailableReviews { get; set; }
-    public int AvailableIssues { get; set; }
-    public bool CodeReviewsAvailable { get; set; }
+    private List<Issue>? Issues;
+    private int AvailableReviews { get; set; }
+    private int AvailableIssues { get; set; }
+    private bool CodeReviewsAvailable { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Issues = IssueHelper.GetIssues();
         AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
         AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
-        //await GetAvailableIssues();
     }
 
     private async Task NavigateToCodeReviews()
     {
-        NavigationManager.NavigateTo("/dashboard/peer-reviews"); // Replace "/otherpage" with the desired URL
-    }
-
-    private async Task GetAvailableIssues()
-    {
-        foreach (var issue in Issues)
-        {
-            var project = await CommunityService.GetIssueById(issue.Id);
-
-            if (project == null)
-            {
-                AvailableIssues += 1;
-            }
-        };
+        NavigationManager.NavigateTo("/dashboard/peer-reviews"); 
     }
 }
 

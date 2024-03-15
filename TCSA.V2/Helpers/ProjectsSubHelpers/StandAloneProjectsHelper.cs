@@ -271,7 +271,7 @@ internal static class StandAloneProjectsHelper
         };
     }
     internal static List<Project> GetProjectsInKorean()
-    {        
+    {
         return new List<Project>
         {
              new Project
@@ -359,6 +359,51 @@ internal static class StandAloneProjectsHelper
                     "По завершении вашего проекта попробуйте завершить проект <a target='_blank' href='https://thecsharpacademy.com/project/53'>Math Game (Математическая игра)</a>, не просматривая видеоурок на странице проекта. Это может быть непросто, если вы впервые создаете что-то самостоятельно, но такой подход ускорит ваше обучение.",
                 }
             }
+        };
+    }
+    internal static List<Project> GetProjectsInTraditionalChinese()
+    {
+        return new List<Project>
+        {
+             new Project
+             {
+                Id = 75,
+                Title = "FreeCodeCamp C# 認證",
+                IconUrl = "freecodecamp.jpg",
+                Slug = "freecodecamp-certification",
+                BannerUrl = "",
+                Description = "開始來完成這項專業的 C# 認證",
+                Area = Area.StandAlone,
+                Level = Level.Green,
+                ExperiencePoints = 20,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Microsoft 在 .NET 和 C# 的教材方面付出長期的努力。他們的<a href='https://learn.microsoft.com/en-au/docs/' target='blank'>技術文檔</a>和<a href='https://learn.microsoft.com/en-us/training/' target='blank'>學習平台</a>，針對從初學者到尋求提升技術的高級開發人員。但這個廣泛的程式庫有些缺點和有時會令人困惑，特別是在考慮到技術的多樣性、多年來不同的版本以及 .NET 的不斷的演進。"
+                    },
+                    new Paragraph
+                    {
+                        Body="2023年8月，FreeCodeCamp和Microsoft攜手提供一個統一的學習資源，完成時可獲得專業認證。該認證由FreeCodeCamp提供課程內容的逐步主題列表構成，但模組的學習和完成是在Microsoft的教材中進行的。這是個很棒的教學資源，防止初學者迷失於雜亂的教材之中。"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"你需要完成FreeCodeCamp的<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> 基礎 C# 並獲得 Microsoft 認證</a>",
+                    @"完成後，請你通過<a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'>我們的 Discord 伺服器（程式碼檢查頻道）</a>或<a target='blank' href='mailto:thecsharpacademy@gmail.com'>電子郵件</a>提交你證書的螢幕截圖，並附上你在學院登錄時使用的用戶名/電子郵件。"
+                },
+                Tips = new List<string>
+                {
+                    "你可能會有衝動想要快些完成認證和跳過你可能已經熟悉的主題。但請不要這樣和請仔細閱讀每一段文字。因為你的知識中總是存在空隙。我們不知道自己不知道什麼。",
+                    "你不需要完成認證中的編程挑戰就能標記一個部分為完成。但我們建議你實際地完成它們，無論它們有多容易。如果覺得練習太容易，試著使用另一種你以前沒有使用過的方法去完成吧。",
+                    "請記錄多點的筆記，但不要陷入將每一個細節都寫下來的陷阱。當你需要用到這份筆記時，會發現簡潔的重點對筆記非常有用。一個好的方法是寫下簡潔的重點，涉及到你之前不熟悉的概念。你也可以製作單獨的筆記，記錄你想要進一步學習的主題。",
+                    "雖然你可以在幾小時內完成認證，但我們建議每天專注於完成不同的部分，這樣你就能始終以最大的注意力進行學習。"
+                },
+                Challenges = new List<string>
+                {
+                    "完成項目後，請嘗試完成<a target='_blank' href='https://thecsharpacademy.com/project/53'>數學遊戲</a>項目，而無需觀看項目頁面上的視頻教程。如果這是你第一次獨立構建項目，這可能會有些挑戰，但這種方法將加快你的學習進度。",
+                }
+            },
         };
     }
 }

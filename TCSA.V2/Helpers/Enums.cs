@@ -16,6 +16,7 @@ public class Enums
         Turkish,
         Korean,
         Croatian,
-        Russian
+        Russian,
+        TradicionalChinese
     }
 }

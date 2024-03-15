@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TCSA.V2.Data;
 
@@ -12,11 +11,9 @@ using TCSA.V2.Data;
 namespace TCSA.V2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240311095855_initial-v2")]
-    partial class initialv2
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,7 +288,50 @@ namespace TCSA.V2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserActivity");
+                    b.ToTable("UserActivity", (string)null);
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.CommunityIssue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CommunityProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExperiencePoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GithubUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Issues", (string)null);
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.DashboardProject", b =>
@@ -335,7 +375,7 @@ namespace TCSA.V2.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("DashboardProjects");
+                    b.ToTable("DashboardProjects", (string)null);
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.UserReview", b =>
@@ -348,10 +388,6 @@ namespace TCSA.V2.Migrations
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("DashboardProjectId")
@@ -359,9 +395,9 @@ namespace TCSA.V2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("AppUserId");
 
-                    b.ToTable("UserReviews");
+                    b.ToTable("UserReviews", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -428,11 +464,13 @@ namespace TCSA.V2.Migrations
 
             modelBuilder.Entity("TCSA.V2.Models.UserReview", b =>
                 {
-                    b.HasOne("TCSA.V2.Data.ApplicationUser", null)
+                    b.HasOne("TCSA.V2.Data.ApplicationUser", "User")
                         .WithMany("CodeReviewProjects")
-                        .HasForeignKey("ApplicationUserId")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TCSA.V2.Data.ApplicationUser", b =>

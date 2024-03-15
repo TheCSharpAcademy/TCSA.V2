@@ -56,6 +56,14 @@ public static class ProjectHelper
             .ToList();
     }
 
+    public static List<Project> GetProjectsInTraditionalChinese()
+    {
+        var projects = new List<Project>();
+        return projects
+            .Concat(StandAloneProjectsHelper.GetProjectsInTraditionalChinese())
+            .ToList();
+    }
+
     public static List<Project> GetProjectsInKorean()
     {
         var projects = new List<Project>();

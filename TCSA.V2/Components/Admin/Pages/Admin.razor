@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 @layout AdminLayout
 @rendermode InteractiveServer
@@ -22,12 +23,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in activity)
+                @foreach (var item in activityDisplay)
                 {
                     <tr>
-                        <td>@DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted)</td>
-                        <td>@DateTimeHelper.GetTime((DateTimeOffset)item.DateSubmitted)</td>
-                        <td>@((MarkupString)(GetDescription(item, item.AppUserId)))</td>
+                        <td>@item.Date</td>
+                        <td>@item.Time</td>
+                        <td>@item.Description</td>
                         <td><a class="btn btn-success btn-side" href=@($"admin/{item.AppUserId}")>View</a></td>
                     </tr>
                 }
@@ -40,13 +41,15 @@
 @code {
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IUserActivityService ActivityService { get; set; }
+    [Inject] protected ICommunityService CommunityService { get; set; }
 
     [Inject] public AuthenticationStateProvider AuthenticationState { get; set; }
 
     private List<AppUserActivity>? activity { get; set; } = null;
+    private List<UserActivityAdminDisplay>? activityDisplay { get; set; } = new();
     private List<Article>? articles;
     private List<Project>? projects;
-    private List<Issue>? issues;
+    private List<int> issuesIds;
 
     private int userCount;
     private int articlesCount;
@@ -57,21 +60,49 @@
     {
         projects = ProjectHelper.GetProjects();
         articles = ArticleHelper.GetArticles();
-        issues = IssueHelper.GetIssues();
         activity = await ActivityService.GetLatestActivity();
         userCount = await UserService.GetTodaysUserCount();
+        issuesIds = await CommunityService.GetIssuesIds();
 
         var activityCount = await ActivityService.GetTodaysActivityCount();
         articlesCount = activityCount.Item1;
         reviewsCount = activityCount.Item2;
         completedCount = activityCount.Item3;
 
+        await GetActivityDisplay();
     }
 
-    private string GetDescription(AppUserActivity activity, string appUserId)
+    private async Task GetActivityDisplay()
     {
+        foreach (var item in activity)
+        {
+            activityDisplay.Add(new UserActivityAdminDisplay
+            {
+                Date = DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted),
+                Time = DateTimeHelper.GetTime((DateTimeOffset)item.DateSubmitted),
+                Description = await GetDescriptionMarkup(item, item.AppUserId),
+                AppUserId = item.AppUserId
+            });
+        }
+    }
+
+    private async Task<MarkupString> GetDescriptionMarkup(AppUserActivity item, string userId)
+    {
+        var description = await GetDescription(item, userId);
+        return new MarkupString(description);
+    }
+
+    private async Task<string> GetDescription(AppUserActivity activity, string appUserId)
+    {
+        var communityIssue = new CommunityIssue();
+
         if (activity != null)
         {
+            if (issuesIds.Contains(activity.ProjectId))
+            {
+                communityIssue = await CommunityService.GetIssueByProjectId(activity.ProjectId);
+            }
+
             switch (activity.ActivityType)
             {
                 case ActivityType.ArticleRead:
@@ -79,9 +110,9 @@
                 case ActivityType.ProjectSubmitted:
                     return $"<span class='activity-pending'>User {appUserId} submitted the Project <b>{projects.FirstOrDefault(x => x.Id == activity.ProjectId)?.Title}</b> for review.</span>";
                 case ActivityType.IssueSubmitted:
-                    return $"<span class='activity-pending'>User {appUserId} submitted the Issue <b>{issues.FirstOrDefault(x => x.Id == activity.ProjectId)?.Description}</b> for review.</span>";
+                    return $"<span class='activity-pending'>User {appUserId} submitted the Issue <b>{communityIssue.Title}</b> for review.</span>";
                 case ActivityType.ProjectCompleted:
-                    return GetTitle(appUserId, activity.ProjectId);
+                    return GetTitle(appUserId, activity.ProjectId, communityIssue);
                 default:
                     return "";
             }
@@ -90,11 +121,11 @@
         return "";
     }
 
-    private string GetTitle(string appUserId, int projectId)
+    private string GetTitle(string appUserId, int projectId, CommunityIssue? communityIssue = null)
     {
-        if (String.IsNullOrEmpty(projects.FirstOrDefault(x => x.Id == projectId)?.Title))
+        if (string.IsNullOrEmpty(projects.FirstOrDefault(x => x.Id == projectId)?.Title))
         {
-            return $"<span class='project-completed'>You marked {appUserId}'s issue <b>{issues.FirstOrDefault(x => x.Id == projectId)?.Description}</b> as complete.</span>";
+            return $"<span class='project-completed'>You marked {appUserId}'s issue <b>{communityIssue.Title}</b> as complete.</span>";
         }
 
         return $"<span class='project-completed'>You marked {appUserId}'s project <b>{projects.FirstOrDefault(x => x.Id == projectId)?.Title}</b> as complete.</span>";

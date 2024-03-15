@@ -7,7 +7,7 @@
     </div>
     <div class="col-lg-6">
         <div class-issue-description>
-            <p class="card-title-issue">@Issue.Description</p>
+            <p class="card-title-issue">@Issue.Title</p>
         </div>
         <div class="experience-points-issue d-flex align-items-center">
             <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
@@ -67,7 +67,7 @@
 </div>
 
 @code {
-    [Parameter] public Issue Issue { get; set; }
+    [Parameter] public CommunityIssue Issue { get; set; }
     [Parameter] public string Status { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public bool IsAssigned { get; set; }

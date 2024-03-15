@@ -1,10 +1,12 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Octokit;
 using System.Data;
 using TCSA.V2.Data;
 using TCSA.V2.Helpers;
 using TCSA.V2.Models;
+using TCSA.V2.Models.Forms;
 
 namespace TCSA.V2.Services;
 
@@ -13,8 +15,12 @@ public interface ICommunityService
     Task<DashboardProject> GetIssueById(int id);
     Task<int> PostIssue(DashboardProject project, string id, bool isCommunityProject = false);
     Task<int> GetAvailableIssues();
-    Task AssignUserToIssue(string id, Issue issue);
+    Task AssignUserToIssue(string appUserId, CommunityIssue issue);
     Task<int> GetAvailableIssuesForDashboard();
+    Task<CommunityIssue> GetIssueByProjectId(int projectId);
+    Task<List<int>> GetIssuesIds();
+    Task<List<CommunityIssue>> GetAvailableIssuesForCommunityPage(string appUserId);
+    Task CreateIssue(CommunityIssue form);
 }
 
 public class CommunityService : ICommunityService
@@ -27,17 +33,83 @@ public class CommunityService : ICommunityService
         _factory = factory;
         _logger = logger;
     }
-    public async Task AssignUserToIssue(string id, Issue issue)
+
+    public async Task CreateIssue(CommunityIssue issue)
+    {
+        issue.IconUrl = issue.Type switch
+        {
+            IssueType.Translation => "icons8-foreign-language-66.png",
+            IssueType.Bugfix => "icons8-insect-64.png",
+            IssueType.Feature => "icons8-feature-64.png",
+            IssueType.Infrastructure => "icons8-infrastructure-55.png"
+        };    
+            
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var lastIssue = await context.Issues.OrderBy(x => x.ProjectId).LastAsync();
+                issue.ProjectId = lastIssue.ProjectId + 1;
+                //TODO check in ProjectHelper/ArticleHelper if there isn't a higher Id.
+
+                await context.Issues.AddAsync(issue);
+
+                await context.SaveChangesAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    public async Task<List<int>> GetIssuesIds()
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.Select(x => x.ProjectId).ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssuesIds)}");
+            return null;
+        }
+    }
+
+    public async Task<CommunityIssue> GetIssueByProjectId(int projectId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssueByProjectId)}");
+            return null;
+        }
+    }
+
+    public async Task AssignUserToIssue(string appUserId, CommunityIssue issue)
     {
         using (var context = _factory.CreateDbContext())
         {
             await context.DashboardProjects.AddAsync(new DashboardProject
             {
                 GithubUrl = "Not yet",
-                AppUserId = id,
+                AppUserId = appUserId,
                 ProjectId = issue.ProjectId,
                 DateSubmitted = DateTime.UtcNow,
             });
+
+            await context.Issues.Where(x => x.ProjectId == issue.ProjectId)
+                 .ExecuteUpdateAsync(y => y.SetProperty(u => u.AppUserId, appUserId));
+
             await context.SaveChangesAsync();
         }
     }
@@ -84,6 +156,22 @@ public class CommunityService : ICommunityService
             var nonExistingCount = issueIds.Except(existingIssueIds).Count();
 
             return nonExistingCount;
+        }
+    }
+
+    public async Task<List<CommunityIssue>> GetAvailableIssuesForCommunityPage(string appUserId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.Where(x => string.IsNullOrEmpty(x.AppUserId) || x.AppUserId.Equals(appUserId)).ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssueByProjectId)}");
+            return null;
         }
     }
 

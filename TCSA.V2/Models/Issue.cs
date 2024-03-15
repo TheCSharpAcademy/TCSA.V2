@@ -15,5 +15,6 @@ public enum IssueType
 {
     Bugfix,
     Feature,
-    Infrastructure
+    Infrastructure,
+    Translation
 }

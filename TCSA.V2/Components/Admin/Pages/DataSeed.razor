@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
+@rendermode InteractiveServer
 @attribute [Authorize(Roles = "Admin")]
 
 <div class="form-group mt-5">
@@ -18,6 +19,7 @@
         </div>
         <button class="btn btn-outline-secondary" type="submit">Submit</button>
     </EditForm>
+    <button class="btn btn-primary" @onclick="SeedIssues" type="button">Submit</button>
 </div>
 
 @code {
@@ -31,6 +33,11 @@
     private async Task Submit()
     {
         await DataSeedService.SeedData(Model);
+    }
+
+    private async Task SeedIssues()
+    {
+        await DataSeedService.SeedIssues();
     }
 }
 

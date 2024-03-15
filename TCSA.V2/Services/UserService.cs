@@ -96,6 +96,7 @@ public class UserService : IUserService
                 return await context.AspNetUsers
                 .Include(x => x.DashboardProjects)
                 .Include(x => x.CodeReviewProjects)
+                .Include(x => x.Issues)
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
             }
         }

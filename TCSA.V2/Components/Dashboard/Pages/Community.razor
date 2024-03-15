@@ -9,12 +9,52 @@
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.FormModels
+@using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
 
 <div class="mt-5 pt-3">
     @if (user != null)
     {
         <div class="row">
+            @if (createIssue)
+            {
+                <div class="col horizontal-card submit-project-card shadow rounded-sm">
+                    <CloseButtonSVG OnClickCallback="@ToggleSubmitIssue" />
+
+                    <div class="form-group">
+                        <EditForm Model="@submitIssueForm" OnValidSubmit="SubmitIssue">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            <InputSelect shadow rounded @bind-Value="submitIssueForm.CommunityProjectId" class="form-select">
+                                <option selected>Select Project</option>
+                                <option value="87">The C# Academy V2</option>
+                                <option value="54">Point Of Sale</option>
+                            </InputSelect>
+
+                            <InputSelect shadow rounded @bind-Value="submitIssueForm.Type" class="form-select">
+                                <option value="">Select Issue Type</option>
+                                @foreach (var enumValue in Enum.GetValues(typeof(IssueType)))
+                                {
+                                    <option value="@enumValue">@enumValue.ToString()</option>
+                                }
+                            </InputSelect>
+                            <label>
+                                <p>Issue Title</p>
+                                <InputText class="form-control" @bind-Value="submitIssueForm.Title" />
+                            </label>
+                            <label>
+                                <a target="blank" href="article/52">Issue Url</a>
+                                <InputText class="form-control" @bind-Value="submitIssueForm.GithubUrl" />
+                            </label>
+                            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                        </EditForm>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <button class="btn btn-success" @onclick=ToggleSubmitIssue>Create Issue</button>
+            }
             @if (projectSubmitted)
             {
                 <CloseButtonSVG OnClickCallback="@DismissProjectSubmitted" />
@@ -62,39 +102,33 @@
         <div class="row">
             <div class="col-6 issues-col">
                 <DashboardProjectCard Project="@PointOfSale" />
-                @if (issues != null)
+                @if (issuesToShow != null)
                 {
-                    if (issuesToShow != null)
+                    foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
                     {
-                        foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
-                        {
-                            <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
-                                                Issue="issue"
-                                                Title="Bolotas"
-                                                IsAssigned="@CheckIfAssigned(issue.ProjectId)"
-                                                IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
-                                                OnAssignCallBack="@(() => AssignMyself(issue))"
-                                                OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
-                        }
+                        <DashboardIssueCard Status=@(issue.AppUserId == userId ? "is-assigned" : "")
+                                            Issue="issue"
+                                            Title="Bolotas"
+                                            IsAssigned=@(issue.AppUserId == userId)
+                                            IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
+                                            OnAssignCallBack="@(() => AssignMyself(issue))"
+                                            OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
                     }
                 }
             </div>
             <div class="col-6 issues-col">
                 <DashboardProjectCard Project="@AcademyV2" />
-                @if (issues != null)
+                @if (issuesToShow != null)
                 {
-                    if (issuesToShow != null)
+                    foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
                     {
-                        foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
-                        {
-                            <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
-                                                Issue="issue"
-                                                Title="Bolotas"
-                                                IsAssigned="@CheckIfAssigned(issue.ProjectId)"
-                                                IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
-                                                OnAssignCallBack="@(() => AssignMyself(issue))"
-                                                OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
-                        }
+                        <DashboardIssueCard Status=@(issue.AppUserId == userId ? "is-assigned" : "")
+                                            Issue="issue"
+                                            Title="Bolotas"
+                                            IsAssigned="@(issue.AppUserId == userId)"
+                                            IsPendingReview=@CheckIfPendingReview(issue.ProjectId)
+                                            OnAssignCallBack=@(() => AssignMyself(issue))
+                                            OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
                     }
                 }
             </div>
@@ -121,12 +155,13 @@
 
     private List<Project> projects;
     private List<DashboardProject> userProjects;
-    private List<Issue>? issues;
-    private List<Issue>? issuesToShow = new List<Issue>();
+    private List<CommunityIssue>? issuesToShow = new();
     private string userId = "";
     private bool submitProject = false;
     private bool projectSubmitted = false;
     private bool userAssigned = false;
+    private bool createIssue = false;
+    private SubmitIssueForm submitIssueForm = new();
     private DashboardProject dashboardProject = new();
     private SubmitIssuePullRequestForm form = new();
     private Project PointOfSale = new Project();
@@ -134,6 +169,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        projects = ProjectHelper.GetProjects();
+
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
         if (!AuthSate.User.Identity.IsAuthenticated)
@@ -146,53 +183,18 @@
         user = await UserService.GetUserById(userId);
         userProjects = await ProjectService.GetDetailedProjectsById(userId);
 
-        projects = ProjectHelper.GetProjects();
-        issues = IssueHelper.GetIssues()
-          .Where(x => !x.IsClosed)
-          .ToList();
-
-        foreach (var issue in issues)
-        {
-            if (!CheckIfIssueIsTaken(issue.ProjectId).Result)
-            {
-                issuesToShow.Add(issue);
-            }
-        }
+        issuesToShow = await CommunityService.GetAvailableIssuesForCommunityPage(userId);
 
         PointOfSale = projects.Single(x => x.Id == 54);
         AcademyV2 = projects.Single(x => x.Id == 87);
     }
 
-    // TODO Change this in service
-    private async Task<bool> CheckIfIssueIsTaken(int id)
-    {
-        var project = await CommunityService.GetIssueById(id);
-
-        if (project == null)
-        {
-            return false;
-        }
-
-        if (project.AppUserId != userId)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private async Task AssignMyself(Issue issue)
+    private async Task AssignMyself(CommunityIssue issue)
     {
         await CommunityService.AssignUserToIssue(userId, issue);
         user = await UserService.GetUserById(userId);
 
         userAssigned = true;
-    }
-
-    private bool CheckIfAssigned(int id)
-    {
-        var result = userProjects.Any(x => x.ProjectId == id);
-        return result;
     }
 
     private bool CheckIfPendingReview(int id)
@@ -232,12 +234,32 @@
         user = await UserService.GetUserById(userId);
     }
 
+    private async Task SubmitIssue()
+    {
+        var communityIssue = new CommunityIssue
+        {
+            Title = submitIssueForm.Title,
+            AppUserId = user.Id,
+            GithubUrl = submitIssueForm.GithubUrl,
+            CommunityProjectId = submitIssueForm.CommunityProjectId,
+            Type = submitIssueForm.Type,
+            IconUrl = "",
+            ExperiencePoints = 20,
+            IsClosed = false
+        };
+
+        await CommunityService.CreateIssue(communityIssue);
+
+        user = await UserService.GetUserById(userId);
+    }
+
     private void OpenSubmitProjectform(int projectId)
     {
         submitProject = true;
         form.ProjectId = projectId;
     }
     private void CloseSubmitProjectForm() => submitProject = false;
+    private void ToggleSubmitIssue() => createIssue = !createIssue;
     private void DismissProjectSubmitted() => projectSubmitted = false;
     private void DismissUserAssigned() => userAssigned = false;
 }

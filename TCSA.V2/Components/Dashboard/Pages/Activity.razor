@@ -72,7 +72,7 @@
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-        Activities = await ActivityService.GetActivityById("6c57f4e8-f740-45e4-995b-ca2b3802bfaa");
+        Activities = await ActivityService.GetActivityById(userId);
 
         await GetActivityDisplay();
         Activities.ForEach(x =>

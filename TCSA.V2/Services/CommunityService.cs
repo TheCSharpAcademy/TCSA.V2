@@ -13,10 +13,11 @@ public interface ICommunityService
     Task<DashboardProject> GetIssueById(int id);
     Task<int> PostIssue(DashboardProject project, string id, bool isCommunityProject = false);
     Task<int> GetAvailableIssues();
-    Task AssignUserToIssue(string id, Issue issue);
+    Task AssignUserToIssue(string appUserId, CommunityIssue issue);
     Task<int> GetAvailableIssuesForDashboard();
     Task<CommunityIssue> GetIssueByProjectId(int projectId);
     Task<List<int>> GetIssuesIds();
+    Task<List<CommunityIssue>> GetAvailableIssuesForCommunityPage(string appUserId);
 }
 
 public class CommunityService : ICommunityService
@@ -61,17 +62,21 @@ public class CommunityService : ICommunityService
         }
     }
 
-    public async Task AssignUserToIssue(string id, Issue issue)
+    public async Task AssignUserToIssue(string appUserId, CommunityIssue issue)
     {
         using (var context = _factory.CreateDbContext())
         {
             await context.DashboardProjects.AddAsync(new DashboardProject
             {
                 GithubUrl = "Not yet",
-                AppUserId = id,
+                AppUserId = appUserId,
                 ProjectId = issue.ProjectId,
                 DateSubmitted = DateTime.UtcNow,
             });
+
+            await context.Issues.Where(x => x.ProjectId == issue.ProjectId)
+                 .ExecuteUpdateAsync(y => y.SetProperty(u => u.AppUserId, appUserId));
+
             await context.SaveChangesAsync();
         }
     }
@@ -118,6 +123,22 @@ public class CommunityService : ICommunityService
             var nonExistingCount = issueIds.Except(existingIssueIds).Count();
 
             return nonExistingCount;
+        }
+    }
+
+    public async Task<List<CommunityIssue>> GetAvailableIssuesForCommunityPage(string appUserId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.Where(x => string.IsNullOrEmpty(x.AppUserId) || x.AppUserId.Equals(appUserId)).ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssueByProjectId)}");
+            return null;
         }
     }
 

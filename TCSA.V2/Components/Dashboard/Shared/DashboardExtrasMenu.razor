@@ -41,25 +41,11 @@
         Issues = IssueHelper.GetIssues();
         AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
         AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
-        //await GetAvailableIssues();
     }
 
     private async Task NavigateToCodeReviews()
     {
-        NavigationManager.NavigateTo("/dashboard/peer-reviews"); // Replace "/otherpage" with the desired URL
-    }
-
-    private async Task GetAvailableIssues()
-    {
-        foreach (var issue in Issues)
-        {
-            var project = await CommunityService.GetIssueById(issue.Id);
-
-            if (project == null)
-            {
-                AvailableIssues += 1;
-            }
-        };
+        NavigationManager.NavigateTo("/dashboard/peer-reviews"); 
     }
 }
 

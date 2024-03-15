@@ -62,39 +62,33 @@
         <div class="row">
             <div class="col-6 issues-col">
                 <DashboardProjectCard Project="@PointOfSale" />
-                @if (issues != null)
+                @if (issuesToShow != null)
                 {
-                    if (issuesToShow != null)
+                    foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
                     {
-                        foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 54))
-                        {
-                            <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
-                                                Issue="issue"
-                                                Title="Bolotas"
-                                                IsAssigned="@CheckIfAssigned(issue.ProjectId)"
-                                                IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
-                                                OnAssignCallBack="@(() => AssignMyself(issue))"
-                                                OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
-                        }
+                        <DashboardIssueCard Status=@(issue.AppUserId == userId ? "is-assigned" : "")
+                                            Issue="issue"
+                                            Title="Bolotas"
+                                            IsAssigned=@(issue.AppUserId == userId)
+                                            IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
+                                            OnAssignCallBack="@(() => AssignMyself(issue))"
+                                            OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
                     }
                 }
             </div>
             <div class="col-6 issues-col">
                 <DashboardProjectCard Project="@AcademyV2" />
-                @if (issues != null)
+                @if (issuesToShow != null)
                 {
-                    if (issuesToShow != null)
+                    foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
                     {
-                        foreach (var issue in issuesToShow.Where(x => x.CommunityProjectId == 87))
-                        {
-                            <DashboardIssueCard Status="@(@CheckIfAssigned(issue.ProjectId) ? "is-assigned" : "")"
-                                                Issue="issue"
-                                                Title="Bolotas"
-                                                IsAssigned="@CheckIfAssigned(issue.ProjectId)"
-                                                IsPendingReview="@CheckIfPendingReview(issue.ProjectId)"
-                                                OnAssignCallBack="@(() => AssignMyself(issue))"
-                                                OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
-                        }
+                        <DashboardIssueCard Status=@(issue.AppUserId == userId ? "is-assigned" : "")
+                                            Issue="issue"
+                                            Title="Bolotas"
+                                            IsAssigned="@(issue.AppUserId == userId)"
+                                            IsPendingReview=@CheckIfPendingReview(issue.ProjectId)
+                                            OnAssignCallBack=@(() => AssignMyself(issue))
+                                            OnSubmitPullRequestCallBack="@(() => OpenSubmitProjectform(issue.ProjectId))" />
                     }
                 }
             </div>
@@ -121,8 +115,7 @@
 
     private List<Project> projects;
     private List<DashboardProject> userProjects;
-    private List<Issue>? issues;
-    private List<Issue>? issuesToShow = new List<Issue>();
+    private List<CommunityIssue>? issuesToShow = new();
     private string userId = "";
     private bool submitProject = false;
     private bool projectSubmitted = false;
@@ -134,6 +127,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        projects = ProjectHelper.GetProjects();
+
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
         if (!AuthSate.User.Identity.IsAuthenticated)
@@ -146,53 +141,18 @@
         user = await UserService.GetUserById(userId);
         userProjects = await ProjectService.GetDetailedProjectsById(userId);
 
-        projects = ProjectHelper.GetProjects();
-        issues = IssueHelper.GetIssues()
-          .Where(x => !x.IsClosed)
-          .ToList();
-
-        foreach (var issue in issues)
-        {
-            if (!CheckIfIssueIsTaken(issue.ProjectId).Result)
-            {
-                issuesToShow.Add(issue);
-            }
-        }
+        issuesToShow = await CommunityService.GetAvailableIssuesForCommunityPage(userId);
 
         PointOfSale = projects.Single(x => x.Id == 54);
         AcademyV2 = projects.Single(x => x.Id == 87);
     }
 
-    // TODO Change this in service
-    private async Task<bool> CheckIfIssueIsTaken(int id)
-    {
-        var project = await CommunityService.GetIssueById(id);
-
-        if (project == null)
-        {
-            return false;
-        }
-
-        if (project.AppUserId != userId)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private async Task AssignMyself(Issue issue)
+    private async Task AssignMyself(CommunityIssue issue)
     {
         await CommunityService.AssignUserToIssue(userId, issue);
         user = await UserService.GetUserById(userId);
 
         userAssigned = true;
-    }
-
-    private bool CheckIfAssigned(int id)
-    {
-        var result = userProjects.Any(x => x.ProjectId == id);
-        return result;
     }
 
     private bool CheckIfPendingReview(int id)

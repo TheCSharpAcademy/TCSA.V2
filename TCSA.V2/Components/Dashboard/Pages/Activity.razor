@@ -65,7 +65,7 @@
 
         Projects = ProjectHelper.GetProjects();
         Articles = ArticleHelper.GetArticles();
-        Issues = IssueHelper.GetIssues();
+        //Issues = IssueHelper.GetIssues();
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);

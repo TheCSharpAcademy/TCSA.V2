@@ -75,7 +75,7 @@
                         <tr>
                             <th>Freecodecamp Certification</th>
                             <td>
-                                @if (User.DashboardProjects.Any(x => x.ProjectId == 75))
+                                @if (User.DashboardProjects != null && User.DashboardProjects.Any(x => x.ProjectId == 75))
                                 {
                                     <span>Yes</span>
                                 }

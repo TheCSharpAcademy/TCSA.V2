@@ -78,7 +78,7 @@
         {
             activityDisplay.Add(new UserActivityAdminDisplay
             {
-                Date = @DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted),
+                Date = DateTimeHelper.GetDate((DateTimeOffset)item.DateSubmitted),
                 Time = DateTimeHelper.GetTime((DateTimeOffset)item.DateSubmitted),
                 Description = await GetDescriptionMarkup(item, item.AppUserId),
                 AppUserId = item.AppUserId

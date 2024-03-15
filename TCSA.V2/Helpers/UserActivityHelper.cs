@@ -37,20 +37,6 @@ public static class UserActivityHelper
         return $"The project <b>{ProjectHelper.GetProjects().Single(x => x.Id == projectId).Title}</b> was marked as complete.";
     }
 
-    public static string GetIcon(ActivityType type, int projectId)
-    {
-        if (type == ActivityType.IssueSubmitted)
-        {
-            return IssueHelper.GetIssues().Single(x => x.Id == projectId).IconUrl;
-        }
-        else if (type == ActivityType.ArticleRead)
-        {
-            return ArticleHelper.GetArticles().Single(x => x.Id == projectId).IconUrl;
-        }
-
-        return ProjectHelper.GetProjects().Single(x => x.Id == projectId).IconUrl;
-    }
-
     public static string GetDescription(ActivityType type, int projectId)
     {
         switch (type)

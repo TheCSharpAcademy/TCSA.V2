@@ -6,29 +6,29 @@
 
 @inject NavigationManager NavigationManager
 
-<div class="row">
-    <div class="col-6 pt-5 text-center h-100">
+<div class="row extras-row-mobile">
+    <div class="col-6 text-center dashboard-extras-mobile h-100">
         <div class="row dashboard-side-card rounded">
             <div class="col-12 dashboard-side-card-text">
-                Code Reviews Available
+                Reviews Available
             </div>
-            <div class="col-12 dashboard-side-card-number">
+            <div class="col-12 dashboard-side-card-number-mobile">
                 @AvailableReviews
             </div>
         </div>
     </div>
-    <div class="col-6 pt-5 text-center h-100">
+    <div class="col-6 text-center dashboard-extras-mobile h-100">
         <div class="row dashboard-side-card rounded">
             <div class="col-12 dashboard-side-card-text">
-                Community Project Issues Available
+                Issues Available
             </div>
-            <div class="col-12 dashboard-side-card-number">
+            <div class="col-12 dashboard-side-card-number-mobile">
                 @AvailableIssues
             </div>
         </div>
     </div>
 </div>
-<input type="checkbox" title="Navigation menu" class="navbar-toggler navbar-toggler-dashboard-mobile" />
+    <input type="checkbox" title="Navigation menu" class="navbar-toggler navbar-toggler-dashboard-mobile" />
 <div class="nav-scrollable dashboard-menu-mobile pt-5 h-100" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
@@ -109,15 +109,37 @@
 <style>
     .navbar-toggler-dashboard-mobile {
         color: black !important;
-        position: initial;
+        position: initial !important;
     }
 
     .dashboard-menu-mobile {
         background-color: #1C236D;
     }
 
+    .dashboard-side-card-text-mobile {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
     .dashboard-menu-item-text {
         font-size: 16px;
         font-weight: 500;
+    }
+
+    .dashboard-extras-mobile {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+    .dashboard-side-card-number-mobile {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .extras-row-mobile {
+        margin-top: -20px;
+        --bs-gutter-x: 0 !important;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 </style>

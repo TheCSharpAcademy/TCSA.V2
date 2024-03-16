@@ -1106,15 +1106,16 @@ public class ConsoleProjectsHelper
                     }
                 }
 
-            },
+            }, 
+            */
              new Project
             {
                 Id = 12,
-                Title = "Habit Logger",
+                Title = "Gewoontelogger",
                 IconUrl = "icons8-calendar-plus-96.png",
                 BannerUrl = "",
                 Slug = "habit-logger",
-                Description = "Build a logger for a habit of choice. Learn how to interact with a database using SQLite and to get and validate user input",
+                Description = "Bouw een logger voor een gewoonte naar keuze. Leer hoe je met een SQLite database kunt communiceren en hoe je gebruikersinvoer kunt verkrijgen en valideren",
                 Area = Area.Console,
                 Level = Level.OliveGreen,
                 ExperiencePoints = 10,
@@ -1124,95 +1125,95 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="This is a very simple app that will teach you how to perform <a href='https://en.wikipedia.org/wiki/Create,_read,_update_and_delete'>CRUD operations</a> against a real database. These operations are the base of web-development and you’ll be using them throughout your career in any most applications. We think it’s very important to do it from the start of your journey, since everything that will happen from here is just adding complexity to CRUD operations. No matter how complex and fancy the app you’re building is, in the end it all comes down to executing CRUD calls to a database."
+                        Body="Dit is een heel eenvoudige app die je leert hoe je <a href='https://en.wikipedia.org/wiki/Create,_read,_update_and_delete'>CRUD-bewerkingen</a> kunt uitvoeren op een echte database. Deze bewerkingen vormen de basis van webontwikkeling en je zal ze gedurende jouw hele carrière in bijna elke app gebruiken. We denken dat het erg belangrijk is om dit vanaf het begin van je reis te doen, omdat alles wat vanaf hier zal gebeuren alleen maar de complexiteit aan CRUD-operaties toevoegt. Hoe complex en luxe de app die je bouwt ook is, uiteindelijk komt het allemaal neer op het uitvoeren van CRUD-aanroepen naar een database."
                     },
                     new Paragraph
                     {
-                        Body="For that you’ll have to learn very simple <a href='https://en.wikipedia.org/wiki/SQL'>SQL commands</a>. I know it sounds scary, but you’ll be amazed about how little SQL knowledge you need to build a full-stack app. Don’t worry, we will take you by the hand and by the end you’ll have completed your first fully functioning CRUD app. The most common ways of calling a SQL database with C# are through <a href='https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/'>ADO.NET</a>, Dapper and Entity Framework. We will start by using ADO.NET, because it’s the closest to raw SQL."
+                        Body="Daarvoor zul je heel eenvoudige <a href='https://en.wikipedia.org/wiki/SQL'>SQL-commando’s</a> moeten leren. Ik weet dat het eng klinkt, maar je zult versteld staan van hoe weinig SQL-kennis je nodig hebt om een full-stack-app te bouwen. Maak je geen zorgen, we nemen je bij de hand en tegen het einde heb je je eerste volledig functionerende CRUD-app voltooid. De meest gebruikelijke manieren om een SQL-database aan te roepen met C# zijn via <a href='https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/'>ADO.NET</a>, Dapper en Entity Framework. We zullen beginnen met het gebruik van ADO.NET, omdat dit het dichtst bij ruwe SQL ligt."
                     },
                     new Paragraph
                     {
-                        Body="If you think this project is too hard for you and you have no idea where to even start, you’re probably right. You might need an extra hand to build a real application on your own. If that’s the case, <a href='https://youtu.be/d1JIJdDVFjs'>watch the video tutorial for this project</a> and then come back and try it again on your own. It’s perfectly ok to feel lost, since most beginner courses don’t actually teach you how to build something. "
+                        Body="Als je denkt dat dit project te moeilijk voor je is en je hebt geen idee waar je moet beginnen, dan heb je waarschijnlijk gelijk. Het kan zijn dat je extra hulp nodig heeft om zelf een echte applicatie te bouwen. Als dat het geval is, <a href='https://youtu.be/d1JIJdDVFjs'>bekijk dan de video-tutorial voor dit project</a> en kom dan terug en probeer het zelf opnieuw. Het is prima om je verloren te voelen, aangezien de meeste beginnerscursussen je niet echt leren hoe je iets moet bouwen."
                     },
                     new Paragraph
                     {
-                        Body="So let’s go!"
+                        Body="Laten we gaan!"
                     }
                 },
                 Requirements = new List<string>
                 {
-                    "This is an application where you’ll register one habit.",
-                    "This habit can't be tracked by time (ex. hours of sleep), only by quantity (ex. number of water glasses a day)",
-                    "The application should store and retrieve data from a real database",
-                    "When the application starts, it should create a sqlite database, if one isn’t present.",
-                    "It should also create a table in the database, where the habit will be logged.",
-                    "The app should show the user a menu of options.",
-                    "The users should be able to insert, delete, update and view their logged habit.",
-                    "You should handle all possible errors so that the application never crashes.",
-                    "The application should only be terminated when the user inserts 0.",
-                    "You can only interact with the database using raw SQL. You can’t use mappers such as Entity Framework.",
-                    "Your project needs to contain a Read Me file where you'll explain how your app works. Here's a nice example:"
+                    "Dit is een applicatie waarbij je één gewoonte registreert.",
+                    "Deze gewoonte kan niet worden gevolgd op basis van de tijd (bijvoorbeeld het aantal uren slaap), maar alleen op basis van de hoeveelheid (bijvoorbeeld het aantal waterglazen per dag)",
+                    "De applicatie moet gegevens opslaan en ophalen uit een echte database",
+                    "Wanneer de applicatie start, zou deze een sqlite-database moeten maken, als deze niet aanwezig is.",
+                    "Er moet ook een tabel in de database worden aangemaakt, waarin de gewoonte wordt geregistreerd.",
+                    "De app moet de gebruiker een menu met opties tonen.",
+                    "De gebruikers moeten hun geregistreerde gewoonte kunnen invoegen, verwijderen, bijwerken en bekijken.",
+                    "Je moet alle mogelijke fouten afhandelen, zodat de applicatie nooit crasht.",
+                    "De applicatie mag alleen worden beëindigd als de gebruiker 0 invoert.",
+                    "Je mag alleen met de database communiceren met behulp van onbewerkte SQL. Je mag geen mappers zoals Entity Framework gebruiken.",
+                    "Jouw project moet een README-bestand bevatten waarin je uitlegt hoe jouw app werkt. Hier is een mooi voorbeeld:"
                 },
-                RequirementsConclusion = "<a href='https://github.com/thags/ConsoleTimeLogger'>Github project with an example of a tidy Read Me file.</a><br>Don't panic! I'll help! 😁",
+                RequirementsConclusion = "<a href='https://github.com/thags/ConsoleTimeLogger'>Github-project met een voorbeeld van een netjes README-bestand.</a><br>Geen paniek! Wij zal verder helpen! 😁",
 
                 Tips = new List<string>
                 {
-                    "Test your SQL commands on DB Browser before using them in your program.",
-                    "You can keep all of the code in one single class if you wish.",
-                    "Use a switch statement for the user input menus.",
-                    "Don't forget the user input's validation: Check for incorrect dates. What happens if a menu option is chosen that's not available? What happens if the users input a string instead of a number?"
+                    "Test jouw SQL-opdrachten in DB Browser voordat je ze in jouw applicatie gebruikt.",
+                    "Als je wilt, mag je alle code in één enkele klasse bewaren.",
+                    "Gebruik een switch-instructie voor de gebruikersinvoermenu's.",
+                    "Vergeet de validatie van de gebruikersinvoer niet: controleer op onjuiste datums. Wat gebeurt er als er een menuoptie wordt gekozen die niet beschikbaar is? Wat gebeurt er als de gebruikers een string invoeren in plaats van een getal?"
                 },
                  Challenges = new List<string>
                 {
-                    "Let the users create their own habits to track. That will require that you let them choose the unit of measurement of each habit.",
-                    "Seed Data into the database automatically when the database gets created for the first time, generating a few habits and inserting a hundred records with randomly generated values. This is specially helpful during development so you don't have to reinsert data every time you create the database. ",
-                    "Create a report functionality where the users can view specific information (i.e. how many times the user ran in a year? how many kms?) SQL allows you to ask very interesting things from your database."
+                    "Laat de gebruikers hun eigen gewoonten creëren om bij te houden. Dat vereist dat je ze de meeteenheid van elke gewoonte laat kiezen.",
+                    "Vul data automatisch bij in de database wanneer de database voor de eerste keer wordt aangemaakt, waarbij een paar gewoonten worden gegenereerd en honderd records met willekeurig gegenereerde waarden worden ingevoegd. Dit is vooral handig tijdens de ontwikkeling, zodat je niet elke keer dat je de database maakt, gegevens opnieuw hoeft in te voeren.",
+                    "Creëer een rapportfunctionaliteit waar de gebruikers specifieke informatie kunnen bekijken (bijvoorbeeld: hoe vaak heeft de gebruiker in een jaar gelopen? Hoeveel km?) Met SQL kunt u zeer interessante dingen uit jouw database vragen."
                 },
-                 LearningIntro = "If you have learned the basics of C# following the <a href='article/8' target='blank'>C# Foundations</a> article, you should know all the basic techniques needed to complete this project. Here’s a list of the things you’ll need to fulfil the requirements:",
+                 LearningIntro = "Als je de basisprincipes van C# heeft geleerd uit het <a href='article/8' target='blank'>C# Foundations</a> artikel, zal je alle basistechnieken moeten kennen die nodig zijn om dit project te voltooien. Hier is een lijst met de dingen die je nodig heeft om aan de vereisten te voldoen:",
                  LearningItems = new List<string>
                  {
-                     "Taking user input from the console.",
-                     "Printing messages on the console. ",
-                     "Installing nuget packages (ASP.NET libraries that will help you write your program).",
-                     "Basic control flow with 'if-else' and 'switch statements'",
-                     "Connecting to a Sqlite database.",
-                     "Basics of SQL(the language you use to communicate with the database). If you want to train some SQL before getting started, <a href='https://www.w3schools.com/sql/sql_exercises.asp'>here's an excellent place</a>."
+                     "Gebruikersinvoer van de console inlezen.",
+                     "Berichten in de console weergeven",
+                     "Nuget-pakketten installeren (ASP.NET-bibliotheken die je helpen bij het schrijven van jouw applicatie).",
+                     "Basisbesturingsstroom met 'if-else' en 'switch-statements'",
+                     "Verbinding maken met een SQLite-database.",
+                     "Basisprincipes van SQL (de taal die je gebruikt om met de database te communiceren). Als je wat SQL wilt trainen voordat je aan de slag gaat, <a href='https://www.w3schools.com/sql/sql_exercises.asp'>is dit een uitstekende plek</a>."
                  },
                  Blocks = new List<Block>
                 {
                     new Block
                     {
-                        Title = "Creating The Project",
+                        Title = "Het project creëren",
                         ImgUrl= "icons8-software-installer-96-1.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "This tutorial requires that you already have set up your .NET environment. If you haven’t yet, check <a href='article/7' target='blank'>this article</a> out with the first steps. If you absolutely want to use another IDE, let me know."
+                                Body = "Voor deze zelfstudie is vereist dat je jouw .NET-omgeving al hebt ingesteld. Als je dat nog niet hebt gedaan, bekijk dan <a href='article/7' target='blank'>dit artikel</a> met de eerste stappen. Als je absoluut een andere IDE wilt gebruiken, laat het me weten."
                             },
                             new Paragraph
                             {
-                                Body = "1. In Visual Studio, choose Create new project. If you’re using Visual Studio Code, let me know if you have difficulties creating the project.<br>2. Search for Console Application and click Next.<br>3. Choose a Project Name and a Location and click Next.<br>3. Choose the latest framework (Net 6 at the time of this tutorial) and click Create.<br>4. Run your application by clicking on the green play button on the top of the screen."
+                                Body = "1. Kies in Visual Studio Nieuw Project Maken. Als je Visual Studio Code gebruikt, kan je mij laten weten of je problemen hebt bij het maken van het project.<br>2. Zoek naar Console-applicatie en klik op Volgende.<br>3. Kies een projectnaam en een locatie en klik op Volgende.<br>3. Kies het nieuwste framework (Net 8 op het moment van deze tutorial) en klik op Maken.<br>4. Start jouw applicatie door op de groene afspeelknop bovenaan het scherm te klikken."
                             },
                             new Paragraph
                             {
-                                Body = "A CLI (command line interface) will open and print ‘Hello World’ and the application will close itself. That means your application ASP.NET environment and your application are working properly."
+                                Body = "Een CLI (command line interface) wordt geopend, 'Hello World' wordt afgedrukt en daarna zal de applicatie zichself afsluiten. Dat betekent dat jouw applicatie-ASP.NET-omgeving en jouw applicatie naar behoren werken."
                             }
                         }
                     },
                     new Block
                     {
-                        Title = "Changing Your Working Directory",
+                        Title = "Uw werkdirectory wijzigen",
                         ImgUrl = "icons8-folder-100.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "This way .NET will build your project in your main folder. By default it builds your project in a bin folder and just to keep things simple we want to avoid that. That will create a Properties folder with a <b>launchsettings.json</b> file containing your configuration information. This is an important step only for applications that use Sqlite because you want the database to be created in the same folder of the application to avoid confusion."
+                                Body = "Op deze manier bouwt .NET jouw project in uw hoofdmap. Standaard wordt jouw project in een bin-map gebouwd en om het eenvoudig te houden willen we dat vermijden. Er wordt dan een map Properties gemaakt met een <b>launchsettings.json</b>-bestand met daarin jouw configuratiegegevens. Dit is alleen een belangrijke stap voor toepassingen die Sqlite gebruiken, omdat je wil dat de database in dezelfde map van de toepassing wordt gemaakt om verwarring te voorkomen."
                             },
                             new Paragraph
                             {
-                                Body = "For that, click on the chevron next to the name of your app on the top menu, click on {nameoftheapp} Debug Properties and copy the path of your directory to the 'Working Directory' field. To find out what your path is, you can right click on your project in the Solution Explorer and on “Copy Full Path” or look it up in your Files Explorer. If you’re using Mac/Visual Studio Code, reach out and I’ll tell you how to do it. "
+                                Body = "Klik daarvoor op het punthaakje naast de naam van jouw app in het bovenste menu, klik op {nameoftheapp} Debug Properties en kopieer het pad van uw directory naar het veld 'Working Directory'. Om erachter te komen wat jouw pad is, kan je met de rechtermuisknop op jouw project klikken in de Solution Explorer en op \"Volledig pad kopiëren\" of het opzoeken in jouw Bestandenverkenner. Als je Mac/Visual Studio Code gebruikt, neem dan contact met mij op en ik zal je vertellen hoe je dit moet doen. "
                             },
                             new Paragraph
                             {
@@ -1228,13 +1229,13 @@ public class ConsoleProjectsHelper
                     },
                     new Block
                     {
-                        Title = "Start Coding!",
+                        Title = "Begin met coderen!",
                         ImgUrl = "icons8-coding-64.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "Every time you start your app, it should check if there’s a database. If there isn’t, it will create one along with a table where you’ll store your data. If you delete your database externally, it will always create one. If the database exists, it will move to the next step: take the user input about what you want to do. Something like this:"
+                                Body = "Elke keer dat je jouw app start, moet deze controleren of er een database is. Als dat niet het geval is, wordt er een gemaakt samen met een tabel waarin je jouw gegevens opslaat. Als je jouw database extern verwijdert, wordt er altijd een aangemaakt. Als de database bestaat, gaat deze naar de volgende stap: lees de gebruikersinvoer in en kies wat je wilt doen. Iets zoals dit:"
                             },
                             new Paragraph
                             {
@@ -1243,27 +1244,27 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = "In ASP.NET C# development, the use of SQL Server is very common. But we won’t be using it here. SQLite is a super lightweight database system and it’s important to get familiar with it before jumping into SQL server."
+                                Body = "Bij de ontwikkeling van ASP.NET C# is het gebruik van SQL Server heel gebruikelijk. Maar we zullen het hier niet gebruiken. SQLite is een superlicht databasesysteem en het is belangrijk om ermee vertrouwd te raken voordat je in de SQL-server springt."
                             },
                             new Paragraph
                             {
-                                Body = "You’ll need to tell your program to create a sqlite file. You’ll be able to visualise that file externally with the help of a small application. <a href='https://www.youtube.com/watch?v=HQKwgk6XkIA'>Here's a link to a basic sqlite tutorial</a>."
+                                Body = "Je moet in jouw programma een sqlite-bestand laten maken. Je kan dat bestand extern visualiseren met behulp van een kleine applicatie. <a href='https://www.youtube.com/watch?v=HQKwgk6XkIA'>Hier is een link naar een eenvoudige SQLite-tutorial</a>."
                             },
                             new Paragraph
                             {
-                                Body = "That’s where your actual code begins! You’re on your own for a while. If you get stuck, keep trying, <a href='article/6' target='blank'>remember the steps to debug your app/get unstuck</a>. And if you ultimately can’t do it, reach out to our <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> or myself and we will help!"
+                                Body = "Dit is waar jouw daadwerkelijke code begint! Je bent een tijdje op jezelf aangewezen. Als je vastloopt, blijf het proberen, <a href='article/6' target='blank'>onthoud de stappen om fouten in jouw app op te sporen/de blokkade op te lossen</a>. En als het je uiteindelijk niet lukt, neem dan contact op met onze <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> of met mezelf, dan helpen we je verder!"
                             },
                         }
                     },
                     new Block
                     {
-                        Title = "Video Tutorial",
+                        Title = "Video uitleg",
                         ImgUrl = "external-video-tutorial-online-learning-photo3ideastudio-flat-photo3ideastudio-300x300.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If you’re feeling totally lost, it’s perfectly ok to watch a video tutorial to get you going. Here you’ll learn to connect all the pieces to build a real application. Once you finish it, make sure you try it again on your own without the help of the video so you internalise the newly acquired knowledge. "
+                                Body = "Als je de weg helemaal kwijt zijn geraakt, is het prima om een video-tutorial te bekijken om je weer op de weg te helpen. Hier leer je alle onderdelen met elkaar te verbinden om een echte applicatie te bouwen. Als je klaar bent, zorg er dan voor dat je het zelf opnieuw probeert, zonder de hulp van de video, zodat je de nieuw verworven kennis internaliseert."
                             },
                             new Paragraph
                             {
@@ -1274,28 +1275,28 @@ public class ConsoleProjectsHelper
                     },
                     new Block
                     {
-                        Title = "Source Control",
+                        Title = "Bron controle",
                         ImgUrl = "icons8-git-96.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If this is your first tutorial, you might be tempted to skip this step and start coding. Don’t do it or you’ll learn the hard way. One day after working for many hours on a difficult problem you won’t save your work on a source control repository and for whatever reason all of your work will be lost."
+                                Body = "Als dit je eerste tutorial is, kom je misschien in de verleiding om deze stap over te slaan en te beginnen met coderen. Doe het niet, anders leer je het op de harde manier. Op een dag, nadat je vele uren aan een moeilijk probleem hebt gewerkt, kun je je werk niet meer opslaan in een bronbeheerrepository en om welke reden dan ook zal al het werk verloren gaan."
                             },
                             new Paragraph
                             {
-                                Body = "Get into the habit of saving every line of code you ever write. I promise it will save you from many headaches. All serious developers save their work on a backup repository. The most commonly used is Github. Create an account if you haven’t yet. "
+                                Body = "Maak er een gewoonte van om elke regel code die je ooit schrijft, op te slaan. Ik beloof dat het je veel kopzorgen zal besparen. Alle serieuze ontwikkelaars slaan hun werk op in een back-uprepository. De meest gebruikte is GitHub. Maak een account aan als je dat nog niet hebt gedaan."
                             },
                             new Paragraph
                             {
-                                Body="1. In Visual Studio, go to Git > Create Git Repository<br>2. Enter your Login Details<br>3. Click on Create and Push. "
+                                Body="1. Ga in Visual Studio naar Git > Git-repository maken<br>2. Voer jouw inloggegevens in<br>3. Klik op Maken en Pushen."
                             },
                             new Paragraph
                             {
-                                Body="✅ Done! Your repository is good to go. Don’t forget to commit and push your changes after every step!"
+                                Body="✅ Klaar! Je repository is klaar om te gebruiken. Vergeet niet om jouw wijzigingen na elke stap vast te leggen en Pushen"
                             }, new Paragraph
                             {
-                                Body="You can take further step and learn how to integrate Github with Visual Studio watching this tutorial:"
+                                Body="Je kunt nog een stap verder gaan en leren hoe je Github met Visual Studio kunt integreren door deze tutorial te bekijken:"
                             },
                             new Paragraph
                             {
@@ -1306,31 +1307,31 @@ public class ConsoleProjectsHelper
                     },
                     new Block
                     {
-                        Title = "Code Review",
+                        Title = "Codebeoordeling",
                         ImgUrl= "icons8-code-review-64.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "Als je wilt dat jouw code wordt beoordeeld door een lid van de C# Academy, in plaats van jouw eigen repository te maken, <a href='article/52' target='blank'>moet je dit artikel volgen</a>, waar je kan leren hoe je een fork kan maken vanuit onze basisrepository."
                             }
                         }
                     },
                     new Block
                     {
-                        Title = "Next Step: Desktop App",
+                        Title = "Volgende stap: Desktop-app",
                         ImgUrl = "icons8-staircase-80.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Habit Tracker App with the same functionality you’ve created for this console app. There will be some challenges, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and we will help!"
+                                Body = "Als je de <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>hele C# Foundation-cursus</a> hebt bekeken, heb je al een Math Game Desktop-app gemaakt met behulp van de geweldige .NET MAUI. Het is een goede oefening om een desktop Habit Tracker-app te bouwen met dezelfde functionaliteit die je voor deze console-app hebt gemaakt. Er zullen enkele uitdagingen zijn, maar je beschikt al over alle benodigde vaardigheden. En onthoud: als je vastloopt, neem dan contact op met onze <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord-community</a> en we zullen je helpen!"
                             }
                         }
                     },
                 }
             },
-             new Project
+            /* new Project
              {
                 Id = 13,
                 Title = "Coding Tracker",

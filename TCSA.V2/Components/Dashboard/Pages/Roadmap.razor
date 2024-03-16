@@ -150,7 +150,7 @@ else
         articles = ArticleHelper.GetArticles();
 
         var claims = AuthSate.User;
-        userId = "6c57f4e8-f740-45e4-995b-ca2b3802bfaa";
+        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
         UserLevel = await UserService.GetUserLevel(userId);
 

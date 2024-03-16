@@ -9,72 +9,81 @@
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 
+@if(isLoading)
+{
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+} 
+else
+{
+    <div class="mt-5 pt-3">
+        <RoadmapCard CardName="White Belt"
+                     IconUrl="belts/white-belt.png"
+                     Tasks=greenBeltTasks
+                     IsCompleted=@(UserLevel > Level.White)
+                     Requirements=greenBeltReqs />
 
-<div class="mt-5 pt-3">
-    <RoadmapCard CardName="White Belt"
-                 IconUrl="belts/white-belt.png"
-                 Tasks=greenBeltTasks
-                 IsCompleted=@(UserLevel > Level.White)
-                 Requirements=greenBeltReqs />
+        <RoadmapCard CardName="Green Belt"
+                     IconUrl="belts/green-belt.png"
+                     Tasks=oliveGreenBeltTasks
+                     IsCompleted=@(UserLevel > Level.Green)
+                     Requirements=oliveGreenBeltReqs />
 
-    <RoadmapCard CardName="Green Belt"
-                 IconUrl="belts/green-belt.png"
-                 Tasks=oliveGreenBeltTasks
-                 IsCompleted=@(UserLevel > Level.Green)
-                 Requirements=oliveGreenBeltReqs />
+        <RoadmapCard CardName="Olive Green Belt"
+                     IconUrl="belts/olivegreen-belt.png"
+                     Tasks="yellowBeltTasks"
+                     IsCompleted=@(UserLevel > Level.OliveGreen)
+                     Requirements=yellowBeltReqs />
 
-    <RoadmapCard CardName="Olive Green Belt"
-                 IconUrl="belts/olivegreen-belt.png"
-                 Tasks="yellowBeltTasks"
-                 IsCompleted=@(UserLevel > Level.OliveGreen)
-                 Requirements=yellowBeltReqs />
+        <RoadmapCard CardName="Yellow Belt"
+                     IconUrl="belts/yellow-belt.png"
+                     Tasks="orangeBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Yellow)
+                     Requirements=orangeBeltReqs />
 
-    <RoadmapCard CardName="Yellow Belt"
-                 IconUrl="belts/yellow-belt.png"
-                 Tasks="orangeBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Yellow)
-                 Requirements=orangeBeltReqs />
+        <RoadmapCard CardName="Orange Belt"
+                     IconUrl="belts/orange-belt.png"
+                     Tasks="redBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Orange)
+                     Requirements=redBeltReqs />
 
-    <RoadmapCard CardName="Orange Belt"
-                 IconUrl="belts/orange-belt.png"
-                 Tasks="redBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Orange)
-                 Requirements=redBeltReqs />
+        <RoadmapCard CardName="Red Belt"
+                     IconUrl="belts/red-belt.png"
+                     Tasks="purpleBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Red)
+                     Requirements=purpleBeltReqs />
 
-    <RoadmapCard CardName="Red Belt"
-                 IconUrl="belts/red-belt.png"
-                 Tasks="purpleBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Red)
-                 Requirements=purpleBeltReqs />
+        <RoadmapCard CardName="Purple Belt"
+                     IconUrl="belts/purple-belt.png"
+                     Tasks="brownBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Purple)
+                     Requirements=brownBeltReqs />
 
-    <RoadmapCard CardName="Purple Belt"
-                 IconUrl="belts/purple-belt.png"
-                 Tasks="brownBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Purple)
-                 Requirements=brownBeltReqs />
+        <RoadmapCard CardName="Brown Belt"
+                     IconUrl="belts/brown-belt.png"
+                     Tasks="greyBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Brown)
+                     Requirements=greyBeltReqs />
 
-    <RoadmapCard CardName="Brown Belt"
-                 IconUrl="belts/brown-belt.png"
-                 Tasks="greyBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Brown)
-                 Requirements=greyBeltReqs />
+        <RoadmapCard CardName="Grey Belt"
+                     IconUrl="belts/grey-belt.png"
+                     Tasks="blueBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Grey)
+                     Requirements=blueBeltReqs />
 
-    <RoadmapCard CardName="Grey Belt"
-                 IconUrl="belts/grey-belt.png"
-                 Tasks="blueBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Grey)
-                 Requirements=blueBeltReqs />
+        <RoadmapCard CardName="Blue Belt"
+                     IconUrl="belts/blue-belt.png"
+                     Tasks="blackBeltTasks"
+                     IsCompleted=@(UserLevel > Level.Blue)
+                     Requirements=blackBeltReqs />
 
-    <RoadmapCard CardName="Blue Belt"
-                 IconUrl="belts/blue-belt.png"
-                 Tasks="blackBeltTasks"
-                 IsCompleted=@(UserLevel > Level.Blue)
-                 Requirements=blackBeltReqs />
+        <RoadmapCard CardName="Black Belt"
+                     IconUrl="belts/black-belt.png"
+                     IsCompleted=@(UserLevel > Level.Black) />
+    </div>
+}
 
-    <RoadmapCard CardName="Black Belt"
-                 IconUrl="belts/black-belt.png"
-                 IsCompleted=@(UserLevel > Level.Black) />
-</div>
 
 
 @code {
@@ -86,10 +95,10 @@
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
+    [Inject] private ICommunityService CommunityService { get; set; }
 
     private List<Article>? articles;
     private List<Project>? projects;
-    private List<Issue>? issues;
 
     private List<string> greenBeltReqs = new();
     private List<string> oliveGreenBeltReqs = new();
@@ -120,6 +129,7 @@
     private List<int> reactProjects = new();
     private List<int> mvcProjects = new();
 
+    private bool isLoading = false;
     private string userId = "";
     private int reviewsCount = 0;
     private int issuesCount = 0;
@@ -127,6 +137,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        isLoading = true;
+
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
         if (!AuthSate.User.Identity.IsAuthenticated)
@@ -136,10 +148,9 @@
 
         projects = ProjectHelper.GetProjects();
         articles = ArticleHelper.GetArticles();
-        issues = IssueHelper.GetIssues();
 
         var claims = AuthSate.User;
-        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        userId = "6c57f4e8-f740-45e4-995b-ca2b3802bfaa";
 
         UserLevel = await UserService.GetUserLevel(userId);
 
@@ -148,8 +159,7 @@
         var codeReviews = await PeerReviewService.GetCodeReviewDetails(userId);
         reviewsCount = codeReviews.Where(x => x.IsCompleted).Count();
 
-        var availableIssues = issues.Select(x => x.ProjectId).ToList();
-        issuesCount = completedProjects.Where(x => availableIssues.Contains(x)).Count();
+        issuesCount = await CommunityService.GetCompletedIssuesCount(userId);
 
         mvcProjects = projects.Where(x => x.Area == Area.MVC).Select(x => x.Id).ToList();
         blazorProjects = projects.Where(x => x.Area == Area.Blazor).Select(x => x.Id).ToList();
@@ -168,6 +178,8 @@
         GetBlueBeltTasks();
         GetBlackBeltTasks();
         GetAllRequirements();
+
+        isLoading = false;
     }
 
     protected void GetAllRequirements()
@@ -238,7 +250,6 @@
             });
 
     }
-
     protected void GetGreenBeltTasks()
     {
         greenBeltTasks = articles

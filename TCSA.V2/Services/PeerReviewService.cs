@@ -204,6 +204,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
+    // TODO CHANGE THIS, LOOKS LIKE A VERY EXPENSIVE QUERY
     public async Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId)
     {
         var result = new List<CodeReviewDetail>();

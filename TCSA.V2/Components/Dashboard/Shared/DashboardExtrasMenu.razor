@@ -31,15 +31,13 @@
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
-    private List<Issue>? Issues;
     private int AvailableReviews { get; set; }
     private int AvailableIssues { get; set; }
     private bool CodeReviewsAvailable { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Issues = IssueHelper.GetIssues();
-        AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
+        AvailableIssues = await CommunityService.GetAvailableIssuesCount();
         AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
     }
 

@@ -90,8 +90,7 @@
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
 
-        Issues = IssueHelper.GetIssues();
-        AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
+        AvailableIssues = await CommunityService.GetAvailableIssuesCount();
         AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
     }
 

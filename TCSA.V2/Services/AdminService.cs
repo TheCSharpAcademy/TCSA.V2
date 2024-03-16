@@ -148,17 +148,19 @@ public class AdminService : IAdminService
     public async Task<int> MarkProjectAsCompleted(int projectId, string userId, int currentPoints)
     {
         var academyProject = new Article();
-        if (ProjectHelper.GetProjects().Any(x => x.Id == projectId))
-        {
-            academyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == projectId);
-        }
-        else
-        {
-            academyProject = IssueHelper.GetIssues().FirstOrDefault(x => x.Id == projectId);
-        }
 
         using (var context = _factory.CreateDbContext())
         {
+            if (ProjectHelper.GetProjects().Any(x => x.Id == projectId))
+            {
+                academyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == projectId);
+            }
+            else
+            {
+                var issue = context.Issues.FirstOrDefault(x => x.ProjectId == projectId);
+                academyProject.ExperiencePoints = issue.ExperiencePoints;
+            }
+
             var dashboardProject = await context.DashboardProjects.FirstOrDefaultAsync(x => x.ProjectId == projectId && x.AppUserId == userId);
 
             dashboardProject.IsPendingReview = false;
@@ -171,7 +173,7 @@ public class AdminService : IAdminService
 
             context.UserActivity.Add(new AppUserActivity
             {
-                ProjectId = academyProject.Id,
+                ProjectId = projectId,
                 AppUserId = userId,
                 DateSubmitted = DateTime.UtcNow,
                 ActivityType = ActivityType.ProjectCompleted

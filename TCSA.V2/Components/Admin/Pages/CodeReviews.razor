@@ -74,11 +74,12 @@
     [Inject] protected IUserService UserService { get; set; }
     [Inject] protected IProjectService ProjectService { get; set; }
     [Inject] protected IAdminService AdminService { get; set; }
+    [Inject] protected ICommunityService CommunityService { get; set; }
 
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private List<Project>? projects;
-    private List<Issue>? issues;
+    private List<CommunityIssue>? issues;
     private List<DashboardProject>? dashboardProjects;
     private List<DashboardProject>? dashboardProjectsCopy;
     private FilterProjectListForm ProjectIdForm = new();
@@ -89,7 +90,7 @@
     protected override async Task OnInitializedAsync()
     {
         projects = ProjectHelper.GetProjects();
-        issues = IssueHelper.GetIssues();
+        issues = await CommunityService.GetIssuesForAdmin();
         dashboardProjects = await AdminService.GetProjectsPendingReview();
         dashboardProjectsCopy = dashboardProjects;
 
@@ -104,9 +105,9 @@
 
         if (project == null)
         {
-            var issue = issues.FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
+            var issue = issues.FirstOrDefault(x => x.ProjectId == dashboardProject.ProjectId);
 
-            return $"{issue.Description} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
+            return $"{issue.Title} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
         }
 
         return $"{project.Title} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";

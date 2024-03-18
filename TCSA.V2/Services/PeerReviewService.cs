@@ -10,12 +10,12 @@ namespace TCSA.V2.Services;
 public interface IPeerReviewService
 {
     Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId);
-    Task<List<DashboardProject>> GetProjectsForPeerReview(Level level);
+    Task<List<DashboardProject>> GetProjectsForPeerReview();
     Task AssignUserToCodeReview(string userId, int id);
     string GetRevieweeName(string revieweeId);
     Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
     Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
-    Task<int> GetAvailablePeerReviewsCount(Level level);
+    Task<int> GetAvailablePeerReviews();
 }
 public class PeerReviewService : IPeerReviewService
 {
@@ -87,22 +87,16 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<List<DashboardProject>> GetProjectsForPeerReview(Level level)
+    public async Task<List<DashboardProject>> GetProjectsForPeerReview()
     {
         var url = "https://github.com/TheCSharpAcademy/CodeReviews";
-
-        var reviewableProjects = new List<int> { 53, 11, 12, 13 };
-
-        if (level > Level.Yellow)
-        {
-            reviewableProjects.AddRange(new List<int> { 14, 15, 16, 17 });
-        }
+        var beginnerProjects = new List<int> { 53, 11, 12, 13 };
 
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var usersReviewProjects = context.UserReviews
+                var reviewProjects = context.UserReviews
                     .Select(x => x.DashboardProjectId)
                     .ToList();
 
@@ -110,8 +104,8 @@ public class PeerReviewService : IPeerReviewService
                 .AsSplitQuery()
                 .Include(x => x.AppUser)
                 .Where(x => x.IsPendingReview
-                   && reviewableProjects.Contains(x.ProjectId)
-                   && !usersReviewProjects.Contains(x.Id)
+                   && beginnerProjects.Contains(x.ProjectId)
+                   && !reviewProjects.Contains(x.Id)
                    && x.GithubUrl.StartsWith(url))
                 .OrderBy(x => x.DateSubmitted)
                 .ToListAsync();
@@ -124,30 +118,25 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<int> GetAvailablePeerReviewsCount(Level level)
+    public async Task<int> GetAvailablePeerReviews()
     {
         var url = "https://github.com/TheCSharpAcademy/CodeReviews";
-        var reviewableProjects = new List<int> { 53, 11, 12, 13 };
-
-        if (level > Level.Yellow)
-        {
-            reviewableProjects.AddRange(new List<int> { 14, 15, 16, 17 });
-        }
+        var beginnerProjects = new List<int> { 53, 11, 12, 13 };
 
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var usersReviewProjects = context.UserReviews
+                var reviewProjects = context.UserReviews
                     .Select(x => x.DashboardProjectId)
                     .ToList();
 
                 var count = await context.DashboardProjects
                     .Where(x => x.IsPendingReview
-                   && reviewableProjects.Contains(x.ProjectId)
-                   && !usersReviewProjects.Contains(x.Id)
-                   && x.GithubUrl.StartsWith(url))
-                    .CountAsync();
+                        && beginnerProjects.Contains(x.ProjectId)
+                        && !reviewProjects.Contains(x.Id)
+                        && x.GithubUrl.StartsWith(url))
+                    .CountAsync(); // Use CountAsync to get the count directly
 
                 return count;
             }

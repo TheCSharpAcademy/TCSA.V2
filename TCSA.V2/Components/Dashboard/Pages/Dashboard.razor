@@ -178,9 +178,9 @@
             {
                 CardName = "Cloud Development",
                 ImgUrl = "icons8-cloud-connection-480.png",
-                Projects = Projects.Where(x => x.Area == Area.Auth),
-                Description = GetNotCompletedMessage(Area.Auth, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Auth, null)
+                Projects = Projects.Where(x => x.Area == Area.Azure),
+                Description = GetNotCompletedMessage(Area.Azure, null),
+                IsCompleted = CheckIfAreaIsCompleted(Area.Azure, null)
             });
         Areas.Add(new DashboardAreaInfo
             {

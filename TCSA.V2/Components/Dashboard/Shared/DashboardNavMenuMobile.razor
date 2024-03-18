@@ -1,4 +1,5 @@
-﻿@using TCSA.V2.Components.UI.SVGs
+﻿@using System.Security.Claims
+@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
@@ -55,7 +56,31 @@
     </div>
 </div>
 
+<div class="row extras-row-mobile">
+    <div class="col-6 text-center dashboard-extras-mobile h-100">
+        <div class="row dashboard-side-card rounded">
+            <div class="col-12 dashboard-side-card-text">
+                Reviews Available
+            </div>
+            <div class="col-12 dashboard-side-card-number-mobile">
+                @AvailableReviews
+            </div>
+        </div>
+    </div>
+    <div class="col-6 text-center dashboard-extras-mobile h-100">
+        <div class="row dashboard-side-card rounded">
+            <div class="col-12 dashboard-side-card-text">
+                Issues Available
+            </div>
+            <div class="col-12 dashboard-side-card-number-mobile">
+                @AvailableIssues
+            </div>
+        </div>
+    </div>
+</div>
+
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
@@ -67,11 +92,21 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
+        var claims = AuthSate.User;
+        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
 
         AvailableIssues = await CommunityService.GetAvailableIssuesCount();
-        AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
+        AvailableReviews = await PeerReviewService.GetAvailablePeerReviewsCount(userId);
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
@@ -97,5 +132,32 @@
     .nav-row-mobile {
         background-color: black;
         margin-top: -20px;
+    }
+
+    .dashboard-side-card-text-mobile {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .dashboard-menu-item-text {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .dashboard-extras-mobile {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+    .dashboard-side-card-number-mobile {
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .extras-row-mobile {
+        background-color: #1C236D;
+        --bs-gutter-x: 0 !important;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 </style>

@@ -25,28 +25,44 @@
                         <EditForm Model="@submitIssueForm" OnValidSubmit="SubmitIssue">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
-                            <InputSelect shadow rounded @bind-Value="submitIssueForm.CommunityProjectId" class="form-select">
-                                <option selected>Select Project</option>
-                                <option value="87">The C# Academy V2</option>
-                                <option value="54">Point Of Sale</option>
-                            </InputSelect>
 
-                            <InputSelect shadow rounded @bind-Value="submitIssueForm.Type" class="form-select">
-                                <option value="">Select Issue Type</option>
-                                @foreach (var enumValue in Enum.GetValues(typeof(IssueType)))
-                                {
-                                    <option value="@enumValue">@enumValue.ToString()</option>
-                                }
-                            </InputSelect>
-                            <label>
-                                <p>Issue Title</p>
-                                <InputText class="form-control" @bind-Value="submitIssueForm.Title" />
-                            </label>
-                            <label>
-                                <a target="blank" href="article/52">Issue Url</a>
-                                <InputText class="form-control" @bind-Value="submitIssueForm.GithubUrl" />
-                            </label>
-                            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                            <div class="form-floating mb-3">
+                                <InputSelect shadow rounded @bind-Value="submitIssueForm.CommunityProjectId" class="form-select" id="projectSelect">
+                                    <option value="87">The C# Academy V2</option>
+                                    <option value="54">Point Of Sale</option>
+                                </InputSelect>
+                                <label for="projectSelect">Select Project</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <InputSelect shadow rounded @bind-Value="submitIssueForm.Type" class="form-select" id="issueTypeSelect">
+                                    <option value="">Select Issue Type</option>
+                                    @foreach (var enumValue in Enum.GetValues(typeof(IssueType)))
+                                    {
+                                        <option value="@enumValue">@enumValue.ToString()</option>
+                                    }
+                                </InputSelect>
+                                <label for="issueTypeSelect">Issue Type</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <InputText class="form-control" @bind-Value="submitIssueForm.Title" id="issueTitle" />
+                                <label for="issueTitle">Issue Title</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <InputText class="form-control" @bind-Value="submitIssueForm.GithubUrl" id="issueUrl" />
+                                <label for="issueUrl">Issue Url</label>
+                            </div>
+                            @if (isSubmittingIssue)
+                            {
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } else
+                            {
+                                <button class="btn btn-outline-secondary mb-3" type="submit">Submit</button>
+                            }
                         </EditForm>
                     </div>
                 </div>
@@ -161,6 +177,7 @@
     private bool projectSubmitted = false;
     private bool userAssigned = false;
     private bool createIssue = false;
+    private bool isSubmittingIssue = false;
     private SubmitIssueForm submitIssueForm = new();
     private DashboardProject dashboardProject = new();
     private SubmitIssuePullRequestForm form = new();
@@ -231,11 +248,13 @@
                 });
         }
 
-        user = await UserService.GetUserById(userId);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
     }
 
     private async Task SubmitIssue()
     {
+        isSubmittingIssue = true; 
+
         var communityIssue = new CommunityIssue
         {
             Title = submitIssueForm.Title,
@@ -250,7 +269,7 @@
 
         await CommunityService.CreateIssue(communityIssue);
 
-        user = await UserService.GetUserById(userId);
+        NavigationManager.NavigateTo("/dashboard/community", forceLoad: true);
     }
 
     private void OpenSubmitProjectform(int projectId)

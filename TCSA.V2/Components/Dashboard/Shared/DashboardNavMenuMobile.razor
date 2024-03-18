@@ -6,73 +6,53 @@
 
 @inject NavigationManager NavigationManager
 
-<div class="row">
-    <div class="col-6 pt-5 text-center h-100">
-        <div class="row dashboard-side-card rounded">
-            <div class="col-12 dashboard-side-card-text">
-                Code Reviews Available
+<div class="nav-row-mobile">
+    <input type="checkbox" title="Navigation menu" class="navbar-toggler navbar-toggler-dashboard-mobile ms-3 mt-1 nav-row-mobile" />
+    <div class="nav-scrollable pt-1 h-100" onclick="document.querySelector('.navbar-toggler').click()">
+        <nav class="flex-column">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
+                    <span class="bi bi-plus-square-fill-nav-menu"></span>Main
+                </NavLink>
             </div>
-            <div class="col-12 dashboard-side-card-number">
-                @AvailableReviews
-            </div>
-        </div>
-    </div>
-    <div class="col-6 pt-5 text-center h-100">
-        <div class="row dashboard-side-card rounded">
-            <div class="col-12 dashboard-side-card-text">
-                Community Project Issues Available
-            </div>
-            <div class="col-12 dashboard-side-card-number">
-                @AvailableIssues
-            </div>
-        </div>
-    </div>
-</div>
-<input type="checkbox" title="Navigation menu" class="navbar-toggler navbar-toggler-dashboard-mobile" />
-<div class="nav-scrollable dashboard-menu-mobile pt-5 h-100" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
-                <span class="bi bi-plus-square-fill-nav-menu"></span>Main
-            </NavLink>
-        </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/submit-project">
-                <SubmitProjectSVG /> <span class="ms-2">Submit Project</span>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/roadmap">
-                <MapSVG /> <span class="ms-2">Roadmap</span>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/leaderboard">
-                <TrophySVG /> <span class="ms-2">Leaderboard</span>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/activity">
-                <ActivitySVG /> <span class="ms-2">Activity </span>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/profile">
-                <ProfileSVG /> <span class="ms-2"> Profile </span>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/peer-reviews">
-                <PeerReviewsSVG /> <span class="ms-2"> Peer Reviews </span>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/community">
-                <CommunitySVG /> <span class="ms-2"> Community </span>
-            </NavLink>
-        </div>
-    </nav>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/submit-project">
+                    <SubmitProjectSVG /> <span class="ms-2">Submit Project</span>
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/roadmap">
+                    <MapSVG /> <span class="ms-2">Roadmap</span>
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/leaderboard">
+                    <TrophySVG /> <span class="ms-2">Leaderboard</span>
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/activity">
+                    <ActivitySVG /> <span class="ms-2">Activity </span>
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/profile">
+                    <ProfileSVG /> <span class="ms-2"> Profile </span>
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/peer-reviews">
+                    <PeerReviewsSVG /> <span class="ms-2"> Peer Reviews </span>
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard/community">
+                    <CommunitySVG /> <span class="ms-2"> Community </span>
+                </NavLink>
+            </div>
+        </nav>
+    </div>
 </div>
 
 @code {
@@ -90,8 +70,7 @@
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
 
-        Issues = IssueHelper.GetIssues();
-        AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
+        AvailableIssues = await CommunityService.GetAvailableIssuesCount();
         AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
     }
 
@@ -110,15 +89,13 @@
 <style>
     .navbar-toggler-dashboard-mobile {
         color: black !important;
-        position: initial;
+        position: initial !important;
+        border: none;
+        width: none;
     }
 
-    .dashboard-menu-mobile {
-        background-color: #1C236D;
-    }
-
-    .dashboard-menu-item-text {
-        font-size: 16px;
-        font-weight: 500;
+    .nav-row-mobile {
+        background-color: black;
+        margin-top: -20px;
     }
 </style>

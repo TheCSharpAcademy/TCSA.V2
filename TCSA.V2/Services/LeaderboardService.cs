@@ -117,7 +117,6 @@ public class LeaderboardService : ILeaderboardService
 
         var projects = ProjectHelper.GetProjects();
         var articles = ArticleHelper.GetArticles();
-        var issues = IssueHelper.GetIssues();
 
         try
         {
@@ -134,6 +133,8 @@ public class LeaderboardService : ILeaderboardService
                     var ids = user.DashboardProjects?
                       .Select(x => x.ProjectId)
                       .ToList();
+
+                    var issues = user.Issues;
 
                     user.ExperiencePoints = 0;
 

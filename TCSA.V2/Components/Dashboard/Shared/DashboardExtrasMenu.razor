@@ -1,8 +1,10 @@
-﻿@using TCSA.V2.Helpers
+﻿@using TCSA.V2.Data
+@using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
-@inject NavigationManager NavigationManager
+@using System.Security.Claims;
 
+@inject NavigationManager NavigationManager
 
 <div class="nav-scrollable dashboard-menu pt-5 h-100">
     <nav class="flex-column">
@@ -19,15 +21,19 @@
                 <div class="col-12 dashboard-side-card-text">
                     Community Project Issues Available
                 </div>
-                <div class="col-12 dashboard-side-card-number">
-                    @AvailableIssues
-                </div>
+                @if (AvailableIssues > 0)
+                {
+                    <div class="col-12 dashboard-side-card-number">
+                        @AvailableIssues
+                    </div>
+                }
             </div>
         </div>
     </nav>
 </div>
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
@@ -37,8 +43,14 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        var claims = AuthSate.User;
+        var experiencePoints = int.Parse(claims.FindFirstValue("experiencePoints"));
+        var level = (Level)int.Parse(claims.FindFirstValue("level"));
+
         AvailableIssues = await CommunityService.GetAvailableIssuesCount();
-        AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
+        AvailableReviews = await PeerReviewService.GetAvailablePeerReviewsCount(level);
     }
 
     private async Task NavigateToCodeReviews()

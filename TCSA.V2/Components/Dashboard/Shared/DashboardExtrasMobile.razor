@@ -1,4 +1,6 @@
-﻿@using TCSA.V2.Components.UI.SVGs
+﻿@using System.Security.Claims
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
@@ -19,14 +21,18 @@
             <div class="col-12 dashboard-side-card-text">
                 Issues Available
             </div>
-            <div class="col-12 dashboard-side-card-number-mobile">
-                @AvailableIssues
-            </div>
+            @if (AvailableIssues > 0)
+            {
+                <div class="col-12 dashboard-side-card-number-mobile">
+                    @AvailableIssues
+                </div>
+            }
         </div>
     </div>
 </div>
     
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
@@ -38,8 +44,14 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        var claims = AuthSate.User;
+        var experiencePoints = int.Parse(claims.FindFirstValue("experiencePoints"));
+        var level = (Level)int.Parse(claims.FindFirstValue("level"));
+
         AvailableIssues = await CommunityService.GetAvailableIssuesCount();
-        AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
+        AvailableReviews = await PeerReviewService.GetAvailablePeerReviewsCount(Level.White);
     }
 }
 

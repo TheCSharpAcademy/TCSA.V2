@@ -1,4 +1,6 @@
-﻿@using TCSA.V2.Components.UI.SVGs
+﻿@using System.Security.Claims
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
@@ -56,6 +58,7 @@
 </div>
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
@@ -70,8 +73,18 @@
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
 
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
+        var claims = AuthSate.User;
+        var level = claims.FindFirstValue("level");
+
         AvailableIssues = await CommunityService.GetAvailableIssuesCount();
-        AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
+        AvailableReviews = await PeerReviewService.GetAvailablePeerReviewsCount(Level.White);
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)

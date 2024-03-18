@@ -67,8 +67,12 @@
         }
 
         var claims = AuthSate.User;
+        var experiencePoints = int.Parse(claims.FindFirstValue("experiencePoints"));
+        var level = (Level)int.Parse(claims.FindFirstValue("level"));
+
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
+
         CompletedProjects = await ProjectService.GetCompletedProjectsById(UserId);
         PendingProjects = await ProjectService.GetPendingProjects(UserId);
 

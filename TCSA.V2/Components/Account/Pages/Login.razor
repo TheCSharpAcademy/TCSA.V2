@@ -3,6 +3,8 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using System.Security.Claims
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
 
@@ -10,6 +12,8 @@
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext DbContext
 
 <PageTitle>Log in</PageTitle>
 
@@ -96,13 +100,46 @@
         }
     }
 
+    private async Task RemoveUserClaims(ApplicationUser user, string claimType)
+    {
+        var claims = await UserManager.GetClaimsAsync(user);
+        var claimsToRemove = claims.Where(c => c.Type == claimType).ToList();
+
+        foreach (var claim in claimsToRemove)
+        {
+            await UserManager.RemoveClaimAsync(user, claim);
+        }
+    }
+
     public async Task LoginUser()
     {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
         var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
         if (result.Succeeded)
         {
+            var user = await UserManager.FindByEmailAsync(Input.Email);
+            var additionalUserInfo = await DbContext.Users
+            .Where(u => u.Id == user.Id)
+            .Select(u => new { u.ExperiencePoints, u.Level })
+            .FirstOrDefaultAsync();
+
+            if (additionalUserInfo != null)
+            {
+                await RemoveUserClaims(user, "experiencePoints");
+                await RemoveUserClaims(user, "level");
+
+                var newClaims = new List<Claim>
+                {
+                    new Claim("experiencePoints", additionalUserInfo.ExperiencePoints.ToString()),
+                    new Claim("level", ((int)additionalUserInfo.Level).ToString())
+                };
+                foreach (var claim in newClaims)
+                {
+                    await UserManager.AddClaimAsync(user, claim);
+                }
+            }
             Logger.LogInformation("User logged in.");
             RedirectManager.RedirectTo("Dashboard");
         }

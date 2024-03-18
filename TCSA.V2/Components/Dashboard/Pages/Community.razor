@@ -11,6 +11,7 @@
 @using TCSA.V2.Models.FormModels
 @using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
+@inject IJSRuntime JsRuntime
 
 <div class="mt-5 pt-3">
     @if (user != null)
@@ -93,23 +94,28 @@
 
             @if (submitProject)
             {
-                <div class="col horizontal-card submit-project-card shadow rounded-sm">
+                <div class="col horizontal-card submit-project-card shadow rounded-sm" style="background-color:#FEF5EC">
                     <CloseButtonSVG OnClickCallback="@CloseSubmitProjectForm" />
 
-                    <div class="form-group">
+                    <div class="form-container">
                         <EditForm Model="@form" OnValidSubmit="SubmitProject">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
+                             <div class="form-group">
                             <InputNumber hidden shadow rounded @bind-Value="form.ProjectId" class="form-select">
                                 <option selected>Open this select menu</option>
                             </InputNumber>
-                            <p>
+                            </div>
+                           <div class="form-group">
                                 <label>
                                     <a target="blank" href="article/52">Pull Request Url</a>
                                     <InputText class="form-control" @bind-Value="form.GithubUrl" />
                                 </label>
-                            </p>
-                            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                            </div>
+                             <div class="form-group">
+                            <button class="btn btn-outline-success" type="submit">Submit</button>
+                            </div>
+                            <p></p>
                         </EditForm>
                     </div>
                 </div>
@@ -155,6 +161,12 @@
         <div class="spinner"></div>
     }
 </div>
+
+<script>
+    window.scrollToTop = function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 
 @code {
     [Parameter] public EventCallback OnClickCallback { get; set; }
@@ -253,6 +265,7 @@
 
     private async Task SubmitIssue()
     {
+        await JsRuntime.InvokeVoidAsync("scrollToTop");
         isSubmittingIssue = true; 
 
         var communityIssue = new CommunityIssue

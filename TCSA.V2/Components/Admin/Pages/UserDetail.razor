@@ -132,9 +132,9 @@
                         <ValidationSummary />
                         <InputSelect shadow rounded @bind-Value="adminDashboardProject.ProjectId" class="form-select">
                             <option selected>Open this select menu</option>
-                            @foreach (var issue in issues.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.Id && y.IsPendingReview)))
+                            @foreach (var issue in issues.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.ProjectId && y.IsPendingReview)))
                             {
-                                <option value="@issue.Id">@issue.Title</option>
+                                <option value="@issue.ProjectId">@issue.Title</option>
                             }
                         </InputSelect>
                         <button class="btn btn-outline-secondary" type="submit">Submit</button>
@@ -297,17 +297,29 @@
 
     private async Task MarkProjectAsComplete()
     {
+        string projectTitle = "";
+
         await AdminService.MarkProjectAsCompleted(adminDashboardProject.ProjectId, UserId, User.ExperiencePoints);
 
         User = await UserService.GetUserById(UserId);
 
         var project = projects.FirstOrDefault(x => x.Id == adminDashboardProject.ProjectId);
 
+        if (project == null)
+        {
+            var issue = await CommunityService.GetIssueByProjectId(adminDashboardProject.ProjectId);
+            projectTitle = issue.Title;
+        }
+        else
+        {
+            projectTitle = project.Title;
+        }
+
         var rankingText = await LeaderboardService.GetUserRanking(UserId);
 
         var firstName = User.FirstName ??= "";
 
-        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText.ToString());
+        var body = EmailHelper.GetProjectCompletedBody(firstName, projectTitle, project.ExperiencePoints, rankingText.ToString());
 
         await EmailSender.SendEmailAsync(User.Email, "Your Project Was Marked as Complete", body);
 

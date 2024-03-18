@@ -112,9 +112,12 @@
                         <ValidationSummary />
                         <InputSelect shadow rounded @bind-Value="adminDashboardProject.ProjectId" class="form-select">
                             <option selected>Open this select menu</option>
-                            @foreach (var project in projects.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.Id && y.IsPendingReview)))
+                            @if (User.DashboardProjects != null)
                             {
-                                <option value="@project.Id">@project.Area - @project.Title</option>
+                                @foreach (var project in projects.Where(x => User.DashboardProjects.Any(y => y.ProjectId == x.Id && y.IsPendingReview)))
+                                {
+                                    <option value="@project.Id">@project.Area - @project.Title</option>
+                                }
                             }
                         </InputSelect>
                         <button class="btn btn-outline-secondary" type="submit">Submit</button>

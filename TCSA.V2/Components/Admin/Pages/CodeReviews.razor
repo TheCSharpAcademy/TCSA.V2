@@ -62,7 +62,7 @@
                         <td><button type="button" @onclick="(() => RequestChange(item.Id))" class="btn">Changes</button></td>
                         <td><a href="@item.GithubUrl" target="_blank" class="btn">View</a></td>
                         <td><button type="button" @onclick="(() => DeleteFromDashboard(item.Id))" class="btn">Delete</button></td>
-                        <td><a target="_blank" class="btn btn-success btn-side" href=@($"user/{item.AppUserId}")>View User</a></td>
+                        <td><a target="_blank" class="btn btn-success btn-side" href=@($"admin/{item.AppUserId}")>View User</a></td>
                     </tr>
                 }
             </tbody>

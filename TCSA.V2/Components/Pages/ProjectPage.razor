@@ -1,6 +1,7 @@
 ﻿@page "/project/{ProjectId:int}/{ProjectSlug}"
 @rendermode InteractiveServer
 
+@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using static TCSA.V2.Helpers.Enums
@@ -257,6 +258,51 @@
 
     @if (IsLoggedIn)
     {
+        @if (Project.Area == Area.SQL && !IsCompleted)
+        {
+            <div class="row pb-5">
+                <div class="col-2 icon-div">
+                    <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
+                </div>
+                <div class=col-10>
+                    <h1 class="article-section-title">Your Progress</h1>
+                    @if (codeWarsNotFoundShowing)
+                    {
+                        <CloseButtonSVG OnClickCallback="@ToggleCodeWarsNotFoundShowing" />
+                        <div class="horizontal-card bg-danger">
+                            <div class="card-body bg-danger">
+                                @ResultMessage
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="list-group  list-group-flush">
+                            @foreach (var challenge in Project.CodeWarsChallenges)
+                            {
+                                <li class="list-group-item">
+                                    @if (!challenge.IsCompleted)
+                                    {
+                                        <svg class="bi" width="24" height="24">
+                                            <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#app" />
+                                        </svg>
+                                        <span class="ps-2">@challenge.Name</span>
+                                    }
+                                    else
+                                    {
+                                        <svg class="bi" width="24" height="24" fill="green">
+                                            <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-circle" />
+                                        </svg>
+                                        <span class="ps-2"><del>@challenge.Name</del></span>
+                                    }
+
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        }
         @if (!IsCompleted)
         {
             <a class="btn btn-success" href="dashboard/submit-project">Submit</a>
@@ -275,6 +321,8 @@
 @code {
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private ICodeWarsService CodeWarsService { get; set; }
 
     [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public int ProjectId { get; set; }
@@ -286,9 +334,12 @@
     private bool IsLoggedIn;
     private bool IsPendingReview { get; set; } = false;
     private bool IsCompleted { get; set; } = false;
+    private bool codeWarsNotFoundShowing = false;
+    private bool ShowSubmitButton { get; set; } = false;
 
     private string BackgroundImage;
     private string UserId;
+    private string ResultMessage = "";
 
     protected async override Task OnInitializedAsync()
     {
@@ -318,6 +369,44 @@
         }
 
         IsCompleted = await ProjectService.IsProjectCompleted(UserId, ProjectId);
+    }
+
+    private async Task GetUser()
+    {
+        try
+        {
+            var user = await UserService.GetUserById(UserId);
+
+            if (user != null)
+            {
+                IsLoggedIn = true;
+            }
+            ShowSubmitButton = IsLoggedIn && !IsPendingReview && !IsCompleted && !Project.IsCommunityProject;
+
+            if (!IsCompleted && Project.Area == Area.SQL)
+            {
+                var challengesResult = await CodeWarsService.GetCodeWarsCompletedChallenges(user.CodeWarsUsername, Project.CodeWarsChallenges);
+
+                Project.CodeWarsChallenges = challengesResult.Challenges;
+
+                if (challengesResult.Status == Models.Responses.ResponseStatus.Fail)
+                {
+                    codeWarsNotFoundShowing = true;
+                    ResultMessage = challengesResult.Message;
+                }
+
+                if (challengesResult.Status == Models.Responses.ResponseStatus.Success
+                    && !IsCompleted
+                    && !Project.CodeWarsChallenges.Any(x => x.IsCompleted == false))
+                {
+                    await CodeWarsService.MarkCodeWarsAsCompleted(Project.Id, user.Id, user.ExperiencePoints);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     private void GetAvailableLanguages()
@@ -367,6 +456,8 @@
 
         StateHasChanged();
     }
+
+    private void ToggleCodeWarsNotFoundShowing() => codeWarsNotFoundShowing = !codeWarsNotFoundShowing;
 }
 
 <style>

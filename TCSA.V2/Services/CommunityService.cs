@@ -166,7 +166,9 @@ public class CommunityService : ICommunityService
         {
             using (var context = _factory.CreateDbContext())
             {
-                return await context.Issues.Where(x => string.IsNullOrEmpty(x.AppUserId) || x.AppUserId.Equals(appUserId)).ToListAsync();
+                return await context.Issues
+                    .Where(x => !x.IsClosed)
+                    .Where(x => string.IsNullOrEmpty(x.AppUserId) || x.AppUserId.Equals(appUserId)).ToListAsync();
             }
         }
         catch (Exception ex)

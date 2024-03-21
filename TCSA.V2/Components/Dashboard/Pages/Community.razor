@@ -265,7 +265,6 @@
 
     private async Task SubmitIssue()
     {
-        await JsRuntime.InvokeVoidAsync("scrollToTop");
         isSubmittingIssue = true; 
 
         var communityIssue = new CommunityIssue

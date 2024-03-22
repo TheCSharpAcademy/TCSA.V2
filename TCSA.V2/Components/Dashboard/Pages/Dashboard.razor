@@ -18,7 +18,7 @@
                          BeltImgUrl=@($"/img/Belts/{User.Level}-belt.png")
                          FlagUrl=@FlagHelper.GetFlag(User.Country)
                          ExperiencePoints=@User.ExperiencePoints
-                         Ranking=1
+                         Ranking=@Ranking
                          DisplayName=@User.DisplayName />
 
         <div class="row">
@@ -40,17 +40,19 @@
 
 @code {
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
-    [Inject] private IProjectService ProjectService { get; set; }
-    [Inject] private IUserService UserService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private ILeaderboardService LeaderboardService { get; set; }
+    [Inject] private IUserService UserService { get; set; }
 
     private ApplicationUser User;
     private string UserId;
     private bool FoundationSteps;
+    private int Ranking;
 
+    private List<DashboardAreaInfo> Areas = new();
     private List<Article>? Articles;
     private List<Project> Projects;
-    protected List<DashboardAreaInfo> Areas = new();
     private List<int>? CompletedProjects;
     private List<int>? PendingProjects;
 
@@ -73,6 +75,8 @@
         PendingProjects = await ProjectService.GetPendingProjects(UserId);
 
         var areaIconUrls = new List<string> { "" };
+
+        Ranking = await LeaderboardService.GetUserRanking(UserId);
 
         Areas.Add(new DashboardAreaInfo
             {

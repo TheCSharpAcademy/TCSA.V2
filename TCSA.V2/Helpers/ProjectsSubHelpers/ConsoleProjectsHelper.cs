@@ -3091,9 +3091,237 @@ public class ConsoleProjectsHelper
                         }
                     }
                 }
+             },
+         new Project
+         {
+             Id = 12,
+             Title = "Alışkanlık Kaydedici",
+             IconUrl = "icons8-calendar-plus-96.png",
+             BannerUrl = "",
+             Slug = "habit-logger",
+             Description = "Tercih ettiğiniz bir alışkanlığınızı kaydedin. SQLite kullanarak bir veritabanı ile etkileşime geçmeyi ve kullanıcı girişlerini doğrulamayı öğrenin.",
+             Area = Area.Console,
+             Level = Level.OliveGreen,
+             ExperiencePoints = 10,
+             Difficulty = Difficulty.Beginner,
+             DisplayOrder = 3,
+             Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Bu size gerçek bir veritabanı üzerinde <a href='https://en.wikipedia.org/wiki/Create,_read,_update_and_delete'>CRUD işlemlerini</a> uygulamayı öğreten çok basit bir uygulamadır. Bu işlemler web geliştirmenin temel işlemleridir ve tüm kariyeriniz boyunca geliştireceğiniz çoğu uygulamada bunları kullanıyor olacaksınız. Bu işlemleri şimdi yolun başında öğrenmenizin çok önemli olduğunu düşünüyoruz çünkü bu seviyeden sonraki tüm projeler bu işlemlere daha fazla karmaşıklık katmaktan ibaret olacak. Ne kadar karmaşık ve süslü uygulamalar yapıyor olursanız olun, sonuçta hepsi veritabanında bu işlemleri yürütmekten ibarek olacaktır."
+                    },
+                    new Paragraph
+                    {
+                        Body="Bunun için basit <a href='https://en.wikipedia.org/wiki/SQL'>SQL komutlarını</a> öğrenmeniz gerekiyor. Başta korkutucu görünebilir, ancak full-stack uygulama geliştirmek için ne kadar az bir SQL bilgisine ihtiyacınız olduğunu gördüğünüzde şaşıracaksınız. Endişelenmeyin, ilk tam fonksiyonel CRUD uygulamanızı tamamen bitirine kadar elinizden tutacağız. C# kullanarak SQL veri tabanına ulaşmak için <a href='https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/'>ADO.NET</a>, Dapper ve Entity Framework kullanılabilir. Saf SQL'e en yakın olan ADO.NET ile başlayacağız."
+                    },
+                    new Paragraph
+                    {
+                        Body="Eğer bu projenin çok zor oluğunu düşünüyorsanız ve nereden başlayacağınızı bilemiyorsanız, haklısınız. Tek başınıza gerçek bir uygulama oluşturmak için yardıma ihtiyacınız olabilir. Böyle düşünüyorsanız, <a href='https://youtu.be/d1JIJdDVFjs'>bu proje için hazrlanan eğitim videosunu izleyin</a> ve daha sonra geri gelerek tekrar tek başınıza yapmayı deneyin. Çoğu başlangıç seviyesi kurslar gerçekten bir uygulama geliştirmeyi öğretmediklerinden, kendinizi kaybolmuş hissedebilirsiniz. "
+                    },
+                    new Paragraph
+                    {
+                        Body="Evet, haydi başlayalım!"
+                    }
+                },
+             Requirements = new List<string>
+                {
+                    "Bu bir alışkanlığınızı kaydedeceğiniz bir uygulamadır.",
+                    "Bu alışkanlık için zaman takibi kullanamazsınız (ör: uyku süresi), sadece miktar kullanabilirsiniz (ör: günlük kaç bardak su içtiniz)",
+                    "Uygulama, bilgileri gerçek bir veritabanına yazmalı ve oradan almalıdır.",
+                    "Uygulama başlatıldığında, eğer mevcut bir Sqlite veritabanı yoksa, uygulama yeni bir tane oluşturmalıdır.",
+                    "Ayrıca veritabanında alışkanlıkların kaydedileceği bir tablo da oluşturmalıdır",
+                    "Uygulama kullanıcıya menü seçenekleri sunmalıdır.",
+                    "Kullanıcı yeni kayıt oluşturabilmeli, kayıtları güncelleyebilmeli yada silebilmeli ve var olan kayıtları görüntüleyebilmelidir.",
+                    "Uygulama hiç çökmeyecek şekilde tüm olası hatalarla başa çıkmalısınız",
+                    "Uygulama sadece kullanıcı menüden tercih ettiğinde durmalıdır",
+                    "Veritabanı ile sadece saf SQL komutları kullanarak etkileşebilirsiniz. Entity framework gibi mapper kullanamazsınız.",
+                    "Projenizde uygulamanızın nasıl çalıştığını açıklayan Beni Oku (Read me) dosyası bulunmalıdır. Güzel bir örnek:"
+                },
+             RequirementsConclusion = "<a href='https://github.com/thags/ConsoleTimeLogger'>İyi düzenlenmiş bir Beni Oku dosyası bulunan bir proje.</a><br> Paniklemeyin, size yardım edeceğim! 😁",
+
+             Tips = new List<string>
+                {
+                    "Uygulamada kullanmadan önce SQL sorgularınızı DB tarayıcısında test edin.",
+                    "İsterseniz tüm kodu tek bir sınıfta toplayabilirsiniz.",
+                    "Kullanıcı girişi menüsü için Switch/Case demeçlerini kullanabilirsiniz. ",
+                    "Kullanıcı girişlerini doğrulamayı unutmayın: Yanlış tarihleri kontrol edin. Kullanıcı menüde olmayan bir seçenek girişi yaparsa ne olacak? Kullanıcı bir sayı yerine yazı girişi yaparsa ne olacak?"
+                },
+             Challenges = new List<string>
+                {
+                    "Kullanıcıya tercih ettiği alışkanlığı oluşturmasını sağlayın. Bu durum aynı zamanda her alışkanlık için ayrı ölçü birimi belirlemelerini gerektirecektir.",
+                    "Veritabanı ilk kez oluşturulduğunda veri tabanına otomatik olarak rastgele verilerden oluşan yüz kayıt ekleyin. Bu uygulama her seferinde veri tabanına yeni veri ekleme ihtiyacını kaldırdığından, geliştirme sürecinde çok yararlıdır. ",
+                    "Kullanıcının belli bilgileri görüntüleyebileceği raporlama işlevi ekleyin(Ör: Kullanıcı son bir senede ne kadar koştu? kaç km?) SQL veritabanından ilginç bilgiler sorgulamanıza olanak verir."
+                },
+             LearningIntro = "Eğer <a href='article/8' target='blank'>C# Temelleri</a> yazımızı takip edip C# için temel bilgileri öğrendiyseniz, bu projeyi tamamlamak için gerekli bilgilere sahip olmalısınız. Gereklilikleri yerine getirmek için ihtiyacınız olanların listesi:",
+             LearningItems = new List<string>
+                 {
+                     "Konsoldan kullacı girişi almak.",
+                     "Konsolda mesaj yazmak.",
+                     "Nuget paketlerini kurmak (Uygulamanızı çalıştırmak için ASP.NET kütüphanelerine ihtiyacınız olacak).",
+                     "'If-else' ve 'switch' belirteçleri ile basit akış kontrolü sağlamak.",
+                     "Sqlite veritabanına bağlanmak.",
+                     "SQL temel bilgileri(veritabanı ile iletişim kurduğunuz dil). Başlamadan önce biraz SQL çalışmak isterseniz <a href='https://www.w3schools.com/sql/sql_exercises.asp'>burası göz atmak için mükemmel</a>."
+                 },
+             Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Projeyi oluşturma",
+                        ImgUrl= "icons8-software-installer-96-1.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Bu proje için .Net ortamı kurulumunu yapmış olmalısınız. Henüz yapmadıysanız <a href='article/7' target='blank'>bu makaleyi</a> takip edin. Eğer mutlaka başka bir arayüz kullanmak isterseniz bana bilgi verin."
+                            },
+                            new Paragraph
+                            {
+                                Body = "1. Visual Studio da, Yeni Proje oluşturmayı seçin. Eğer Visual Studio Code kullanıyorsanız ve yeni proje oluşturmada sorun yaşıyorsanız bana bilgi verin.<br>2. Konsol Uygulamasını seçin ve sonrakine tıklayın.<br>3. Proje ismi, klasörü seçin ve sonrakine tıklayın.<br>3. En güncel çerçeveyi seçin (Bu rehber hazırlandığında Net 6 idi) ve oluştura tıklayın.<br>4. Ekranın üst orta kısmında yer alan üçgen yeşil çalıştır düğmesine basarak uygulamayı çalıştırın."
+                            },
+                            new Paragraph
+                            {
+                                Body = " CLI (komut satır arayüzü) açılacak ve ekranda ‘Hello World’ yazacak. Bu uygulamanızın ve ASP.NET ortamınızın düzgün çalıştığını gösterir."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Çalışma klasörünü değiştirme",
+                        ImgUrl = "icons8-folder-100.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Varsayılan olarak projeniz bin klasöründe yapılandırılmaktadır, ancak işleri kolaylaştırmak için bunu değiştireceğiz. Bu şekilde .Net projenizi ana klasörünüzde yapılandıracaktır. Bu işlem konfigürasyon bilgilerinizi içeren <b>launchsettings.json</b> dosyasının bulunduğu Properties klasörü oluşturacaktır. Sqlite kullanan projelerde karışıklığı önlemek için veritabanının uygulama ile aynı klasörde olmasını isteriz. Bu nedenle bu işlem önemlidir."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Üst menüde Debug (Hata ayaklıma) da Properties (özellikler) kısmına girin ve burada Working Directory(çalışma klasörü) ne projenizin bulunduğu klasörün tam yolunu yapıştırın. Tam klasör yolunu öğrenmek için sağda bulunan Solution Explorer (Çözüm gezgini) da projenize sağ tıklayıp tam yolu kopyala seçeneğini yada dosya gezginini kullanabilirsiniz. Mac/Visual studio code kullanıyorsanız yardım için bize ulaşabilirsiniz."
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "working-directory-1.png"
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "working-directory-2.png"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Kodlamaya başlayın!",
+                        ImgUrl = "icons8-coding-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Uygulama her başlatıldığında bir veritabanı olup olmadığını kontrol etmelidir. Eğer yoksa verilerinizi saklayacağınız tablo ile birlikte veritabanı oluşturmalıdır. Vertabanını dışarıdan silerseniz, uygulama yenisini oluşturmalıdır. Veritabanı zaten varsa sonraki adıma geçmelidir: Kullanıcıdan ne yapmak istediğini sormak. Örnek olarak:"
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "habit-menu.png"
+                            },
+                            new Paragraph
+                            {
+                                Body = " ASP.NET de C# ile yazılım geliştirmede , SQL Server kullanımı çok yaygındır. Ancak şu an bunu kullanmayacağız. SQLite çok sade yapıda bir veritabanı sistemidir ve SQL Server'a geçmeden bu sisteme aşina olmak oldukça önemlidir."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Uygulamanıza bir sqlite dosyası oluşturmasını söylemeniz gerekecek. Bu dosya içeriğini dışarıdan görüntüleyebilmek için küçük bir uygulamaya ihtiyacınız olacak. <a href='https://www.youtube.com/watch?v=HQKwgk6XkIA'>Bu linkten Sqlite dersine ulaşabilirsiniz</a>."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Burası gerçek kodlamanın başladığı yer! Bir süre kendi başınıza olacaksınız. Eğer takılırsanız, denemeye devam edin, <a href='article/6' target='blank'>takıldığınızda nasıl hata ayıklaması yaptığınızı hatırlayın</a>. Yinede takıldığınız sorunu aşamazsanız  <a href='https://discord.gg/JVnwYdM79C'>Discord Topluluğumuz'a</a> yada bana ulaşırsanız yardımcı oluruz!"
+                            },
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Video Eğitim",
+                        ImgUrl = "external-video-tutorial-online-learning-photo3ideastudio-flat-photo3ideastudio-300x300.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Eğer tamamen kaybolmuş hissediyorsanız, video eğitimi izlemeniz yararlı olacaktır. Burada bir uygulama geliştirmek için gerekli parçaları bir araya nasıl getireceğinizi göreceksiniz. Eğitimi bitirdikten sonra, öğrendiklerinizi içselleştirmek için projeyi mutlaka videoya bakmadan tekrar kendi başınıza tamamlayın. "
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/d1JIJdDVFjs"
+                            },
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Sürüm kontrolü",
+                        ImgUrl = "icons8-git-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Bu ilk eğitiminizse, bu adımı atlayıp kodlamaya başlamak isteyebilirsiniz. Bunu yapmayın yoksa bazı şeyleri zor yoldan öğrenirsiniz. Zor bir problem üzerinde saatlerce çalıştıktan sonra çalışmanızı bir sürüm kontrol deposuna kaydetmediyseniz, her ne sebeple olursa olsun bir gün kaybolacaktır."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Yazdığınız her kod satırını kaydetme alışkanlığı edinin. İleride sizi birçok baş ağrısından kurtaracağına söz veriyorum. Tüm gerçek yazılımcılar çalışmalarını bir yedekleme havuzuna kaydeder. En yaygın kullanılanı Github'dur. Henüz yapmadıysanız bir hesap oluşturun. "
+                            },
+                            new Paragraph
+                            {
+                                Body="1. Visual Studio'da Git > Git Deposu Oluştur<br>2. Oturum Açma ayrıntılarınızı girin<br>3. Oluştur (create) ve Gönder(push)'e tıklayın. "
+                            },
+                            new Paragraph
+                            {
+                                Body="✅ İşe oldu! Deponuz kullanıma hazır. Her adımdan sonra değişikliklerinizi eklemeyi(commit) ve göndermeyi(push) unutmayın!"
+                            }, new Paragraph
+                            {
+                                Body="Bir adım iler gitmek isterseniz, bu dersi izleyerek Github'u Visual Studio ile nasıl entegre edeceğinizi öğrenebilirsiniz.:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/oCvb-Q5lXb8"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/oCvb-Q5lXb8"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Kod değerlendirmesi",
+                        ImgUrl= "icons8-code-review-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Sonraki adım: Masaüstü uygulama",
+                        ImgUrl = "icons8-staircase-80.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Eğer <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>C# temelleri eğitimini</a> izlediyseniz, muhteşem .NET MAUI ile bir matematik oyunu uygulaması oluşturmuşsunuzdur. Yazdığınız alışkanlık takip uygulaması ile aynı özelliklere sahip bir masaüstü versiyonunu yapmak iyi bir alıştırma olacaktır. Bazı zorluklar olacaktır ancak artık bunları aşmak için gerekli becerilere sahipsiniz. Ve unutmayın, eğer bir yerde takılacak olursanız, yardım için bize <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord topluluğumuzdan</a> ulaşabilirsiniz!"
+                            }
+                        }
+                    }
              }
+         }
         };
-    }
+}
     internal static List<Project> GetProjectsInRussian()
     {
         return new List<Project>

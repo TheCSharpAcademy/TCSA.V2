@@ -107,6 +107,11 @@ public class PeerReviewService : IPeerReviewService
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }
 
+                if (level > Level.Red)
+                {
+                    beginnerProjects.AddRange(new List<int> { 18, 19, 20, 21 });
+                }
+
                 var reviewProjects = context.UserReviews
                     .Where(x => x.AppUserId != reviewerId)
                     .Select(x => x.DashboardProjectId)
@@ -148,6 +153,11 @@ public class PeerReviewService : IPeerReviewService
                 else
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
+                }
+
+                if (level > Level.Red)
+                {
+                    beginnerProjects.AddRange(new List<int> { 18, 19, 20, 21 });
                 }
 
                 var reviewProjects = context.UserReviews

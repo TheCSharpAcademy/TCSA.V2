@@ -94,6 +94,10 @@ h1:focus {
     .right-side {
         margin-left: 0px !important; 
     }
+
+    .horizontal-card-desktop {
+        display: none !important;
+    }
 }
 
 @media (min-width: 992px) {

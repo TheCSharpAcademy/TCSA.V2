@@ -67,6 +67,9 @@ h1:focus {
 }
 
 @media (max-width: 992px) {
+    .dashboard-container {
+        padding: 2px;
+    }
     .title-desktop {
         display: none !important;
     }
@@ -92,8 +95,8 @@ h1:focus {
         margin-left: 0px !important; 
     }
 
-    .dashboard-layout-wrapper {
-        margin-top: 100px;
+    .horizontal-card-desktop {
+        display: none !important;
     }
 }
 

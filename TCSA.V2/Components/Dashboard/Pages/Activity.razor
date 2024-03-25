@@ -34,7 +34,7 @@
                         </td>
                         <td class="activity-cell">@item.Description</td>
                         <td class="activity-cell xp-cell">@item.ExperiencePoints</td>
-                        <td class="activity-cell xp-cell">@CurrentXP</td>
+                        <td class="activity-cell xp-cell">@item.CurrentExperiencePoints</td>
                     </tr>
                 }
             </tbody>
@@ -55,7 +55,7 @@
     private List<Article>? Articles;
     private List<Project>? Projects;
     private List<int> issuesIds;
-    private int CurrentXP;
+    private int InitialXP;
 
     protected override async Task OnInitializedAsync()
     {
@@ -72,17 +72,18 @@
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
         Activities = await ActivityService.GetActivityById(userId);
 
+        InitialXP = await UserService.GetCurrentXPs(userId);
+
         await GetActivityDisplay();
-        Activities.ForEach(x =>
-        {
-            CurrentXP += UserActivityHelper.GetXPs(x.ActivityType, x.ProjectId);
-        });
     }
 
     private async Task GetActivityDisplay()
     {
+        var currentXP = InitialXP;
+
         foreach (var item in Activities)
         {
             var communityIssue = new CommunityIssue();
@@ -94,15 +95,19 @@
                     communityIssue = await CommunityService.GetIssueByProjectId(item.ProjectId);
                 }
 
+                var experiencePoints = GetXPs(item, communityIssue);
+
                 activityDisplay.Add(new UserActivityDisplay
                     {
                         Date = item.DateSubmitted,
                         Description = await GetDescriptionMarkup(item, item.AppUserId, communityIssue),
-                        CurrentExperiencePoints = GetXPs(item, communityIssue),
+                        ExperiencePoints = GetXPs(item, communityIssue),
+                        CurrentExperiencePoints = currentXP,
                         AppUserId = item.AppUserId,
                         ActivityType = item.ActivityType
                     });
-                CurrentXP -= GetXPs(item, communityIssue);
+
+                currentXP -= experiencePoints;
             }
         }
     }

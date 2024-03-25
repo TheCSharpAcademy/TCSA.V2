@@ -59,7 +59,8 @@
                                 <div class="spinner-border text-primary" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
-                            } else
+                            }
+                            else
                             {
                                 <button class="btn btn-outline-secondary mb-3" type="submit">Submit</button>
                             }
@@ -93,27 +94,36 @@
 
             @if (submitProject)
             {
-                <div class="col horizontal-card submit-project-card shadow rounded-sm">
+                <div class="col horizontal-card submit-project-card shadow rounded-sm" style="background-color:#f4f4f9">
                     <CloseButtonSVG OnClickCallback="@CloseSubmitProjectForm" />
 
-                    <div class="form-group">
+                    <div class="form-container text-center">
                         <EditForm Model="@form" OnValidSubmit="SubmitProject">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
-                            <InputNumber hidden shadow rounded @bind-Value="form.ProjectId" class="form-select">
-                                <option selected>Open this select menu</option>
-                            </InputNumber>
-                            <p>
+                            <div class="form-group">
+                                <InputNumber hidden shadow rounded @bind-Value="form.ProjectId" class="form-select">
+                                    <option selected>Open this select menu</option>
+                                </InputNumber>
+                            </div>
+                            <div class="form-group">
                                 <label>
+
                                     <a target="blank" href="article/52/code-reviews">Pull Request Url</a>
+
                                     <InputText class="form-control" @bind-Value="form.GithubUrl" />
                                 </label>
-                            </p>
-                            <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                            </div>
+                        <p></p>
+                            <div class="form-group">
+                                <button class="btn btn-outline-success" type="submit">Submit</button>
+                            </div>
+                            <p></p>
                         </EditForm>
                     </div>
                 </div>
-            }
+                }
+            
         </div>
         <div class="row">
             <div class="col-6 issues-col">
@@ -253,19 +263,19 @@
 
     private async Task SubmitIssue()
     {
-        isSubmittingIssue = true; 
+        isSubmittingIssue = true;
 
         var communityIssue = new CommunityIssue
-        {
-            Title = submitIssueForm.Title,
-            AppUserId = user.Id,
-            GithubUrl = submitIssueForm.GithubUrl,
-            CommunityProjectId = submitIssueForm.CommunityProjectId,
-            Type = submitIssueForm.Type,
-            IconUrl = "",
-            ExperiencePoints = 20,
-            IsClosed = false
-        };
+            {
+                Title = submitIssueForm.Title,
+                AppUserId = user.Id,
+                GithubUrl = submitIssueForm.GithubUrl,
+                CommunityProjectId = submitIssueForm.CommunityProjectId,
+                Type = submitIssueForm.Type,
+                IconUrl = "",
+                ExperiencePoints = 20,
+                IsClosed = false
+            };
 
         await CommunityService.CreateIssue(communityIssue);
 

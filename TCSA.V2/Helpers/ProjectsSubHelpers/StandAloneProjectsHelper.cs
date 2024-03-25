@@ -406,4 +406,50 @@ internal static class StandAloneProjectsHelper
             },
         };
     }
+
+    internal static List<Project> GetProjectsInPolish()
+    {
+        return new List<Project>
+        {
+             new Project
+             {
+                Id = 75,
+                Title = "Certyfikacja C# od Free Code Camp ",
+                IconUrl = "freecodecamp.jpg",
+                Slug = "freecodecamp-certification",
+                BannerUrl = "",
+                Description = "Zdobądź profesjonalną certyfikację C#.",
+                Area = Area.StandAlone,
+                Level = Level.Green,
+                ExperiencePoints = 20,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="Przez długi czas, Microsoft wkładał wiele wysiłku w tworzenie materiałów edukacyjnych dla .NET i C#. Ich <a href='https://learn.microsoft.com/en-au/docs/' target='blank'>dokumentacja</a> i <a href='https://learn.microsoft.com/en-us/training/' target='blank'>platforma szkoleniowa</a> oferują zasoby przeznaczone dla osób na wszystkich poziomach umiejętności - od zupełnie początkujących po doświadczonych profesjonalistów, którzy chcą rozwinąć swoje umiejętności. Wadą tak wielkiej biblioteki jest to, że czasami powoduje ona dezorientację u studentów, zwłaszcza biorąc pod uwagę różnorodność technologii, różne wersje C# na przestrzeni lat i ciągłą ewolucje platformy .NET."
+                    },
+                    new Paragraph
+                    {
+                        Body="W sierpniu roku 2023 organizacja Free Code Camp i firma Microsoft połączyły siły, aby stworzyć jednolity program nauczania, po którego ukończeniu studenci mogą uzyskać profesjonalny certyfikat. Sylabus opracowany przez Free Code Camp zawiera odpowiednio ułożoną listę tematów, natomiast nauka i zaliczanie modułów odbywają się w materiałach szkoleniowych firmy Microsoft. To fantastyczne źródło wiedzy które chroni przed zagubieniem się w “tutorial hell” podczas nauki podstaw.\r\n"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"Musisz ukończyć certyfikację <a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Podstawy C# z Microsoftem</a>oferowaną przez Free Code Camp. ",
+                    @"Po ukończeniu, przyślij zrzut ekranu twojego certyfikatu poprzez nasz <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> serwer Discord (kanał Code Reviews) </a> lub poprzez <a target='blank' href='mailto:thecsharpacademy@gmail.com'>e-mail.</a>, wraz z twoją nazwą użytkownika/ mailem którym logujesz się do Akademii. "
+                },
+                Tips = new List<string>
+                {
+                    "Możesz mieć ochotę szybko przejść przez certyfikację, pomijając tematy z którymi jesteś już zaznajomiony. Zamiast tego, dokładnie przeczytaj każdy akapit. Zawsze istnieją luki w twojej wiedzy. Nie wiemy tego czego nie wiemy.",
+                    "Ukończenie wyzwań programistycznych nie jest konieczne do oznaczenia modułu jako ukończony. Mimo to zalecamy ich wykonanie, niezależnie od ich poziomu trudności. Jeżeli jakieś ćwiczenie jest za trudne, spróbuj rozwiązać je w nowy sposób.",
+                    "Pisz dużo notatek, ale nie wpadnij w pułapkę notowania WSZYSTKIEGO. Notatki są przydatne, gdy możesz szybko rzucić na nie okiem.  Dobrym podejściem jest zapisywanie zwięzłych punktów z konceptami z którymi nie jesteś jeszcze zaznajomiony. Możesz też mieć osobne notatki z tematami do dalszej nauki.",
+                    "Mimo że można ukończyć certyfikację w ciągu kilku godzin, zalecamy wykonywanie każdej sekcji w innym dniu. Pozwoli to zachować maksymalną koncentrację podczas nauki."
+                },
+                Challenges = new List<string>
+                {
+                    "Po ukończeniu twojego projektu, spróbuj swoich sił z projektem <a target='_blank' href='https://thecsharpacademy.com/project/53'>Gra Matematyczna</a> nie oglądając instruktażu wideo umieszczonego na stronie internetowej. Budowanie czegoś samodzielnie po raz pierwszy może nie być łatwe, ale takie podejście przyspieszy twoją naukę.",
+                }
+            },
+        };
+    }
 }

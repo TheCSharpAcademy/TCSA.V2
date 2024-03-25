@@ -126,6 +126,7 @@ public class LeaderboardService : ILeaderboardService
                     .Where(x => x.DashboardProjects.Any(x => x.DateSubmitted > queryYear))
                     .Include(x => x.DashboardProjects.Where(x => x.DateSubmitted > queryYear && x.IsCompleted))
                     .Include(x => x.CodeReviewProjects)
+                    .Include(x => x.Issues)
                     .ToList();
 
                 foreach (var user in users)
@@ -140,6 +141,8 @@ public class LeaderboardService : ILeaderboardService
 
                     foreach (int id in ids)
                     {
+                        Console.WriteLine($"User: {user.Id}, Project: {id}");
+
                         if (projects.Any(x => x.Id == id))
                         {
                             user.ExperiencePoints = projects.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
@@ -150,37 +153,37 @@ public class LeaderboardService : ILeaderboardService
                         }
                         else
                         {
-                            user.ExperiencePoints = issues.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
+                            user.ExperiencePoints = issues.Single(x => x.ProjectId == id).ExperiencePoints + user.ExperiencePoints;
                         }
                     }
                 }
+            }
+
+            foreach (var user in users.OrderByDescending(x => x.ExperiencePoints))
+            {
+                index++;
+                var userForLeaderboard = new AppUserForLeaderboard
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Country = user.Country,
+                    Level = user.Level,
+                    DisplayName = user.DisplayName,
+                    ExperiencePoints = user.ExperiencePoints,
+                    Ranking = index
+                };
+
+                userForLeaderboard.GithubUsername = user.GithubUsername ?? string.Empty;
+                userForLeaderboard.LinkedInUrl = user.LinkedInUrl ?? string.Empty;
+
+                result.Add(userForLeaderboard);
             }
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Error in {nameof(GetUsersForLeaderboard)}");
             return null;
-        }
-
-        foreach (var user in users.OrderByDescending(x => x.ExperiencePoints))
-        {
-            index++;
-            var userForLeaderboard = new AppUserForLeaderboard
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Country = user.Country,
-                Level = user.Level,
-                DisplayName = user.DisplayName,
-                ExperiencePoints = user.ExperiencePoints,
-                Ranking = index
-            };
-
-            userForLeaderboard.GithubUsername = user.GithubUsername ?? string.Empty;
-            userForLeaderboard.LinkedInUrl = user.LinkedInUrl ?? string.Empty;
-
-            result.Add(userForLeaderboard);
         }
 
         return result;

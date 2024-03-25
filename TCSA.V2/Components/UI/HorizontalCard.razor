@@ -19,6 +19,30 @@
     </div>
 </div>
 
+<div class="horizontal-card-mobile shadow rounded-3">
+    <table>
+        <tr>
+            <th class="icon"><img src="img/cards/@IconUrl" class="img-fluid" width="40" alt="..."></th>
+            <th class=@(HasButton ? "text-th" : "text-th-leaderboard-mobile")>
+                <p class="card-title-dashboard">@CardName</p>
+                <p class="card-text"><small>@((MarkupString)Description)</small></p>
+            </th>
+
+            @if (HasButton)
+            {
+                <th class="button-th">
+                    <div class="col-sm-1 col-md-3 d-flex align-items-center">
+                        <button class="btn view-articles-btn" @onclick="OnClickCallback">
+                            <DropdownSVG />
+                        </button>
+                    </div>
+                </th>
+            }
+        </tr>
+    </table>
+</div>
+
+
 @code {
     [Parameter] public EventCallback OnClickCallback { get; set; }
     [Parameter] public string IconUrl { get; set; }

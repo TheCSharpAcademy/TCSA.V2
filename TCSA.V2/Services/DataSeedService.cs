@@ -10,7 +10,6 @@ namespace TCSA.V2.Services;
 public interface IDataSeedService
 {
     Task SeedData(DataSeedForm form);
-    Task SeedIssues();
 }
 
 public class DataSeedService: IDataSeedService
@@ -20,47 +19,6 @@ public class DataSeedService: IDataSeedService
     public DataSeedService(IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
-    }
-
-    public async Task SeedIssues()
-    {
-        var communityIssues = new List<CommunityIssue>();
-        var currentIssues = new List<int>();
-
-        using (var context = _factory.CreateDbContext())
-        {
-            currentIssues = context.Issues.Select(x => x.ProjectId).ToList();
-
-            foreach (var issue in IssueHelper.GetIssues())
-            {
-                var project = context.DashboardProjects.FirstOrDefault(x => x.ProjectId == issue.ProjectId);
-
-                if (!currentIssues.Contains(issue.ProjectId))
-                {
-                    communityIssues.Add(new CommunityIssue
-                    {
-                        AppUserId = project == null ? "" : project.AppUserId,
-                        ProjectId = issue.ProjectId,
-                        CommunityProjectId = issue.CommunityProjectId,
-                        GithubUrl = issue.GithubUrl,
-                        Title = issue.Description,
-                        IconUrl = issue.IconUrl,
-                        ExperiencePoints = issue.ExperiencePoints,
-                        IsClosed = issue.IsClosed
-                    });
-                }
-            }
-
-            try
-            {
-                await context.Issues.AddRangeAsync(communityIssues);
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
     }
 
     public async Task SeedData(DataSeedForm form)
@@ -121,7 +79,7 @@ public class DataSeedService: IDataSeedService
             var faker = new Faker("en");
             Guid newGuid = Guid.NewGuid();
             var projects = GetProjects(form.NumberOfProjects, newGuid.ToString());
-            var experiencePoints = GetExperiencePoints(projects.Select(x => x.ProjectId).ToArray());
+            //var experiencePoints = GetExperiencePoints(projects.Select(x => x.ProjectId).ToArray());
 
             users.Add(new ApplicationUser
             {
@@ -130,7 +88,7 @@ public class DataSeedService: IDataSeedService
                 LastName = faker.Person.LastName,
                 Email = faker.Person.Email,
                 Country = faker.Address.Country(),
-                ExperiencePoints = experiencePoints,
+                ExperiencePoints = 50,
                 DashboardProjects = projects,
             }); 
         }
@@ -138,34 +96,34 @@ public class DataSeedService: IDataSeedService
         return users;
     }
 
-    private int GetExperiencePoints(int[] ints)
-    {
-        var points = 0;
+    //private int GetExperiencePoints(int[] ints)
+    //{
+    //    var points = 0;
 
-        var articleIds = ArticleHelper.GetArticles().Select(x => x.Id);
-        var projectIds = ProjectHelper.GetProjects().Select(x => x.Id);
-        var issueIds = IssueHelper.GetIssues().Select(x => x.Id);
+    //    var articleIds = ArticleHelper.GetArticles().Select(x => x.Id);
+    //    var projectIds = ProjectHelper.GetProjects().Select(x => x.Id);
+    //    var issueIds = IssueHelper.GetIssues().Select(x => x.Id);
     
-        foreach (int i in ints)
-        {
-            if (articleIds.Contains(i))
-            {
-                points += ArticleHelper.GetArticles().Single(x => x.Id == i).ExperiencePoints;
-            }
+    //    foreach (int i in ints)
+    //    {
+    //        if (articleIds.Contains(i))
+    //        {
+    //            points += ArticleHelper.GetArticles().Single(x => x.Id == i).ExperiencePoints;
+    //        }
 
-            if (projectIds.Contains(i))
-            {
-                points += ProjectHelper.GetProjects().Single(x => x.Id == i).ExperiencePoints;
-            }
+    //        if (projectIds.Contains(i))
+    //        {
+    //            points += ProjectHelper.GetProjects().Single(x => x.Id == i).ExperiencePoints;
+    //        }
 
-            if (issueIds.Contains(i))
-            {
-                points += IssueHelper.GetIssues().Single(x => x.Id == i).ExperiencePoints;
-            }
-        }
+    //        if (issueIds.Contains(i))
+    //        {
+    //            points += IssueHelper.GetIssues().Single(x => x.Id == i).ExperiencePoints;
+    //        }
+    //    }
 
-        return points;
-    }
+    //    return points;
+    //}
 
     private List<DashboardProject> GetProjects(int numberOfProjects, string userId)
     {

@@ -1,26 +1,22 @@
 ﻿using Microsoft.CodeAnalysis;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Octokit;
 using System.Data;
 using TCSA.V2.Data;
-using TCSA.V2.Helpers;
 using TCSA.V2.Models;
-using TCSA.V2.Models.Forms;
 
 namespace TCSA.V2.Services;
 
 public interface ICommunityService
 {
-    Task<DashboardProject> GetIssueById(int id);
     Task<int> PostIssue(DashboardProject project, string id, bool isCommunityProject = false);
-    Task<int> GetAvailableIssues();
     Task AssignUserToIssue(string appUserId, CommunityIssue issue);
-    Task<int> GetAvailableIssuesForDashboard();
+    Task<int> GetAvailableIssuesCount();
     Task<CommunityIssue> GetIssueByProjectId(int projectId);
     Task<List<int>> GetIssuesIds();
     Task<List<CommunityIssue>> GetAvailableIssuesForCommunityPage(string appUserId);
     Task CreateIssue(CommunityIssue form);
+    Task<List<CommunityIssue>> GetIssuesForAdmin();
+    Task<int> GetCompletedIssuesCount(string appUserId);
 }
 
 public class CommunityService : ICommunityService
@@ -32,6 +28,37 @@ public class CommunityService : ICommunityService
     {
         _factory = factory;
         _logger = logger;
+    }
+    public async Task<int> GetCompletedIssuesCount(string appUserId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.Where(x => x.IsClosed == false).CountAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetCompletedIssuesCount)}");
+            return 0;
+        }
+    }
+
+    public async Task<List<CommunityIssue>> GetIssuesForAdmin()
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.Issues.Where(x => x.IsClosed == false).ToListAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssuesForAdmin)}");
+            return null;
+        }
     }
 
     public async Task CreateIssue(CommunityIssue issue)
@@ -122,40 +149,14 @@ public class CommunityService : ICommunityService
         }
     }
 
-    public async Task<int> GetAvailableIssues()
+    public async Task<int> GetAvailableIssuesCount()
     {
-        var allIssues = IssueHelper.GetIssues();
-        var issueIdsCsv = string.Join(",", allIssues.Select(issue => issue.Id));
-
         using (var context = _factory.CreateDbContext())
         {
-            var parameter = new SqlParameter("@IssueIds", SqlDbType.VarChar)
-            {
-                Value = issueIdsCsv
-            };
+            return await context.Issues
+                .Where(x => string.IsNullOrEmpty(x.AppUserId))
+                .CountAsync();
 
-            var result = await context.Database.ExecuteSqlRawAsync("EXEC CountNonExistingIssues @IssueIds", parameter);
-
-            return result;
-        }
-    }
-
-    public async Task<int> GetAvailableIssuesForDashboard()
-    {
-        var allIssues = IssueHelper.GetIssues().Where(x => !x.IsClosed).ToList();
-
-        var issueIds = allIssues.Select(issue => issue.Id).ToList();
-
-        using (var context = _factory.CreateDbContext())
-        {
-            var existingIssueIds = await context.DashboardProjects
-                                                .Where(dp => issueIds.Contains(dp.ProjectId))
-                                                .Select(dp => dp.ProjectId)
-                                                .ToListAsync();
-
-            var nonExistingCount = issueIds.Except(existingIssueIds).Count();
-
-            return nonExistingCount;
         }
     }
 
@@ -165,7 +166,9 @@ public class CommunityService : ICommunityService
         {
             using (var context = _factory.CreateDbContext())
             {
-                return await context.Issues.Where(x => string.IsNullOrEmpty(x.AppUserId) || x.AppUserId.Equals(appUserId)).ToListAsync();
+                return await context.Issues
+                    .Where(x => !x.IsClosed)
+                    .Where(x => string.IsNullOrEmpty(x.AppUserId) || x.AppUserId.Equals(appUserId)).ToListAsync();
             }
         }
         catch (Exception ex)

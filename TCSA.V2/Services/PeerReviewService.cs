@@ -10,12 +10,12 @@ namespace TCSA.V2.Services;
 public interface IPeerReviewService
 {
     Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId);
-    Task<List<DashboardProject>> GetProjectsForPeerReview();
+    Task<List<DashboardProject>> GetProjectsForPeerReview(string reviewerId);
     Task AssignUserToCodeReview(string userId, int id);
     string GetRevieweeName(string revieweeId);
     Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
     Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
-    Task<int> GetAvailablePeerReviews();
+    Task<int> GetAvailablePeerReviewsCount(string reviewerId);
 }
 public class PeerReviewService : IPeerReviewService
 {
@@ -87,7 +87,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<List<DashboardProject>> GetProjectsForPeerReview()
+    public async Task<List<DashboardProject>> GetProjectsForPeerReview(string reviewerId)
     {
         var url = "https://github.com/TheCSharpAcademy/CodeReviews";
         var beginnerProjects = new List<int> { 53, 11, 12, 13 };
@@ -96,7 +96,24 @@ public class PeerReviewService : IPeerReviewService
         {
             using (var context = _factory.CreateDbContext())
             {
+                var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
+
+                if (level < Level.Yellow) 
+                { 
+                    return new List<DashboardProject> { }; 
+                }
+                else 
+                {
+                    beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
+                }
+
+                if (level > Level.Red)
+                {
+                    beginnerProjects.AddRange(new List<int> { 18, 19, 20, 21 });
+                }
+
                 var reviewProjects = context.UserReviews
+                    .Where(x => x.AppUserId != reviewerId)
                     .Select(x => x.DashboardProjectId)
                     .ToList();
 
@@ -118,7 +135,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
-    public async Task<int> GetAvailablePeerReviews()
+    public async Task<int> GetAvailablePeerReviewsCount(string reviewerId)
     {
         var url = "https://github.com/TheCSharpAcademy/CodeReviews";
         var beginnerProjects = new List<int> { 53, 11, 12, 13 };
@@ -127,6 +144,22 @@ public class PeerReviewService : IPeerReviewService
         {
             using (var context = _factory.CreateDbContext())
             {
+                var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
+
+                if (level < Level.Yellow)
+                {
+                    return 0;
+                }
+                else
+                {
+                    beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
+                }
+
+                if (level > Level.Red)
+                {
+                    beginnerProjects.AddRange(new List<int> { 18, 19, 20, 21 });
+                }
+
                 var reviewProjects = context.UserReviews
                     .Select(x => x.DashboardProjectId)
                     .ToList();
@@ -136,7 +169,7 @@ public class PeerReviewService : IPeerReviewService
                         && beginnerProjects.Contains(x.ProjectId)
                         && !reviewProjects.Contains(x.Id)
                         && x.GithubUrl.StartsWith(url))
-                    .CountAsync(); // Use CountAsync to get the count directly
+                    .CountAsync();
 
                 return count;
             }
@@ -204,6 +237,7 @@ public class PeerReviewService : IPeerReviewService
         }
     }
 
+    // TODO CHANGE THIS, LOOKS LIKE A VERY EXPENSIVE QUERY
     public async Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId)
     {
         var result = new List<CodeReviewDetail>();

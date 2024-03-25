@@ -91,4 +91,13 @@ public static class ProjectHelper
             .Concat(ConsoleProjectsHelper.GetProjectsInRussian())
             .ToList();
     }
+
+    public static List<Project> GetProjectsInPolish()
+    {
+        var projects = new List<Project>();
+
+        return projects
+            .Concat(StandAloneProjectsHelper.GetProjectsInPolish())
+            .ToList();
+    }
 }

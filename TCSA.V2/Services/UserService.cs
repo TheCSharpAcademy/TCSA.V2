@@ -18,6 +18,7 @@ public interface IUserService
     Task<int> AddExperiencePoints(string id, int experiencePoints);
     Task ActivateAccount(string userId);
     Task<ApplicationUser> GetDetailedUserById(string id);
+    Task<int> GetCurrentXPs(string userId);
 }
 
 public class UserService : IUserService
@@ -29,6 +30,25 @@ public class UserService : IUserService
     {
         _factory = factory;
         _logger = logger;
+    }
+
+    public async Task<int> GetCurrentXPs(string id)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.AspNetUsers
+                .Where(x => x.Id.Equals(id))
+                .Select(x => x.ExperiencePoints)
+                .FirstOrDefaultAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetCurrentXPs)}");
+            return 0;
+        }
     }
 
     public async Task ActivateAccount(string userId)

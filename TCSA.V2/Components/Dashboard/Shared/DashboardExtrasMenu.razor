@@ -1,4 +1,5 @@
-﻿@using TCSA.V2.Helpers
+﻿@using System.Security.Claims
+@using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
 @inject NavigationManager NavigationManager
@@ -28,19 +29,29 @@
 </div>
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+
     [Inject] private ICommunityService CommunityService { get; set; }
     [Inject] private IPeerReviewService PeerReviewService { get; set; }
 
-    private List<Issue>? Issues;
     private int AvailableReviews { get; set; }
     private int AvailableIssues { get; set; }
     private bool CodeReviewsAvailable { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Issues = IssueHelper.GetIssues();
-        AvailableIssues = await CommunityService.GetAvailableIssuesForDashboard();
-        AvailableReviews = await PeerReviewService.GetAvailablePeerReviews();
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!AuthSate.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
+        var claims = AuthSate.User;
+        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        AvailableIssues = await CommunityService.GetAvailableIssuesCount();
+        AvailableReviews = await PeerReviewService.GetAvailablePeerReviewsCount(userId);
     }
 
     private async Task NavigateToCodeReviews()

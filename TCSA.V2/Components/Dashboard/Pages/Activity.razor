@@ -5,6 +5,7 @@
 @using TCSA.V2.Components.Dashboard.Shared
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 
 <div class="mt-5">
@@ -20,22 +21,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Activities)
+                @foreach (var item in activityDisplay)
                 {
                     <tr class="activity-row">
                         <td class="date-cell @UserActivityHelper.GetRowStyle(item.ActivityType)">
                             <div>
-                                <b>@DateTimeHelper.GetDateForUserActivity(item.DateSubmitted)</b>
+                                <b>@DateTimeHelper.GetDateForUserActivity(item.Date)</b>
                             </div>
                             <div class="day-of-the-week-cell">
-                                <span class="day-of-the-week">@item.DateSubmitted.DayOfWeek</span>
+                                <span class="day-of-the-week">@item.Date.DayOfWeek</span>
                             </div>
                         </td>
-                        <td class="activity-cell">@((MarkupString)(UserActivityHelper.GetDescription(item.ActivityType, item.ProjectId)))</td>
-                        <td class="activity-cell xp-cell">@UserActivityHelper.GetXPs(item.ActivityType, item.ProjectId)</td>
-                        <td class="activity-cell xp-cell">@CurrentXP</td>
+                        <td class="activity-cell">@item.Description</td>
+                        <td class="activity-cell xp-cell">@item.ExperiencePoints</td>
+                        <td class="activity-cell xp-cell">@item.CurrentExperiencePoints</td>
                     </tr>
-                    CurrentXP -= UserActivityHelper.GetXPs(item.ActivityType, item.ProjectId);
                 }
             </tbody>
         </table>
@@ -45,14 +45,17 @@
 @code {
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IUserActivityService ActivityService { get; set; }
+    [Inject] protected ICommunityService CommunityService { get; set; }
+
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
 
     private List<AppUserActivity>? Activities { get; set; } = null;
+    private List<UserActivityDisplay>? activityDisplay { get; set; } = new();
     private List<Article>? Articles;
     private List<Project>? Projects;
-    private List<Issue>? Issues;
-    private int CurrentXP;
+    private List<int> issuesIds;
+    private int InitialXP;
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,15 +68,102 @@
 
         Projects = ProjectHelper.GetProjects();
         Articles = ArticleHelper.GetArticles();
-        //Issues = IssueHelper.GetIssues();
+        issuesIds = await CommunityService.GetIssuesIds();
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
         Activities = await ActivityService.GetActivityById(userId);
-        Activities.ForEach(x =>
+
+        InitialXP = await UserService.GetCurrentXPs(userId);
+
+        await GetActivityDisplay();
+    }
+
+    private async Task GetActivityDisplay()
+    {
+        var currentXP = InitialXP;
+
+        foreach (var item in Activities)
         {
-            CurrentXP += UserActivityHelper.GetXPs(x.ActivityType, x.ProjectId);
-        });
+            var communityIssue = new CommunityIssue();
+
+            if (Activities != null)
+            {
+                if (issuesIds.Contains(item.ProjectId))
+                {
+                    communityIssue = await CommunityService.GetIssueByProjectId(item.ProjectId);
+                }
+
+                var experiencePoints = GetXPs(item, communityIssue);
+
+                activityDisplay.Add(new UserActivityDisplay
+                    {
+                        Date = item.DateSubmitted,
+                        Description = await GetDescriptionMarkup(item, item.AppUserId, communityIssue),
+                        ExperiencePoints = GetXPs(item, communityIssue),
+                        CurrentExperiencePoints = currentXP,
+                        AppUserId = item.AppUserId,
+                        ActivityType = item.ActivityType
+                    });
+
+                currentXP -= experiencePoints;
+            }
+        }
+    }
+
+    public int GetXPs(AppUserActivity item, CommunityIssue? issue = null)
+    {
+        if (item.ActivityType == ActivityType.ProjectSubmitted || item.ActivityType == ActivityType.IssueSubmitted)
+        {
+            return 0;
+        }
+
+        if (issuesIds.Contains(item.ProjectId))
+        {
+            return issue.ExperiencePoints;
+        }
+        else if (item.ActivityType == ActivityType.ArticleRead)
+        {
+            return ArticleHelper.GetArticles().Single(x => x.Id == item.ProjectId).ExperiencePoints;
+        }
+
+        return ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).ExperiencePoints;
+    }
+
+    private async Task<MarkupString> GetDescriptionMarkup(AppUserActivity item, string userId, CommunityIssue? issue = null)
+    {
+        var description = GetDescription(item, issue);
+        return new MarkupString(description);
+    }
+
+    public string GetDescription(AppUserActivity item, CommunityIssue? issue = null)
+    {
+        switch (item.ActivityType)
+        {
+            case ActivityType.ArticleRead:
+                return $"You read the article <b>{ArticleHelper.GetArticles().Single(x => x.Id == item.ProjectId).Title}</b>";
+            case ActivityType.ProjectSubmitted:
+                return $"You submitted the project <b>{ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).Title}</b> for review.";
+            case ActivityType.IssueSubmitted:
+                return $"You submitted the issue <b>{issue.Title}</b> for review.";
+            case ActivityType.ProjectCompleted:
+                return GetTitle(item, issue);
+            case ActivityType.CodeReviewCompleted:
+                return $"You've finished a code review for a <b>{ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).Title}</b> project.";
+            default:
+                return "";
+        }
+    }
+
+    public string GetTitle(AppUserActivity item, CommunityIssue? issue = null)
+    {
+        if (issuesIds.Contains(item.ProjectId))
+        {
+            return $"The open source ticket <b>{issue.Title}</b> was marked as complete.";
+        }
+
+        return $"The project <b>{ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).Title}</b> was marked as complete.";
     }
 }
 

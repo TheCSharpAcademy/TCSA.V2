@@ -19,7 +19,6 @@
         </div>
         <button class="btn btn-outline-secondary" type="submit">Submit</button>
     </EditForm>
-    <button class="btn btn-primary" @onclick="SeedIssues" type="button">Submit</button>
 </div>
 
 @code {
@@ -33,11 +32,6 @@
     private async Task Submit()
     {
         await DataSeedService.SeedData(Model);
-    }
-
-    private async Task SeedIssues()
-    {
-        await DataSeedService.SeedIssues();
     }
 }
 

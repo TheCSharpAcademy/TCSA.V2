@@ -66,7 +66,15 @@
     }
 
     <div class="row pb-5">
-        <div class="col">
+        <div class="col-lg-2 col-sm-12 d-sm-none d-md-flex d-lg-flex align-items-center justify-content-center">
+            <div>
+                <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
+            </div>
+        </div>
+        <div class="col-sm-12 d-flex d-lg-none d-md-none">
+            <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
+        </div>
+        <div class=col-lg-10>
             <div class="col d-flex justify-content-center">
                 <h1 class="article-section-title">Requirements</h1>
             </div>
@@ -120,11 +128,18 @@
     @if (Project.Resources != null)
     {
         <div class="row pb-5">
-            <div class="col-2 icon-div">
+            <div class="col-lg-2 col-sm-12 d-sm-none d-md-flex d-lg-flex align-items-center justify-content-center">
+                <div>
+                    <img src="img/books.png" width="70" alt="" class="align-middle">
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
                 <img src="img/books.png" width="70" alt="" class="align-middle">
             </div>
             <div class=col-10>
-                <h1 class="article-section-title">Resources</h1>
+                <div class="d-flex justify-content-center">
+                    <h1 class="article-section-title">Resources</h1>
+                </div>
                 @if (!String.IsNullOrEmpty(Project.ResourcesIntro))
                 {
                     <p>@((MarkupString)(Project.ResourcesIntro))</p>
@@ -151,10 +166,12 @@
     @if (Project.Tips != null)
     {
         <div class="row pb-5">
-            <div class="col-lg-2 col-sm-12 d-sm-none d-md-flex d-lg-block justify-content-center">
-                <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
+            <div class="col-lg-2 d-sm-none d-md-flex d-lg-flex align-items-center justify-content-center">
+                <div>
+                    <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
+                </div>
             </div>
-            <div class="col-lg-2 col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
+            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
                 <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
             </div>
             <div class="col-lg-10 col-sm-12">

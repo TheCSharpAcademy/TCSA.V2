@@ -1,7 +1,7 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Models
 
-<div class="m-1 row horizontal-card shadow rounded-sm d-flex align-items-center @Status">
+<div class="m-1 row horizontal-card dashboard-project-card-desktop shadow rounded-sm d-flex align-items-center @Status">
     <div class="row g-0 horizontal-card-desktop-project">
         <div class="col-md-2">
             <img src="img/Cards/@Project.IconUrl" width="60" alt="...">
@@ -33,6 +33,24 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="horizontal-card-mobile shadow rounded-3 @Status">
+    <table>
+        <tr>
+            <th class="icon"><img src="img/cards/@Project.IconUrl" width="40" alt="..."></th>
+            <th class="text-th">
+                <p class="card-title-dashboard">@Project.Title</p>
+            </th>
+            <th class="button-th">
+                <div class="col-sm-1 col-md-3 d-flex align-items-center">
+                    <a href=@GetUrl() class="btn btn-outline-secondary shadow border-0">
+                        <ViewProjectSVG />
+                    </a>
+                </div>
+            </th>
+        </tr>
+    </table>
 </div>
 
 @code {

@@ -6,7 +6,7 @@
         <h1 class="display-4 justify-content-center area-title-text">How it Works</h1>
         @foreach (var article in Articles.Where(x => x.Area == Area.HowItWorks))
         {
-             <Card Type=Enums.CardType.Article
+             <Card Type=Enums.CardType.Card
                    Title=@article.Title
                    Description=@article.Description
                    IconUrl=@article.IconUrl />

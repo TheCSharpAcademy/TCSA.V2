@@ -100,10 +100,10 @@
     @if (Project.LearningItems != null)
     {
         <div class="row pb-5">
-            <div class="col-2 icon-div">
+            <div class="col-2 col-sm-12 icon-div">
                 <img src="img/books.png" width="70" alt="" class="align-middle">
             </div>
-            <div class=col-10>
+            <div class="col col-sm-12">
                 <h1 class="article-section-title">What you'll learn</h1>
                 <p>@((MarkupString)(Project.LearningIntro))</p>
                 <ol class="list-group  list-group-numbered list-group-flush">
@@ -151,11 +151,16 @@
     @if (Project.Tips != null)
     {
         <div class="row pb-5">
-            <div class="col-2 icon-div">
+            <div class="col-lg-2 col-sm-12 d-sm-none d-md-flex d-lg-block justify-content-center">
                 <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
             </div>
-            <div class=col-10>
-                <h1 class="article-section-title">Tips</h1>
+            <div class="col-lg-2 col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
+                <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class="col-lg-10 col-sm-12">
+                <div class="d-flex justify-content-center">
+                    <h1 class="article-section-title">Tips</h1>
+                </div>
                 <ul class="list-group  list-group-flush">
                     @foreach (var tip in Project.Tips)
                     {
@@ -174,11 +179,16 @@
     @if (Project.Challenges != null)
     {
         <div class="row pb-5">
-            <div class="col-2 icon-div">
+            <div class="col-lg-2 icon-div d-flex d-lg-none d-md-none justify-content-center">
                 <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
             </div>
-            <div class=col-10>
-                <h1 class="article-section-title">Challenges</h1>
+            <div class="col-lg-2 icon-div">
+                <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
+            </div>
+            <div class=col-lg-10>
+                <div class="d-flex justify-content-center">
+                    <h1 class="article-section-title">Challenges</h1>
+                </div>
                 <ul class="list-group  list-group-flush">
                     @foreach (var challenge in Project.Challenges)
                     {
@@ -465,7 +475,7 @@
 
 <style>
     .project-banner {
-        background-image: url("../img/ProjectBanners/@BackgroundImage");
+        background-image: url("../img/Banners/@BackgroundImage");
         background-size: cover;
         box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4) !important;
     }

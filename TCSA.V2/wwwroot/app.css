@@ -67,6 +67,15 @@ h1:focus {
 }
 
 @media (max-width: 992px) {
+    .project-banner {
+        margin-top:80px;
+    }
+
+    .dashboard-layout-wrapper {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
     .dashboard-container {
         padding: 2px;
     }
@@ -98,9 +107,27 @@ h1:focus {
     .horizontal-card-desktop {
         display: none !important;
     }
+
+    .dashboard-project-card-desktop {
+        display: none !important;
+    }
+
+    .modal-content {
+        width: 100% !important;
+        margin-top: 100px;
+    }
 }
 
 @media (min-width: 992px) {
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 120%;
+        position: relative;
+    }
+
     .title-desktop {
         margin-top: 100px;
     }

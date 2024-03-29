@@ -5,7 +5,8 @@ public class Enums
     public enum CardType
     {
         Article,
-        Project
+        Project,
+        Card
     }
 
     public enum Language

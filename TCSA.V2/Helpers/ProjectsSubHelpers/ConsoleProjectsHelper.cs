@@ -3798,6 +3798,106 @@ public class ConsoleProjectsHelper
                         }
                     }
                 }
+            },
+             new Project
+            {
+                Id = 14,
+                Title = "Флэш-карты",
+                IconUrl = "icons8-quizlet-96.png",
+                BannerUrl = "",
+                Slug = "flashcards",
+                Level = Level.Yellow,
+                Description = "Создание пачки (stacks) флэш-карты и функционала для изучения. Научитесь работать с реляционными  базами данных с помощью SQL Server и использовать объекты передачи данных (Data Transfer Objects)",
+                Area = Area.Console,
+                ExperiencePoints = 20,
+                Difficulty = Difficulty.Intermediate,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="После первых двух проектов вы должны быть в некоторой степени знакомы с тем, как все работает в C#. Пришло время немного усложнить задачу. Вы будете использовать <b>SQL Server</b> в первый раз. Мы могли бы продолжать использовать SQLite, поскольку он делает все необходимое для большинства небольших приложений, но SQL Server широко используется в отрасли, и чем раньше мы с ним познакомимся, тем лучше."
+                    },
+                    new Paragraph
+                    {
+                        Body="На этот раз база данных также будет немного сложнее. У нас будут две таблицы, связанные внешним ключом. И впервые мы будем работать с <a href='https://www.codeproject.com/Articles/1050468/Data-Transfer-Object-Design-Pattern-in-Csharp' target='_blank'>DTOs (Data Transfer Objects)</a>, которые помогут нам использовать один и тот же объект по-разному."
+                    },
+                    new Paragraph
+                    {
+                        Body="Пора начинать!"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "Это приложение, в котором пользователи будут создавать пачки (stacks) флэш-карты.",
+                    "Вам понадобятся две разные таблицы для stacks (пачек) и flashcards (флэш-карт). Таблицы должны быть связаны внешним ключом.",
+                    "Stacks должны иметь уникальное имя.",
+                    "Каждая флэш-карта должна быть частью пачки. Если стек удален, то же самое должно произойти и с флэш-картой.",
+                    "Вы должны использовать DTO, чтобы показывать флэш-карты пользователю без идентификатора стека, к которому они принадлежат",
+                    "При показе стека пользователю идентификаторы флэш-карт всегда должны начинаться с 1 без пробелов между ними. Если у вас 10 карточек и номер 5 удален, в таблице должны отображаться идентификаторы от 1 до 9.",
+                    "После создания функциональных возможностей флэш-карты создайте \"Study Session\" (Учебная сессия), где пользователи будут изучать пачки. Все учебные сессии должны быть сохранены с указанием даты и оценки.",
+                    "Таблицы study area и stacks должны быть связаны. Если stacks удален, его учебные сессии должны быть удалены.",
+                    "Проект должен содержать обращение к учебной таблице, чтобы пользователи могли видеть все свои учебные сессии. Эта таблица получает вызовы insert при каждой учебной сессии, но к ней не должно быть обращений update и delete."
+                },
+                Tips = new List<string>
+                {
+                    "Прежде чем приступить к написанию кода, попробуйте создать таблицы и выполнить несколько CRUD-запросов в SQL Server, чтобы ознакомиться с SQL Server Studio.",
+                    "Для управления stacks позвольте пользователю выбрать stack по имени.",
+                    "Подумайте о \"stacks\" и \"study\" области применения почти как отдельные приложения. Область study просто использует данные из области stacks."
+                },
+                LearningIntro = "Если вы изучили основы C#, следуя статье <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE' target='_blank'>C# Foundations </a>, вы должны знать все основные приемы, необходимые для завершения этого проекта. Вот список того, что вам понадобится для выполнения этих требований:",
+                LearningItems = new List<string>
+                 {
+                     "Использование SQL Server.",
+                     "Создание связанных таблиц с помощью SQL.",
+                     "Использование DTO для создания разных версий классов.",
+                     "<a href='https://www.youtube.com/watch?v=bNetxDl40pM' target='_blank'>Pivoting Tables in SQL</a>"
+                 },
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Установка SQL Server",
+                        ImgUrl = "icons8-sql-server-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Это первый проект в академии, где мы будем использовать SQL Server. <a href='https://docs.microsoft.com/en-us/sql/tools/visual-studio-code/sql-server-develop-use-vscode?view=sql-server-ver15'> Вы можете работать с SQL Server с помощью Visual Studio.</a>. Но я рекомендую вам начать с Microsoft SQL Server Management Studio. Для этого приложения не используйте SQL Server EXPRESS, а только локальную базу данных. <a href='https://www.youtube.com/watch?v=QsXWszvjMBM'> Вот руководство по установке studio</a>. И вот руководство по <a href='https://www.youtube.com/watch?v=M5DhHYQlnq8'> как подключиться к вашей локальной базе данных</a>"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Дополнительные задачи",
+                        ImgUrl = "icons8-courage-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Если вы хотите расширить этот проект, вот идея. Попробуйте создать систему отчетов, в которой вы сможете видеть количество сеансов в месяц для каждой пачек. И еще один со средним баллом за месяц для каждой пачек. Это непростая задача, если вы только начинаете работать с базами данных, но она научит вас всей мощи SQL и возможностям, которые он дает вам для того, чтобы задавать интересные вопросы из ваших таблиц."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Ниже приведен скриншот с примером готового отчета. Вам нужно будет узнать о сводных таблицах (Pivoting Tables), чтобы выполнить это задание. Обращайтесь, если вам нужна помощь!"
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "flashcards-8.png"
+                            }
+                        }
+                    }
+                },
+                Screenshots = new List<string>
+                {
+                    "flashcards-1.png",
+                    "flashcards-2.png",
+                    "flashcards-3.png",
+                    "flashcards-4.png",
+                    "flashcards-5.png",
+                    "flashcards-6.png",
+                    "flashcards-7.png"
+                }
             }
         };
     }

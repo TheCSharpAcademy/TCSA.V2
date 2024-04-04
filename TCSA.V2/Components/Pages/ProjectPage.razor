@@ -16,26 +16,25 @@
     </div>
 </div>
 
-@if (IsCompleted)
-{
-    <div class="card">
-        <div class="card-body">
-            You have completed this roadmap step.
-        </div>
-    </div>
-}
-
-@if (IsPendingReview)
-{
-    <div class="card card-pending">
-        <div class="card-body">
-            This Project Is Pending Review
-        </div>
-    </div>
-}
-
-
 <div class="container w-50">
+    @if (IsCompleted)
+    {
+        <div class="card card-completed">
+            <div class="card-body">
+                You have completed this roadmap step.
+            </div>
+        </div>
+    }
+
+    @if (IsPendingReview)
+    {
+        <div class="card card-pending">
+            <div class="card-body">
+                This Project Is Pending Review
+            </div>
+        </div>
+    }
+
     @if (AvailableLanguages.Count > 1)
     {
         <div class="row pb-3">
@@ -285,7 +284,7 @@
 
     @if (IsLoggedIn)
     {
-        @if (Project.Area == Area.SQL && !IsCompleted)
+        @if (IsLoggedIn && Project.Area == Area.SQL && !IsCompleted)
         {
             <div class="row pb-5">
                 <div class="col-2 icon-div">
@@ -330,10 +329,6 @@
                 </div>
             </div>
         }
-        @if (!IsCompleted)
-        {
-            <a class="btn btn-success" href="dashboard/submit-project">Submit</a>
-        }
     }
     else
     {
@@ -362,7 +357,6 @@
     private bool IsPendingReview { get; set; } = false;
     private bool IsCompleted { get; set; } = false;
     private bool codeWarsNotFoundShowing = false;
-    private bool ShowSubmitButton { get; set; } = false;
 
     private string BackgroundImage;
     private string UserId;
@@ -397,38 +391,35 @@
         }
 
         IsCompleted = await ProjectService.IsProjectCompleted(UserId, ProjectId);
+
+
+        if (!IsCompleted && Project.Area == Area.SQL)
+        {
+            await CheckCodeWars();
+        }
     }
 
-    private async Task GetUser()
+    private async Task CheckCodeWars()
     {
         try
         {
             var user = await UserService.GetUserById(UserId);
 
-            if (user != null)
+            var challengesResult = await CodeWarsService.GetCodeWarsCompletedChallenges(user.CodeWarsUsername, Project.CodeWarsChallenges);
+
+            Project.CodeWarsChallenges = challengesResult.Challenges;
+
+            if (challengesResult.Status == Models.Responses.ResponseStatus.Fail)
             {
-                IsLoggedIn = true;
+                codeWarsNotFoundShowing = true;
+                ResultMessage = challengesResult.Message;
             }
-            ShowSubmitButton = IsLoggedIn && !IsPendingReview && !IsCompleted && !Project.IsCommunityProject;
 
-            if (!IsCompleted && Project.Area == Area.SQL)
+            if (challengesResult.Status == Models.Responses.ResponseStatus.Success
+                && !IsCompleted
+                && !Project.CodeWarsChallenges.Any(x => x.IsCompleted == false))
             {
-                var challengesResult = await CodeWarsService.GetCodeWarsCompletedChallenges(user.CodeWarsUsername, Project.CodeWarsChallenges);
-
-                Project.CodeWarsChallenges = challengesResult.Challenges;
-
-                if (challengesResult.Status == Models.Responses.ResponseStatus.Fail)
-                {
-                    codeWarsNotFoundShowing = true;
-                    ResultMessage = challengesResult.Message;
-                }
-
-                if (challengesResult.Status == Models.Responses.ResponseStatus.Success
-                    && !IsCompleted
-                    && !Project.CodeWarsChallenges.Any(x => x.IsCompleted == false))
-                {
-                    await CodeWarsService.MarkCodeWarsAsCompleted(Project.Id, user.Id, user.ExperiencePoints);
-                }
+                await CodeWarsService.MarkCodeWarsAsCompleted(Project.Id, user.Id, user.ExperiencePoints);
             }
         }
         catch (Exception ex)
@@ -502,5 +493,14 @@
         height: 200px;
         color: white;
         font-weight: 600;
+    }
+
+    .card-completed {
+        background-color: green;
+        color: white;
+    }
+
+    .card-pending {
+        background-color: orange;
     }
 </style>

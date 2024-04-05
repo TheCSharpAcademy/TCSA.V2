@@ -104,7 +104,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52/code-reviews' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
                             }
                         }
                     },
@@ -164,7 +164,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52/code-reviews' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
                             }
                         }
                     }
@@ -376,7 +376,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52/code-reviews'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
                             }
                         }
                     },
@@ -1040,7 +1040,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Als je wilt dat jouw code wordt beoordeeld door een lid van de C# Academy, in plaats van jouw eigen repository te maken, <a href='article/52' target='blank'>moet je dit artikel volgen</a>, waar je kan leren hoe je een fork kan maken vanuit onze basisrepository."
+                                Body = "Als je wilt dat jouw code wordt beoordeeld door een lid van de C# Academy, in plaats van jouw eigen repository te maken, <a href='article/52/code-reviews' target='blank'>moet je dit artikel volgen</a>, waar je kan leren hoe je een fork kan maken vanuit onze basisrepository."
                             }
                         }
                     },
@@ -1100,7 +1100,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Als je wil dat je code beoordeeld wordt door een lid van de C# Academy, werk dan niet vanuit een eigen repository maar <a href='article/52' target='blank'>volg dit artikel</a>, hierin leer je hoe je een fork maakt van onze basis repository waardoor we jouw project kunnen reviewen."
+                                Body = "Als je wil dat je code beoordeeld wordt door een lid van de C# Academy, werk dan niet vanuit een eigen repository maar <a href='article/52/code-reviews' target='blank'>volg dit artikel</a>, hierin leer je hoe je een fork maakt van onze basis repository waardoor we jouw project kunnen reviewen."
                             }
                         }
                     }
@@ -1311,7 +1311,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Als je wilt dat jouw code wordt beoordeeld door een lid van de C# Academy, in plaats van jouw eigen repository te maken, <a href='article/52' target='blank'>moet je dit artikel volgen</a>, waar je kan leren hoe je een fork kan maken vanuit onze basisrepository."
+                                Body = "Als je wilt dat jouw code wordt beoordeeld door een lid van de C# Academy, in plaats van jouw eigen repository te maken, <a href='article/52/code-reviews' target='blank'>moet je dit artikel volgen</a>, waar je kan leren hoe je een fork kan maken vanuit onze basisrepository."
                             }
                         }
                     },
@@ -1975,7 +1975,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "나만의 리포지토리를 만드는 것이 아니라 C# 아카데미에 소속된 멤버에게서 코딩 리뷰를 받으시고 싶으시다면, <a href='article/52' target='blank'>여기를 클릭해주세요</a>, 저희 리뷰 리포지토리를 기반으로 포크(fork)를 만드는 법을 배우실 수 있습니다."
+                                Body = "나만의 리포지토리를 만드는 것이 아니라 C# 아카데미에 소속된 멤버에게서 코딩 리뷰를 받으시고 싶으시다면, <a href='article/52/code-reviews' target='blank'>여기를 클릭해주세요</a>, 저희 리뷰 리포지토리를 기반으로 포크(fork)를 만드는 법을 배우실 수 있습니다."
                             }
                         }
                     },
@@ -2037,7 +2037,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52/code-reviews' target='blank'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
                             }
                         }
                     }
@@ -2249,7 +2249,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
+                                Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52/code-reviews'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
                             }
                         }
                     },
@@ -2917,7 +2917,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Se você quer que seu código seja avaliado por um mebro da Academia C#, ao invés de criar seu próprio repositório, <a href='article/52' target='blank'>siga esse artigo</a>, onde você irá aprender a criar um fork do nosso diretório de revisões."
+                                Body = "Se você quer que seu código seja avaliado por um mebro da Academia C#, ao invés de criar seu próprio repositório, <a href='article/52/code-reviews' target='blank'>siga esse artigo</a>, onde você irá aprender a criar um fork do nosso diretório de revisões."
                             }
                         }
                     },
@@ -3024,7 +3024,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
+                                Body = "C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52/code-reviews' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
                             }
                         }
                     },
@@ -3084,7 +3084,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
+                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52/code-reviews' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
                             }
                         }
                     }
@@ -3300,7 +3300,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
+                                Body = "\"C# Akademisi'nin bir üyesi tarafından kodunuzun incelenmesini istiyorsanız <a href='article/52/code-reviews' target='blank'>bu makaleyi takip edin</a>; Temel inceleme havuzumuzdan nasıl çatal(fork) oluşturulacağını öğrenin."
                             }
                         }
                     },
@@ -3419,7 +3419,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Если вы хотите, чтобы ваш код был проверен членом C# Academy, вместо создания собственного репозитория, <a href='article/52' target='blank'>читайте этой статье</a>, где вы узнаете, как создать fork из нашего базового репозитория."
+                                Body = "Если вы хотите, чтобы ваш код был проверен членом C# Academy, вместо создания собственного репозитория, <a href='article/52/code-reviews' target='blank'>читайте этой статье</a>, где вы узнаете, как создать fork из нашего базового репозитория."
                             }
                         }
                     },
@@ -3479,7 +3479,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Если вы хотите, чтобы ваш код был проверен членом C# Academy, вместо создания собственного репозитория, <a href='article/52' target='blank'>читайте этой статье</a>, где вы узнаете, как создать fork из нашего базового репозитория."
+                                Body = "Если вы хотите, чтобы ваш код был проверен членом C# Academy, вместо создания собственного репозитория, <a href='article/52/code-reviews' target='blank'>читайте этой статье</a>, где вы узнаете, как создать fork из нашего базового репозитория."
                             }
                         }
                     }
@@ -3690,7 +3690,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Если вы хотите, чтобы ваш код был проверен членом C# Academy, вместо создания собственного репозитория, <a href='article/52' target='blank'>читайте этой статье</a>, где вы узнаете, как создать fork из нашего базового репозитория."
+                                Body = "Если вы хотите, чтобы ваш код был проверен членом C# Academy, вместо создания собственного репозитория, <a href='article/52/code-reviews' target='blank'>читайте этой статье</a>, где вы узнаете, как создать fork из нашего базового репозитория."
                             }
                         }
                     },

@@ -1427,7 +1427,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "If tests are passing, move on to step 6. If not, create a comment on the PR along the lines of: <b>Please fix the errors picked up by code analysis before I review your code. You can find instructions in item 6 of this article: https://www.thecsharpacademy.com/article/52. If you have any questions feel free to reply to this comment or reach out on Discord via the #codeReview channel</b>. Then wait for the student to fix the errors and move on to step 6. You won't get an e-mail once the student fixes the changes, so make sure you check the pull request for changes for changes."
+                                Body = "If tests are passing, move on to step 6. If not, create a comment on the PR along the lines of: <b>Please fix the errors picked up by code analysis before I review your code. You can find instructions in item 6 of this article: https://www.thecsharpacademy.com/article/52/code-reviews. If you have any questions feel free to reply to this comment or reach out on Discord via the #codeReview channel</b>. Then wait for the student to fix the errors and move on to step 6. You won't get an e-mail once the student fixes the changes, so make sure you check the pull request for changes for changes."
                             },
                             new Paragraph
                             {

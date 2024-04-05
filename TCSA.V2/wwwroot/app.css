@@ -67,6 +67,14 @@ h1:focus {
 }
 
 @media (max-width: 992px) {
+    .roadmap-image {
+        width: 35px !important; 
+    }
+
+    .horizontal-card-roadmap {
+        background-color: white !important; 
+    }
+
     .project-banner {
         margin-top: 80px;
     }

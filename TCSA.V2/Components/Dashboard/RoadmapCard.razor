@@ -1,14 +1,15 @@
 ﻿@using TCSA.V2.Models.DTO
 
-<div class="@CardName.ToLower() horizontal-card-roadmap d-flex shadow rounded-3 mb-1 @(IsCompleted ? "roadmap-completed border border-5 border-warning opacity-75" : "")">
+<div class="@CardName.ToLower() row d-sm-flex d-md-none pt-2 pb-2 align-items-center justify-content-center mt-2">@CardName</div>
+<div class="@CardName.ToLower().Split(' ').First() belt horizontal-card-roadmap d-flex shadow rounded-3 mb-1 @(IsCompleted ? "roadmap-completed border border-5 border-warning opacity-75" : "")">
     @if (CardName == "Black Belt")
     {
         <div class="col-12 d-flex pt-5 pb-5 align-items-center justify-content-center">@CardName</div>
     }
     else
     {
-        <div class="col-2 d-flex align-items-center justify-content-center">@CardName</div>
-        <div class="col-10 roadmap-row rounded-sm g-0">
+        <div class="col-2 d-none d-md-flex align-items-center justify-content-center">@CardName</div>
+        <div class="col-sm-12 col-lg-10 roadmap-row rounded-sm g-0">
             <div class="p-1">
                 <img src="img/icons8-question-mark-64.png" alt="Question Mark" class="question-mark" />
                 <ul class="hidden-list">
@@ -52,7 +53,7 @@
     }
 
     .olive {
-        background-color: darkolivegreen !important;
+        background-color: darkolivegreen;
         color: white;
     }
 

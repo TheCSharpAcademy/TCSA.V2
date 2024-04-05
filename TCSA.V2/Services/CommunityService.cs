@@ -35,7 +35,7 @@ public class CommunityService : ICommunityService
         {
             using (var context = _factory.CreateDbContext())
             {
-                return await context.Issues.Where(x => x.IsClosed == false).CountAsync();
+                return await context.Issues.Where(x => x.AppUserId == appUserId && x.IsClosed).CountAsync();
             }
         }
         catch (Exception ex)

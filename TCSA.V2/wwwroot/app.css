@@ -68,7 +68,7 @@ h1:focus {
 
 @media (max-width: 992px) {
     .project-banner {
-        margin-top:80px;
+        margin-top: 80px;
     }
 
     .dashboard-layout-wrapper {
@@ -97,7 +97,7 @@ h1:focus {
     }
 
     .container {
-        width: 90% !important;
+        width: 95% !important;
     }
 
     .right-side {

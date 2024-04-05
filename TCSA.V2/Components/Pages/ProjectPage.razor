@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="container w-50">
+<div class="container project-container w-50">
     @if (IsCompleted)
     {
         <div class="card card-completed">
@@ -53,7 +53,7 @@
 
     @if (Project.Introduction != null)
     {
-        <div class="row pb-5 p-sm-2">
+        <div class="row pb-5 mb-3 p-sm-2 intro-block">
             <div class="col">
                 <h1 class="article-section-title">Introduction</h1>
                 @foreach (var paragraph in Project.Introduction)
@@ -65,12 +65,12 @@
     }
 
     <div class="row pb-5">
-        <div class="col-lg-2 col-sm-12 d-sm-none d-md-flex d-lg-flex align-items-center justify-content-center">
-            <div>
+        <div class="col-lg-2 d-flex align-items-center justify-content-center">
+            <div class="d-none d-sm-block">
                 <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
             </div>
         </div>
-        <div class="col-sm-12 d-flex d-lg-none d-md-none">
+        <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
             <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
         </div>
         <div class=col-lg-10>
@@ -127,15 +127,15 @@
     @if (Project.Resources != null)
     {
         <div class="row pb-5">
-            <div class="col-lg-2 col-sm-12 d-sm-none d-md-flex d-lg-flex align-items-center justify-content-center">
-                <div>
+            <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                <div class="d-none d-sm-block">
                     <img src="img/books.png" width="70" alt="" class="align-middle">
                 </div>
             </div>
-            <div class="col-lg-2 col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
+            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
                 <img src="img/books.png" width="70" alt="" class="align-middle">
             </div>
-            <div class=col-10>
+            <div class="col-sm-12 col-lg-10">
                 <div class="d-flex justify-content-center">
                     <h1 class="article-section-title">Resources</h1>
                 </div>
@@ -165,8 +165,8 @@
     @if (Project.Tips != null)
     {
         <div class="row pb-5">
-            <div class="col-lg-2 d-sm-none d-md-flex d-lg-flex align-items-center justify-content-center">
-                <div>
+            <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                <div class="d-none d-sm-block">
                     <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
                 </div>
             </div>
@@ -195,10 +195,12 @@
     @if (Project.Challenges != null)
     {
         <div class="row pb-5">
-            <div class="col-lg-2 icon-div d-flex d-lg-none d-md-none justify-content-center">
-                <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
+             <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                <div class="d-none d-sm-block">
+                    <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
+                </div>
             </div>
-            <div class="col-lg-2 icon-div">
+            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
                 <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
             </div>
             <div class=col-lg-10>
@@ -482,6 +484,10 @@
 }
 
 <style>
+    .intro-block {
+        margin-top: 20px;
+    }
+
     .project-banner {
         background-image: url("../img/Banners/@BackgroundImage");
         background-size: cover;

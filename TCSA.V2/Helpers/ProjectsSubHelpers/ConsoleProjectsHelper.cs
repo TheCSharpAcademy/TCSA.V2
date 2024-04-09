@@ -1380,42 +1380,41 @@ public class ConsoleProjectsHelper
                 ResourcesIntro = "Wanneer je de basis van C# geleerd hebt via <a href='article/8' target='blank'>C# Foundations</a>, en je de <a href='article/12' target='blank'>GewoonteLogger</a> app hebt gemaakt, dan zou je alle basis technieken moeten kennen om dit project tot een goed einde te brengen. Hier is een lijst met extra hulpbronnen die je mogelijks nodig hebt:",
                 Tips = new List<string>
                 {
-
-                    "It's up to you the order in which you'll build, but we recommend you do it in this order: configuration file, model, database/table creation, CRUD controller (where the operations will happen), TableVisualisationEngine (where the consoleTableExt code will be run) and finally: validation of data.",
-                    "Sqlite doesn't support dates. We recommend you store the datetime as a string in the database and then parse it using C#. You'll need to parse it to calculate the duration of your sessions.",
-                    "Don't forget to push your changes to github every time you stop working.",
-                    "Don't forget the user input's validation: Check for incorrect dates. What happens if a menu option is chosen that's not available? What happens if the users input a string instead of a number? Remember that the end date can't be before the start date."
+                    "Ja mag zelf kiezen in welke volgorde je de app bouwt, maar wij raden deze volgorde aan: configuratie bestand, model, databank/tabel creatie, CRUD controller (waar de taken plaats vinden), visualizeren van de tabel met Spectre en tot slot: valideren van de data.",
+                    "Sqlite ondersteunt geen datums. Wij raden aan om de datum in een string te bewaren in de databank en deze in C# om te zetten naar een datum. Je zal deze moeten omzetten naar een datum om de duratie te berekenen."
+                    "Vergeet niet van je wijzigingen regelmatig door te sturen naar GitHub. Zeker wanneer je stopt.",
+                    "Vergeet de gebruikers input niet te valideren. Controleer op foutieve datums. Wat gebeurt er wanneer er een menu optie gekozen word dat niet bestaat? Wat gebeurt er wanneer een gebruiker een string invoert terwijl de app een nummer verwacht ? De eind tijd kan niet voor de start tijd liggen."
                 },
                  Challenges = new List<string>
                 {
-                    "Add the possibility of tracking the coding time via a stopwatch so the user can track the session as it happens.",
-                    "Let the users filter their coding records per period (weeks, days, years) and/or order ascending or descending.",
-                    "Create reports where the users can see their total and average coding session per period.",
-                    "Create the ability to set coding goals and show how far the users are from reaching their goal, along with how many hours a day they would have to code to reach their goal. You can do it via SQL queries or with C#.",
-                },
+                    "Voeg de mogelijkheid toe om een codeer sessie bij te houden door middel van een stopwatch zodat je een sessie kunt loggen terwijl ze plaats vind.",
+                    "De gebruiker kan zijn codeer sessie filteren per periode (op basis van weken, dagen, jaren) en dit oplopend en aflopend.",
+                    "Genereer rapporten waar de gebruikers hun totale en gemiddelde tijd kunnen zien per periode.",
+                    "Zorg dat een gebruiker een doel tijd kan opgeven. Toon hoe ver ze van hun doel zitten, samen met hoeveel uren per dag ze zouden moeten coderen om hun doel tijd te bereiken. Je kan dit via een SQL querie doen of via C#.",
+                 },
                  Blocks = new List<Block>
                 {
                     new Block
                     {
-                        Title = "Creating a Configuration File",
+                        Title = "Een configuratie bestand aanmaken",
                         ImgUrl = "external-configuration-computer-itim2101-lineal-color-itim2101-300x300.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "In advanced applications, configuration properties are stored in an xml file. This practice makes it easier to configure your application in production. It’s not absolutely necessary now, but it’s not hard to learn and you should get used to it from the beginning of your coding journey. It makes your code cleaner and more organised. <a href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Check out the documentation</a> and if necessary search for “configuration file C#” on Youtube. "
+                                Body = "In geadvanceerde applicaties worden configuratie bestanden bewaart in een xml bestand. Op deze manier word het gemakkelijker om je applicatie te configureren voor productie. Het is niet absoluut noodzakelijk in dit project, maar het is niet moeilijk om te leren en zo geraak je ermee vertrouwd vanaf het begin. Het maakt je code schoner en meer georganiseerd. <a href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Bekijk deze documentatie</a> en indien nodig zoek achter “configuration file C#” op Youtube. "
                             }
                         }
                     },
                     new Block
                     {
-                        Title = "Creating a Desktop App",
+                        Title = "Maak een Desktop App",
                         ImgUrl = "icons8-desktop-computer-512.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Coding Tracker App with the same functionality you’ve created for this console app. There will be some challenges, especially if you want to create a timer, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and we will help!"
+                                Body = "Als je de volledige <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'> C# Foundation course </a> hebt bekeken, dan heb je reeds het Reken spel gemaakt met .NET MAUI. Het is een goede oefening om deze Codeer Logger na te maken in MAUI. Er zullen wat uitdagingen zijn, zeker wanneer je een timer wil bouwen, maar je beschikt reeds alle kennis om dit tot een goed einde te brengen. En onthoud, wanneer je vast zit, je altijd kan rekenen op onze hulp via onze <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a>. Wij zullen altijd proberen je te helpen!"
                             }
                         }
                     }

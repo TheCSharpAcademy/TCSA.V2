@@ -1332,7 +1332,7 @@ public class ConsoleProjectsHelper
              new Project
              {
                 Id = 13,
-                Title = "Code Logger",
+                Title = "Codeer Logger",
                 IconUrl = "icons8-smart-watch-96.png",
                 BannerUrl = "",
                 Slug = "coding-tracker",
@@ -1354,16 +1354,16 @@ public class ConsoleProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="In de eerste applicatie hadden we ook geen vereisten voor hoe onze code georganiseerd is. Deze keer ga je echter moeten gebruik maken van <a href='https://en.wikipedia.org/wiki/Separation_of_concerns'>separation of concerns</a>, een van de meest belangrijke principes in modern programmeren. Nu begin je met de concepten van Object Georiënteerd Programmeren toe te passen. Je zal ook gebruik moeten maken van een 'Model' of 'Entity', om de data die je moet verwerken weer te geven. In dit geval je, codeer sessies. Laten we starten!"
+                        Body="In de eerste applicatie hadden we geen vereisten over de organisatie van onze code. Deze keer echter, ga je moeten gebruik maken van <a href='https://en.wikipedia.org/wiki/Separation_of_concerns'>separation of concerns</a>, één van de meest belangrijke principes in modern programmeren. Vanaf nu gaan we de concepten van Object Georiënteerd Programmeren toe passen. Je zal ook gebruik moeten maken van een 'Model' of 'Entity', om de data die je moet verwerken weer te geven. In dit geval je, codeer sessies. Laten we starten!"
                     }
                 },
                 Requirements = new List<string>
                 {
                     "Deze applicatie heeft dezelfde vereisten als de vorige, behalve dat we deze keer onze dagelijkse tijd die we spenderen aan coderen gaan loggen.",
                     "Om onze data in de console weer te geven gaan we gebruik maken van de \"Spectre.Console\" library.",
-                    "Het is vereist om aparte classes in verschillende bestanden te plaatsen (bv. UserInput.cs, Validation.cs, CodingController.cs)",
-                    "Maak de gebruiker duidelijk in welk specifiek formaat datum en tijd opgegeven moet worden. En sta geen afwijkingen op dit formaat toe.",
-                    "Maak een configuratie bestand aan dat een link naar je database en connectiestring bevat.",
+                    "Het is vereist om onze verschillende classes in aparte bestanden te plaatsen (bv. UserInput.cs, Validation.cs, CodingController.cs)",
+                    "Maak de gebruiker duidelijk in welk specifiek formaat datum en tijd opgegeven moeten worden. En sta geen afwijkingen op dit formaat toe.",
+                    "Maak een configuratie bestand aan dat een link naar je databank en connectiestring bevat.",
                     "Maak een \"CodingSession\" class aan in een apart bestand. Het bevat alle eigenschappen van je code sessie: Id, StartTijd, EindTijd, Duratie",
                     "De gebruiker is niet toegestaan om de duratie van de sessie in te vullen. Deze moet berekend worden aan de hand van de Start en EindTijd, in een aparte \"CalculateDuration\" methode.",
                     "De gebruiker kan de start en eindtijd manueel ingeven.",
@@ -1372,7 +1372,7 @@ public class ConsoleProjectsHelper
                 },
                 Resources = new List<string>
                 {
-                    "<a target='_blank' href='https://spectreconsole.net/'>Spectre Console</a> documentatie</a>.",
+                    "<a target='_blank' href='https://spectreconsole.net/'>Spectre Console documentatie</a>.",
                     "<a target='_blank' href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Configuratie Manager gebruiken</a>",
                     "<a target='_blank' href='https://stackoverflow.com/questions/3719/how-to-validate-a-datetime-in-c'>Datum en tijd omzetten in C#</a>",
                     "<a target='_blank' href='https://www.learndapper.com/'>Dapper Handleiding</a>.",
@@ -1380,7 +1380,7 @@ public class ConsoleProjectsHelper
                 ResourcesIntro = "Wanneer je de basis van C# geleerd hebt via <a href='article/8' target='blank'>C# Foundations</a>, en je de <a href='article/12' target='blank'>GewoonteLogger</a> app hebt gemaakt, dan zou je alle basis technieken moeten kennen om dit project tot een goed einde te brengen. Hier is een lijst met extra hulpbronnen die je mogelijk nodig hebt:",
                 Tips = new List<string>
                 {
-                    "Je mag zelf kiezen in welke volgorde je de app bouwt, maar wij raden deze volgorde aan: configuratie bestand, model, databank/tabel creatie, CRUD controller (waar de taken plaats vinden), visualiseren van de tabel met Spectre en tot slot: valideren van de data.",
+                    "Je mag zelf kiezen in welke volgorde je de app bouwt, maar wij raden deze volgorde aan: configuratie bestand, model, databank/tabel creatie, CRUD controller (waar de verschillende handelingen plaats vinden), visualiseren van de tabel en tot slot: valideren van de data.",
                     "Sqlite ondersteunt geen datums. Wij raden aan om de datum in een string te bewaren in de databank en deze in C# om te zetten naar een datum. Je zal deze moeten omzetten naar een datum om de duratie te berekenen.",
                     "Vergeet niet van je wijzigingen regelmatig door te sturen naar GitHub. Zeker wanneer je stopt.",
                     "Vergeet de gebruikers input niet te valideren. Controleer op foutieve datums. Wat gebeurt er wanneer er een menuoptie gekozen wordt dat niet bestaat? Wat gebeurt er wanneer een gebruiker een string invoert, terwijl de app een nummer verwacht? De eindtijd kan niet voor de start tijd liggen."

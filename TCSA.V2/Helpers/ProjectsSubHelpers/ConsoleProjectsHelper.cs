@@ -838,7 +838,6 @@ public class ConsoleProjectsHelper
                     "Don't forget to create a Github repository for your project from the beginning.",
                     "After the completion of this project, try to create your own scrapper from a different source and with a different business case.",
                     "Bear in mind that some websites don't authorise scrapping.",
-                    "Keep your application simple (only one table). Complexity is your enemy at the moment, since you want to focus solely on learning the pattern.",
                     "It's not simple to scrap data from websites generated dynamically with the help of Javascript frameworks. When you create your own project, be aware that it's easier to scrape from more traditional, simple, server-based ones."
                 }
             },
@@ -1773,7 +1772,6 @@ public class ConsoleProjectsHelper
                     "Don't forget to create a Github repository for your project from the beginning.",
                     "After the completion of this project, try to create your own scrapper from a different source and with a different business case.",
                     "Bear in mind that some websites don't authorise scrapping.",
-                    "Keep your application simple (only one table). Complexity is your enemy at the moment, since you want to focus solely on learning the pattern.",
                     "It's not simple to scrap data from websites generated dynamically with the help of Javascript frameworks. When you create your own project, be aware that it's easier to scrape from more traditional, simple, server-based ones."
                 }
             },
@@ -2711,7 +2709,6 @@ public class ConsoleProjectsHelper
                     "Don't forget to create a Github repository for your project from the beginning.",
                     "After the completion of this project, try to create your own scrapper from a different source and with a different business case.",
                     "Bear in mind that some websites don't authorise scrapping.",
-                    "Keep your application simple (only one table). Complexity is your enemy at the moment, since you want to focus solely on learning the pattern.",
                     "It's not simple to scrap data from websites generated dynamically with the help of Javascript frameworks. When you create your own project, be aware that it's easier to scrape from more traditional, simple, server-based ones."
                 }
             },

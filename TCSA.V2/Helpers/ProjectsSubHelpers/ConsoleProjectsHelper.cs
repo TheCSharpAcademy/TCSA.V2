@@ -1328,15 +1328,15 @@ public class ConsoleProjectsHelper
                     },
                 }
             },
-            /* new Project
+             new Project
              {
                 Id = 13,
-                Title = "Coding Tracker",
+                Title = "Codeer Logger",
                 IconUrl = "icons8-smart-watch-96.png",
                 BannerUrl = "",
                 Slug = "coding-tracker",
                 Level = Level.OliveGreen,
-                Description = "Track your coding hours. Learn how to deal with dates, to use separation of concerns and use your first external library to enhance your application",
+                Description = "Log het aantal uur dat je spendeert aan coderen. Leer omgaan met datums, hoe maak je gebruik van het opsplitsen van taken ('seperation of concerns'), en maak voor het eerst gebruik van een externe bibliotheek om je applicatie beter te maken.",
                 Area = Area.Console,
                 ExperiencePoints = 10,
                 Difficulty = Difficulty.Beginner,
@@ -1345,81 +1345,81 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="This app should be very similar to the <a href='article/12' target='blank'>Habit Tracker</a> you’ve previously completed. It will serve the purpose of reinforcing what you’ve learned with a bit of repetition and building on that knowledge with slightly more challenging requirements. "
+                        Body="Deze app lijkt heel erg op de vorige app die we gemaakt hebben: <a href='article/12' target='blank'>Gewoontelogger</a>. Het is de bedoeling om hetgeen we geleerd hebben te versterken door middel van herhaling en het opnieuw toepassen van de opgedane kennis, maar dan met een klein beetje meer uitdaging. "
                     },
                     new Paragraph
                     {
-                        Body="This time you’ll have to deal with the complexity of handling Dates and Times, which is a real challenge in any application. You’ll also be using your first external library. Often times in professional environments programmers don’t reinvent the wheel and save time by using public solutions provided by other coders. That’s the beauty of the internet. You have access to an amazing coding community! "
+                        Body="Deze keer gaan we moeten omgaan met de extra complexiteit die Datum en Tijd met zich meebrengen. Dit is in elke applicatie een echte uitdaging. Je zal ook voor het eerst gebruik moeten maken van een externe bibliotheek. In een professionele programmeeromgeving zal je dikwijls gebruik maken van oplossingen van andere programmeurs. Waarom zou je alles van begin af aan coderen wanneer het reeds publiekelijk beschikbaar is. Dat is het mooie aan het internet, we hebben hierdoor toegang tot een fantastische codeer gemeenschap."
                     },
                     new Paragraph
                     {
-                        Body="In the first app we also didn’t have requirements for coding organization. This time you’ll have to use <a href='https://en.wikipedia.org/wiki/Separation_of_concerns'>separation of concerns</a>, one of the most important principles in modern programming. This is where you’ll start applying concepts of Object Oriented Programming. You’ll also need to use a “Model”  or “Entity”, to to represent the data you are dealing with. In this case, your coding sessions. So let’s get started!"
+                        Body="In de eerste applicatie hadden we geen vereisten over de organisatie van onze code. Deze keer echter, ga je moeten gebruik maken van <a href='https://en.wikipedia.org/wiki/Separation_of_concerns'>separation of concerns</a>, één van de meest belangrijke principes in modern programmeren. Vanaf nu gaan we de concepten van Object Georiënteerd Programmeren toe passen. Je zal ook gebruik moeten maken van een 'Model' of 'Entity', om de data die je moet verwerken weer te geven. In dit geval je, codeer sessies. Laten we starten!"
                     }
                 },
                 Requirements = new List<string>
                 {
-                    "This application has the same requirements as the previous project, except that now you'll be logging your daily coding time.",
-                    "To show the data on the console, you should use the \"Spectre.Console\" library.",
-                    "You're required to have separate classes in different files (ex. UserInput.cs, Validation.cs, CodingController.cs)",
-                    "You should tell the user the specific format you want the date and time to be logged and not allow any other format.",
-                    "You'll need to create a configuration file that you'll contain your database path and connection strings.",
-                    "You'll need to create a \"CodingSession\" class in a separate file. It will contain the properties of your coding session: Id, StartTime, EndTime, Duration",
-                    "The user shouldn't input the duration of the session. It should be calculated based on the Start and End times, in a separate \"CalculateDuration\" method.",
-                    "The user should be able to input the start and end times manually.",
-                    "You need to use Dapper ORM for the data access instead of ADO.NET. (This requirement was included in Feb/2024)",
-                    "When reading from the database, you can't use an anonymous object, you have to read your table into a List of Coding Sessions."
+                    "Deze applicatie heeft dezelfde vereisten als de vorige, behalve dat we deze keer onze dagelijkse tijd die we spenderen aan coderen gaan loggen.",
+                    "Om onze data in de console weer te geven gaan we gebruik maken van de \"Spectre.Console\" library.",
+                    "Het is vereist om onze verschillende classes in aparte bestanden te plaatsen (bv. UserInput.cs, Validation.cs, CodingController.cs)",
+                    "Maak de gebruiker duidelijk in welk specifiek formaat datum en tijd opgegeven moeten worden. En sta geen afwijkingen op dit formaat toe.",
+                    "Maak een configuratie bestand aan dat een link naar je databank en connectiestring bevat.",
+                    "Maak een \"CodingSession\" class aan in een apart bestand. Het bevat alle eigenschappen van je code sessie: Id, StartTijd, EindTijd, Duratie",
+                    "De gebruiker is niet toegestaan om de duratie van de sessie in te vullen. Deze moet berekend worden aan de hand van de Start en EindTijd, in een aparte \"CalculateDuration\" methode.",
+                    "De gebruiker kan de start en eindtijd manueel ingeven.",
+                    "Je moet gebruik maken van het Dapper ORM om de data te raadplegen in plaats van ADO.NET. (Deze vereiste is ingevoerd sinds februari 2024)",
+                    "Wanneer je data van de databank ophaalt, kan je geen gebruik maken van een anoniem object, je moet de tabel lezen door middel van een List van CodingSessions."
                 },
                 Resources = new List<string>
                 {
-                    "<a target='_blank' href='https://spectreconsole.net/'>Spectre Console</a> documentation</a>.",
-                    "<a target='_blank' href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Using Configuration Manager</a>",
-                    "<a target='_blank' href='https://stackoverflow.com/questions/3719/how-to-validate-a-datetime-in-c'>Parsing DateTime in C#</a>",
-                    "<a target='_blank' href='https://www.learndapper.com/'>Dapper Tutorial</a>.",
+                    "<a target='_blank' href='https://spectreconsole.net/'>Spectre Console documentatie</a>.",
+                    "<a target='_blank' href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Configuratie Manager gebruiken</a>",
+                    "<a target='_blank' href='https://stackoverflow.com/questions/3719/how-to-validate-a-datetime-in-c'>Datum en tijd omzetten in C#</a>",
+                    "<a target='_blank' href='https://www.learndapper.com/'>Dapper Handleiding</a>.",
                 },
-                ResourcesIntro = "If you have learned the basics of C# following the <a href='article/8' target='blank'>C# Foundations</a> article, and completed the <a href='article/12' target='blank'>Habit Tracker</a> project, you should know all the basic techniques needed to complete this project. Here’s a list of extra resources you might need:",
+                ResourcesIntro = "Wanneer je de basis van C# geleerd hebt via <a href='article/8' target='blank'>C# Foundations</a>, en je de <a href='article/12' target='blank'>GewoonteLogger</a> app hebt gemaakt, dan zou je alle basis technieken moeten kennen om dit project tot een goed einde te brengen. Hier is een lijst met extra hulpbronnen die je mogelijk nodig hebt:",
                 Tips = new List<string>
                 {
-                    "It's up to you the order in which you'll build, but we recommend you do it in this order: configuration file, model, database/table creation, CRUD controller (where the operations will happen), TableVisualisationEngine (where the consoleTableExt code will be run) and finally: validation of data.",
-                    "Sqlite doesn't support dates. We recommend you store the datetime as a string in the database and then parse it using C#. You'll need to parse it to calculate the duration of your sessions.",
-                    "Don't forget to push your changes to github every time you stop working.",
-                    "Don't forget the user input's validation: Check for incorrect dates. What happens if a menu option is chosen that's not available? What happens if the users input a string instead of a number? Remember that the end date can't be before the start date."
+                    "Je mag zelf kiezen in welke volgorde je de app bouwt, maar wij raden deze volgorde aan: configuratie bestand, model, databank/tabel creatie, CRUD controller (waar de verschillende handelingen plaats vinden), visualiseren van de tabel en tot slot: valideren van de data.",
+                    "Sqlite ondersteunt geen datums. Wij raden aan om de datum in een string te bewaren in de databank en deze in C# om te zetten naar een datum. Je zal deze moeten omzetten naar een datum om de duratie te berekenen.",
+                    "Vergeet niet van je wijzigingen regelmatig door te sturen naar GitHub. Zeker wanneer je stopt.",
+                    "Vergeet de gebruikers input niet te valideren. Controleer op foutieve datums. Wat gebeurt er wanneer er een menuoptie gekozen wordt dat niet bestaat? Wat gebeurt er wanneer een gebruiker een string invoert, terwijl de app een nummer verwacht? De eindtijd kan niet voor de start tijd liggen."
                 },
                  Challenges = new List<string>
                 {
-                    "Add the possibility of tracking the coding time via a stopwatch so the user can track the session as it happens.",
-                    "Let the users filter their coding records per period (weeks, days, years) and/or order ascending or descending.",
-                    "Create reports where the users can see their total and average coding session per period.",
-                    "Create the ability to set coding goals and show how far the users are from reaching their goal, along with how many hours a day they would have to code to reach their goal. You can do it via SQL queries or with C#.",
-                },
+                    "Voeg de mogelijkheid toe om een codeersessie bij te houden door middel van een stopwatch zodat je een sessie kunt loggen terwijl ze plaats vindt.",
+                    "De gebruiker kan zijn codeer sessie filteren per periode (op basis van weken, dagen, jaren) en dit oplopend en aflopend.",
+                    "Genereer rapporten waar de gebruikers hun totale en gemiddelde tijd kunnen zien per periode.",
+                    "Zorg dat een gebruiker een doel tijd kan opgeven. Toon hoe ver ze van hun doel zitten, samen met hoeveel uren per dag ze zouden moeten coderen om hun doel tijd te bereiken. Je kan dit via een SQL-query doen of via C#.",
+                 },
                  Blocks = new List<Block>
                 {
                     new Block
                     {
-                        Title = "Creating a Configuration File",
+                        Title = "Een configuratie bestand aanmaken",
                         ImgUrl = "external-configuration-computer-itim2101-lineal-color-itim2101-300x300.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "In advanced applications, configuration properties are stored in an xml file. This practice makes it easier to configure your application in production. It’s not absolutely necessary now, but it’s not hard to learn and you should get used to it from the beginning of your coding journey. It makes your code cleaner and more organised. <a href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Check out the documentation</a> and if necessary search for “configuration file C#” on Youtube. "
+                                Body = "In geavanceerde applicaties worden configuratie bestanden bewaart in een xml bestand. Op deze manier wordt het gemakkelijker om je applicatie te configureren voor productie. Het is niet absoluut noodzakelijk in dit project, maar het is niet moeilijk om te leren en zo geraak je ermee vertrouwd vanaf het begin. Het maakt je code schoner en meer georganiseerd. <a href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Bekijk deze documentatie</a> en indien nodig, zoek achter “configuration file C#” op YouTube. "
                             }
                         }
                     },
                     new Block
                     {
-                        Title = "Creating a Desktop App",
+                        Title = "Maak een Desktop App",
                         ImgUrl = "icons8-desktop-computer-512.png",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Coding Tracker App with the same functionality you’ve created for this console app. There will be some challenges, especially if you want to create a timer, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and we will help!"
+                                Body = "Als je de volledige <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'> C# Foundation course </a> hebt bekeken, dan heb je reeds de desktop versie van het Rekenspel gemaakt met .NET MAUI. Het is een goede oefening om deze Codeer Logger na te maken in MAUI. Er zullen wat uitdagingen zijn, zeker wanneer je een timer wil bouwen, maar je beschikt reeds alle kennis om dit tot een goed einde te brengen. En onthoud, wanneer je vast zit, je altijd kan rekenen op onze hulp via onze <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a>. Wij zullen altijd proberen je te helpen!"
                             }
                         }
                     }
                 }
             },
-             new Project
+            /* new Project
             {
                 Id = 14,
                 Title = "Flashcards",

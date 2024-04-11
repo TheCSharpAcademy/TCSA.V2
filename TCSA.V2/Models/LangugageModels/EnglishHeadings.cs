@@ -1,6 +1,6 @@
 ﻿namespace TCSA.V2.Models.LangugageModels
 {
-    public class EnglishHeadings : ILanguageHeadings
+    public record EnglishHeadings : ILanguageHeadings
     {
         public string Introduction => "Introduction";
 
@@ -10,7 +10,7 @@
 
         public string Resources => "Resources";
 
-        public string Tips => "Tips";
+        public string Tips => "What you'll learn";
 
         public string Challenges => "Challenges";
 

@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
@@ -15,6 +16,7 @@ internal static class AzureProjectsHelper
                 Title = "Deploying a Simple App",
                 IconUrl = "icons8-web-392.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Start with Azure creating an account and deploying a simple app without a database",
                 Slug = "deploying-simple-app",
                 Area = Area.Azure,
@@ -80,6 +82,7 @@ internal static class AzureProjectsHelper
                 Title = "Deploying a full-stack .NET app",
                 IconUrl = "icons8-full-stack-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "deploying-full-stack-app",
                 Description = "Deploy a crud app from the .NET ecosystem along with a database server",
                 Area = Area.Azure,
@@ -130,6 +133,7 @@ internal static class AzureProjectsHelper
                 Title = "Deploy a full-stack .NET + JS Framework app",
                 IconUrl = "icons8-website-468.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Deploy a full-stack app using a JS framework along with a .NET Web API",
                 Area = Area.Azure,
                 Level = Level.Blue,
@@ -183,6 +187,7 @@ internal static class AzureProjectsHelper
                 Title = "Azure Functions",
                 IconUrl = "icons8-cloud-connection-480.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "azure-functions",
                 Description = "Get started with serverless computing creating backend services directly on the cloud",
                 Area = Area.Azure,

@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
@@ -15,6 +16,7 @@ internal static class AuthProjectsHelper
                 Title = "Authentication and Authorization",
                 IconUrl = "icons8-safe-ok-480.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "authentication-and-authorization",
                 Description = "Learn how to secure your app with ASP.NET Core Identity",
                 Area = Area.Auth,
@@ -66,6 +68,7 @@ internal static class AuthProjectsHelper
                 Title = "Product Management System",
                 IconUrl = "icons8-products-96.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "product-management-system",
                 Description = "Learn role-based authentication with ASP.NET Core Identity",
                 Area = Area.Auth,
@@ -120,6 +123,7 @@ internal static class AuthProjectsHelper
                 IconUrl = "icons8-fingerprint-error-96.png",
                 Slug = "external-auth",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Learn to authorize a self-hosted ASP.NET Identity app with an external service.",
                 Area = Area.Auth,
                 Level = Level.Brown,

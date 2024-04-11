@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class MVCProjectsHelper
@@ -13,6 +14,7 @@ internal static class MVCProjectsHelper
                 Title = "Water Drinking Logger",
                 IconUrl = "icons8-drinking-96.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "water-drinking-logger",
                 Description = "Build your first full-stack app with ASP.NET C# Razor Pages and ADO.NET",
                 Area = Area.MVC,
@@ -80,6 +82,7 @@ internal static class MVCProjectsHelper
                 Title = "Movies",
                 IconUrl = "icons8-movie-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "movies",
                 Description = "Build your first full-stack app with ASP.NET C# MVC and Entity Framework",
                 Area = Area.MVC,
@@ -137,6 +140,7 @@ internal static class MVCProjectsHelper
                 Title = "Todo List",
                 IconUrl = "todo.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "todo-list",
                 Description = "Build your first MVC application with C#, Razor Syntax, Javascript and Bootstrap",
                 Area = Area.MVC,
@@ -189,6 +193,7 @@ internal static class MVCProjectsHelper
                 Title = "Budget",
                 IconUrl = "icons8-budget-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "budget",
                 Description = "Build a personal finance app with multiple related tables in the back-end",
                 Area = Area.MVC,

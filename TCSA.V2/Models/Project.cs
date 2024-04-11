@@ -1,4 +1,6 @@
-﻿namespace TCSA.V2.Models;
+﻿using TCSA.V2.Models.LangugageModels;
+
+namespace TCSA.V2.Models;
 
 public class Project : Article
 {
@@ -18,6 +20,7 @@ public class Project : Article
     public int DisplayOrder { get; set; }
     public bool IsCommunityProject { get; set; } = false;
     public List<CodeWarsChallenge>? CodeWarsChallenges { get; set; }
+    public ILanguageHeadings LanguageHeadings { get; set; }
 }
 
 public enum Difficulty

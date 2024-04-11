@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class MauiProjectsHelper
@@ -13,6 +14,7 @@ internal static class MauiProjectsHelper
                 Title = "Math Game",
                 IconUrl = "icons8-maths-376.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "math-game",
                 Description = "Start your native app development journey building a simple game with the four basic mathematical operations",
                 Area = Area.MAUI,
@@ -65,6 +67,7 @@ internal static class MauiProjectsHelper
                 Title = "Books to Read",
                 IconUrl = "icons8-bookshelf-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "books-to-read",
                 Description = "Build an app to keep track of reading activity using the MVVM pattern",
                 Area = Area.MAUI,
@@ -118,6 +121,7 @@ internal static class MauiProjectsHelper
                 Title = "Monkeys Data",
                 IconUrl = "icons8-see-no-evil-monkey-256.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "see-no-evil",
                 Description = "Build an advanced Mobile UI to present data about Monkeys, using Geolocation to show which monkey is closest to you",
                 Area = Area.MAUI,
@@ -150,6 +154,7 @@ internal static class MauiProjectsHelper
                 Title = "Warehouse Admin",
                 IconUrl = "icons8-warehouse-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "warehouse-admin",
                 Description = "Track warehouse operations using a complex data model with Maui",
                 Area = Area.MAUI,

@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class SqlProjectsHelper
@@ -14,6 +15,7 @@ internal static class SqlProjectsHelper
                 Title = "Simple Queries",
                 IconUrl = "sql.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 10,
                 Slug = "simple-queries",
                 Description = "Start your SQL journey with easy exercises",
@@ -63,6 +65,7 @@ internal static class SqlProjectsHelper
                 Title = "Setting Criteria Using the Where Clause",
                 IconUrl = "sql.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 10,
                 Slug = "where-clause",
                 Description = " Learn how to precisely filter data in SQL queries.",
@@ -104,6 +107,7 @@ internal static class SqlProjectsHelper
                 Title = "Starter SQL Challenges",
                 IconUrl = "sql.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 10,
                 Description = "Start your SQL journey with easy exercises",
                 Area = Area.SQL,
@@ -207,6 +211,7 @@ internal static class SqlProjectsHelper
                 Title = "Starter SQL Challenges 2",
                 IconUrl = "sql.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 10,
                 Description = "Creating a solid SQL Foundation",
                 Slug = "starter-sql-2",
@@ -296,6 +301,7 @@ internal static class SqlProjectsHelper
                 Title = "Starter SQL Challenges 3",
                 IconUrl = "sql.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 10,
                 Slug = "starter-sql-3",
                 Description = "Slightly more advanced challenges",

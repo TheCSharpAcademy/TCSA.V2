@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class StartApplyingProjectsHelper
@@ -14,6 +15,7 @@ internal static class StartApplyingProjectsHelper
                 Title = "Portfolio",
                 IconUrl = "icons8-portfolio-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "portfolio",
                 Level = Level.Red,
                 Description = "Time to create a portfolio! Let’s present your work using a nice front-end technology of your choice",
@@ -75,6 +77,7 @@ internal static class StartApplyingProjectsHelper
                 Title = "Resume",
                 IconUrl = "icons8-resume-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "The last step before start applying for jobs. Let’s build a nice resume before hit the Apply button",
                 Area = Area.StartApplying,
                 Slug = "resume",

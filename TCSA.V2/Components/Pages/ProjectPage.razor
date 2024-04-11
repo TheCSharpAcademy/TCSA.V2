@@ -21,7 +21,7 @@
     {
         <div class="card card-completed">
             <div class="card-body">
-                You have completed this roadmap step.
+                @Project.LanguageHeadings.RoadmapStepCompleted
             </div>
         </div>
     }
@@ -30,7 +30,7 @@
     {
         <div class="card card-pending">
             <div class="card-body">
-                This Project Is Pending Review
+                @Project.LanguageHeadings.PendingReview
             </div>
         </div>
     }
@@ -55,7 +55,7 @@
     {
         <div class="row pb-5 mb-3 p-sm-2 intro-block">
             <div class="col">
-                <h1 class="article-section-title">Introduction</h1>
+                <h1 class="article-section-title">@Project.LanguageHeadings.Introduction</h1>
                 @foreach (var paragraph in Project.Introduction)
                 {
                     <p>@((MarkupString)(@paragraph.Body))</p>
@@ -75,7 +75,7 @@
         </div>
         <div class=col-lg-10>
             <div class="col d-flex justify-content-center">
-                <h1 class="article-section-title">Requirements</h1>
+                <h1 class="article-section-title">@Project.LanguageHeadings.Requirements</h1>
             </div>
 
             @if (!String.IsNullOrEmpty(Project.RequirementsIntro))
@@ -111,7 +111,7 @@
                 <img src="img/books.png" width="70" alt="" class="align-middle">
             </div>
             <div class="col col-sm-12">
-                <h1 class="article-section-title">What you'll learn</h1>
+                <h1 class="article-section-title">@Project.LanguageHeadings.Learn</h1>
                 <p>@((MarkupString)(Project.LearningIntro))</p>
                 <ol class="list-group  list-group-numbered list-group-flush">
                     @foreach (var item in Project.LearningItems)
@@ -137,7 +137,7 @@
             </div>
             <div class="col-sm-12 col-lg-10">
                 <div class="d-flex justify-content-center">
-                    <h1 class="article-section-title">Resources</h1>
+                    <h1 class="article-section-title">@Project.LanguageHeadings.Resources</h1>
                 </div>
                 @if (!String.IsNullOrEmpty(Project.ResourcesIntro))
                 {
@@ -175,7 +175,7 @@
             </div>
             <div class="col-lg-10 col-sm-12">
                 <div class="d-flex justify-content-center">
-                    <h1 class="article-section-title">Tips</h1>
+                    <h1 class="article-section-title">@Project.LanguageHeadings.Tips</h1>
                 </div>
                 <ul class="list-group  list-group-flush">
                     @foreach (var tip in Project.Tips)
@@ -205,7 +205,7 @@
             </div>
             <div class=col-lg-10>
                 <div class="d-flex justify-content-center">
-                    <h1 class="article-section-title">Challenges</h1>
+                    <h1 class="article-section-title">@Project.LanguageHeadings.Challenges</h1>
                 </div>
                 <ul class="list-group  list-group-flush">
                     @foreach (var challenge in Project.Challenges)

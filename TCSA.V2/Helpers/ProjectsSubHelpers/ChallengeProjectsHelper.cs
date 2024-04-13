@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class ChallengeProjectsHelper
@@ -13,6 +14,7 @@ internal static class ChallengeProjectsHelper
                 Title = "Brewery API",
                 IconUrl = "icons8-brewery-64.png",
                 BannerUrl = "brewerychallenge.jpg",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 50,
                 Description = "Improve your .NET WebAPI skills building a Brewery API",
                 Area = Area.MonthlyChallenge,

@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class AngularProjectsHelper
@@ -13,6 +14,7 @@ internal static class AngularProjectsHelper
                 Title = "Tour of Heroes",
                 IconUrl = "icons8-superwoman-480.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "tour-of-heroes",
                 Description = "Learn the basics of Angular by building a purely front-end app using the documentation",
                 Area = Area.Angular,
@@ -58,6 +60,7 @@ internal static class AngularProjectsHelper
                 Title = "Coffee Tracker",
                 IconUrl = "icons8-coffee-mug-128.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "Coffee Tracker",
                 Description = "Track your coffee consumption with a C# Web Api and Angular",
                 Area = Area.Angular,
@@ -104,6 +107,7 @@ internal static class AngularProjectsHelper
                 Title = "Sleep Tracker",
                 IconUrl = "icons8-sleeping-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "sleep-tracker",
                 Description = "Build on your Angular foundation with an app to log and generate reports about your sleep",
                 Area = Area.Angular,
@@ -155,6 +159,7 @@ internal static class AngularProjectsHelper
                 Title = "Quiz Game",
                 IconUrl = "icons8-quiz-game-contestants-480.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "quiz-game",
                 Description = "Build a highly interactive Quiz Game with Angular and Angular Material",
                 Area = Area.Angular,

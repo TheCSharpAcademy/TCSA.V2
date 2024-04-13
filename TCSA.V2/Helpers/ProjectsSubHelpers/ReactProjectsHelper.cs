@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class ReactProjectsHelper
@@ -13,6 +14,7 @@ internal static class ReactProjectsHelper
                 Title = "Tic-Tac-Toe",
                 IconUrl = "icons8-tic-tak-toe-cross-and-circle-matrix-game-with-work-strategy-concept-384.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "tic-tac-toe",
                 Description = "A very simple project to easy you into with this rich framework. You’ll be consuming an Api of your choice",
                 Area = Area.React,
@@ -60,6 +62,7 @@ internal static class ReactProjectsHelper
                 Title = "Call an External API",
                 IconUrl = "icons8-baby-app-96.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "call-external-api",
                 Description = "Build a simple Get Endpoint with .NET and fetch data from it using React",
                 Area = Area.React,
@@ -110,6 +113,7 @@ internal static class ReactProjectsHelper
                 Title = "Shopping List",
                 IconUrl = "icons8-shopping-list-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "shopping-list",
                 Description = "Build your first full CRUD app with React, calling a .NET Web API",
                 Area = Area.React,
@@ -154,6 +158,7 @@ internal static class ReactProjectsHelper
                 Title = "Friends Manager",
                 IconUrl = "icons8-friend-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "friends-manager",
                 Description = "Build an app that will help you monitor and cultivate your friendships managing state with Redux",
                 Area = Area.React,

@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
@@ -16,6 +17,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Get started completing this professional C# certification",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -54,6 +56,7 @@ internal static class StandAloneProjectsHelper
                 Title = "Mark Yourself As Student of The C# Academy on LinkedIn",
                 IconUrl = "icons8-student-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 20,
                 Description = "",
                 Area = Area.StandAlone,
@@ -79,6 +82,7 @@ internal static class StandAloneProjectsHelper
                 Title = "Complete Profile Task",
                 IconUrl = "icons8-user-profile-264",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 20,
                 Description = "Complete your profile to get extra points",
                 Area = Area.StandAlone
@@ -96,6 +100,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "cards/freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new PortugueseHeadings(),
                 Description = "Comece sua jornada completando a certificação profissional em C# da Microsoft",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -143,6 +148,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Ga aan de slag met het behalen van deze professionele C#-certificering",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -189,6 +195,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Započni sa polaganjem profesionalnog C# certifikata",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -235,6 +242,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "cards/freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Bu profesyonel C# sertifikasyon programını tamamlamaya başlayın",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -281,6 +289,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "C# 자격증 과정을 시작해 보세요!",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -327,6 +336,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Пройдите эту профессиональную сертификацию на C#",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -372,6 +382,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "開始來完成這項專業的 C# 認證",
                 Area = Area.StandAlone,
                 Level = Level.Green,
@@ -418,6 +429,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Description = "Zdobądź profesjonalną certyfikację C#.",
                 Area = Area.StandAlone,
                 Level = Level.Green,

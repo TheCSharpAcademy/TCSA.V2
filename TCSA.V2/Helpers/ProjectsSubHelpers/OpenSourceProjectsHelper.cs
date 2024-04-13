@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class OpenSourceProjectsHelper
@@ -13,6 +14,7 @@ internal static class OpenSourceProjectsHelper
                 Title = "Point Of Sale",
                 IconUrl = "icons8-point-of-sale-64.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "point-of-sale",
                 Description = "Help create a Point of Sale app along with the C# Academy community. See available issues below:",
                 Area = Area.OpenSource,
@@ -63,6 +65,7 @@ internal static class OpenSourceProjectsHelper
                 Title = "Academy V2",
                 IconUrl = "icons8-construction-64.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "academy-upgrade",
                 Description = "Help create The New C# Academy Website. See available issues below:",
                 Area = Area.OpenSource,

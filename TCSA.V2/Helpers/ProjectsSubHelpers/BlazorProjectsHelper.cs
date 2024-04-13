@@ -1,4 +1,5 @@
 ﻿using TCSA.V2.Models;
+using TCSA.V2.Models.LangugageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class BlazorProjectsHelper
@@ -13,6 +14,7 @@ internal static class BlazorProjectsHelper
                 Title = "Wardrobe Inventory",
                 IconUrl = "icons8-wardrobe-392.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "wardrobe-inventory",
                 Description = "Get started with Blazor by building an inventory for your clothes. With pictures!",
                 Area = Area.Blazor,
@@ -58,6 +60,7 @@ internal static class BlazorProjectsHelper
                 Title = "Memory Game",
                 IconUrl = "icons8-memory-512.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "memory-game",
                 Description = "Build a simple memory game where users will train their brain and track results",
                 Area = Area.Blazor,
@@ -105,6 +108,7 @@ internal static class BlazorProjectsHelper
                 Title = "Food Journal",
                 IconUrl = "icons8-ingredients-480.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "food-journal",
                 Description = "Log your food habits in your first CRUD Blazor App",
                 Area = Area.Blazor,
@@ -146,6 +150,7 @@ internal static class BlazorProjectsHelper
                 Title = "Sports Statistics",
                 IconUrl = "icons8-football-team-480.png",
                 BannerUrl = "",
+                LanguageHeadings = new EnglishHeadings(),
                 Slug = "sports-statistics",
                 Description = "Build an application to track the performance of a sports team in real time",
                 Area = Area.Blazor,

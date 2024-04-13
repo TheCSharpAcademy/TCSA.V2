@@ -13,9 +13,12 @@
             <div class="p-1">
                 <img src="img/icons8-question-mark-64.png" alt="Question Mark" class="question-mark" />
                 <ul class="hidden-list">
-                    @foreach (var req in Requirements)
+                    @if (Requirements != null)
                     {
-                        <li class="requirement">@req</li>
+                        @foreach (var req in Requirements)
+                        {
+                            <li class="requirement">@req</li>
+                        }
                     }
                 </ul>
             </div>
@@ -43,10 +46,6 @@
 }
 
 <style>
-    .horizontal-card-roadmap {
-
-    }
-
     .green {
         background-color: green;
         color: white;
@@ -135,7 +134,7 @@
         background-color: white;
         padding: 10px;
         border: 1px solid #ccc;
-        z-index: 1;
+        z-index: 100;
     }
 
     .question-mark:hover + .hidden-list {
@@ -144,6 +143,7 @@
 
     .requirement {
         color: black;
+        list-style-type: none;
     }
 </style>
 

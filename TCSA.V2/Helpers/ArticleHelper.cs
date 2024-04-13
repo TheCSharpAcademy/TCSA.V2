@@ -1332,6 +1332,7 @@ git push</code>"
                 Area = Area.StandAlone,
                 ExperiencePoints = 5,
                 BannerUrl = "code-review-banner.png",
+                Slug="review-guidelines",
                 Blocks = new List<Block>
                 {
                     new Block

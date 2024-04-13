@@ -134,7 +134,7 @@ public class UserService : IUserService
             using (var context = _factory.CreateDbContext())
             {
                 var result =  await context.AspNetUsers
-                .Where(x => x.Equals(userId))
+                .Where(x => x.Id == userId)
                 .Select(x => new
                 {
                     UserLevel = x.Level

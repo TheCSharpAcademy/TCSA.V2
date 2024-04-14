@@ -8,7 +8,96 @@ internal static class SqlProjectsHelper
     {
         return new List<Project>
         {
-            
+            new Project
+            {
+                Id = 70,
+                Title = "Simple Queries",
+                IconUrl = "sql.png",
+                BannerUrl = "",
+                ExperiencePoints = 10,
+                Slug = "simple-queries",
+                Description = "Start your SQL journey with easy exercises",
+                Area = Area.SQL,
+                Difficulty = Difficulty.Beginner,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="This is your first SQL challenge! Although there isn't too much hype around SQL, it's one of the most important skills for a software developer. One could argue that nothing can be done on the internet without writing to and reading from databases, and SQL is the most common language used to communicate with them. "
+                    },
+                    new Paragraph
+                    {
+                        Body="For .NET developers, it's tempting to skip SQL and jump straight into Entity Framework. It's indeed a great ORM and gone are the days where it would suit only simple projects, while raw SQL would be required for more complex operations. However, a developer will only have advanced knowledge of Entity Framework with advanced knowledge of SQL. After all Entity Framework does nothing more than compile into SQL! (in a neat, developer-friendly way, we must say)."
+                    },
+                    new Paragraph
+                    {
+                        Body="The exercises in this project are from <a href='https://www.wiseowl.co.uk/sql/' target='_blank'>Wise Owl Training</a>."
+                    }
+                },
+                RequirementsIntro = "For this project you'll use a pre-written database that you'll need to install using Microsoft SQL Server Management Studio or Azure Data Studio. You can find the script in the <a href='https://github.com/TheCSharpAcademy/CodeReviews.SQL.EasySelectExercises/blob/main/README.md' target='_blank'>repository's ReadMe</a>.",
+                Requirements = new List<string>
+                {
+                    "Create a query to list out the event name and event data from the tblEvent table, with the most recent first.",
+                    "Create a query to list out the id number and name of the last 3 categories from the tblCategory table in alphabetical order,",
+                    "Write a query to show the first 5 events (in date order) from the tblEvent table. You should give the columns aliases (What and Details in this case); Even though you're sorting by the event date, it shouldn't be included in your results. ",
+                    "Create a query which uses two separate SELECT statements to show the first and last 2 events in date order from the tblEvent table. Redirect the output of this query to text, rather than to grid.",
+                    "Each exercise should be preceded by a comment stating the exercise instruction: (i.e. -- Create a query to list out the event name ...)"
+                },
+                Tips = new List<string>
+                {
+                    "You don't need to refrain from using Chat GPT. However avoid the temptation of using it without understanding the SQL script. AI  will only take you so far and you won't be able to handle very complex scenarios. Try to understand what EACH KEYWORD does.",
+                    "Create your own library of scripts and push it to Github. You'll find yourself reusing your old scripts, or basing yourself off of old ones all the time. It will save you a lot of time to have your own library as a reference."
+                },
+
+                ResourcesIntro = "If this is your first contact with SQL, Free Code Camp's tutorial is an excellent resource. It's 5 years old but that's not an issue. Most core SQL features haven't changed a lot since they have been created. If you already know some SQL, SQLtutorial.org is a slim, to-the-point resource for learning commands you're not familiar with.",
+                Resources = new List<string>
+                {
+                    "<a href='https://www.sqltutorial.org/' target='_blank'>Sqltutorial.org</a>",
+                    "<a href='https://www.youtube.com/watch?v=HXV3zeQKqGY' target='_blank'>Free Code Camp SQL Tutorial (Youtube)</a>"
+                },
+                IsClosed = true
+            },
+            new Project
+            {
+                Id = 71,
+                Title = "Setting Criteria Using the Where Clause",
+                IconUrl = "sql.png",
+                BannerUrl = "",
+                ExperiencePoints = 10,
+                Slug = "where-clause",
+                Description = " Learn how to precisely filter data in SQL queries.",
+                Area = Area.SQL,
+                Difficulty = Difficulty.Beginner,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="The WHERE clause is a fundamental component of SQL that plays a key role in extracting specific data from a database. It acts as a filter, allowing you to define conditions that rows must meet in order to be included in the result set of a query. This capability is crucial because it allows you to retrieve exactly the information you need, saving time and resources by excluding irrelevant data. Whether you're searching for customer orders within a certain date range, identifying high-value products, or finding employees with specific job titles, the WHERE clause provides precision and control over your SQL queries, making it an indispensable tool for data analysis and management."
+                    },
+                    new Paragraph
+                    {
+                        Body="The exercises in this project are from <a href='https://www.wiseowl.co.uk/sql/' target='_blank'>Wise Owl Training</a>."
+                    }
+                },
+                RequirementsIntro = "For this project you'll use a pre-written database that you'll need to install using Microsoft SQL Server Management Studio or Azure Data Studio. You can find the script in the <a href='https://github.com/TheCSharpAcademy/CodeReviews.SQL.EasySelectExercises/blob/main/README.md' target='_blank'>repository's ReadMe</a>. If you've completed this step in the first project, this isn't necessary.",
+                Requirements = new List<string>
+                {
+                    "List out all of the events from the tblEvent table in category number 11 (which corresponds to Love and Relationships, as it happens)",
+                    "List out all of the tblEvent events which include the words Teletubbies OR Pandy.",
+                    "List out all of the events which took place in February 2005.",
+                    "Show a list of all events which might have something to do with water. <b>ONE OR MORE</b> of the following is true:  events that take place in one of the island countries (8, 22, 30 and 35, corresponding to Japan, the Marshall Islands, Cuba and Sri Lanka respectively); their EventDetails column contains the word Water (not the text Water, but the word); Their category is number 4 (Natural World). This list should return 11 rows. Then add a criterion to show only those events which happened since 1970 (5 rows).",
+                    "Create a query with events which aren't in the Transport category (number 14), but which nevertheless include the text Train in the EventDetails column.",
+                    "List events which are in the Space country (number 13), but which don't mention Space in either the event name or the event details columns.",
+                    "Events which are in categories 5 or 6 (War/conflict and Death/disaster), but which don't mention either War or Death in the EventDetails column.",
+                    "Each exercise should be preceded by a comment stating the exercise instruction: (i.e. -- Create a query to list out the event name ...)"
+                },
+                Resources = new List<string>
+                {
+                    "<a href='https://www.sqltutorial.org/' target='_blank'>Sqltutorial.org</a>",
+                    "<a href='https://www.youtube.com/watch?v=HXV3zeQKqGY' target='_blank'>Free Code Camp SQL Tutorial (Youtube)</a>"
+                },
+                IsClosed = true,
+            },
             new Project
             {
                 Id = 76,

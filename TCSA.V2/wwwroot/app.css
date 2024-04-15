@@ -1,3 +1,17 @@
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --text-color-highlight: #2a1bac;
+    --text-color-alert: #d50000;
+}
+
+.dark-theme {
+    --background-color: #121212;
+    --text-color: #adadad;
+    --text-color-highlight: #ebb6b6;
+    --text-color-alert: #823c3c;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: white;

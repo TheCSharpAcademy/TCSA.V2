@@ -109,7 +109,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "At the C# Academy you can find a roadmap with all the steps necessary to become a full stack web developer. It’s not necessarily linear and the lines between the stages are blurry. You’ll be constantly revisiting the previous items on the checklist, at any given time during your progress. <a target='_blank' href='dashboard/roadmap' target='blank'>Here's the roadmap</a>."
+                                Body = "At the C# Academy you can find a roadmap with all the steps necessary to become a full stack web developer. It’s not necessarily linear and the lines between the stages are blurry. You’ll be constantly revisiting the previous items on the checklist, at any given time during your progress. <a target='_blank' href='dashboard/roadmap' target='blank'>Here's the roadmap</a> (you need to be logged in to see it)."
                             },
                             new Paragraph
                             {

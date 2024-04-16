@@ -64,45 +64,49 @@
         </div>
     }
 
-    <div class="row pb-5">
-        <div class="col-lg-2 d-flex align-items-center justify-content-center">
-            <div class="d-none d-sm-block">
+    @if (Project.Requirements != null && Project.RequirementsIntro != null && Project.RequirementsConclusion != null)
+    {
+        <div class="row pb-5">
+            <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                <div class="d-none d-sm-block">
+                    <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
+                </div>
+            </div>
+            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
                 <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
             </div>
-        </div>
-        <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
-            <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
-        </div>
-        <div class=col-lg-10>
-            <div class="col d-flex justify-content-center">
-                <h1 class="article-section-title">@Project.LanguageHeadings.Requirements</h1>
+            <div class=col-lg-10>
+
+                <div class="col d-flex justify-content-center">
+                    <h1 class="article-section-title">@Project.LanguageHeadings.Requirements</h1>
+                </div>
+
+                @if (!String.IsNullOrEmpty(Project.RequirementsIntro))
+                {
+                    <p><p>@((MarkupString)(Project.RequirementsIntro))</p></p>
+                }
+
+                @if (Project.Requirements != null)
+                {
+                    <ul class="list-group  list-group-flush">
+                        @foreach (var requirement in Project.Requirements)
+                        {
+                            <li class="list-group-item">
+                                <svg class="bi" width="24" height="24" fill="green">
+                                    <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-square" />
+                                </svg>
+                                @((MarkupString)(requirement))
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (!String.IsNullOrEmpty(Project.RequirementsConclusion))
+                {
+                    <p>@((MarkupString)(Project.RequirementsConclusion))</p>
+                }
             </div>
-
-            @if (!String.IsNullOrEmpty(Project.RequirementsIntro))
-            {
-                <p><p>@((MarkupString)(Project.RequirementsIntro))</p></p>
-            }
-
-            @if (Project.Requirements != null)
-            {
-                <ul class="list-group  list-group-flush">
-                    @foreach (var requirement in Project.Requirements)
-                    {
-                        <li class="list-group-item">
-                            <svg class="bi" width="24" height="24" fill="green">
-                                <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-square" />
-                            </svg>
-                            @((MarkupString)(requirement))
-                        </li>
-                    }
-                </ul>
-            }
-            @if (!String.IsNullOrEmpty(Project.RequirementsConclusion))
-            {
-                <p>@((MarkupString)(Project.RequirementsConclusion))</p>
-            }
         </div>
-    </div>
+    }
 
     @if (Project.LearningItems != null)
     {

@@ -56,6 +56,7 @@ internal static class StandAloneProjectsHelper
                 Title = "Mark Yourself As Student of The C# Academy on LinkedIn",
                 IconUrl = "icons8-student-512.png",
                 BannerUrl = "",
+                Slug="linkedin",
                 LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 20,
                 Description = "",
@@ -72,7 +73,7 @@ internal static class StandAloneProjectsHelper
                     },
                      new Paragraph
                     {
-                        Body="To mark yourself as a student, make sure your profile is updated your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and click on the <b>Submit For Review</b> button below. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
+                        Body="To mark yourself as a student, make sure your profile is updated your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and submit the project <a target='blank' href='dashboard/submit-project'>in the dashboard</a>. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
                     }
                 }
             },

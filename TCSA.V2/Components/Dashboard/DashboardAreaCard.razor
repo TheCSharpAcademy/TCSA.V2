@@ -8,9 +8,9 @@
                 IconUrl=@IconUrl
                 Description=@Description
                 OnClickCallback="@ToggleSteps"
-                HasButton=true />
+                HasButton=@(CardName == "LinkedIn" ? false : true) />
 
-@if (Steps)
+@if (Projects != null && Steps)
 {
     <div>
        <CardsModal Steps="@Steps" ToggleSteps="@ToggleSteps">

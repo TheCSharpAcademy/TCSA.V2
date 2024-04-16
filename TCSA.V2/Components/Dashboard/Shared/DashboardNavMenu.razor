@@ -9,7 +9,7 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
-                <span class="bi bi-plus-square-fill-nav-menu"></span>Main
+                <span class="bi bi-plus-square-fill-nav-menu"></span><span class="ms-2">Main</span>
             </NavLink>
         </div>
 
@@ -32,7 +32,7 @@
             <NavLink class="nav-link" href="dashboard/activity">
                 <ActivitySVG /> <span class="ms-2">Activity </span>
             </NavLink>
-        </div> 
+        </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/profile">
                 <ProfileSVG /> <span class="ms-2"> Profile </span>
@@ -45,7 +45,7 @@
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="dashboard/community">
-                <CommunitySVG /> <span class="ms-2"> Community </span>
+                <CommunitySVG /> <span class="ms-2 blabla"> Community </span>
             </NavLink>
         </div>
     </nav>
@@ -74,7 +74,7 @@
 
 <style>
     .dashboard-menu {
-        background-color: #1C236D;
+        background-color: var(--primary-color);
     }
 
     .dashboard-menu-item-text {

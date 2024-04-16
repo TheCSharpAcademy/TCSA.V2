@@ -3,7 +3,7 @@
 @implements IDisposable
 @inject NavigationManager NavigationManager
 
-<nav class="top-menu navbar navbar-expand-lg bg-white shadow fixed-top">
+<nav class="top-menu navbar navbar-expand-lg shadow fixed-top">
     <div class="container container-nav text-end">
         <a class="navbar-brand" href="#">
             <img width="50" src="img/logo.png" />
@@ -169,6 +169,10 @@
 }
 
 <style>
+    .top-menu {
+        background-color: var(--background-color);
+    }
+
     .right-side {
         margin-left: 300px;
     }

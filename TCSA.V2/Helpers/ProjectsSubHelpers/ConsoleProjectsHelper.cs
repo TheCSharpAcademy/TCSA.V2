@@ -236,7 +236,7 @@ public class ConsoleProjectsHelper
                     "Seed Data into the database automatically when the database gets created for the first time, generating a few habits and inserting a hundred records with randomly generated values. This is specially helpful during development so you don't have to reinsert data every time you create the database. ",
                     "Create a report functionality where the users can view specific information (i.e. how many times the user ran in a year? how many kms?) SQL allows you to ask very interesting things from your database."
                 },
-                 LearningIntro = "If you have learned the basics of C# following the <a href='article/8' target='blank'>C# Foundations</a> article, you should know all the basic techniques needed to complete this project. Here’s a list of the things you’ll need to fulfil the requirements:",
+                 LearningIntro = "If you have learned the basics of C# following the <a href='article/8/foundations' target='blank'>C# Foundations</a> article, you should know all the basic techniques needed to complete this project. Here’s a list of the things you’ll need to fulfil the requirements:",
                  LearningItems = new List<string>
                  {
                      "Taking user input from the console.",
@@ -256,7 +256,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "This tutorial requires that you already have set up your .NET environment. If you haven’t yet, check <a href='article/7' target='blank'>this article</a> out with the first steps. If you absolutely want to use another IDE, let me know."
+                                Body = "This tutorial requires that you already have set up your .NET environment. If you haven’t yet, check <a href='article/7/setting-up' target='blank'>this article</a> out with the first steps. If you absolutely want to use another IDE, let me know."
                             },
                             new Paragraph
                             {
@@ -319,7 +319,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = "That’s where your actual code begins! You’re on your own for a while. If you get stuck, keep trying, <a href='article/6' target='blank'>remember the steps to debug your app/get unstuck</a>. And if you ultimately can’t do it, reach out to our <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> or myself and we will help!"
+                                Body = "That’s where your actual code begins! You’re on your own for a while. If you get stuck, keep trying, <a href='article/6/getting-help' target='blank'>remember the steps to debug your app/get unstuck</a>. And if you ultimately can’t do it, reach out to our <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> or myself and we will help!"
                             },
                         }
                     },
@@ -416,7 +416,7 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="This app should be very similar to the <a href='article/12' target='blank'>Habit Tracker</a> you’ve previously completed. It will serve the purpose of reinforcing what you’ve learned with a bit of repetition and building on that knowledge with slightly more challenging requirements. "
+                        Body="This app should be very similar to the <a href='article/12/habit-logger' target='blank'>Habit Tracker</a> you’ve previously completed. It will serve the purpose of reinforcing what you’ve learned with a bit of repetition and building on that knowledge with slightly more challenging requirements. "
                     },
                     new Paragraph
                     {
@@ -447,7 +447,7 @@ public class ConsoleProjectsHelper
                     "<a target='_blank' href='https://stackoverflow.com/questions/3719/how-to-validate-a-datetime-in-c'>Parsing DateTime in C#</a>",
                     "<a target='_blank' href='https://www.learndapper.com/'>Dapper Tutorial</a>.",
                 },
-                ResourcesIntro = "If you have learned the basics of C# following the <a href='article/8' target='blank'>C# Foundations</a> article, and completed the <a href='article/12' target='blank'>Habit Tracker</a> project, you should know all the basic techniques needed to complete this project. Here’s a list of extra resources you might need:",
+                ResourcesIntro = "If you have learned the basics of C# following the <a href='article/8/foundations' target='blank'>C# Foundations</a> article, and completed the <a href='article/12/habit-logger' target='blank'>Habit Tracker</a> project, you should know all the basic techniques needed to complete this project. Here’s a list of extra resources you might need:",
                 Tips = new List<string>
                 {
                     "It's up to you the order in which you'll build, but we recommend you do it in this order: configuration file, model, database/table creation, CRUD controller (where the operations will happen), TableVisualisationEngine (where the consoleTableExt code will be run) and finally: validation of data.",
@@ -1182,7 +1182,7 @@ public class ConsoleProjectsHelper
                     "Vul data automatisch bij in de database wanneer de database voor de eerste keer wordt aangemaakt, waarbij een paar gewoonten worden gegenereerd en honderd records met willekeurig gegenereerde waarden worden ingevoegd. Dit is vooral handig tijdens de ontwikkeling, zodat je niet elke keer dat je de database maakt, gegevens opnieuw hoeft in te voeren.",
                     "Creëer een rapportfunctionaliteit waar de gebruikers specifieke informatie kunnen bekijken (bijvoorbeeld: hoe vaak heeft de gebruiker in een jaar gelopen? Hoeveel km?) Met SQL kunt u zeer interessante dingen uit jouw database vragen."
                 },
-                 LearningIntro = "Als je de basisprincipes van C# heeft geleerd uit het <a href='article/8' target='blank'>C# Foundations</a> artikel, zal je alle basistechnieken moeten kennen die nodig zijn om dit project te voltooien. Hier is een lijst met de dingen die je nodig heeft om aan de vereisten te voldoen:",
+                 LearningIntro = "Als je de basisprincipes van C# heeft geleerd uit het <a href='article/8/foundations' target='blank'>C# Foundations</a> artikel, zal je alle basistechnieken moeten kennen die nodig zijn om dit project te voltooien. Hier is een lijst met de dingen die je nodig heeft om aan de vereisten te voldoen:",
                  LearningItems = new List<string>
                  {
                      "Gebruikersinvoer van de console inlezen.",
@@ -1202,7 +1202,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Voor deze zelfstudie is vereist dat je jouw .NET-omgeving al hebt ingesteld. Als je dat nog niet hebt gedaan, bekijk dan <a href='article/7' target='blank'>dit artikel</a> met de eerste stappen. Als je absoluut een andere IDE wilt gebruiken, laat het me weten."
+                                Body = "Voor deze zelfstudie is vereist dat je jouw .NET-omgeving al hebt ingesteld. Als je dat nog niet hebt gedaan, bekijk dan <a href='article/7/setting-up' target='blank'>dit artikel</a> met de eerste stappen. Als je absoluut een andere IDE wilt gebruiken, laat het me weten."
                             },
                             new Paragraph
                             {
@@ -1265,7 +1265,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = "Dit is waar jouw daadwerkelijke code begint! Je bent een tijdje op jezelf aangewezen. Als je vastloopt, blijf het proberen, <a href='article/6' target='blank'>onthoud de stappen om fouten in jouw app op te sporen/de blokkade op te lossen</a>. En als het je uiteindelijk niet lukt, neem dan contact op met onze <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> of met mezelf, dan helpen we je verder!"
+                                Body = "Dit is waar jouw daadwerkelijke code begint! Je bent een tijdje op jezelf aangewezen. Als je vastloopt, blijf het proberen, <a href='article/6/getting-help' target='blank'>onthoud de stappen om fouten in jouw app op te sporen/de blokkade op te lossen</a>. En als het je uiteindelijk niet lukt, neem dan contact op met onze <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> of met mezelf, dan helpen we je verder!"
                             },
                         }
                     },
@@ -1362,7 +1362,7 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="Deze app lijkt heel erg op de vorige app die we gemaakt hebben: <a href='article/12' target='blank'>Gewoontelogger</a>. Het is de bedoeling om hetgeen we geleerd hebben te versterken door middel van herhaling en het opnieuw toepassen van de opgedane kennis, maar dan met een klein beetje meer uitdaging. "
+                        Body="Deze app lijkt heel erg op de vorige app die we gemaakt hebben: <a href='article/12/habit-logger' target='blank'>Gewoontelogger</a>. Het is de bedoeling om hetgeen we geleerd hebben te versterken door middel van herhaling en het opnieuw toepassen van de opgedane kennis, maar dan met een klein beetje meer uitdaging. "
                     },
                     new Paragraph
                     {
@@ -1393,7 +1393,7 @@ public class ConsoleProjectsHelper
                     "<a target='_blank' href='https://stackoverflow.com/questions/3719/how-to-validate-a-datetime-in-c'>Datum en tijd omzetten in C#</a>",
                     "<a target='_blank' href='https://www.learndapper.com/'>Dapper Handleiding</a>.",
                 },
-                ResourcesIntro = "Wanneer je de basis van C# geleerd hebt via <a href='article/8' target='blank'>C# Foundations</a>, en je de <a href='article/12' target='blank'>GewoonteLogger</a> app hebt gemaakt, dan zou je alle basis technieken moeten kennen om dit project tot een goed einde te brengen. Hier is een lijst met extra hulpbronnen die je mogelijk nodig hebt:",
+                ResourcesIntro = "Wanneer je de basis van C# geleerd hebt via <a href='article/8/foundations' target='blank'>C# Foundations</a>, en je de <a href='article/12' target='blank'>GewoonteLogger</a> app hebt gemaakt, dan zou je alle basis technieken moeten kennen om dit project tot een goed einde te brengen. Hier is een lijst met extra hulpbronnen die je mogelijk nodig hebt:",
                 Tips = new List<string>
                 {
                     "Je mag zelf kiezen in welke volgorde je de app bouwt, maar wij raden deze volgorde aan: configuratie bestand, model, databank/tabel creatie, CRUD controller (waar de verschillende handelingen plaats vinden), visualiseren van de tabel en tot slot: valideren van de data.",
@@ -3209,7 +3209,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Bu proje için .Net ortamı kurulumunu yapmış olmalısınız. Henüz yapmadıysanız <a href='article/7' target='blank'>bu makaleyi</a> takip edin. Eğer mutlaka başka bir arayüz kullanmak isterseniz bana bilgi verin."
+                                Body = "Bu proje için .Net ortamı kurulumunu yapmış olmalısınız. Henüz yapmadıysanız <a href='article/7/setting-up' target='blank'>bu makaleyi</a> takip edin. Eğer mutlaka başka bir arayüz kullanmak isterseniz bana bilgi verin."
                             },
                             new Paragraph
                             {
@@ -3272,7 +3272,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = "Burası gerçek kodlamanın başladığı yer! Bir süre kendi başınıza olacaksınız. Eğer takılırsanız, denemeye devam edin, <a href='article/6' target='blank'>takıldığınızda nasıl hata ayıklaması yaptığınızı hatırlayın</a>. Yinede takıldığınız sorunu aşamazsanız  <a href='https://discord.gg/JVnwYdM79C'>Discord Topluluğumuz'a</a> yada bana ulaşırsanız yardımcı oluruz!"
+                                Body = "Burası gerçek kodlamanın başladığı yer! Bir süre kendi başınıza olacaksınız. Eğer takılırsanız, denemeye devam edin, <a href='article/6/getting-help' target='blank'>takıldığınızda nasıl hata ayıklaması yaptığınızı hatırlayın</a>. Yinede takıldığınız sorunu aşamazsanız  <a href='https://discord.gg/JVnwYdM79C'>Discord Topluluğumuz'a</a> yada bana ulaşırsanız yardımcı oluruz!"
                             },
                         }
                     },
@@ -3587,7 +3587,7 @@ public class ConsoleProjectsHelper
                     "Ввод данных в базу данных автоматически при первом создании базы данных, генерируя несколько привычек и вставляя сотню записей со случайно сгенерированными значениями. Это особенно полезно во время разработки, так что вам не придется повторно вставлять данные каждый раз при создании базы данных. ",
                     "Создайте функциональность отчета, в которой пользователи смогут просматривать конкретную информацию (например, сколько раз пользователь пробегал за год? сколько километров?) SQL позволяет вам запрашивать очень интересные вещи из вашей базы данных"
                 },
-                 LearningIntro = "Если вы изучили основы C#, следуя статье <a href='article/8' target='blank'>C# Foundations</a>, вы должны знать все основные приемы, необходимые для завершения этого проекта. Вот список того, что вам понадобится для выполнения этих требований:",
+                 LearningIntro = "Если вы изучили основы C#, следуя статье <a href='article/8/foundations' target='blank'>C# Foundations</a>, вы должны знать все основные приемы, необходимые для завершения этого проекта. Вот список того, что вам понадобится для выполнения этих требований:",
                  LearningItems = new List<string>
                  {
                      "Прием пользовательского ввода с консоли.",

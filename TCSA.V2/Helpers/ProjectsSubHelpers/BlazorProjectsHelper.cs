@@ -87,7 +87,7 @@ internal static class BlazorProjectsHelper
                     "You shouldn't need a database for the game functionality. All the information about the cards can be in lists in the code base.",
                     "Since it only requires basic operations, use Entity Framework for recording game history."
                 },
-                ResourcesConclusion = "You should be able to complete this project with the same resources found in the <a href='article/39' target='blank'>Blazor Wardrobe Inventory</a> project.",
+                ResourcesConclusion = "You should be able to complete this project with the same resources found in the <a href='article/39/wardrobe-inventory' target='blank'>Blazor Wardrobe Inventory</a> project.",
                 Tips = new List<string>
                 {
                     "Split the development in three phases: game functionality, games history, styling.",

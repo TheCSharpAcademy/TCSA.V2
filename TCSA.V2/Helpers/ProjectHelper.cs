@@ -17,7 +17,7 @@ public static class ProjectHelper
             .Concat(AngularProjectsHelper.GetProjects())
             .Concat(BlazorProjectsHelper.GetProjects())
             .Concat(ReactProjectsHelper.GetProjects())
-            .Concat(SqlProjectsHelper.GetProjects().Where(x => x.IsClosed == false))
+            .Concat(SqlProjectsHelper.GetProjects())
             .Concat(AuthProjectsHelper.GetProjects())
             .Concat(AzureProjectsHelper.GetProjects())
             .Concat(MauiProjectsHelper.GetProjects())

@@ -59,7 +59,7 @@
     protected async override Task OnInitializedAsync()
     {
         Articles = ArticleHelper.GetArticles();
-        Projects = ProjectHelper.GetProjects();
+        Projects = (List<Project>)ProjectHelper.GetProjects().Where(x => x.IsClosed == false);
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 

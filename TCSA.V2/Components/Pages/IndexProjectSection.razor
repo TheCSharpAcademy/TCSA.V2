@@ -5,25 +5,22 @@
 <div class="container mt-5 @(@Id.Equals("jobs-area") ? "start-applying" : "")">
     <div class="row d-flex justify-content-center text-center title">
         <h1 id=@Id></h1>
-        @if (!string.IsNullOrEmpty(TitleImgUrl) && !TitleImgUrl.Contains("."))
+        @if (string.IsNullOrEmpty(imageUrl))
         {
-            <p class="title">@TitleImgUrl</p>
+            <p class="title">@title</p>
         }
-        else if (!string.IsNullOrEmpty(TitleImgUrl))
+        else
         {
-            <img class=@(TitleImgUrl.Contains("aa") ? "aa-title" : "area-title") src="img/Titles/@TitleImgUrl" />
+            <p class="title"><img class=@(imageUrl.Contains("aa") ? "aa-title" : "area-title")
+                    src="img/Titles/@imageUrl" /> @title</p>
         }
         <p id=@AnchorName class="lead">@Description</p>
     </div>
     <div class="row d-flex justify-content-center">
         @foreach (var project in Projects)
         {
-            <Card Type=CardType.Project
-                  Id=@project.Id
-                  Title=@project.Title
-                  Description=@project.Description
-                  IconUrl=@project.IconUrl
-                  Slug="@project.Slug"/>
+            <Card Type=CardType.Project Id=@project.Id Title=@project.Title Description=@project.Description
+                IconUrl=@project.IconUrl Slug="@project.Slug" />
         }
     </div>
 </div>
@@ -34,6 +31,28 @@
     [Parameter] public string Description { get; set; }
     [Parameter] public string AnchorName { get; set; }
     [Parameter] public string Id { get; set; }
+    public string imageUrl { get; set; } = string.Empty;
+    public string title { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(TitleImgUrl))
+        {
+            return;
+        }
+
+        if (TitleImgUrl.Contains("|"))
+        {
+            var split = TitleImgUrl.Split("|");
+            imageUrl = split[0];
+            title = split[1];
+            return;
+        }
+
+        title = TitleImgUrl;
+    }
+
+
 }
 
 <style>
@@ -41,12 +60,14 @@
         font-size: 40px;
         font-weight: 600
     }
-
+    
     .aa-title {
+        max-height: 50px;
         max-width: 600px;
     }
 
     .area-title {
+        max-height: 50px;
         max-width: 250px;
     }
 </style>

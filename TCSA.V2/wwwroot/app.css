@@ -1,6 +1,7 @@
 :root {
     --background-color: #ffffff;
     --disabled-background-color: #E9ECEF;
+    --card-background-color: #ffffff;
     --text-color: #000000;
     --text-dark-color: black;
     --text-light-color: #d7d7d7;
@@ -22,6 +23,7 @@
 .dark-theme {
     --background-color: #191B19;
     --disabled-background-color: #4b4b4b;
+    --card-background-color: #272525;
     --text-color: #aeaeae;
     --text-dark-color: #ffffff;
     --text-light-color: #aeaeae;

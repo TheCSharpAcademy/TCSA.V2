@@ -41,7 +41,7 @@
 html,
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: var(--background-color); 
+    background-color: var(--background-color);
     color: var(--text-color);
     overflow: auto;
 }
@@ -69,12 +69,20 @@ a {
     font-weight: 500;
 }
 
-span.ms-2{
-    color: var(--text-light-color);
-}
-
 .card {
     background-color: var(--card-primary-color);
+    color: var(--text-dark-color);
+}
+
+input.form-control,
+select.form-select {
+    background-color: var(--background-color);
+    color: var(--text-dark-color);
+}
+
+input.form-control:focus,
+select.form-select:focus {
+    background-color: var(--background-color);
     color: var(--text-dark-color);
 }
 

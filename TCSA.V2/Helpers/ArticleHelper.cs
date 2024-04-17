@@ -655,7 +655,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "In 2023, Microsoft partnered up with Free Code Camp to create a <a target='blank' href='https://thecsharpacademy.com/project/75'>C# certification</a>. It's an excellent course, perfect for absolute beginners to get started. Experienced C# learners will also benefit from this certification as we all have knowledge gaps, no matter how long we have been learning for."
+                                Body = "In 2023, Microsoft partnered up with Free Code Camp to create a <a target='blank' href='https://thecsharpacademy.com/project/75/freecodecamp-certification'>C# certification</a>. It's an excellent course, perfect for absolute beginners to get started. Experienced C# learners will also benefit from this certification as we all have knowledge gaps, no matter how long we have been learning for."
                             },
 
                             new Paragraph

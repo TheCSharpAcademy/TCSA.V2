@@ -1,5 +1,6 @@
 :root {
     --background-color: #ffffff;
+    --disabled-background-color: #E9ECEF;
     --text-color: #000000;
     --text-dark-color: black;
     --text-light-color: #d7d7d7;
@@ -20,6 +21,7 @@
 
 .dark-theme {
     --background-color: #191B19;
+    --disabled-background-color: #4b4b4b;
     --text-color: #aeaeae;
     --text-dark-color: #ffffff;
     --text-light-color: #aeaeae;
@@ -83,6 +85,18 @@ select.form-select {
 input.form-control:focus,
 select.form-select:focus {
     background-color: var(--background-color);
+    color: var(--text-dark-color);
+}
+
+input.form-control:disabled,
+select.form-select:disabled {
+    background-color: var(--disabled-background-color);
+    color: var(--text-dark-color);
+}
+
+table,
+td,
+th {
     color: var(--text-dark-color);
 }
 

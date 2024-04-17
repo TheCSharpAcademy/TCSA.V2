@@ -97,6 +97,7 @@ select.form-select:disabled {
 table,
 td,
 th {
+    background-color: var(--background-color);
     color: var(--text-dark-color);
 }
 

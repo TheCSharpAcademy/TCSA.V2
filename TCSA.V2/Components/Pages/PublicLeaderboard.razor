@@ -4,7 +4,7 @@
 @using TCSA.V2.Models.DTOs
 @using TCSA.V2.Services
 
-<div class="container p-3 w-75 mt-3 mb-1 bg-white rounded">
+<div class="container p-3 w-75 mt-3 mb-1 rounded">
     @if (users != null && !isLoading)
     {
         <table class="table leaderboard-table">
@@ -114,6 +114,7 @@
         display: inline-block;
         color: black;
         vertical-align: middle;
+        color: var(--text-color);
     }
 
     .belt-label-wrap {
@@ -181,5 +182,9 @@
 
     td {
         border:none !important;
+    }
+
+    p{
+        color: var(--text-color);
     }
 </style>

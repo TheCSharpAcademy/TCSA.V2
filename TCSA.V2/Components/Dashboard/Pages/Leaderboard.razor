@@ -183,6 +183,7 @@
 
     p {
         padding: 5px 0;
+        color: var(--text-color);
     }
 
     .img-faq {
@@ -197,6 +198,7 @@
     .belt-label {
         display: inline-block;
         color: black;
+        color: var(--text-color);
     }
 
     .belt-label-wrap {
@@ -251,6 +253,11 @@
 
     .is-user {
         border: solid black 2px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); /* Adjust the values as needed */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+        background-color: var(--card-primary-color);
+    }
+
+    .is-user .belt-label, .is-user p {
+        color: var(--text-dark-color);
     }
 </style>

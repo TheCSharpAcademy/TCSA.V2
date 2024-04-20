@@ -20,6 +20,7 @@ internal static class BlazorProjectsHelper
                 Area = Area.Blazor,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Blazor.Wardrobe",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -66,6 +67,7 @@ internal static class BlazorProjectsHelper
                 Area = Area.Blazor,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Blazor.Memory",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -114,6 +116,7 @@ internal static class BlazorProjectsHelper
                 Area = Area.Blazor,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -156,6 +159,7 @@ internal static class BlazorProjectsHelper
                 Area = Area.Blazor,
                 ExperiencePoints = 100,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

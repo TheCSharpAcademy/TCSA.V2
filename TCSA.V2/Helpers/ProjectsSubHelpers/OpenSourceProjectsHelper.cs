@@ -71,6 +71,7 @@ internal static class OpenSourceProjectsHelper
                 Area = Area.OpenSource,
                 Difficulty = Difficulty.Beginner,
                 IsCommunityProject = true,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/TCSA.V2",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

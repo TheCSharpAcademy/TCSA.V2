@@ -21,6 +21,7 @@ public class Project : Article
     public bool IsCommunityProject { get; set; } = false;
     public List<CodeWarsChallenge>? CodeWarsChallenges { get; set; }
     public ILanguageHeadings LanguageHeadings { get; set; }
+    public string? RepositoryLink { get; set; }
 }
 
 public enum Difficulty

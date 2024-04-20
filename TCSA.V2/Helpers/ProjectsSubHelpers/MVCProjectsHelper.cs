@@ -20,6 +20,7 @@ internal static class MVCProjectsHelper
                 Area = Area.MVC,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 50,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.MVC.WaterLogger",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -88,6 +89,7 @@ internal static class MVCProjectsHelper
                 Area = Area.MVC,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 50,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.MVC.Movies",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -146,6 +148,7 @@ internal static class MVCProjectsHelper
                 Area = Area.MVC,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.MVC.Todo",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -199,6 +202,7 @@ internal static class MVCProjectsHelper
                 Area = Area.MVC,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.MVC.Budget",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

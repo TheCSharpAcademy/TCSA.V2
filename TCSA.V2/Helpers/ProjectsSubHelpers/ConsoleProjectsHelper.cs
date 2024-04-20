@@ -24,6 +24,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = 10,
                 Difficulty = Difficulty.Beginner,
                 DisplayOrder= 1,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.MathGame",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -126,6 +127,7 @@ public class ConsoleProjectsHelper
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 10,
                 DisplayOrder = 2,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.Calculator",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -188,6 +190,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = 10,
                 Difficulty = Difficulty.Beginner,
                 DisplayOrder = 3,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.HabitTracker",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -412,6 +415,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = 10,
                 Difficulty = Difficulty.Beginner,
                 DisplayOrder = 4,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.CodingTracker",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -503,6 +507,7 @@ public class ConsoleProjectsHelper
                 Area = Area.Console,
                 ExperiencePoints = 20,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.Flashcards",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -604,6 +609,7 @@ public class ConsoleProjectsHelper
                 Level = Level.Yellow,
                 ExperiencePoints = 20,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.Drinks",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -650,6 +656,7 @@ public class ConsoleProjectsHelper
                 Level = Level.Yellow,
                 ExperiencePoints = 20,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.Phonebook",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -703,6 +710,7 @@ public class ConsoleProjectsHelper
                 Level = Level.Yellow,
                 ExperiencePoints = 20,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.ShiftsLogger",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -764,6 +772,7 @@ public class ConsoleProjectsHelper
                 Level = Level.Orange,
                 ExperiencePoints = 30,
                 Difficulty = Difficulty.Advanced,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.ExerciseTracker",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -820,6 +829,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = 30,
                 Difficulty = Difficulty.Advanced,
                 Level = Level.Orange,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.SportsResults",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -865,6 +875,7 @@ public class ConsoleProjectsHelper
                 Level = Level.Orange,
                 ExperiencePoints = 30,
                 Difficulty = Difficulty.Advanced,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.ExcelReader",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -918,6 +929,7 @@ public class ConsoleProjectsHelper
                 Level = Level.Orange,
                 ExperiencePoints = 30,
                 Difficulty = Difficulty.Advanced,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.UnitTests",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -973,6 +985,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 53).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 53).Difficulty,
                 DisplayOrder= projects.FirstOrDefault(p => p.Id == 53).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 53).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1075,6 +1088,7 @@ public class ConsoleProjectsHelper
                 Difficulty = projects.FirstOrDefault(p => p.Id == 11).Difficulty,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 11).ExperiencePoints,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 11).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 11).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1136,6 +1150,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 12).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 12).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 12).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 12).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1360,6 +1375,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 13).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 13).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 13).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 13).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1460,6 +1476,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 53).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 53).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 53).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 53).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1570,6 +1587,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 53).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 53).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 53).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 53).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1680,6 +1698,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 53).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 53).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 53).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 53).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1782,6 +1801,7 @@ public class ConsoleProjectsHelper
                 Difficulty = projects.FirstOrDefault(p => p.Id == 11).Difficulty,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 11).ExperiencePoints,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 11).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 11).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -1843,6 +1863,7 @@ public class ConsoleProjectsHelper
              ExperiencePoints = projects.FirstOrDefault(p => p.Id == 12).ExperiencePoints,
              Difficulty = projects.FirstOrDefault(p => p.Id == 12).Difficulty,
              DisplayOrder = projects.FirstOrDefault(p => p.Id == 12).DisplayOrder,
+             RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 12).RepositoryLink,
              Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -2080,6 +2101,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 53).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 53).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 53).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 53).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -2182,6 +2204,7 @@ public class ConsoleProjectsHelper
                 Difficulty = projects.FirstOrDefault(p => p.Id == 11).Difficulty,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 11).ExperiencePoints,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 11).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 11).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -2244,6 +2267,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 12).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 12).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 12).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 12).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -2467,6 +2491,7 @@ public class ConsoleProjectsHelper
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 13).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 13).Difficulty,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 13).DisplayOrder,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 13).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -2558,6 +2583,7 @@ public class ConsoleProjectsHelper
                 Area = projects.FirstOrDefault(p => p.Id == 14).Area,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 14).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 14).Difficulty,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 14).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

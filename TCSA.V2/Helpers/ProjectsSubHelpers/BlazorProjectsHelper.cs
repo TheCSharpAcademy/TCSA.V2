@@ -43,7 +43,7 @@ internal static class BlazorProjectsHelper
                 },
                 Resources = new List<string>
                 {
-                    "<a target='_blank' href='https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio'>Microsoft Docs: Blazor</a>",
+                    "<a target='_blank' href='https://learn.microsoft.com/en-us/aspnet/core/blazor/'>Microsoft Docs: Blazor</a>",
                     "<a target='_blank' href='https://www.c-sharpcorner.com/article/blazor-what-it-is-why-should-we-use-it/'>Why use Blazor?</a>",
                     "<a target='_blank' href='https://www.c-sharpcorner.com/blogs/create-a-net-6-app-on-blazor-wasm-for-crud-operations-with-ef-core'>Blazor CRUD Tutorial</a>"
                 },

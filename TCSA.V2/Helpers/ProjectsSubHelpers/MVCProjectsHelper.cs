@@ -114,7 +114,7 @@ internal static class MVCProjectsHelper
                 ResourcesIntro = "Here are a few resources that might be helpful.",
                 Resources = new List<string>
                 {
-                    "<a href='https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-6.0&tabs=visual-studio'>Microsoft Docs MVC Tutorial</a>",
+                    "<a href='https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc'>Microsoft Docs MVC Tutorial</a>",
                     "<a href='https://docs.microsoft.com/en-us/dotnet/architecture/porting-existing-aspnet-apps/comparing-razor-pages-aspnet-mvc'>Microsoft Docs MVC vs Razor Pages</a>",
                     "<a href='https://stackoverflow.com/questions/48121928/asp-net-core-razor-pages-vs-full-mvc-core'>Stack Overflow: MVC vs Razor Pages</a>",
                      "<a href='https://www.guru99.com/mvc-vs-mvvm.html'>MVC vs MVVM Article</a>"

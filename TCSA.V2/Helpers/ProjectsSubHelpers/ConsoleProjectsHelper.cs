@@ -2650,15 +2650,15 @@ public class ConsoleProjectsHelper
             {
                 Id = 15,
                 Title = "Информация о напитках",
-                IconUrl = "drinks.png",
-                BannerUrl = "",
+                IconUrl = projects.FirstOrDefault(p => p.Id == 15).IconUrl,
+                BannerUrl = projects.FirstOrDefault(p => p.Id == 15).BannerUrl,
                 LanguageHeadings = new EnglishHeadings(),
-                Slug = "drinks",
+                Slug = projects.FirstOrDefault(p => p.Id == 15).Slug,
+                Level = projects.FirstOrDefault(p => p.Id == 15).Level,
                 Description = "Создайте консольное приложение для использования внешнего API с HTTP-запросами на C#",
-                Area = Area.Console,
-                Level = Level.Yellow,
-                ExperiencePoints = 20,
-                Difficulty = Difficulty.Intermediate,
+                Area = projects.FirstOrDefault(p => p.Id == 15).Area,
+                ExperiencePoints = projects.FirstOrDefault(p => p.Id == 15).ExperiencePoints,
+                Difficulty = projects.FirstOrDefault(p => p.Id == 15).Difficulty,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

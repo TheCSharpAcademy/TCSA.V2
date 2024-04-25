@@ -11,8 +11,11 @@
         }
         else
         {
-            <p class="title"><img class=@(imageUrl.Contains("aa") ? "aa-title" : "area-title")
-                    src="img/Titles/@imageUrl" /> @title</p>
+            <div class="title-container">
+                <img class=@(imageUrl.Contains("aa") ? "aa-title title-item" : "area-title title-item")
+                    src="img/Titles/@imageUrl" />
+                <span class="title-item">@title</span>
+            </div>
         }
         <p id=@AnchorName class="lead">@Description</p>
     </div>
@@ -56,11 +59,19 @@
 }
 
 <style>
-    .title {
-        font-size: 40px;
-        font-weight: 600
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
     }
-    
+
+    .title-item {
+        font-size: 40px;
+        font-weight: 600;
+        margin: 0 5px;
+    }
+
     .aa-title {
         max-height: 50px;
         max-width: 600px;

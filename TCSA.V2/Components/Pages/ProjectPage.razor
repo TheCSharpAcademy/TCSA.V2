@@ -72,9 +72,6 @@
                     <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
                 </div>
             </div>
-            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
-                <img src="img/icons8-checklist-512.png" width="70" alt="" class="align-middle">
-            </div>
             <div class=col-lg-10>
 
                 <div class="col d-flex justify-content-center">
@@ -111,11 +108,15 @@
     @if (Project.LearningItems != null)
     {
         <div class="row pb-5">
-            <div class="col-2 col-sm-12 icon-div">
-                <img src="img/books.png" width="70" alt="" class="align-middle">
+            <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                <div class="d-none d-sm-block">
+                    <img src="img/books.png" width="70" alt="" class="align-middle">
+                </div>
             </div>
-            <div class="col col-sm-12">
-                <h1 class="article-section-title">@Project.LanguageHeadings.Learn</h1>
+            <div class="col-lg-10 col-sm-12">
+                <div class="d-flex justify-content-center">
+                    <h1 class="article-section-title">@Project.LanguageHeadings.Learn</h1>
+                </div>
                 <p>@((MarkupString)(Project.LearningIntro))</p>
                 <ol class="list-group  list-group-numbered list-group-flush">
                     @foreach (var item in Project.LearningItems)
@@ -135,9 +136,6 @@
                 <div class="d-none d-sm-block">
                     <img src="img/books.png" width="70" alt="" class="align-middle">
                 </div>
-            </div>
-            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
-                <img src="img/books.png" width="70" alt="" class="align-middle">
             </div>
             <div class="col-sm-12 col-lg-10">
                 <div class="d-flex justify-content-center">
@@ -174,9 +172,6 @@
                     <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
                 </div>
             </div>
-            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
-                <img src="img/icons8-tips-512.png" width="70" alt="" class="align-middle">
-            </div>
             <div class="col-lg-10 col-sm-12">
                 <div class="d-flex justify-content-center">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Tips</h1>
@@ -204,9 +199,6 @@
                     <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
                 </div>
             </div>
-            <div class="col-sm-12 d-flex d-lg-none d-md-none  justify-content-center">
-                <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
-            </div>
             <div class=col-lg-10>
                 <div class="d-flex justify-content-center">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Challenges</h1>
@@ -231,14 +223,18 @@
         @foreach (var block in Project.Blocks)
         {
             <div class="row pb-5">
-                @if (!String.IsNullOrEmpty(block.ImgUrl))
-                {
-                    <div class="col-2 icon-div">
-                        <img src="img/@block.ImgUrl" width="70" alt="" class="align-middle">
+                    <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                        <div class="d-none d-sm-block">
+                            @if (!String.IsNullOrEmpty(block.ImgUrl))
+                            {
+                                <img src="img/@block.ImgUrl" width="70" alt="" class="align-middle">
+                            }
+                        </div>
                     </div>
-                }
-                <div class="@(String.IsNullOrEmpty(block.ImgUrl) ? "col-10" : "col")">
-                    <h1>@block.Title</h1>
+                <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
+                    <div class="d-flex justify-content-center">
+                        <h1 class="article-section-title">@block.Title</h1>
+                    </div>
 
                     @foreach (var paragraph in block.Paragraphs)
                     {
@@ -258,7 +254,7 @@
 
                         if (!String.IsNullOrEmpty(paragraph.Body))
                         {
-                            <p>@((MarkupString)(paragraph.Body))</p>
+                            <p>@((MarkupString) (paragraph.Body))</p>
                         }
                     }
                 </div>

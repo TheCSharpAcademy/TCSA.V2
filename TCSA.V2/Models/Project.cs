@@ -1,4 +1,4 @@
-﻿using TCSA.V2.Models.LangugageModels;
+﻿using TCSA.V2.Models.LanguageModels;
 
 namespace TCSA.V2.Models;
 

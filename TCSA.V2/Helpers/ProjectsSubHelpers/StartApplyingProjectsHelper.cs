@@ -1,6 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
-using TCSA.V2.Models.LangugageModels;
+using TCSA.V2.Models.LanguageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class StartApplyingProjectsHelper

@@ -968,7 +968,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInDutch()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
             new Project
@@ -1459,7 +1459,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInKorean()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
              new Project
@@ -1570,7 +1570,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInPortuguese()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
             new Project
@@ -1681,7 +1681,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInTurkish()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
             new Project
@@ -2080,11 +2080,11 @@ public class ConsoleProjectsHelper
              }
          }
         };
-}
+    }
     internal static List<Project> GetProjectsInRussian()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
              new Project
@@ -2718,6 +2718,76 @@ public class ConsoleProjectsHelper
                     "drinks-1.png"
                 }
             }
+        };
+    }
+    internal static List<Project> GetProjectsInPolish()
+    {
+        var projects = GetProjects();
+
+        return new List<Project>
+        {
+             new Project
+            {
+                Id = 11,
+                Title = "Kalkulator",
+                IconUrl = projects.FirstOrDefault(p => p.Id == 11).IconUrl,
+                Slug = projects.FirstOrDefault(p => p.Id == 11).Slug,
+                BannerUrl = projects.FirstOrDefault(p => p.Id == 11).BannerUrl,
+                LanguageHeadings = new PolishHeadings(),
+                Level = projects.FirstOrDefault(p => p.Id == 11).Level,
+                Description = "Stworzysz kalkulator korzystając z pomocy dokumentacji Microsoftu",
+                Area = projects.FirstOrDefault(p => p.Id == 11).Area,
+                Difficulty = projects.FirstOrDefault(p => p.Id == 11).Difficulty,
+                ExperiencePoints = projects.FirstOrDefault(p => p.Id == 11).ExperiencePoints,
+                DisplayOrder = projects.FirstOrDefault(p => p.Id == 11).DisplayOrder,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="W drugim projekcie stworzysz Kalkulator z dokumentacji Microsoftu. Nie powinien on być trudniejszy od poprzedniego, ale nauczysz się przydatnych umiejętności, takich jak zarządzanie wieloma projektami w jednym rozwiązaniu, zapisywanie do plików i debugowanie. Poćwiczysz też coś bardzo ważnego: pracę z dokumentacją. Jako programista będziesz to robić regularnie, dlatego tak ważne jest, żebyś czuł się pewnie korzystając z dokumentacji przy tworzeniu oprogramowania."
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"Ukończ poniższy samouczek (część 1 i 2): <a href='https://docs.microsoft.com/en-us/visualstudio/get-started/csharp/tutorial-console?view=vs-2022'>Stwórz kalkulator (Dokumentacja Microsoftu)</a>. Link do części drugiej znajdziesz na dole strony."
+                },
+                RequirementsIntro = "Projekt ma tylko jedno wymaganie:",
+                Resources = new List<string>
+                {
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-mac'>Visual Studio dla komputerów Mac</a>",
+                    "<a href='https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code?pivots=dotnet-6-0'>Visual Studio Code</a>"
+                },
+                ResourcesIntro = "Instrukcje dotyczące tego projektu są oparte na programie Visual Studio dla systemów Windows. Kod, który napiszesz, będzie taki sam niezależnie od edytora kodu, ale proces tworzenia nowego projektu będzie się różnił. Poniżej znajdują się linki dotyczące tworzenia aplikacji konsolowej za pomocą różnych edytorów: ",
+                Tips = new List<string>
+                {
+                    "Nie spiesz się, nawet jeśli ten samouczek jest dla ciebie łatwy. Upewnij się, że rozumiesz KAŻDE słowo. Dokładnie wszystko przeanalizuj!",
+                    "Jeśli jest coś czego nie rozumiesz, najedź kursorem nad fragment kodu, a wyświetli ci się wyjaśnienie danego terminu. A jeśli nadal będziesz miał wątpliwości to twoimi najlepszymi przyjaciółmi są Google i Chat GPT. Na forach takich jak stackoverflow.com znajdziesz też wyjaśnienie praktycznie wszystkiego.",
+                    "Nie pomijaj sekcji dotyczącej debugowania w części drugiej. To jedna z najważniejszych umiejętności, której się nauczysz w tym samouczku i będzie ona kluczowa w przyszłych projektach."
+                },
+                 Challenges = new List<string>
+                {
+                    "Stwórz funkcję, która będzie zliczała ile razy użyto kalkulatora.",
+                    "Przechowuj listę z ostatnimi obliczeniami. Użytkownicy powinni mieć możliwość usunięcia tej listy.",
+                    "Pozwól użytkownikom wykorzystać wyniki z powyższej listy do nowych obliczeń.",
+                    "Dodaj nowe działania: Pierwiastkowanie, Potęgowanie, 10x, Funkcje trygonometryczne.",
+                },
+                 Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Przegląd kodu",
+                        ImgUrl= "icons8-code-review-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Jeśli chcesz, aby twój kod był sprawdzony przez członka The C# Academy, zamiast tworzyć własne repozytorium, <a href='article/52/code-reviews' target='blank'>zapoznaj się z tym artykułem</a>. Dowiesz się w nim jak utworzyć tzw. fork naszego repozytorium bazowego do przeglądu kodu."
+                            }
+                        }
+                    }
+                }
+
+            },
         };
     }
 }

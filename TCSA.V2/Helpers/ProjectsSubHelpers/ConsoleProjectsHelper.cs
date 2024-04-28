@@ -2645,6 +2645,59 @@ public class ConsoleProjectsHelper
                     "flashcards-6.png",
                     "flashcards-7.png"
                 }
+            },
+             new Project
+            {
+                Id = 16,
+                Title = "Телефонный справочник",
+                IconUrl = projects.FirstOrDefault(p => p.Id == 16).IconUrl,
+                BannerUrl = projects.FirstOrDefault(p => p.Id == 16).BannerUrl,
+                LanguageHeadings = new EnglishHeadings(),
+                Slug = projects.FirstOrDefault(p => p.Id == 16).Slug,
+                Description = "Теперь, когда у вас есть базовые представления о SQL, пришло время изучить основы Entity Framework с помощью консольного приложения Phone Book",
+                Area = projects.FirstOrDefault(p => p.Id == 16).Area,
+                Level = projects.FirstOrDefault(p => p.Id == 16).Level,
+                ExperiencePoints = projects.FirstOrDefault(p => p.Id == 16).ExperiencePoints,
+                Difficulty = projects.FirstOrDefault(p => p.Id == 16).Difficulty,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="В .NET экосистеме вы столкнетесь с <a href='https://stackoverflow.com/questions/1279613/what-is-an-orm-how-does-it-work-and-how-should-i-use-one'> ORMs (объектно-реляционными мапперами</a>, которые помогут вам работать с базами данных, используя объекты. Если вы искали учебные пособия по C#, то, вероятно, сталкивались с такими технологиями, как Dapper и Entity Framework. Вы определенно будете использовать их, когда начнете работать разработчиком."
+                    },
+                    new Paragraph
+                    {
+                        Body="В этом руководстве мы создадим очень простую телефонную книгу, чтобы вы могли изучить основы Entity Framework, самого популярного ORM. Хотя мы в C# Academy твердо убеждены, что студенты C# должны в первую очередь изучать простой SQL, для большинства рабочих приложений .NET C# требуется Entity Framework. Хорошей новостью является то, что основные операции EF очень просты в освоении, и вы очень быстро освоитесь с ними. Поехали!"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    "Это приложение, в котором вы должны записывать контакты с их телефонными номерами.",
+                    "Пользователи должны иметь возможность добавлять, удалять, обновлять и считывать данные из базы данных с помощью консоли.",
+                    "Вам нужно использовать Entity Framework, SQL не разрешен.",
+                    "Ваш код должен содержать базовый класс контактов, содержащий КАК МИНИМУМ {Id INT, Name STRING, Email STRING and Phone Number(STRING)}",
+                    "Вы должны проверять электронные письма и номера телефонов и сообщать пользователю, какие форматы ожидаются",
+                    "Вы должны использовать подход \"Code-First Approach\", что означает, что EF будет создайте схему базы данных для себя",
+                    "Вам следует использовать SQL Server, а не SQLite"
+                },
+                ResourcesIntro = "Вот несколько ресурсов, которые могут оказаться полезными.",
+                Resources = new List<string>
+                {
+                    "<a href='https://docs.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli'>Entity Framework документация</a>",
+                    "<a href='https://www.youtube.com/watch?v=tDiJdthMs1Q&list=PL4G0MUH8YWiDcv8EUWTbDxDlkSndfh-T0'>CRUD Console APP с EF на Youtube</a>"
+                },
+                ResourcesConclusion = "Есть много других видеороликов на Youtube и статей в блогах о Entity Framework и обо всем остальном, что вам нужно. Не стесняйтесь пользоваться Google!",
+                Tips = new List<string>
+                {
+                    "Перед запуском приложения \"Телефонный справочник\" завершите программу в статье документации Microsoft без каких-либо изменений и сохраните в своем репозитории Github для ознакомления. Прежде чем приступить к работе, убедитесь, что вы понимаете большую часть кода",
+                    "Не забудьте с самого начала создать репозиторий на Github для вашего проекта"
+                },
+                Challenges = new List<string>
+                {
+                    "Создайте функциональность, позволяющую пользователям добавлять адрес электронной почты контакта и отправлять сообщения электронной почты из приложения.",
+                    "Расширьте приложение, создав категории контактов (например, семья, друзья, работа и т.д.).",
+                    "А что, если вы хотите отправлять не только электронные письма, но СМС?"
+                }
             }
         };
     }

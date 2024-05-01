@@ -17,7 +17,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services.AddLogging(loggingBuilder =>
 {
-    loggingBuilder.AddSeq(builder.Configuration.GetSection("Seq"));
+  loggingBuilder.AddSeq(builder.Configuration.GetSection("Seq"));
 });
 
 builder.Services.AddRazorComponents()
@@ -43,16 +43,16 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 builder.Services.AddAuthentication(options =>
     {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+      options.DefaultScheme = IdentityConstants.ApplicationScheme;
+      options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
     })
     .AddGitHub(o =>
     {
-        o.ClientId = builder.Configuration["Values:GithubClientId"];
-        o.ClientSecret = builder.Configuration["Values:GithubClientSecret"];
-        o.CallbackPath = "/signin-github";
-        // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-        o.Scope.Add("read:user");
+      o.ClientId = builder.Configuration["Values:GithubClientId"];
+      o.ClientSecret = builder.Configuration["Values:GithubClientSecret"];
+      o.CallbackPath = "/signin-github";
+      // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+      o.Scope.Add("read:user");
 
     })
     .AddIdentityCookies();
@@ -75,20 +75,20 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    // dbContext.Database.EnsureDeleted();
-    // dbContext.Database.EnsureCreated();
+  var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+  // dbContext.Database.EnsureDeleted();
+  // dbContext.Database.EnsureCreated();
 }
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+  app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  app.UseExceptionHandler("/Error", createScopeForErrors: true);
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
 }
 
 app.UseHttpsRedirection();

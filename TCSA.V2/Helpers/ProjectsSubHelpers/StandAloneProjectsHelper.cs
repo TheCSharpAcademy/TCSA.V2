@@ -51,11 +51,12 @@ internal static class StandAloneProjectsHelper
                 }
             },
              new Project
-            {
+             {
                 Id = 86,
                 Title = "Mark Yourself As Student of The C# Academy on LinkedIn",
                 IconUrl = "icons8-student-512.png",
                 BannerUrl = "",
+                Slug="linkedin",
                 LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 20,
                 Description = "",
@@ -72,7 +73,7 @@ internal static class StandAloneProjectsHelper
                     },
                      new Paragraph
                     {
-                        Body="To mark yourself as a student, make sure your profile is updated your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and click on the <b>Submit For Review</b> button below. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
+                        Body="To mark yourself as a student, make sure your profile is updated your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and submit the project <a target='blank' href='dashboard/submit-project'>in the dashboard</a>. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
                     }
                 }
             },
@@ -86,6 +87,80 @@ internal static class StandAloneProjectsHelper
                 ExperiencePoints = 20,
                 Description = "Complete your profile to get extra points",
                 Area = Area.StandAlone
+            },
+             new Project
+            {
+                Id = 139,
+                Title = "Personal Flagship Project",
+                IconUrl = "flagship.png",
+                BannerUrl = "",
+                Slug = "flagship-project",
+                LanguageHeadings = new EnglishHeadings(),
+                ExperiencePoints = 300,
+                Description = "Use all your .NET/C# knowledge to build a portfolio feature",
+                Area = Area.GraduationProject,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="The C# Academy's curriculum is based on relatively small projects. The principle behind this is to prevent students getting caught up in large endeavours that might take months to complete and that most of the time, at least in our experience, lead to frustration."
+                    },
+                    new Paragraph
+                    {
+                        Body="With that in mind, we also believe that it is important to build a comprehensive piece. Something that will challenge your knowledge. A project with a 'wow' factor that will truly impress prospective employers. Not only it looks great in your portfolio, but having a unique project that you're truly passionate about is a great feeling. A feeling that keeps you motivated to keep going, knowing you're building something amazing."
+                    },
+                    new Paragraph
+                    {
+                        Body="When planning for this project, try to think outside of the box. Think of something that you haven't seen before. Who knows if this might turn into a business idea? However, you don't necessarily need to build something that hasn't been built before. Do you love languages and want to build a Duolingo-like app? Perfectly fine! As long as you add your own twists to it. Do you love movies, or finance or sports, and want to built an app similar to ones you've seen in this area? Go for it! Your unique take on this subject might create something amazing based on an existing idea."
+                    },
+                    new Paragraph
+                    {
+                        Body="Shoot for the moon! Even if you don't hit it, you might reach very high 🤓"
+                    }
+                },
+                Requirements = new List<string>
+                {
+                    @"You need to build a full-stack web app with front-end, back-end and database. You can choose any front-end technology, but the back end has to be .NET/C#.",
+                    @"If you have an amazing idea that doesn't require a front-end, let us know so we can assess it.",
+                    @"Authorization/authentication, including at least one external provider",
+                    @"Interaction with an external api. If you don't find a free API that suits your idea, create one and seed the data",
+                    @"Your project will be thoroughly tested. Make sure errors are handled properly.",
+                    @"Logging and monitoring capabilities. You can choose a service of your choice.",
+                    @"You need to deploy your solution to Azure and produce a link to the website.",
+                    @"You need to be justify your architectural choices."
+                },
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Planning",
+                        ImgUrl = "planning.jpg",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Before starting your project, you'll have a planning phase. You'll create a pull-request in the project's repository outlining what your app is, what features it will have and detail your tech stack. It needs to include diagrams of your database models and outline what problems you're problem to solve."
+                            },
+                            new Paragraph
+                            {
+                                Body = "In this phase, don't worry about being perfect. There might be a bit of back-and-forth before you get the ok to get started, so aim to have a mininum viable idea and ship it for review. We recommend you take your time to think about what you want to build. Actually undistracted, device-free thiking. Walking is great for that. We spend less and less time in our own head without having our attention grabbed. You'll be amazed with what your mind can come up with when left alone. 😊"
+                            },
+                             new Paragraph
+                            {
+                                Body = "Upon completion, your project will, with your permission, feature in a dedicated area of our website and on The C# Academy's social media accounts (Linkedin, Twitter, Instagram, Threads, Blog). You want to showcase your great achievement to the world! "
+                            }
+                        }
+                    }
+                },
+                Challenges = new List<string>
+                {
+                    "Since this is your own idea, it won't have specific challenges. However when your first submit your code you'll be given four challenge ideas, worth 50XP each. Completion of those will take your points to a total of 500XP, as a recognition for your efforts. ",
+                    "If you loved the experience of building a comprehensive project, and have lots of great ideas, you can do it again! This project will be open for completion as many times as you want. "
+                },
+                Tips = new List<string>
+                {
+                    "We usually recommend you don't work in more than one project at a time. Since this is a comprehensive undertaking, you can work on it in parallel with the rest of the curriculum. This will be specially useful when you get stuck, as you can jump between projects to get some fresh air 😊 "
+                },
             },
         };
     }

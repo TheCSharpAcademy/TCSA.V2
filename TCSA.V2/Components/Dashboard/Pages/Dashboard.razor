@@ -22,6 +22,15 @@
                          DisplayName=@User.DisplayName />
 
         <div class="row">
+            @if (!AlumniComplete)
+            {
+                <div class="col-12 mb-1 mt-1">
+                <DashboardAreaCard CardName="LinkedIn"
+                                   IconUrl="icons8-student-512.png"
+                                   Description="<a target='_blank' href='project/86/linkedin'>Mark yourself as a student of The C# Academy on LinkedIn</a> and get 20XPs" />
+                </div>
+
+            }
             @foreach (var area in Areas)
             {
                 <div class="col-lg-6 col-md-12 col-sm-12 dashboard-area-card">
@@ -47,19 +56,19 @@
 
     private ApplicationUser User;
     private string UserId;
-    private bool FoundationSteps;
+    private bool AlumniComplete = false;
     private int Ranking;
 
     private List<DashboardAreaInfo> Areas = new();
     private List<Article>? Articles;
-    private List<Project> Projects;
+    private IEnumerable<Project> Projects;
     private List<int>? CompletedProjects;
     private List<int>? PendingProjects;
 
     protected async override Task OnInitializedAsync()
     {
         Articles = ArticleHelper.GetArticles();
-        Projects = ProjectHelper.GetProjects();
+        Projects = ProjectHelper.GetProjects().Where(x => x.IsClosed == false);
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
@@ -86,7 +95,6 @@
                 Description = GetNotCompletedMessage(Area.StartHere, null),
                 IsCompleted = CheckIfAreaIsCompleted(Area.StartHere, null),
             });
-
         Areas.Add(new DashboardAreaInfo
             {
                 CardName = "Beginner Console",
@@ -95,7 +103,6 @@
                 Description = GetNotCompletedMessage(Area.Console, Difficulty.Beginner),
                 IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Beginner),
             });
-
         Areas.Add(new DashboardAreaInfo
             {
                 CardName = "Intermediate Console",
@@ -104,7 +111,6 @@
                 Description = GetNotCompletedMessage(Area.Console, Difficulty.Intermediate),
                 IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Intermediate)
             });
-
         Areas.Add(new DashboardAreaInfo
             {
                 CardName = "Advanced Console",
@@ -113,7 +119,6 @@
                 Description = GetNotCompletedMessage(Area.Console, Difficulty.Advanced),
                 IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Advanced)
             });
-
         Areas.Add(new DashboardAreaInfo
             {
                 CardName = "Start Applying",
@@ -195,7 +200,7 @@
                 IsCompleted = CheckIfAreaIsCompleted(Area.MonthlyChallenge, null)
             });
 
-
+        AlumniComplete = CompletedProjects.Contains(86);
     }
 
     // TODO: Move this to helper and add unit test
@@ -210,6 +215,9 @@
                 if (CompletedProjects != null && !CompletedProjects.Contains(id))
                 {
                     return false;
+                } else
+                {
+                    return true;
                 }
             }
         }

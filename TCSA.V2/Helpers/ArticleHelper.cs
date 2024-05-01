@@ -109,7 +109,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "At the C# Academy you can find a roadmap with all the steps necessary to become a full stack web developer. It’s not necessarily linear and the lines between the stages are blurry. You’ll be constantly revisiting the previous items on the checklist, at any given time during your progress. <a target='_blank' href='article/51' target='blank'>Here's the roadmap</a>."
+                                Body = "At the C# Academy you can find a roadmap with all the steps necessary to become a full stack web developer. It’s not necessarily linear and the lines between the stages are blurry. You’ll be constantly revisiting the previous items on the checklist, at any given time during your progress. <a target='_blank' href='dashboard/roadmap' target='blank'>Here's the roadmap</a> (you need to be logged in to see it)."
                             },
                             new Paragraph
                             {
@@ -619,7 +619,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "It’s time to start coding! Welcome to fantastic world of C#! If you haven’t yet, checkout the <a href='article/7' target='blank'>C# Setup</a> article. You’ll need to set up your C# developer environment before starting."
+                                Body = "It’s time to start coding! Welcome to fantastic world of C#! If you haven’t yet, checkout the <a href='article/7/setting-up' target='blank'>C# Setup</a> article. You’ll need to set up your C# developer environment before starting."
                             },
                             new Paragraph
                             {
@@ -655,7 +655,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "In 2023, Microsoft partnered up with Free Code Camp to create a <a target='blank' href='https://thecsharpacademy.com/project/75'>C# certification</a>. It's an excellent course, perfect for absolute beginners to get started. Experienced C# learners will also benefit from this certification as we all have knowledge gaps, no matter how long we have been learning for."
+                                Body = "In 2023, Microsoft partnered up with Free Code Camp to create a <a target='blank' href='https://thecsharpacademy.com/project/75/freecodecamp-certification'>C# certification</a>. It's an excellent course, perfect for absolute beginners to get started. Experienced C# learners will also benefit from this certification as we all have knowledge gaps, no matter how long we have been learning for."
                             },
 
                             new Paragraph
@@ -705,7 +705,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "In the <a href='article/7' target='blank'>C# Setup</a> article , you learned you have to create your source control repository. This will be your ultimate reference book. Every piece of code you ever write should be saved there. And guess what? That will also become your tool box. You’ll constantly grab pieces of code you’ve written before to reuse in your projects. "
+                                Body = "In the <a href='article/7/setting-up' target='blank'>C# Setup</a> article , you learned you have to create your source control repository. This will be your ultimate reference book. Every piece of code you ever write should be saved there. And guess what? That will also become your tool box. You’ll constantly grab pieces of code you’ve written before to reuse in your projects. "
                             },
                             new Paragraph
                             {
@@ -1444,7 +1444,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "\nRun the project and make sure it follows all requirements Then make sure the code follows our <a href='article/58' target='_blank'>code conventions</a> (Code analysis doesn't pick everything up yet). If it doesn't, make a comment in the relevant areas (you can create comments by hovering over the line numbers which prompts a + button. Once that's done click on <b>Request Changes</b> and <b>Finish Review</b> (or <b>Review Changes</b>) and <b>Submit Review</b>. "
+                                Body = "\nRun the project and make sure it follows all requirements Then make sure the code follows our <a href='article/58/code-conventions' target='_blank'>code conventions</a> (Code analysis doesn't pick everything up yet). If it doesn't, make a comment in the relevant areas (you can create comments by hovering over the line numbers which prompts a + button. Once that's done click on <b>Request Changes</b> and <b>Finish Review</b> (or <b>Review Changes</b>) and <b>Submit Review</b>. "
                             },
                             new Paragraph
                             {

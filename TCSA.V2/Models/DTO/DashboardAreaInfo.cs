@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace TCSA.V2.Models;
+﻿namespace TCSA.V2.Models;
 
 public class DashboardAreaInfo
 {

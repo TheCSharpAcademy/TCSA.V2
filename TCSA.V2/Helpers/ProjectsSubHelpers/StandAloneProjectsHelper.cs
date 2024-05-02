@@ -139,7 +139,7 @@ internal static class StandAloneProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Before starting your project, you'll have a planning phase. You'll create a pull-request in the project's repository outlining what your app is, what features it will have and detail your tech stack. It needs to include diagrams of your database models and outline what problems you're problem to solve."
+                                Body = "Before starting your project, you'll have a planning phase. You'll create a pull-request in the project's repository outlining what your app is, what features it will have and detail your tech stack. It needs to include diagrams of your database models and outline what problems you're trying to solve."
                             },
                             new Paragraph
                             {

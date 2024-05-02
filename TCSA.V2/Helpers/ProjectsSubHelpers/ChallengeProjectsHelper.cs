@@ -15,10 +15,12 @@ internal static class ChallengeProjectsHelper
                 IconUrl = "icons8-brewery-64.png",
                 BannerUrl = "brewerychallenge.jpg",
                 LanguageHeadings = new EnglishHeadings(),
+                Slug = "brewery-api",
                 ExperiencePoints = 50,
                 Description = "Improve your .NET WebAPI skills building a Brewery API",
                 Area = Area.MonthlyChallenge,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Challenges.BreweryAPI",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

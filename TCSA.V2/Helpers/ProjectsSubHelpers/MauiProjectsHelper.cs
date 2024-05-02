@@ -20,6 +20,7 @@ internal static class MauiProjectsHelper
                 Area = Area.MAUI,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Maui.MathGame",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -73,6 +74,7 @@ internal static class MauiProjectsHelper
                 Area = Area.MAUI,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 50,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -127,6 +129,7 @@ internal static class MauiProjectsHelper
                 Area = Area.MAUI,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -160,6 +163,7 @@ internal static class MauiProjectsHelper
                 Area = Area.MAUI,
                 ExperiencePoints = 100,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

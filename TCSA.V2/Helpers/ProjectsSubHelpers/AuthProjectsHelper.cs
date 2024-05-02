@@ -23,6 +23,7 @@ internal static class AuthProjectsHelper
                 Level = Level.Brown,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Auth.AuthenticationAndAuthorization",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -75,6 +76,7 @@ internal static class AuthProjectsHelper
                 Level = Level.Brown,
                 ExperiencePoints = 100,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Auth.ProductManagementSystem",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -129,6 +131,7 @@ internal static class AuthProjectsHelper
                 Level = Level.Brown,
                 ExperiencePoints = 100,
                 Difficulty = Difficulty.Intermediate,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Auth.ExternalAuth",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

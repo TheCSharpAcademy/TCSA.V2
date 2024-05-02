@@ -283,6 +283,28 @@
             </div>
         </div>
     }
+    
+    @if (!string.IsNullOrEmpty(Project.RepositoryLink))
+    {
+        <div class="row pb-5">
+            <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                <div class="d-none d-sm-block">
+                    <img src="img/github.png" width="70" alt="" class="align-middle">
+                </div>
+            </div>
+            <div class=col-lg-10>
+                <div class="d-flex justify-content-center">
+                    <h1 class="article-section-title">@Project.LanguageHeadings.ReviewRepository</h1>
+                </div>
+                <p>
+                    <a href=@Project.RepositoryLink target="_blank">
+                        @Project.RepositoryLink
+                    </a>
+                </p>
+            </div>
+        </div>
+
+    }
 
     @if (IsLoggedIn)
     {

@@ -66,7 +66,7 @@
 
 <style>
     .dashboard-review-action-text {
-        color: #1C236D;
+        color: var(--text-highlight-color);
     }
 
     .dashboard-review-action-approve {
@@ -80,7 +80,7 @@
     .is-assigned {
         border: darkgoldenrod solid 2px;
     }
-
+    
     .card-img-top {
         max-width: 50px !important;
     }
@@ -90,13 +90,14 @@
         border-radius: 15px;
         margin: 5px 0 !important;
         transition: all 200ms ease-in-out;
+        background-color: var(--card-background-color);
     }
 
     .card-title-dashboard-review {
         padding-left: 10px;
         font-size: 18px;
         font-family: Roboto, sans-serif;
-        color: #1C236D;
+        color: var(--text-highlight-color);
         font-weight: 600;
     }
 
@@ -131,7 +132,7 @@
     }
 
     .community-btn {
-        background-color: #1c236d;
+        background-color: var(--text-highlight-color);
         color: white;
     }
 
@@ -139,7 +140,7 @@
         padding-left: 10px !important;
         margin-top: -15px !important;
         margin-bottom: -5px !important;
-        color: black !important;
+        color: var(--text-color) !important;
         font-size: 15px;
     }
 
@@ -156,5 +157,4 @@
     .card-img {
         margin-top: 10px;
     }
-
 </style>

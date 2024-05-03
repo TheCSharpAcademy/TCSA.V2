@@ -1,5 +1,5 @@
 Appsettings.json:
-
+```
 {
 "Values": {
 "GithubClientId": "",
@@ -17,9 +17,10 @@ Appsettings.json:
 },
 "AllowedHosts": "\*"
 }
-
+```
 GetRanking Store Procedure
 
+```
 /****** Object:  StoredProcedure [dbo].[GetRanking]    Script Date: 17/02/2024 5:39:04 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -49,5 +50,5 @@ WHERE [ExperiencePoints] > @userExperiencePoints
    ));
 END;
 GO
-
+```
 

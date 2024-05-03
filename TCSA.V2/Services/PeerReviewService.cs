@@ -98,7 +98,7 @@ public class PeerReviewService : IPeerReviewService
             {
                 var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
 
-                if (level < Level.Yellow) 
+                if (level <= Level.Yellow) 
                 { 
                     return new List<DashboardProject> { }; 
                 }

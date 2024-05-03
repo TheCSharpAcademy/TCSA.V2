@@ -2685,6 +2685,7 @@ public class ConsoleProjectsHelper
                 Area = projects.FirstOrDefault(p => p.Id == 15).Area,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 15).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 15).Difficulty,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 15).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -2731,6 +2732,7 @@ public class ConsoleProjectsHelper
                 Level = projects.FirstOrDefault(p => p.Id == 16).Level,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 16).ExperiencePoints,
                 Difficulty = projects.FirstOrDefault(p => p.Id == 16).Difficulty,
+                RepositoryLink = GetProjects().FirstOrDefault(p => p.Id == 16).RepositoryLink,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

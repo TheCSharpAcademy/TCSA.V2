@@ -17,7 +17,7 @@
                 <span class="title-item">@title</span>
             </div>
         }
-        <p id=@AnchorName class="lead">@Description</p>
+        <p id=@AnchorName class="lead @(@Id.Equals("jobs-area") ? "start-applying" : "")">@Description</p>
     </div>
     <div class="row d-flex justify-content-center">
         @foreach (var project in Projects)
@@ -54,8 +54,6 @@
 
         title = TitleImgUrl;
     }
-
-
 }
 
 <style>

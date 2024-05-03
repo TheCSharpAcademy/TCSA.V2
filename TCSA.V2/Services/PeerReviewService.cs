@@ -98,11 +98,11 @@ public class PeerReviewService : IPeerReviewService
             {
                 var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
 
-                if (level <= Level.Yellow) 
+                if (level < Level.Yellow) 
                 { 
                     return new List<DashboardProject> { }; 
                 }
-                else 
+                else if( level > Level.Yellow)
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }
@@ -150,7 +150,7 @@ public class PeerReviewService : IPeerReviewService
                 {
                     return 0;
                 }
-                else
+                else if (level > Level.Yellow)
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }

@@ -20,6 +20,7 @@ internal static class AngularProjectsHelper
                 Area = Area.Angular,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Angular.TourOfHeroes",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -66,6 +67,7 @@ internal static class AngularProjectsHelper
                 Area = Area.Angular,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 50,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Angular.CoffeeTracker",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -113,6 +115,7 @@ internal static class AngularProjectsHelper
                 Area = Area.Angular,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Angular.SleepTracker",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -165,6 +168,7 @@ internal static class AngularProjectsHelper
                 Area = Area.Angular,
                 Difficulty = Difficulty.Beginner,
                 ExperiencePoints = 100,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Angular.QuizGame",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

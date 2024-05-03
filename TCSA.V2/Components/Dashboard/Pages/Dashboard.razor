@@ -61,14 +61,14 @@
 
     private List<DashboardAreaInfo> Areas = new();
     private List<Article>? Articles;
-    private List<Project> Projects;
+    private IEnumerable<Project> Projects;
     private List<int>? CompletedProjects;
     private List<int>? PendingProjects;
 
     protected async override Task OnInitializedAsync()
     {
         Articles = ArticleHelper.GetArticles();
-        Projects = ProjectHelper.GetProjects();
+        Projects = ProjectHelper.GetProjects().Where(x => x.IsClosed == false);
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 

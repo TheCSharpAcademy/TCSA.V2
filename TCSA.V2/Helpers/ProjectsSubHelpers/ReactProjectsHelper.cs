@@ -20,6 +20,7 @@ internal static class ReactProjectsHelper
                 Area = Area.React,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.React.TicTacToe",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -68,6 +69,7 @@ internal static class ReactProjectsHelper
                 Area = Area.React,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.React.ExternalAPI",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -119,6 +121,7 @@ internal static class ReactProjectsHelper
                 Area = Area.React,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.React.ShoppingList",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -164,6 +167,7 @@ internal static class ReactProjectsHelper
                 Area = Area.React,
                 ExperiencePoints = 100,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.React.FriendsManager",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

@@ -5,25 +5,25 @@
 <div class="container mt-5 @(@Id.Equals("jobs-area") ? "start-applying" : "")">
     <div class="row d-flex justify-content-center text-center title">
         <h1 id=@Id></h1>
-        @if (!string.IsNullOrEmpty(TitleImgUrl) && !TitleImgUrl.Contains("."))
+        @if (string.IsNullOrEmpty(imageUrl))
         {
-            <p class="title">@TitleImgUrl</p>
+            <p class="title">@title</p>
         }
-        else if (!string.IsNullOrEmpty(TitleImgUrl))
+        else
         {
-            <img class=@(TitleImgUrl.Contains("aa") ? "aa-title" : "area-title") src="img/Titles/@TitleImgUrl" />
+            <div class="title-container">
+                <img class=@(imageUrl.Contains("aa") ? "aa-title title-item" : "area-title title-item")
+                    src="img/Titles/@imageUrl" />
+                <span class="title-item">@title</span>
+            </div>
         }
         <p id=@AnchorName class="lead">@Description</p>
     </div>
     <div class="row d-flex justify-content-center">
         @foreach (var project in Projects)
         {
-            <Card Type=CardType.Project
-                  Id=@project.Id
-                  Title=@project.Title
-                  Description=@project.Description
-                  IconUrl=@project.IconUrl
-                  Slug="@project.Slug"/>
+            <Card Type=CardType.Project Id=@project.Id Title=@project.Title Description=@project.Description
+                IconUrl=@project.IconUrl Slug="@project.Slug" />
         }
     </div>
 </div>
@@ -34,19 +34,51 @@
     [Parameter] public string Description { get; set; }
     [Parameter] public string AnchorName { get; set; }
     [Parameter] public string Id { get; set; }
+    public string imageUrl { get; set; } = string.Empty;
+    public string title { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(TitleImgUrl))
+        {
+            return;
+        }
+
+        if (TitleImgUrl.Contains("|"))
+        {
+            var split = TitleImgUrl.Split("|");
+            imageUrl = split[0];
+            title = split[1];
+            return;
+        }
+
+        title = TitleImgUrl;
+    }
+
+
 }
 
 <style>
-    .title {
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .title-item {
         font-size: 40px;
-        font-weight: 600
+        font-weight: 600;
+        margin: 0 5px;
     }
 
     .aa-title {
+        max-height: 50px;
         max-width: 600px;
     }
 
     .area-title {
+        max-height: 50px;
         max-width: 250px;
     }
 </style>

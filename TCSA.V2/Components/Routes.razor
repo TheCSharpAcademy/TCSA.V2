@@ -1,4 +1,6 @@
 ﻿@using TCSA.V2.Components.Account.Shared
+@inject IJSRuntime JsRuntime
+
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
@@ -9,3 +11,13 @@
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
 </Router>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("window.updateTheme");
+        }
+    }
+}

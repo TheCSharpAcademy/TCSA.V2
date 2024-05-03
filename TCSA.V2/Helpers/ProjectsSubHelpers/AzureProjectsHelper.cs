@@ -23,6 +23,7 @@ internal static class AzureProjectsHelper
                 Level = Level.Blue,
                 ExperiencePoints = 75,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -89,6 +90,7 @@ internal static class AzureProjectsHelper
                 Level = Level.Blue,
                 ExperiencePoints = 75,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -134,10 +136,12 @@ internal static class AzureProjectsHelper
                 IconUrl = "icons8-website-468.png",
                 BannerUrl = "",
                 LanguageHeadings = new EnglishHeadings(),
+                Slug = "deploy-full-stack-app-with-js",
                 Description = "Deploy a full-stack app using a JS framework along with a .NET Web API",
                 Area = Area.Azure,
                 Level = Level.Blue,
                 ExperiencePoints = 75,
+                RepositoryLink = "",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -193,6 +197,7 @@ internal static class AzureProjectsHelper
                 Area = Area.Azure,
                 Level = Level.Blue,
                 Difficulty = Difficulty.Beginner,
+                RepositoryLink = "",
                 ReleaseDate = DateTime.Now.AddDays(28)
             },
         };

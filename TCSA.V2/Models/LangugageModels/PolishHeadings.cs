@@ -18,5 +18,5 @@ public record PolishHeadings : ILanguageHeadings
 
     public string PendingReview => "Ten projekt czeka na zatwierdzenie";
 
-    public string ReviewRepository => "Dokonaj przeglądu repozytorium";
+    public string ReviewRepository => "Repozytorium do przeglądu kodu";
 }

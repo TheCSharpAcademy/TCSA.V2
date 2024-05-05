@@ -2740,6 +2740,7 @@ public class ConsoleProjectsHelper
                 Difficulty = projects.FirstOrDefault(p => p.Id == 11).Difficulty,
                 ExperiencePoints = projects.FirstOrDefault(p => p.Id == 11).ExperiencePoints,
                 DisplayOrder = projects.FirstOrDefault(p => p.Id == 11).DisplayOrder,
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Console.Calculator",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

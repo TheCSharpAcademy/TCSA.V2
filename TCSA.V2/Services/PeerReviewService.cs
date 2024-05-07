@@ -102,7 +102,7 @@ public class PeerReviewService : IPeerReviewService
                 { 
                     return new List<DashboardProject> { }; 
                 }
-                else 
+                else if( level > Level.Yellow)
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }
@@ -150,7 +150,7 @@ public class PeerReviewService : IPeerReviewService
                 {
                     return 0;
                 }
-                else
+                else if (level > Level.Yellow)
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }

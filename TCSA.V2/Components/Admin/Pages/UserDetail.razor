@@ -316,10 +316,11 @@
         }
 
         var rankingText = await LeaderboardService.GetUserRanking(UserId);
+        var rankingWithSuffix = LeaderboardHelper.GetRanking(rankingText);
 
         var firstName = User.FirstName ??= "";
 
-        var body = EmailHelper.GetProjectCompletedBody(firstName, projectTitle, project.ExperiencePoints, rankingText.ToString());
+        var body = EmailHelper.GetProjectCompletedBody(firstName, projectTitle, project.ExperiencePoints, rankingWithSuffix.ToString());
 
         await EmailSender.SendEmailAsync(User.Email, "Your Project Was Marked as Complete", body);
 
@@ -334,11 +335,12 @@
 
         var project = ProjectHelper.GetProjects().Single(x => x.Id == 75);
 
-        var rankingText = LeaderboardService.GetUserRanking(UserId);
+        var rankingText = await LeaderboardService.GetUserRanking(UserId);
+        var rankingWithSuffix = LeaderboardHelper.GetRanking(rankingText);
 
         var firstName = User.FirstName ??= "";
 
-        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingText.ToString());
+        var body = EmailHelper.GetProjectCompletedBody(firstName, project.Title, project.ExperiencePoints, rankingWithSuffix.ToString());
 
         await EmailSender.SendEmailAsync(User.Email, "Your Freecodecamp Certification Project Was Marked as Complete", body);
 

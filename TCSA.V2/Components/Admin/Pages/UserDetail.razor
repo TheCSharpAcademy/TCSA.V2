@@ -124,7 +124,8 @@
                     </EditForm>
                 </div>
             </div>
-            <div class="col">
+       
+             <div class="col">
                 <h3>Mark Issue As Complete</h3>
                 <div class="form-group">
                     <EditForm Model="@adminDashboardProject" OnValidSubmit="MarkProjectAsComplete">
@@ -301,7 +302,7 @@
 
         await AdminService.MarkProjectAsCompleted(adminDashboardProject.ProjectId, UserId, User.ExperiencePoints);
 
-        User = await UserService.GetUserById(UserId);
+        User = await UserService.GetDetailedUserById(UserId);
 
         var project = projects.FirstOrDefault(x => x.Id == adminDashboardProject.ProjectId);
 

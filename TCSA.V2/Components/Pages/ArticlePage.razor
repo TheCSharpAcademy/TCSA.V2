@@ -17,7 +17,7 @@
 <div class="container w-50 article-blocks-desktop">
     @if (IsLoggedIn && IsCompleted)
     {
-        <div class="card">
+        <div class="card card-completed">
             <div class="card-body">
                 You have completed this roadmap step.
             </div>
@@ -82,7 +82,7 @@
         }
         else
         {
-            <div class="card">
+            <div class="card card-completed">
                 <div class="card-body">
                     You have completed this roadmap step.
                 </div>
@@ -210,5 +210,11 @@
         padding-top: 120px;
         height: 300px;
         color: white;
+    }
+
+    .card-completed {
+        background-color: green;
+        color: white;
+        margin-bottom: 20px;
     }
 </style>

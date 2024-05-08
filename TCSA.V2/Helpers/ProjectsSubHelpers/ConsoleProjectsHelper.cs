@@ -15,7 +15,7 @@ public class ConsoleProjectsHelper
                 Id = 53,
                 Title = "Math Game",
                 IconUrl = "icons8-maths-376.png",
-                BannerUrl = "",
+                BannerUrl = "math-banner.jpg",
                 LanguageHeadings = new EnglishHeadings(),
                 Slug = "math-game",
                 Description = "In your first project, you’ll create a math game to reinforce what you've learned in the Foundations area",
@@ -46,9 +46,10 @@ public class ConsoleProjectsHelper
                 },
                 Resources = new List<string>
                 {
-                    "<a href='https://www.youtube.com/watch?v=iLByqqLGYEc&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'>Math Game Tutorial on Youtube</a>",
+                    "<a target='_blank' href='https://www.youtube.com/watch?v=iLByqqLGYEc&list=PL4G0MUH8YWiD1p5ySamqNWAaWlnwp1Vip'>Math Game Tutorial with Visual Studio</a>",
+                    "<a target='_blank' href='https://www.youtube.com/watch?v=nnDNeJX-uBE'>Math Game Tutorial with Visual Studio Code</a>",
                 },
-                ResourcesIntro = "If you have previous C# experience, you might be able to complete this project without any help. If you don't, follow this tutorial: ",
+                ResourcesIntro = "If you have previous C# experience, you might be able to complete this project without any help. If you don't, here are two tutorials you can follow if you get stuck. The first is using Visual Studio and not only creates a console app, but also a Desktop version, using .NET MAUI. The second uses Visual Studio Code and might be more suitable if you prefer it or don't have access to Visual Studio. ",
                 ResourcesConclusion = "You don't need to watch the second part of this tutorial (Building a .NET Maui app), to complete this project. Only the Console App is required",
                 Tips = new List<string>
                 {

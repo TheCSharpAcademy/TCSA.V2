@@ -7,7 +7,7 @@
     <div class="container w-75">
         <div class="row d-flex justify-content-center">
             <h1 id="first-steps-area" class="display-4 area-title-text first-steps-area-title">First Steps</h1>
-            <p class="text-center area-description area-description-dark">Get started with our program reading and following the instructions in these articles. If possible, follow them in order. They cover everything you need to prepare for your C# journey.</p>
+            <p class="first-steps-lead text-center area-description area-description-dark lead">Get started with our program reading and following the instructions in these articles. If possible, follow them in order. They cover everything you need to prepare for your C# journey.</p>
 
             @foreach (var article in Articles.Where(x => x.Area == Area.StartHere))
             {
@@ -26,3 +26,9 @@
 @code {
     [Parameter] public List<Article> Articles { get; set; }
 }
+
+<style>
+    .first-steps-lead {
+        margin-top: -20px;
+    }
+</style>

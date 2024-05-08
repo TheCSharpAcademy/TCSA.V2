@@ -320,7 +320,9 @@
 
         var firstName = User.FirstName ??= "";
 
-        var body = EmailHelper.GetProjectCompletedBody(firstName, projectTitle, project.ExperiencePoints, rankingWithSuffix.ToString());
+        var experiencePoints = project != null ? project.ExperiencePoints : issues.Single(x => x.ProjectId == adminDashboardProject.ProjectId).ExperiencePoints;
+
+        var body = EmailHelper.GetProjectCompletedBody(firstName, projectTitle, experiencePoints, rankingWithSuffix.ToString());
 
         await EmailSender.SendEmailAsync(User.Email, "Your Project Was Marked as Complete", body);
 

@@ -159,6 +159,7 @@ public class AdminService : IAdminService
             {
                 var issue = context.Issues.FirstOrDefault(x => x.ProjectId == projectId);
                 academyProject.ExperiencePoints = issue.ExperiencePoints;
+                issue.IsClosed = true;
             }
 
             var dashboardProject = await context.DashboardProjects.FirstOrDefaultAsync(x => x.ProjectId == projectId && x.AppUserId == userId);

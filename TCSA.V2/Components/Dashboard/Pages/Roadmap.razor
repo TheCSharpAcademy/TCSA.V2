@@ -26,61 +26,61 @@ else
                      IconUrl="belts/white-belt.png"
                      Tasks=greenBeltTasks
                      IsCompleted=@(UserLevel > Level.White)
-                     Requirements=greenBeltReqs />
+                     Requirements=RoadmapHelper.GreenBeltReqs />
 
         <RoadmapCard CardName="Green Belt"
                      IconUrl="belts/green-belt.png"
                      Tasks=oliveGreenBeltTasks
                      IsCompleted=@(UserLevel > Level.Green)
-                     Requirements=oliveGreenBeltReqs />
+                     Requirements=RoadmapHelper.OliveGreenBeltReqs />
 
         <RoadmapCard CardName="Olive Green Belt"
                      IconUrl="belts/olivegreen-belt.png"
                      Tasks="yellowBeltTasks"
                      IsCompleted=@(UserLevel > Level.OliveGreen)
-                     Requirements=yellowBeltReqs />
+                     Requirements=RoadmapHelper.YellowBeltReqs />
 
         <RoadmapCard CardName="Yellow Belt"
                      IconUrl="belts/yellow-belt.png"
                      Tasks="orangeBeltTasks"
                      IsCompleted=@(UserLevel > Level.Yellow)
-                     Requirements=orangeBeltReqs />
+                     Requirements=RoadmapHelper.OrangeBeltReqs />
 
         <RoadmapCard CardName="Orange Belt"
                      IconUrl="belts/orange-belt.png"
                      Tasks="redBeltTasks"
                      IsCompleted=@(UserLevel > Level.Orange)
-                     Requirements=redBeltReqs />
+                     Requirements=RoadmapHelper.RedBeltReqs />
 
         <RoadmapCard CardName="Red Belt"
                      IconUrl="belts/red-belt.png"
                      Tasks="purpleBeltTasks"
                      IsCompleted=@(UserLevel > Level.Red)
-                     Requirements=purpleBeltReqs />
+                     Requirements=RoadmapHelper.PurpleBeltReqs />
 
         <RoadmapCard CardName="Purple Belt"
                      IconUrl="belts/purple-belt.png"
                      Tasks="brownBeltTasks"
                      IsCompleted=@(UserLevel > Level.Purple)
-                     Requirements=brownBeltReqs />
+                     Requirements=RoadmapHelper.BrownBeltReqs />
 
         <RoadmapCard CardName="Brown Belt"
                      IconUrl="belts/brown-belt.png"
                      Tasks="greyBeltTasks"
                      IsCompleted=@(UserLevel > Level.Brown)
-                     Requirements=greyBeltReqs />
+                     Requirements=RoadmapHelper.GreyBeltReqs />
 
         <RoadmapCard CardName="Grey Belt"
                      IconUrl="belts/grey-belt.png"
                      Tasks="blueBeltTasks"
                      IsCompleted=@(UserLevel > Level.Grey)
-                     Requirements=blueBeltReqs />
+                     Requirements=RoadmapHelper.BlueBeltReqs />
 
         <RoadmapCard CardName="Blue Belt"
                      IconUrl="belts/blue-belt.png"
                      Tasks="blackBeltTasks"
                      IsCompleted=@(UserLevel > Level.Blue)
-                     Requirements=blackBeltReqs />
+                     Requirements=RoadmapHelper.BlackBeltReqs />
 
         <RoadmapCard CardName="Black Belt"
                      IconUrl="belts/black-belt.png"
@@ -102,16 +102,6 @@ else
     private List<Article>? articles;
     private List<Project>? projects;
 
-    private List<string> greenBeltReqs = new();
-    private List<string> oliveGreenBeltReqs = new();
-    private List<string> yellowBeltReqs = new();
-    private List<string> orangeBeltReqs = new();
-    private List<string> redBeltReqs = new();
-    private List<string> purpleBeltReqs = new();
-    private List<string> brownBeltReqs = new();
-    private List<string> greyBeltReqs = new();
-    private List<string> blueBeltReqs = new();
-    private List<string> blackBeltReqs = new();
     private List<string> missingReqs = new();
 
     private List<RoadmapTask> missingTasks = new();
@@ -181,82 +171,15 @@ else
         GetGreyBeltTasks();
         GetBlueBeltTasks();
         GetBlackBeltTasks();
-        GetAllRequirements();
 
-        isLoading = false;
-    }
-
-    protected void GetAllRequirements()
-    {
-        greenBeltReqs.AddRange(new List<string>
-            {
-                "Read the 5 articles below",
-                "Complete Freecodecamp C# Certification",
-                "Complete Math Game project"
-            });
-        oliveGreenBeltReqs.AddRange(new List<string>
-            {
-                "Complete Calculator project",
-                "Complete Habit Logger project",
-                "Complete Coding Tracker project"
-            });
-        yellowBeltReqs.AddRange(new List<string>
-            {
-                "Complete Flashcards project",
-                "Complete Drinks Info project",
-                "Complete Phone Book project",
-                "Complete Shifts Logger project"
-            });
-        orangeBeltReqs.AddRange(new List<string>
-            {
-                "Complete Exercise Tracker project",
-                "Complete Sports Results notifier project",
-                "Complete Excel Reader project",
-                "Complete Unit Testing project"
-            });
-        redBeltReqs.AddRange(new List<string>
-            {
-                "Complete Portfolio project",
-                "Complete Resume project",
-                "Complete 2 Code Reviews",
-                "Complete 1 Community Project Issue"
-            });
-        purpleBeltReqs.AddRange(new List<string>
-            {
-                "Complete 1 Full-stack area",
-                "Complete 2 Code Reviews",
-                "Complete 1 Community Project Issue",
-            });
-        brownBeltReqs.AddRange(new List<string>
-            {
-                "Complete Auth Area",
-                "Complete 3 Code Reviews",
-                "Complete 2 Community Project Issues",
-            });
-        greyBeltReqs.AddRange(new List<string>
-            {
-                "Complete SQL Challenges",
-                "Complete 5 Code Reviews",
-                "Complete 3 Community Project Issues",
-            });
-        blueBeltReqs.AddRange(new List<string>
-            {
-                "Complete Azure Area",
-                "Complete 5 Code Reviews",
-                "Complete 3 Community Project Issues",
-            });
-        blackBeltReqs.AddRange(new List<string>
-            {
-                "Complete at least 2 full-stack areas. One of them has to be MVC, Blazor or Maui",
-                "Complete 8 Code Reviews",
-                "Complete 5 Community Project Issues",
-            });
         missingReqs.AddRange(new List<string>
         {
             $"Complete these to move up to {(Level)((int)(UserLevel) + 1)}"
         });
 
+        isLoading = false;
     }
+
     protected void GetGreenBeltTasks()
     {
         greenBeltTasks = articles

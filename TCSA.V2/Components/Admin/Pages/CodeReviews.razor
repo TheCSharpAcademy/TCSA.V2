@@ -4,6 +4,7 @@
 @attribute [Authorize(Roles = "Admin")]
 
 @using Microsoft.AspNetCore.Authorization
+@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.FormModels
@@ -20,6 +21,8 @@
             <div class="col">
                 <button type="button" class="btn btn-primary" @onclick="FilterUntouched">Get Untouched</button>
                 <button type="button" class="btn btn-primary" @onclick="FilterDue">Get Due</button>
+                <button type="button" class="btn btn-primary" @onclick="FilterAdvanced">Get Advanced</button>
+                <button type="button" class="btn btn-primary" @onclick="FilterIssues">Get Issues</button>
             </div>
         </div>
 
@@ -138,6 +141,24 @@
     {
         dashboardProjects = dashboardProjectsCopy;
         dashboardProjects = dashboardProjects.Where(x => x.DateRequestedChange < DateTime.Now.AddDays(-1) && !(x.DateRequestedChange < new DateTimeOffset(new DateTime(2023, 6, 1), TimeSpan.Zero))).ToList();
+    }
+
+    private async Task FilterAdvanced()
+    {
+        var levels = new List<Level?> { Level.Green, Level.OliveGreen, Level.Yellow, Level.Orange, Level.White };
+
+        dashboardProjects = dashboardProjectsCopy;
+
+        dashboardProjects = dashboardProjects
+        .Where(dashboardProject =>
+            !levels.Contains(projects.FirstOrDefault(project => project.Id == dashboardProject.ProjectId)?.Level))
+            .ToList();
+    }
+
+    private async Task FilterIssues()
+    {
+        dashboardProjects = dashboardProjects
+        .Where(x => issues.Select(y => y.ProjectId).Contains(x.ProjectId)).ToList();
     }
 }
 

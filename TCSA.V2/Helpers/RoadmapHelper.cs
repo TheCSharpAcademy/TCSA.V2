@@ -2,6 +2,22 @@
 
 public static class RoadmapHelper
 {
+    public static readonly int[] GreenRequirements = { 5, 6, 7, 8, 53, 75 };
+    public static readonly int[] OliveGreenRequirements = { 11, 12, 13 };
+    public static readonly int[] YellowRequirements = { 14, 15, 16, 17 };
+    public static readonly int[] OrangeRequirements = { 18, 19, 20, 21 };
+    public static readonly int[] RedRequirements = { 22, 23 };
+    public static readonly int[] AspNetRequirements = { 24, 25, 26, 27 };
+    public static readonly int[] AngularRequirements = { 31, 32, 33, 34 };
+    public static readonly int[] ReactRequirements = { 35, 36, 37, 38 };
+    public static readonly int[] BlazorRequirements = { 39, 40, 41, 42 };
+    public static readonly int[] MauiRequirements = { 43, 44, 45, 46 };
+    public static readonly int[] AuthRequirements = { 28, 72, 74 };
+    public static readonly int[] SqlRequirements = { 76, 77, 78 };
+    public static readonly int[] AzureRequirements = { 47, 48, 49, 50 };
+    public static readonly int[][] FullStackAreas = { AspNetRequirements, AngularRequirements, ReactRequirements, BlazorRequirements, MauiRequirements };
+    public static readonly int[][] AspNetAreas = { AspNetRequirements, BlazorRequirements, MauiRequirements };
+
     public static readonly List<string> GreenBeltReqs = new()
     {
         "Read the 5 articles below",

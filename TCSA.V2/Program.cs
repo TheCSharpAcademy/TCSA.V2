@@ -38,6 +38,7 @@ builder.Services.AddScoped<ICountriesService, CountriesService>();
 builder.Services.AddScoped<ICommunityService, CommunityService>();
 builder.Services.AddScoped<ICodeWarsService, CodeWarsService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IRoadmapService, RoadmapService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 

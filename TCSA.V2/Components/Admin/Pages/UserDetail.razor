@@ -92,6 +92,11 @@
                             <th>Belt</th>
                             <td>@((Level)User.Level)</td>
                         </tr>
+
+                          <tr>
+                            <th>Belt Should Be</th>
+                            <td>@(BeltShouldBe)</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -226,6 +231,7 @@
     [Inject] protected IAdminService AdminService { get; set; }
     [Inject] protected IPeerReviewService PeerReviewService { get; set; }
     [Inject] protected ICommunityService CommunityService { get; set; }
+    [Inject] protected IRoadmapService RoadmapService { get; set; }
     [Inject] protected IEmailSender EmailSender { get; set; }
 
     private ApplicationUser User { get; set; }
@@ -236,6 +242,7 @@
     private List<Article>? articles;
     private List<CommunityIssue>? issues;
     private List<CodeReviewDetail>? reviews;
+    private Level BeltShouldBe;
 
     private int XPSum;
     private int ranking;
@@ -262,6 +269,7 @@
         }
 
         ranking = await LeaderboardService.GetUserRanking(UserId);
+        BeltShouldBe = await RoadmapService.CalculateUserBelt(UserId);
     }
 
     private string GetTitle(int projectId)

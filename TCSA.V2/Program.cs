@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Octokit.Webhooks;
+using Octokit.Webhooks.AspNetCore;
 using Serilog;
 using TCSA.V2.Components;
 using TCSA.V2.Components.Account;
+using TCSA.V2.Controllers;
 using TCSA.V2.Data;
 using TCSA.V2.Services;
 
@@ -41,6 +44,7 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IRoadmapService, RoadmapService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<WebhookEventProcessor, MyWebhookEventProcessor>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -92,13 +96,22 @@ else
   app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-app.UseAntiforgery();
 
+app.UseRouting();
+app.UseAuthorization();
+app.UseAuthentication();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.UseAntiforgery();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGitHubWebhooks();
+});
 
 app.MapAdditionalIdentityEndpoints();
 

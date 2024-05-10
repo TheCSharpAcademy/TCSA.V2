@@ -15,6 +15,7 @@ public class CommunityIssue
     public string GithubUrl { get; set; }
     public string IconUrl { get; set; }
     public bool IsClosed { get; set; }  
+    public string? Reference { get; set; }
 }
 
 

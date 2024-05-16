@@ -151,6 +151,10 @@ h1:focus {
 }
 
 @media (max-width: 992px) {
+    .title-item {
+        font-size: 30px !important;
+    }
+
     .roadmap-image {
         width: 35px !important;
     }

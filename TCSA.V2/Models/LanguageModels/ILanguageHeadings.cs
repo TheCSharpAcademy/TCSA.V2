@@ -1,4 +1,4 @@
-﻿namespace TCSA.V2.Models.LangugageModels;
+﻿namespace TCSA.V2.Models.LanguageModels;
 
 public interface ILanguageHeadings
 {

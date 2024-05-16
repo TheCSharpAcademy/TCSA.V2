@@ -28,12 +28,14 @@
         <div class="row pb-4">
             @if (!String.IsNullOrEmpty(block.ImgUrl))
             {
-                <div class="col-2 icon-div">
+                <div class="col-lg-2 d-flex align-items-center justify-content-center mt-sm-2">
                     <img src="img/@block.ImgUrl" width="70" alt="" class="align-middle">
                 </div>
             }
-            <div class="@(String.IsNullOrEmpty(block.ImgUrl) ? "col-10" : "col")">
-                <h1 class="article-section-title">@block.Title</h1>
+            <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
+                <div class="d-flex justify-content-center">
+                    <h1 class="article-section-title">@block.Title</h1>
+                </div>
 
                 @foreach (var paragraph in block.Paragraphs)
                 {

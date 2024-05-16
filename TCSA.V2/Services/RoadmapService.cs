@@ -69,7 +69,7 @@ public class RoadmapService : IRoadmapService
 
         foreach (var area in RoadmapHelper.FullStackAreas)
         {
-            if (userProjects.Overlaps(area))
+            if (area.All(project => userProjects.Contains(project)))
             {
                 fullStackAreasCompleted += 1;
             }
@@ -115,7 +115,7 @@ public class RoadmapService : IRoadmapService
 
         foreach (var area in RoadmapHelper.AspNetAreas)
         {
-            if (userProjects.Overlaps(area))
+            if (area.All(project => userProjects.Contains(project)))
             {
                 aspNetAreaCompleted = true;
             }
@@ -125,7 +125,7 @@ public class RoadmapService : IRoadmapService
         && userIssues >= 15
         && userReviews >= 25
         && userProjects.Count >= 37
-        && fullStackAreasCompleted >= 1
+        && fullStackAreasCompleted >= 2
         && aspNetAreaCompleted)
         {
             level = Level.Black;

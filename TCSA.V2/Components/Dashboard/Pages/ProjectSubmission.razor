@@ -6,6 +6,7 @@
 @using System.Security.Claims;
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using TCSA.V2.Models.Forms
 @using TCSA.V2.Services
 
 @if (IsProjectSubmittedMessageShowing)
@@ -20,7 +21,15 @@
 } 
 else
 {
-    <div class="form-group mt-5 pt-5">
+    <div class="mt-5 pt-5">
+        <div class="card submit-project-warning-card bg-warning">
+            <div class="card-body">
+                If this is your first time submitting a project, please read <a target="_blank" href="https://thecsharpacademy.com/article/52/code-reviews">this article on how to submit a pull request</a>.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-2">
         <EditForm Model="@Model" OnValidSubmit="Submit" FormName="SubmitProjectForm">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -37,7 +46,6 @@ else
                 <label for="githubUrl">Pull Request Url</label>
             </div>
 
-            <InputText hidden class="form-control" @bind-Value="Model.AppUserId" />
             @if (IsSubmitting)
             {
                 <div class="spinner-border text-primary" role="status">
@@ -54,7 +62,7 @@ else
 
 @code {
     [SupplyParameterFromForm]
-    public DashboardProject Model { get; set; }
+    public SubmitProjectForm Model { get; set; }
 
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
@@ -97,11 +105,16 @@ else
     {
         IsSubmitting = true;
 
-        Model.DateSubmitted = DateTime.UtcNow;
-        Model.IsPendingReview = true;
-        Model.AppUserId = UserId;
+        var dashboardProject = new DashboardProject
+            {
+                DateSubmitted = DateTime.UtcNow,
+                IsPendingReview = true,
+                AppUserId = UserId,
+                ProjectId = Model.ProjectId,
+                GithubUrl = Model.GithubUrl
+            };
 
-        var response = await ProjectService.PostArticle(Model);
+        var response = await ProjectService.PostArticle(dashboardProject);
 
         if (response == 1)
         {

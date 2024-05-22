@@ -110,8 +110,8 @@
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
-        CompletedProjects = User.DashboardProjects?.Where(x => x.IsCompleted).Select(x => x.Id).ToList();
-        PendingProjects = User.DashboardProjects?.Where(x => x.IsPendingReview).Select(x => x.Id).ToList();
+        CompletedProjects = User.DashboardProjects?.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
+        PendingProjects = User.DashboardProjects?.Where(x => x.IsPendingReview).Select(x => x.ProjectId).ToList();
         CompletedPendingNotificationProjects = User.DashboardProjects?.Where(x => x.IsPendingNotification).Select(x => x.ProjectId).ToList();
         CompletedPendingNotificationIssues = await CommunityService.GetIssuesTitles(CompletedPendingNotificationProjects);
 

@@ -262,7 +262,7 @@ public class PeerReviewService : IPeerReviewService
                         result.Add(new CodeReviewDetail
                         {
                             ProjectId = project.ProjectId,
-                            IsCompleted = project.IsCompleted,
+                            IsCompleted = project.IsCompleted || project.IsArchived,
                             UserName = $"{project.AppUser.FirstName + project.AppUser.LastName}"
                         });
                     }

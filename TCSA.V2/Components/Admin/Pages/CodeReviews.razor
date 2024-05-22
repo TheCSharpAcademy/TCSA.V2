@@ -65,6 +65,7 @@
                         <td><button type="button" @onclick="(() => RequestChange(item.Id))" class="btn">Changes</button></td>
                         <td><a href="@item.GithubUrl" target="_blank" class="btn">View</a></td>
                         <td><button type="button" @onclick="(() => DeleteFromDashboard(item.Id))" class="btn">Delete</button></td>
+                        <td><button type="button" @onclick="(() => Archive(item.Id))" class="btn">Archive</button></td>
                         <td><a target="_blank" class="btn btn-success btn-side" href=@($"admin/{item.AppUserId}")>View User</a></td>
                     </tr>
                 }
@@ -81,10 +82,10 @@
 
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private List<Project>? projects;
-    private List<CommunityIssue>? issues;
-    private List<DashboardProject>? dashboardProjects;
-    private List<DashboardProject>? dashboardProjectsCopy;
+    private List<Project> projects = new();
+    private List<CommunityIssue> issues = new();
+    private List<DashboardProject> dashboardProjects = new();
+    private List<DashboardProject> dashboardProjectsCopy = new();
     private FilterProjectListForm ProjectIdForm = new();
     private int TotalProjectsPending = 0;
     private int DueProjects = 0;
@@ -102,6 +103,13 @@
         DueProjects = dashboardProjects.Where(x => x.DateRequestedChange < DateTime.Now.AddDays(-1) && !(x.DateRequestedChange < new DateTimeOffset(new DateTime(2023, 6, 1), TimeSpan.Zero))).Count();
     }
 
+    private async Task Archive(int id) 
+    {
+        await AdminService.ArchiveProject(id);
+        dashboardProjects = await AdminService.GetProjectsPendingReview();
+        dashboardProjectsCopy = dashboardProjects;
+    }
+
     private string GetProject(DashboardProject dashboardProject)
     {
         var project = projects.FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
@@ -110,7 +118,7 @@
         {
             var issue = issues.FirstOrDefault(x => x.ProjectId == dashboardProject.ProjectId);
 
-            return $"{issue.Title} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
+            return $"{issue?.Title} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
         }
 
         return $"{project.Title} - {dashboardProject.AppUser.FirstName} {dashboardProject.AppUser.LastName}";
@@ -125,25 +133,25 @@
         dashboardProjectsCopy = dashboardProjects;
     }
 
-    private async Task FilterList()
+    private void FilterList()
     {
         dashboardProjects = dashboardProjectsCopy;
         dashboardProjects = dashboardProjects.Where(x => x.ProjectId == ProjectIdForm.ProjectId).ToList();
     }
 
-    private async Task FilterUntouched()
+    private void FilterUntouched()
     {
         dashboardProjects = dashboardProjectsCopy;
         dashboardProjects = dashboardProjects.Where(x => x.DateRequestedChange < new DateTimeOffset(new DateTime(2022, 1, 1), TimeSpan.Zero)).ToList();
     }
 
-    private async Task FilterDue()
+    private void FilterDue()
     {
         dashboardProjects = dashboardProjectsCopy;
         dashboardProjects = dashboardProjects.Where(x => x.DateRequestedChange < DateTime.Now.AddDays(-1) && !(x.DateRequestedChange < new DateTimeOffset(new DateTime(2023, 6, 1), TimeSpan.Zero))).ToList();
     }
 
-    private async Task FilterAdvanced()
+    private void FilterAdvanced()
     {
         var levels = new List<Level?> { Level.Green, Level.OliveGreen, Level.Yellow, Level.Orange, Level.White };
 
@@ -155,7 +163,7 @@
             .ToList();
     }
 
-    private async Task FilterIssues()
+    private void FilterIssues()
     {
         dashboardProjects = dashboardProjects
         .Where(x => issues.Select(y => y.ProjectId).Contains(x.ProjectId)).ToList();

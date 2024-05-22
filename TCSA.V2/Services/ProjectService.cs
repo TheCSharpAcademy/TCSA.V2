@@ -10,9 +10,9 @@ public interface IProjectService
     Task<bool> IsProjectCompleted(string userId, int projectId);
     Task<int> PostArticle(DashboardProject project);
     Task<List<int>> GetCompletedProjectsById(string userId);
-    Task<List<int>> GetPendingProjects(string userId);
     Task<List<DashboardProject>> GetDetailedProjectsById(string userId);
     Task<int> MarkCertificateAsCompleted(string userId, int currentPoints);
+    Task<int> MarkAsNotified(int id);
 }
 public class ProjectService : IProjectService
 {
@@ -23,6 +23,18 @@ public class ProjectService : IProjectService
     {
         _factory = factory;
         _logger = logger;
+    }
+
+    public async Task<int> MarkAsNotified(int id)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.DashboardProjects
+                .Where(x => x.ProjectId == id)
+                .ExecuteUpdateAsync(y => y.SetProperty(u => u.IsPendingNotification, false));
+
+            return await context.SaveChangesAsync();
+        }
     }
 
     public async Task<List<int>> GetCompletedProjectsById(string userId)
@@ -146,27 +158,6 @@ public class ProjectService : IProjectService
                 .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, project.ExperiencePoints + currentPoints));
 
             return await context.SaveChangesAsync();
-        }
-    }
-
-    public async Task<List<int>> GetPendingProjects(string userId)
-    {
-        var projects = new List<int>();
-
-        try
-        {
-            using (var context = _factory.CreateDbContext())
-            {
-                return await context.DashboardProjects
-                    .Where(x => x.AppUserId == userId && x.IsPendingReview)
-                    .Select(x => x.ProjectId)
-                    .ToListAsync();
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error in {nameof(GetCompletedProjectsById)}");
-            return null;
         }
     }
 }

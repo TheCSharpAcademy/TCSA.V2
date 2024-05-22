@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Linq;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
 
@@ -16,6 +17,7 @@ public interface ICommunityService
     Task CreateIssue(CommunityIssue form);
     Task<List<CommunityIssue>> GetIssuesForAdmin();
     Task<int> GetCompletedIssuesCount(string appUserId);
+    Task<Dictionary<int, string>> GetIssuesTitles(List<int> projectIds);
 }
 
 public class CommunityService : ICommunityService
@@ -28,6 +30,28 @@ public class CommunityService : ICommunityService
         _factory = factory;
         _logger = logger;
     }
+
+    public async Task<Dictionary<int,string>> GetIssuesTitles(List<int> projectIds)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var issues = await context.Issues
+                    .Where(issue => projectIds.Contains(issue.ProjectId))
+                    .Select(issue => new { issue.ProjectId, issue.Title })
+                    .ToListAsync();
+
+                return issues.ToDictionary(issue => issue.ProjectId, issue => issue.Title);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetIssuesTitles)}");
+            return new Dictionary<int, string>();
+        }
+    }
+
     public async Task<int> GetCompletedIssuesCount(string appUserId)
     {
         try

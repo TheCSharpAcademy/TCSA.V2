@@ -14,6 +14,7 @@ public interface IAdminService
     Task<List<DashboardProject>> GetProjectsPendingReview();
     Task RequestChanges(int id);
     Task DeleteFromDashboard(int id);
+    Task ArchiveProject(int id);
 
 }
 public class AdminService : IAdminService
@@ -31,6 +32,47 @@ public class AdminService : IAdminService
         {
             context.DashboardProjects
             .Remove(new DashboardProject { Id = id });
+
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task ArchiveProject(int projectId)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.DashboardProjects
+            .Where(x => x.Id == projectId)
+                 .ExecuteUpdateAsync(y => y.SetProperty(u => u.IsArchived, true)
+                                           .SetProperty(u => u.IsPendingReview, false)
+                                           .SetProperty(u => u.IsPendingNotification, true));
+
+            var reviewProject = await context.UserReviews.FirstOrDefaultAsync(x => x.DashboardProjectId == projectId);
+
+            if (reviewProject != null)
+            {
+                var currentReviewerPoints = context.Users
+                   .Where(x => x.Id == reviewProject.AppUserId)
+                   .Select(x => x.ExperiencePoints)
+                   .FirstOrDefault();
+
+                var dashboardProject = await context.DashboardProjects.FirstOrDefaultAsync(x => x.Id == projectId);
+
+                var academyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
+
+                context.UserActivity.AddRange(
+                    new AppUserActivity
+                    {
+                        ProjectId = dashboardProject.ProjectId,
+                        AppUserId = reviewProject.AppUserId,
+                        DateSubmitted = DateTime.UtcNow,
+                        ActivityType = ActivityType.CodeReviewCompleted
+                    });
+
+                context.Users
+                        .Where(x => x.Id == reviewProject.AppUserId)
+                        .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentReviewerPoints));
+            }
 
             await context.SaveChangesAsync();
         }

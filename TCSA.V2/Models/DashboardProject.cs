@@ -13,6 +13,8 @@ public class DashboardProject
 
     public bool IsCompleted { get; set; }
 
+    public bool IsArchived { get; set; }
+
     public bool IsPendingNotification { get; set; }
 
     public bool IsPendingReview { get; set; }

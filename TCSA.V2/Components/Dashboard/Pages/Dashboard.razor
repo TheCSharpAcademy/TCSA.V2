@@ -14,6 +14,31 @@
 <div class="pt-lg-5 mt-lg-2">
     @if (User != null)
     {
+        if (User.DashboardProjects != null && User.DashboardProjects.Any(x => x.IsPendingNotification))
+        {
+            foreach (var project in CompletedPendingNotificationProjects)
+            {
+                <div class="card card-completed">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10 d-flex align-items-center">@GetProjectName(project) was marked as complete!</div>
+                            <div class="col-2">
+                                @if (!IsLoading)
+                                {
+                                    <button class="btn btn-outline-light" type="button" @onclick="() => DismissIsCompleteNotification(project)">Dismiss</button>
+                                }
+                                else
+                                {
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
         <DashboardHeader Level=@User.Level
                          BeltImgUrl=@($"/img/Belts/{User.Level}-belt.png")
                          FlagUrl=@FlagHelper.GetFlag(User.Country)
@@ -53,17 +78,22 @@
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private ILeaderboardService LeaderboardService { get; set; }
     [Inject] private IUserService UserService { get; set; }
+    [Inject] private ICommunityService CommunityService { get; set; }
 
     private ApplicationUser User;
     private string UserId;
     private bool AlumniComplete = false;
+    private bool IsLoading = false;
+
     private int Ranking;
 
     private List<DashboardAreaInfo> Areas = new();
     private List<Article>? Articles;
     private IEnumerable<Project> Projects;
-    private List<int>? CompletedProjects;
-    private List<int>? PendingProjects;
+    private List<int>? CompletedProjects = new();
+    private List<int>? PendingProjects = new();
+    private List<int>? CompletedPendingNotificationProjects = new();
+    private Dictionary<int, string>? CompletedPendingNotificationIssues = new();
 
     protected async override Task OnInitializedAsync()
     {
@@ -80,8 +110,10 @@
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
-        CompletedProjects = await ProjectService.GetCompletedProjectsById(UserId);
-        PendingProjects = await ProjectService.GetPendingProjects(UserId);
+        CompletedProjects = User.DashboardProjects?.Where(x => x.IsCompleted).Select(x => x.Id).ToList();
+        PendingProjects = User.DashboardProjects?.Where(x => x.IsPendingReview).Select(x => x.Id).ToList();
+        CompletedPendingNotificationProjects = User.DashboardProjects?.Where(x => x.IsPendingNotification).Select(x => x.ProjectId).ToList();
+        CompletedPendingNotificationIssues = await CommunityService.GetIssuesTitles(CompletedPendingNotificationProjects);
 
         var areaIconUrls = new List<string> { "" };
 
@@ -307,11 +339,35 @@
 
         return $"{completedProjects} out of {count} tasks completed";
     }
+
+    private async Task DismissIsCompleteNotification(int projectId)
+    {
+        await ProjectService.MarkAsNotified(projectId);
+        User = await UserService.GetUserById(UserId);
+    }
+
+    private string GetProjectName(int projectId)
+    {
+        if (Projects.Any(x => x.Id == projectId))
+        {
+            return Projects.FirstOrDefault(x => x.Id == projectId).Title;
+        }
+        else
+        {
+            return CompletedPendingNotificationIssues.FirstOrDefault(x => x.Key == projectId).Value;
+        }
+    }
 }
 
 <style>
     .dashboard-area-card {
         padding-right: 15px;
         padding-left: 15px;
+    }
+
+    .card-completed {
+        background-color: green;
+        color: white;
+        margin-bottom: 5px;
     }
 </style>

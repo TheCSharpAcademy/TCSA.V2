@@ -4,6 +4,12 @@ namespace TCSA.V2.Helpers;
 
 public static class BeltHelper
 {
+    public static string GetBelt(int userLevel)
+    {
+        var level = ((Level)userLevel).ToString().ToLower();
+        return $"{level}-belt.png";
+    }
+
     public static List<string> GetBeltNotification(ApplicationUser user)
     {
         var projectsForNotification = new List<string>();

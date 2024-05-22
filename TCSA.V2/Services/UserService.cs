@@ -19,6 +19,7 @@ public interface IUserService
     Task ActivateAccount(string userId);
     Task<ApplicationUser> GetDetailedUserById(string id);
     Task<int> GetCurrentXPs(string userId);
+    Task DismissBeltNotification(string id);
 }
 
 public class UserService : IUserService
@@ -30,6 +31,18 @@ public class UserService : IUserService
     {
         _factory = factory;
         _logger = logger;
+    }
+
+    public async Task DismissBeltNotification(string id)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            await context.Users
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(y => y.SetProperty(u => u.HasPendingBeltNotification, false));
+
+            await context.SaveChangesAsync();
+        }
     }
 
     public async Task<int> GetCurrentXPs(string id)
@@ -97,6 +110,7 @@ public class UserService : IUserService
             using (var context = _factory.CreateDbContext())
             {
                 return await context.AspNetUsers
+                .Include(x => x.DashboardProjects)
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
             }
         }

@@ -167,7 +167,7 @@ internal static class MVCProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="Again we will be using a tutorial from the official documentation, where we will be introduced to “Minimal APIs” and working with “Fetch API”, which will help us with moving data around asynchronously "
+                        Body="For this project we will pull from a few different resources. We will be introduced to “minimal APIs” and working with “Fetch API”, which will help us with moving data around asynchronously "
                     },
                     new Paragraph
                     {
@@ -179,6 +179,7 @@ internal static class MVCProjectsHelper
                     "This is an application where you should manage a todo list.",
                     "Users should be able to Add, Delete, Update and Read from a database, using a SPA (single-page application). The user should never be redirected to a new page.",
                     "You need to use Entity Framework, raw SQL isn't allowed.",
+                    "You need to use minimal API",
                     "You don't need a navigation bar. No menu is necessary since you'll only have one page.",
                     "Once you execute any operation, the todo-list needs to be updated accordingly.",
                     "Your data model is only one table with to-dos. You. might be tempted to create more complex data-models (categories of todos for example) but avoid that for now. We're focusing on the front-end.",
@@ -188,16 +189,17 @@ internal static class MVCProjectsHelper
                 ResourcesIntro = "Here are a few resources that might be helpful.",
                 Resources = new List<string>
                 {
-                    "<a target='blank' href='https://www.youtube.com/watch?v=vbbhsGzCyZQ'>MVC + Fetch API + Minimal API Tutorial</a>",
+                    "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio'>Microsoft docs tutorial on Minimal API",
+                    "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/tutorials/web-api-javascript?view=aspnetcore-8.0'>Microsoft docs tutorial on calling a web API in Javascript",
+                    "<a target='blank' href='https://www.youtube.com/watch?v=vbbhsGzCyZQ'>MVC + Fetch API + Web API Video Tutorial</a>",
                     "<a target='blank' href='https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch'>Fetch API Docs</a>",
-                    "<a target='blank' href='https://www.youtube.com/watch?v=hdI2bqOjy3c'>Javascript crash course on Youtube</a>",
                     "<a target='blank' href='https://www.youtube.com/watch?v=Oive66jrwBs'>Fetch API crash course on Youtube</a>"
                 },
                 Tips = new List<string>
                 {
                     "When learning to connect JS to your MVC App, take a step-by-step approach: First try to call a simple alert, then try to send data to and from the controller into JS.",
-                    "Use console.log() to help you debug your javascript code when working together with C#.",
-                    "The tutorial uses Mongo DB as data solution. If it adds too much confusion, just connect your App to a SQL server or SQLite solution instead. The focus now is on the front-end, so where the data is coming from shouldn't matter."
+                    "Use your browser dev tools to set breakpoints in the JS to help you debug when working together with C#.",
+                    "The tutorial about calling APIs with JS uses MongoDB. If it adds too much confusion, just connect your App to a SQL server or SQLite solution instead. The focus right now is on the front-end."
                 }
             },
             new Project

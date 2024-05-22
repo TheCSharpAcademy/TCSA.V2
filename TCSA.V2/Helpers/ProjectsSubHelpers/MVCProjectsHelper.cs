@@ -168,8 +168,9 @@ internal static class MVCProjectsHelper
                 {
                     "This is an application where you should manage a todo list.",
                     "Users should be able to Add, Delete, Update and Read from a database, using a SPA (single-page application). The user should never be redirected to a new page.",
+                    "You need to write a minimal API to connect the front-end and database.",
+                    "You need to use the JS Fetch API from your front-end to call your minimal API in the backend.",
                     "You need to use Entity Framework, raw SQL isn't allowed.",
-                    "You need to use minimal API",
                     "You don't need a navigation bar. No menu is necessary since you'll only have one page.",
                     "Once you execute any operation, the todo-list needs to be updated accordingly.",
                     "Your data model is only one table with to-dos. You. might be tempted to create more complex data-models (categories of todos for example) but avoid that for now. We're focusing on the front-end.",
@@ -179,7 +180,7 @@ internal static class MVCProjectsHelper
                 ResourcesIntro = "Here are a few resources that might be helpful.",
                 Resources = new List<string>
                 {
-                    "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio'>Microsoft docs tutorial on Minimal API",
+                    "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio'>Microsoft docs tutorial on minimal APIs",
                     "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/tutorials/web-api-javascript?view=aspnetcore-8.0'>Microsoft docs tutorial on calling a web API in Javascript",
                     "<a target='blank' href='https://www.youtube.com/watch?v=vbbhsGzCyZQ'>MVC + Fetch API + Web API Video Tutorial</a>",
                     "<a target='blank' href='https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch'>Fetch API Docs</a>",

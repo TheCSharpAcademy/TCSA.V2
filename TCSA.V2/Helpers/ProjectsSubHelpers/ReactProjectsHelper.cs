@@ -48,7 +48,7 @@ internal static class ReactProjectsHelper
                     "<a target='_blank' href='https://reactjs.org/docs/getting-started.html'>React Documentation</a>",
                     "<a target='_blank' href='https://codersera.com/blog/why-learning-reactjs-makes-sense-in-2020/'>Article: Why Learn React in 2022?</a>"
                 },
-                ResourcesConclusion = "Since this is your first React project, make sure you look up everything you don’t know. Try not to let any keyword, method or concept left-behind. This is the moment to build your foundation. And don’t forget to reach out on our <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> if you have questions!\r\n\r\nHere’s my github repository for this project, where you can find branches for each stage of the development of this game. To navigate through the branches, choose from the dropdown as per the picture below: ",
+                ResourcesConclusion = "Since this is your first React project, make sure you look up everything you don’t know. Try not to let any keyword, method or concept left-behind. This is the moment to build your foundation. And don’t forget to reach out on our <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if you have questions!\r\n\r\nHere’s my github repository for this project, where you can find branches for each stage of the development of this game. To navigate through the branches, choose from the dropdown as per the picture below: ",
                 Tips = new List<string>
                 {
                     "Take your time to study each word in the code. This isn't time to rush, but to learn at a slow pace, with patience.",
@@ -196,7 +196,7 @@ internal static class ReactProjectsHelper
                     "<a target='_blank' href='https://www.valentinog.com/blog/redux/'>Beginners Redux: Complete Guide</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=hXpYQqykORU'>React Redux Crud App (Youtube).</a>"
                 },
-                ResourcesConclusion = "Angular Material can be tricky at first, but trust us, you’ll learn to love it and once you master it, you will never look back. But as always, reach out in our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> if you get stuck!",
+                ResourcesConclusion = "Angular Material can be tricky at first, but trust us, you’ll learn to love it and once you master it, you will never look back. But as always, reach out in our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if you get stuck!",
                 Tips = new List<string>
                 {
                     "You won't find many tutorials of React-Redux with C# Web Api. But with the knowledge of the previous React projects you should be able to setup the required front-end and call a C# server.",

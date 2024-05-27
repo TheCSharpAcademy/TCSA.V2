@@ -9,6 +9,7 @@ using TCSA.V2.Components;
 using TCSA.V2.Components.Account;
 using TCSA.V2.Controllers;
 using TCSA.V2.Data;
+using TCSA.V2.Helpers.LinksHelper;
 using TCSA.V2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,6 +62,7 @@ builder.Services.AddAuthentication(options =>
 
     })
     .AddIdentityCookies();
+LinkProvider.DiscordLink=builder.Configuration.GetConnectionString("DiscordLink") ?? throw new InvalidOperationException("Discord link not found.");
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>

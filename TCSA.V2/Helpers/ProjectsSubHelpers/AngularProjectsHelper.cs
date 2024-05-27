@@ -1,4 +1,5 @@
-﻿using TCSA.V2.Models;
+﻿using TCSA.V2.Helpers.LinksHelper;
+using TCSA.V2.Models;
 using TCSA.V2.Models.LanguageModels;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
@@ -95,7 +96,7 @@ internal static class AngularProjectsHelper
                     "<a target='_blank' href='https://www.youtube.com/watch?v=S5dzfuh3t8U'>Angular + C# Web Api Youtube Tutorial</a>",
                     "<a target='_blank' href='https://stackoverflow.com/questions/65082452/cors-is-not-working-with-net-core-api-and-angular-frontend'>Dealing With CORS (Cross Origin Resource Sharing)</a>"
                 },
-                ResourcesConclusion = "Since this is your first full-stack Angular project, make sure you look up everything you don’t know. Try not to let any keyword, method or concept left-behind. This is the moment to build your foundation. And don’t forget to reach out on our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> if you have questions!",
+                ResourcesConclusion = $"Since this is your first full-stack Angular project, make sure you look up everything you don’t know. Try not to let any keyword, method or concept left-behind. This is the moment to build your foundation. And don’t forget to reach out on our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if you have questions!",
                 Tips = new List<string>
                 {
                     "Your main objective is to call your API from the Angular App. Everything else is just moving data around and styling.",
@@ -148,7 +149,7 @@ internal static class AngularProjectsHelper
                     "<a target='_blank' href='https://material.angular.io/guide/getting-started'>Getting Started With Angular Material</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=jGbP620NahE'>Angular Material CRUD Tutorial</a>"
                 },
-                ResourcesConclusion = "Angular Material can be tricky at first, but trust us, you’ll learn to love it and once you master it, you will never look back. But as always, reach out in our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> if you get stuck!",
+                ResourcesConclusion = $"Angular Material can be tricky at first, but trust us, you’ll learn to love it and once you master it, you will never look back. But as always, reach out in our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if you get stuck!",
                 Tips = new List<string>
                 {
                     "When building your timer, I suggest you have a pause, play, stop and save buttons for better user experience.",

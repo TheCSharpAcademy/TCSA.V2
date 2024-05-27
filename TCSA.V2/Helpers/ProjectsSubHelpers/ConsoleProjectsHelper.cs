@@ -1,7 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
 using TCSA.V2.Models.LanguageModels;
-using TCSA.V2.Helpers.LinksHelper;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
@@ -58,7 +57,7 @@ public class ConsoleProjectsHelper
                     "Don't rush through the steps, even if this tutorial is easy for you. Make sure you understand EACH WORD of the code. Leave no stone unturned.",
                     "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google is your best friend. You'll find explanations about pretty much everything in forums like stackoveflow.com.",
                     "If this is your first project, I recommend doing it twice. You'll be surprised at how much your retention increases, and how many gaps were left in the first time.",
-                    $"Upon completion of your project, go to our <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> and brag about it! It's a very important step to complete a project and you should celebrate."
+                    "Upon completion of your project, go to our <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and brag about it! It's a very important step to complete a project and you should celebrate."
                 },
                 Challenges = new List<string>
                 {
@@ -324,7 +323,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = $"That’s where your actual code begins! You’re on your own for a while. If you get stuck, keep trying, <a href='article/6/getting-help' target='blank'>remember the steps to debug your app/get unstuck</a>. And if you ultimately can’t do it, reach out to our <a href='{LinkProvider.DiscordLink}'>Discord Community</a> or myself and we will help!"
+                                Body = "That’s where your actual code begins! You’re on your own for a while. If you get stuck, keep trying, <a href='article/6/getting-help' target='blank'>remember the steps to debug your app/get unstuck</a>. And if you ultimately can’t do it, reach out to our <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> or myself and we will help!"
                             },
                         }
                     },
@@ -397,7 +396,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Habit Tracker App with the same functionality you’ve created for this console app. There will be some challenges, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> and we will help!"
+                                Body = "If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Habit Tracker App with the same functionality you’ve created for this console app. There will be some challenges, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and we will help!"
                             }
                         }
                     },
@@ -490,7 +489,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Coding Tracker App with the same functionality you’ve created for this console app. There will be some challenges, especially if you want to create a timer, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> and we will help!"
+                                Body = "If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Coding Tracker App with the same functionality you’ve created for this console app. There will be some challenges, especially if you want to create a timer, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> and we will help!"
                             }
                         }
                     }
@@ -1019,7 +1018,7 @@ public class ConsoleProjectsHelper
                     "Overhaast de stappen niet, ook als deze tutorial makkelijk voor je. Zorg ervoor dat ke IEDER WOORD van de code begrijpt. Laat geen steen onberoerd.",
                     "Als je iets niet begrijpt, beweegt je de muis over de code en krijgt je uitleg over wat de term betekent. Als je het nog steeds niet begrijpt: Google is je beste vriend. Je vindt uitleg over vrijwel alles op forums zoals stackoverflow.com.",
                     "Als dit je eerste project is, raad ik aan om het twee keer te doen. Je zult verrast zijn hoeveel jouw retentie toeneemt en hoeveel hiaten er de eerste keer nog overbleven.",
-                    $"Ga na voltooiing van je project naar onze <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord-community</a> en schep erover op! Het is een zeer belangrijke stap om een project te voltooien en dat moet je vieren!"
+                    "Ga na voltooiing van je project naar onze <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord-community</a> en schep erover op! Het is een zeer belangrijke stap om een project te voltooien en dat moet je vieren!"
                 },
                 Challenges = new List<string>
                 {
@@ -1284,7 +1283,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = $"Dit is waar jouw daadwerkelijke code begint! Je bent een tijdje op jezelf aangewezen. Als je vastloopt, blijf het proberen, <a href='article/6/getting-help' target='blank'>onthoud de stappen om fouten in jouw app op te sporen/de blokkade op te lossen</a>. En als het je uiteindelijk niet lukt, neem dan contact op met onze <a href='{LinkProvider.DiscordLink}'>Discord Community</a> of met mezelf, dan helpen we je verder!"
+                                Body = "Dit is waar jouw daadwerkelijke code begint! Je bent een tijdje op jezelf aangewezen. Als je vastloopt, blijf het proberen, <a href='article/6/getting-help' target='blank'>onthoud de stappen om fouten in jouw app op te sporen/de blokkade op te lossen</a>. En als het je uiteindelijk niet lukt, neem dan contact op met onze <a href='https://discord.gg/JVnwYdM79C'>Discord Community</a> of met mezelf, dan helpen we je verder!"
                             },
                         }
                     },
@@ -1357,7 +1356,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Als je de <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>hele C# Foundation-cursus</a> hebt bekeken, heb je al een Math Game Desktop-app gemaakt met behulp van de geweldige .NET MAUI. Het is een goede oefening om een desktop Habit Tracker-app te bouwen met dezelfde functionaliteit die je voor deze console-app hebt gemaakt. Er zullen enkele uitdagingen zijn, maar je beschikt al over alle benodigde vaardigheden. En onthoud: als je vastloopt, neem dan contact op met onze <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord-community</a> en we zullen je helpen!"
+                                Body = "Als je de <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>hele C# Foundation-cursus</a> hebt bekeken, heb je al een Math Game Desktop-app gemaakt met behulp van de geweldige .NET MAUI. Het is een goede oefening om een desktop Habit Tracker-app te bouwen met dezelfde functionaliteit die je voor deze console-app hebt gemaakt. Er zullen enkele uitdagingen zijn, maar je beschikt al over alle benodigde vaardigheden. En onthoud: als je vastloopt, neem dan contact op met onze <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord-community</a> en we zullen je helpen!"
                             }
                         }
                     },
@@ -1450,7 +1449,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Als je de volledige <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'> C# Foundation course </a> hebt bekeken, dan heb je reeds de desktop versie van het Rekenspel gemaakt met .NET MAUI. Het is een goede oefening om deze Codeer Logger na te maken in MAUI. Er zullen wat uitdagingen zijn, zeker wanneer je een timer wil bouwen, maar je beschikt reeds alle kennis om dit tot een goed einde te brengen. En onthoud, wanneer je vast zit, je altijd kan rekenen op onze hulp via onze <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a>. Wij zullen altijd proberen je te helpen!"
+                                Body = "Als je de volledige <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'> C# Foundation course </a> hebt bekeken, dan heb je reeds de desktop versie van het Rekenspel gemaakt met .NET MAUI. Het is een goede oefening om deze Codeer Logger na te maken in MAUI. Er zullen wat uitdagingen zijn, zeker wanneer je een timer wil bouwen, maar je beschikt reeds alle kennis om dit tot een goed einde te brengen. En onthoud, wanneer je vast zit, je altijd kan rekenen op onze hulp via onze <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a>. Wij zullen altijd proberen je te helpen!"
                             }
                         }
                     }
@@ -1510,7 +1509,7 @@ public class ConsoleProjectsHelper
                     "혹시 이 튜토리얼이 쉽게 느껴지시더라도 하나하나 꼼꼼히 모든 단계를 밟아가며 프로젝트를 진행해주세요. 나오는 코딩 한 줄 한 줄 다 이해할 수 있도록 하고 다 하나하나 체크해보세요.",
                     "코딩하실 때 모르는 것이 있으면 마우스를 그 코딩에 갖다대보시면 코딩의 설명란이 뜹니다. 그래도 모르겠으시면 구글 검색을 해보세요. 웬만한 것은 스택오버플로우(stackoverflow) 같은 사이트에서 원하시는 설명을 찾을 수 있을 것입니다.",
                     "이제 처음으로 해 보는 프로젝트라면, 이 프로젝트를 다시 한 번 해보시는 것을 추천드립니다. 처음할 때는 잘 몰랐던 것을 2번째에는 잘 알 수 있고, 배운 내용을 정말 자신의 것으로 만들 수 있을 겁니다.",
-                    $"프로젝트를 완성하시면, 저희 <a target='_blank' href='{LinkProvider.DiscordLink}'>디스코드 커뮤니티</a>에 오셔서 자랑해보세요! 프로젝트를 완성 후에는 성취감을 나누며 함께 축하하는 자리를 갖는 것도 굉장히 중요합니다"
+                    "프로젝트를 완성하시면, 저희 <a target='_blank' href='https://discord.gg/JVnwYdM79C'>디스코드 커뮤니티</a>에 오셔서 자랑해보세요! 프로젝트를 완성 후에는 성취감을 나누며 함께 축하하는 자리를 갖는 것도 굉장히 중요합니다"
                 },
                 Challenges = new List<string>
                 {
@@ -1621,7 +1620,7 @@ public class ConsoleProjectsHelper
                     "Tome seu tempo com cada passo, mesmo que o tutorial seja fácil para você. Tenha certeza que você entende CADA PALAVRA do seu código. Não fique com nenhuma dúvida.",
                     "Se existe algo que você não está entendendo, coloque seu mouse sobre o código, você irá receber uma explicação sobre o que os termos significam. Se você ainda não está entendendo, google é o seu melhor amigo. Você irá encontrar explicações sobre praticamente qualquer coisa em em fórums e sites como o stackoverflow.com",
                     "Se esse é o seu primeiro projeto, eu recomendo desenvolver ele duas vezes. Você ficará surpreso com o aumento da sua  retenção e com quantos detalhes você deixou passar na primeira vez.",
-                    $"Após completar o projeto, vá para o nosso <a target='_blank' href='{LinkProvider.DiscordLink}'>communidade do discord</a> e fale sobre ele! Completar um projeto é um passo importante e você deve celebrar ele."
+                    "Após completar o projeto, vá para o nosso <a target='_blank' href='https://discord.gg/JVnwYdM79C'>communidade do discord</a> e fale sobre ele! Completar um projeto é um passo importante e você deve celebrar ele."
                 },
                 Challenges = new List<string>
                 {
@@ -1732,7 +1731,7 @@ public class ConsoleProjectsHelper
                     "Bu eğitim sizin için kolay olsa bile bitirmek için acele etmeyin. Kodun HER KELİMESİNİ anladığınızdan emin olun. Altına bakılmadık taş bırakmayın.",
                     "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoveflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
                     "Bu ilk projenizse, iki kez yapmanızı öneririm. Akılda kalma miktarının ne kadar arttığına ve ilk seferde ne kadar boşluk kaldığına şaşıracaksınız.",
-                    $"Projenizi tamamladıktan sonra <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord topluluğumuza</a> gidin ve projenizden övgüyle bahsedin! Bir projeyi tamamlamak çok önemli bir adımdır ve kutlamanız gerekir."
+                    "Projenizi tamamladıktan sonra <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord topluluğumuza</a> gidin ve projenizden övgüyle bahsedin! Bir projeyi tamamlamak çok önemli bir adımdır ve kutlamanız gerekir."
                 },
                 Challenges = new List<string>
                 {
@@ -1997,7 +1996,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = $"Burası gerçek kodlamanın başladığı yer! Bir süre kendi başınıza olacaksınız. Eğer takılırsanız, denemeye devam edin, <a href='article/6/getting-help' target='blank'>takıldığınızda nasıl hata ayıklaması yaptığınızı hatırlayın</a>. Yinede takıldığınız sorunu aşamazsanız  <a href='{LinkProvider.DiscordLink}'>Discord Topluluğumuz'a</a> yada bana ulaşırsanız yardımcı oluruz!"
+                                Body = "Burası gerçek kodlamanın başladığı yer! Bir süre kendi başınıza olacaksınız. Eğer takılırsanız, denemeye devam edin, <a href='article/6/getting-help' target='blank'>takıldığınızda nasıl hata ayıklaması yaptığınızı hatırlayın</a>. Yinede takıldığınız sorunu aşamazsanız  <a href='https://discord.gg/JVnwYdM79C'>Discord Topluluğumuz'a</a> yada bana ulaşırsanız yardımcı oluruz!"
                             },
                         }
                     },
@@ -2075,7 +2074,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Eğer <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>C# temelleri eğitimini</a> izlediyseniz, muhteşem .NET MAUI ile bir matematik oyunu uygulaması oluşturmuşsunuzdur. Yazdığınız alışkanlık takip uygulaması ile aynı özelliklere sahip bir masaüstü versiyonunu yapmak iyi bir alıştırma olacaktır. Bazı zorluklar olacaktır ancak artık bunları aşmak için gerekli becerilere sahipsiniz. Ve unutmayın, eğer bir yerde takılacak olursanız, yardım için bize <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord topluluğumuzdan</a> ulaşabilirsiniz!"
+                                Body = "Eğer <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>C# temelleri eğitimini</a> izlediyseniz, muhteşem .NET MAUI ile bir matematik oyunu uygulaması oluşturmuşsunuzdur. Yazdığınız alışkanlık takip uygulaması ile aynı özelliklere sahip bir masaüstü versiyonunu yapmak iyi bir alıştırma olacaktır. Bazı zorluklar olacaktır ancak artık bunları aşmak için gerekli becerilere sahipsiniz. Ve unutmayın, eğer bir yerde takılacak olursanız, yardım için bize <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord topluluğumuzdan</a> ulaşabilirsiniz!"
                             }
                         }
                     }
@@ -2135,7 +2134,7 @@ public class ConsoleProjectsHelper
                     "Не торопитесь выполнять шаги, даже если это руководство для вас простое. Убедитесь, что вы понимаете КАЖДОЕ СЛОВО кода. Не оставляйте камня на камне.",
                     "Если вы чего-то не понимаете, наведите курсор на код, и вы получите объяснение того, что означает этот термин. Если вы все еще не можете этого понять, Google - ваш лучший друг. Вы найдете объяснения практически обо всем на форумах, таких как stackoveflow.com.",
                     "Если это ваш первый проект, я рекомендую сделать это два раза. Вы будете удивлены тем, насколько увеличится ваше удержание и сколько пробелов было оставлено в первый раз.",
-                    $"По завершении вашего проекта зайдите в наше <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord канал</a> и похвастайтесь этим! Это очень важный шаг для завершения проекта, и вы должны отпраздновать."
+                    "По завершении вашего проекта зайдите в наше <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord канал</a> и похвастайтесь этим! Это очень важный шаг для завершения проекта, и вы должны отпраздновать."
                 },
                 Challenges = new List<string>
                 {
@@ -2400,7 +2399,7 @@ public class ConsoleProjectsHelper
                             },
                             new Paragraph
                             {
-                                Body = $"Вот где начинается ваш настоящий код! На какое-то время вы предоставлены сами себе. Если вы застряли, продолжайте пытаться, <a href='article/6/getting-help' target='blank'>запомните шаги по отладке вашего приложения / открепитесь</a>. И если вы в конечном итоге не сможете этого сделать, обратитесь к нашему <a href='{LinkProvider.DiscordLink}'>сообществу Discord</a> или ко мне, и мы поможем!"
+                                Body = "Вот где начинается ваш настоящий код! На какое-то время вы предоставлены сами себе. Если вы застряли, продолжайте пытаться, <a href='article/6/getting-help' target='blank'>запомните шаги по отладке вашего приложения / открепитесь</a>. И если вы в конечном итоге не сможете этого сделать, обратитесь к нашему <a href='https://discord.gg/JVnwYdM79C'>сообществу Discord</a> или ко мне, и мы поможем!"
                             },
                         }
                     },
@@ -2473,7 +2472,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Если вы просмотрели <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>весь курс C# Foundation</a>, вы уже создали настольное приложение для Math Game\t, используя удивительный .NET MAUI. Будет отличной практикой создать настольное приложение для отслеживания привычек с той же функциональностью, которую вы создали для этого консольного приложения. Возникнут некоторые трудности, но у вас уже есть все необходимые навыки. И помните, если вы застряли, свяжитесь с нашим <a  target='_blank' href='{LinkProvider.DiscordLink}'>сообществом Discord</a>, и мы поможем!"
+                                Body = "Если вы просмотрели <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>весь курс C# Foundation</a>, вы уже создали настольное приложение для Math Game\t, используя удивительный .NET MAUI. Будет отличной практикой создать настольное приложение для отслеживания привычек с той же функциональностью, которую вы создали для этого консольного приложения. Возникнут некоторые трудности, но у вас уже есть все необходимые навыки. И помните, если вы застряли, свяжитесь с нашим <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>сообществом Discord</a>, и мы поможем!"
                             }
                         }
                     },
@@ -2566,7 +2565,7 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Если вы просмотрели <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>весь курс C# Foundation</a>, вы уже создали настольное приложение для Math Game Desktop, используя удивительный .NET MAUI. Будет отличной практикой создать настольное приложение для отслеживания кодирования с той же функциональностью, которую вы создали для этого консольного приложения. Возникнут некоторые трудности, особенно если вы хотите создать таймер, но у вас уже есть все необходимые навыки. И помните, если вы застряли, свяжитесь с нашим <a target='_blank' href='{LinkProvider.DiscordLink}'>сообществом Discord</a>, и мы поможем!"
+                                Body = "Если вы просмотрели <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>весь курс C# Foundation</a>, вы уже создали настольное приложение для Math Game Desktop, используя удивительный .NET MAUI. Будет отличной практикой создать настольное приложение для отслеживания кодирования с той же функциональностью, которую вы создали для этого консольного приложения. Возникнут некоторые трудности, особенно если вы хотите создать таймер, но у вас уже есть все необходимые навыки. И помните, если вы застряли, свяжитесь с нашим <a target='_blank' href='https://discord.gg/JVnwYdM79C'>сообществом Discord</a>, и мы поможем!"
                             }
                         }
                     }

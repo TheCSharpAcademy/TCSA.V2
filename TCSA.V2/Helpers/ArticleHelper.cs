@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Helpers.LinksHelper;
 
 namespace TCSA.V2.Helpers;
 
@@ -81,7 +82,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "That being said, you will have all the support needed to go from beginner to advanced. You’ll never be alone. If you get lost or stuck during your journey, you’ll always find help in our <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a>. The things we can help you with are: a clear pathway, feedback on your journey, organization and community."
+                                Body = $"That being said, you will have all the support needed to go from beginner to advanced. You’ll never be alone. If you get lost or stuck during your journey, you’ll always find help in our <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a>. The things we can help you with are: a clear pathway, feedback on your journey, organization and community."
                             }
                         }
                     },
@@ -93,7 +94,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "Learning how to code, you’ll spend hour upon hour by yourself, in front of your computer, banging your head against the wall, solving problems. Chances are you’ll feel lonely and isolated at times. It makes a difference connecting with people that are going through the same. You’re not alone! We’re here to help. <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Join us on Discord</a> and if the link isn’t working add me and send me a personal message at <b><i><u>pablocappuccino#4729</u></i></b>. No message will be left unanswered."
+                                Body = $"Learning how to code, you’ll spend hour upon hour by yourself, in front of your computer, banging your head against the wall, solving problems. Chances are you’ll feel lonely and isolated at times. It makes a difference connecting with people that are going through the same. You’re not alone! We’re here to help. <a target='_blank' href='{LinkProvider.DiscordLink}'>Join us on Discord</a> and if the link isn’t working add me and send me a personal message at <b><i><u>pablocappuccino#4729</u></i></b>. No message will be left unanswered."
                             }
                         }
                     },
@@ -284,7 +285,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "Once you finish reading this page, <a target='_blank' href='https://discord.gg/JVnwYdM79C'>join us on Discord</a> and introduce yourself.  If the link doesn’t work, add me via my nickname: <b><i><u>pablocappuccino#4729</u></i></b>. You can use this website merely as a reference and to get project ideas here and there, or you can follow the roadmap. If you choose to follow the pathway, you can also choose to <a href='Identity/Account/Register' target='_blank'>register</a> so you can track your progress on our dashboard, participate in <a target='_blank' href='/leaderboard'>our Leaderboard</a> and get your code reviewed. By updating your profile with your LinkedIn and Github, the links will be available in the leaderboard for everyone to see, include potential recruiters."
+                                Body = $"Once you finish reading this page, <a target='_blank' href='{LinkProvider.DiscordLink}'>join us on Discord</a> and introduce yourself.  If the link doesn’t work, add me via my nickname: <b><i><u>pablocappuccino#4729</u></i></b>. You can use this website merely as a reference and to get project ideas here and there, or you can follow the roadmap. If you choose to follow the pathway, you can also choose to <a href='Identity/Account/Register' target='_blank'>register</a> so you can track your progress on our dashboard, participate in <a target='_blank' href='/leaderboard'>our Leaderboard</a> and get your code reviewed. By updating your profile with your LinkedIn and Github, the links will be available in the leaderboard for everyone to see, include potential recruiters."
                             },
                             new Paragraph
                             {
@@ -1154,7 +1155,7 @@ But I'll be surprised if you get to the end of this list and you don't have a jo
                         {
                             new Paragraph
                             {
-                                Body = "Log into Github and create a fork of our review repository. Each project in the academy has a different review repository .They can be found <a href='https://github.com/stars/TheCSharpAcademy/lists/code-reviews' target='_blank'>here</a>. If you can't find a repository for a project, let us know by reaching out via our <a  target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a>. "
+                                Body = $"Log into Github and create a fork of our review repository. Each project in the academy has a different review repository .They can be found <a href='https://github.com/stars/TheCSharpAcademy/lists/code-reviews' target='_blank'>here</a>. If you can't find a repository for a project, let us know by reaching out via our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a>. "
                             },
                             new Paragraph
                             {
@@ -1300,7 +1301,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "Dealing with source control can be cumbersome and there's a bit to learn. But it's a vital aspect of a developer's knowledge and it's important you get used to troubleshooting it, since you'll inevitably need it when working in any organization. Feel free to get help on our <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord community</a> if you get stuck."
+                                Body = $"Dealing with source control can be cumbersome and there's a bit to learn. But it's a vital aspect of a developer's knowledge and it's important you get used to troubleshooting it, since you'll inevitably need it when working in any organization. Feel free to get help on our <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if you get stuck."
                             }
                         }
                     },
@@ -1385,7 +1386,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "Click on 'View PR' on the project's card. On the new tab that will open, click on <b>assign yourself</b> on the <b>Assignees</b> area on the right side of the screen. If you're not able to click or see this option contact me on <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord</a> or via the e-mail <b>thecsharpacademy@gmail.com</b>"
+                                Body = $"Click on 'View PR' on the project's card. On the new tab that will open, click on <b>assign yourself</b> on the <b>Assignees</b> area on the right side of the screen. If you're not able to click or see this option contact me on <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord</a> or via the e-mail <b>thecsharpacademy@gmail.com</b>"
                             },
                             new Paragraph
                             {
@@ -1480,7 +1481,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "It will take a few iterations before getting used to the Code Review flow. Don't hesitate to ask questions on <a target='_blank' href='https://discord.gg/JVnwYdM79C'>Discord</a> via the #codeReview channel or reach out to me personally."
+                                Body = $"It will take a few iterations before getting used to the Code Review flow. Don't hesitate to ask questions on <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord</a> via the #codeReview channel or reach out to me personally."
                             }
                         }
                     },

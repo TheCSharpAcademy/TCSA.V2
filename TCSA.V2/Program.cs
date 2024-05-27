@@ -62,7 +62,7 @@ builder.Services.AddAuthentication(options =>
 
     })
     .AddIdentityCookies();
-LinkProvider.DiscordLink=builder.Configuration.GetConnectionString("DiscordLink") ?? throw new InvalidOperationException("Discord link not found.");
+LinkProvider.DiscordLink = builder.Configuration["LinkProvider:DiscordLink"];
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>

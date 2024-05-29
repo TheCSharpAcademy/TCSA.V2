@@ -56,7 +56,7 @@ internal static class AuthProjectsHelper
                     "<a target='blank' href='https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio'>Introduction to Identity</a>",
                     "<a target='blank' href='https://docs.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-6.0&tabs=visual-studio'>Scaffolding Identity into Existing App</a>",
                     "<a target='blank' href='https://learn.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line'>Logging in C# and .NET</a>",
-                    "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-api-authorization?view=aspnetcore-8.0'>.NET 8 Web API Identity (for React, Angular, etc.)</a>"
+                    "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-api-authorization'>.NET 8 Web API Identity (for React, Angular, etc.)</a>"
                 },
                 Tips = new List<string>
                 {

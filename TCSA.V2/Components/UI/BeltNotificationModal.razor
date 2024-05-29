@@ -1,26 +1,25 @@
-﻿
+﻿@using TCSA.V2.Data
+
+<!-- TODO: FIX CLOSE BUTTON, style modal, center modal on screen, center belt image on modal, apply a dark layer on rest of screen --> 
+
 <div class="modal @ModalDisplayClass" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Congratulations!</h5>
-                <button type="button" class="close" aria-label="Close" @onclick="CloseModal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="@BeltImageUrl" alt="Belt Image" class="img-fluid" />
-                <p>Congratulations, you got your @BeltColor belt!</p>
+    <div class="modal-dialog custom-modal" role="document">
+        <div class="modal-text-custom">
+            <h3 class="modal-title">Congratulations!</h3>
+            <h3 class="modal-title">You're now a @BeltColor Belt!</h3>
+        </div>
+            <div class="modal-body-custom">
+                <img src="@BeltImageUrl" alt="Belt Image" class="img-fluid belt-image" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+                <button type="button" class="btn btn-secondary modal-close-btn" @onclick="CloseModal">Close</button>
             </div>
-        </div>
+        
     </div>
 </div>
 
 @code {
-    [Parameter] public string BeltColor { get; set; }
+    [Parameter] public Level BeltColor { get; set; }
     [Parameter] public string BeltImageUrl { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
 
@@ -35,3 +34,49 @@
     }
 }
 
+<style>
+
+    * {
+        border: 1px solid red;
+    }
+
+    .custom-modal {
+        border: 1px solid black;
+        background-color: white;
+        max-width: 60%;
+        margin: 5rem auto;
+        border-radius: 10px;
+        z-index: 1040;
+    }
+
+    .modal-text-custom {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
+    }
+
+    .modal-title {
+        font-size: 2rem;
+        font-weight:bolder;
+        text-align: center;
+    }
+
+    .modal-body-custom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .belt-image {
+        margin: 1rem 0;
+        object-fit: cover;
+        max-width: 40%;
+        max-height: auto;
+    }
+
+    .modal-close-btn {
+        z-index: 1051;
+    }
+
+</style>

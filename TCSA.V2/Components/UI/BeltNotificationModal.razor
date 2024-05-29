@@ -1,0 +1,37 @@
+﻿
+<div class="modal @ModalDisplayClass" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Congratulations!</h5>
+                <button type="button" class="close" aria-label="Close" @onclick="CloseModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="@BeltImageUrl" alt="Belt Image" class="img-fluid" />
+                <p>Congratulations, you got your @BeltColor belt!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string BeltColor { get; set; }
+    [Parameter] public string BeltImageUrl { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private string ModalDisplayClass => ShowModal ? "show" : "";
+
+    [Parameter] public bool ShowModal { get; set; }
+
+    private void CloseModal()
+    {
+        ShowModal = false;
+        OnClose.InvokeAsync(null);
+    }
+}
+

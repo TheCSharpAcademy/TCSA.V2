@@ -37,7 +37,7 @@ internal static class ChallengeProjectsHelper
                     },
                      new Paragraph
                     {
-                        Body="Keep in mind code reviews might take a bit longer as a high volume of code reviews are expected. If this is your first time in the platform, please be aware <a target='blank' href='/Identity/Account/Register'>you need to be registered</a> (for free) to submit code reviews.  Let's get into it!"
+                        Body="Keep in mind code reviews might take a bit longer as a high volume of code reviews are expected. If this is your first time in the platform, please be aware <a target='blank' href='Account/Register'>you need to be registered</a> (for free) to submit code reviews.  Let's get into it!"
                     }
                 },
                 RequirementsIntro = "Welcome to Belgium! You've been contacted to create a management system for breweries and wholesalers. Below are listed the functional and technical requirements sent by your client",

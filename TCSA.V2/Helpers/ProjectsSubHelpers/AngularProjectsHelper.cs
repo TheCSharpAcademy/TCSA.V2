@@ -55,7 +55,7 @@ internal static class AngularProjectsHelper
 
                 Resources = new List<string>
                 {
-                    "<a target='_blank' href='https://angular.io/tutorial'>Angular Docs: Tour of Heroes Beginner’s Tutorial</a>"
+                    "<a target='_blank' href='https://v17.angular.io/tutorial/tour-of-heroes'>Angular Docs: Tour of Heroes Beginner’s Tutorial</a>"
                 },
                 ResourcesConclusion = "Since this is your first Angular project, we will keep it very simple. There won’t be any .NET or C# this time, you’ll focus on Angular only. And the documentation will provide everything you need for your first app.",
                 Tips = new List<string>
@@ -100,7 +100,7 @@ internal static class AngularProjectsHelper
                 Resources = new List<string>
                 {
                     "<a target='_blank' href='https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-6.0&tabs=visual-studio'>Microsoft Docs: Web Api</a>",
-                    "<a target='_blank' href='https://angular.io/tutorial'>Angular Docs: Tour of Heroes Beginner’s Tutorial</a>",
+                    "<a target='_blank' href='https://v17.angular.io/tutorial/tour-of-heroes'>Angular Docs: Tour of Heroes Beginner’s Tutorial</a>",
                     "<a target='_blank' href='https://www.itsolutionstuff.com/post/angular-12-crud-application-tutorial-exampleexample.html'>Angular CRUD Tutorial</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=S5dzfuh3t8U'>Angular + C# Web Api Youtube Tutorial</a>",
                     "<a target='_blank' href='https://stackoverflow.com/questions/65082452/cors-is-not-working-with-net-core-api-and-angular-frontend'>Dealing With CORS (Cross Origin Resource Sharing)</a>"

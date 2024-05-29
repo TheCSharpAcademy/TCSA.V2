@@ -5,6 +5,14 @@ using TCSA.V2.Models.LanguageModels;
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 internal static class StartApplyingProjectsHelper
 {
+    private static readonly IConfiguration Configuration;
+    private static readonly string DiscordLink;
+
+    static StartApplyingProjectsHelper()
+    {
+        Configuration = ServiceProviderAccessor.ServiceProvider.GetService<IConfiguration>();
+        DiscordLink = Configuration["LinkProvider:DiscordLink"];
+    }
     internal static List<Project> GetProjects()
     {
         return new List<Project>
@@ -67,7 +75,7 @@ internal static class StartApplyingProjectsHelper
                 Tips = new List<string>
                 {
                     "Keep it simple. The best portfolios are the ones with an impressive amount of quality projects, not fancy, flashy, empty ones. Your goal here is to build your portfolio fast and get back to work.",
-                    "Before publishing your portfolio, make sure it's reviewed by someone in the industry. If you post your work on our <a target='_blank' href='https://discord.gg/bMDgzAxg'>Discord community</a>, we'll be happy to help.",
+                    $"Before publishing your portfolio, make sure it's reviewed by someone in the industry. If you post your work on our <a target='_blank' href='{DiscordLink}'>Discord community</a>, we'll be happy to help.",
                     "Simple doesn't mean sloppy. Review it dozens of times so there are no misspellings, typos, broken links, non-matching colours, misaligned sections."
                 }
             },

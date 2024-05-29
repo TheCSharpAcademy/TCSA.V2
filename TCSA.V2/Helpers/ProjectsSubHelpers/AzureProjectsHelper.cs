@@ -95,7 +95,7 @@ internal static class AzureProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="Now that we know how to get around in Azure and <a href='project/48' target='_blank'>deploy a static website</a>, it's time to take a step further and learn how to deploy a full-stack .NET solution, including creating an SQL Server in Azure."
+                        Body="Now that we know how to get around in Azure and <a href='project/47/deploying-simple-app' target='_blank'>deploy a static website</a>, it's time to take a step further and learn how to deploy a full-stack .NET solution, including creating an SQL Server in Azure."
                     },
                     new Paragraph
                     {
@@ -104,7 +104,7 @@ internal static class AzureProjectsHelper
                 },
                 Requirements = new List<string>
                 {
-                    "You'll have to deploy the <a href='project/25' target = '_blank'>Movies App</a> To Azure",
+                    "You'll have to deploy the <a href='project/25/movies' target = '_blank'>Movies App</a> To Azure",
                     "You'll have to create an SQL server in azure",
                     "You'll have to make sure that the controller of the Azure app is calling the SQL server in Azure."
                 },

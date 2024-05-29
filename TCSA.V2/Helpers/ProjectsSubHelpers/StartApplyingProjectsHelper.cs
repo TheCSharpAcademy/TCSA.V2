@@ -60,14 +60,14 @@ internal static class StartApplyingProjectsHelper
                 ResourcesIntro = "Here are a few resources that might be helpful.",
                 Resources = new List<string>
                 {
-                    "<a target='_blank' href='https://tamuk.quickstart.com/blog/10-full-stack-web-developer-portfolio-to-inspire-you/'>10 Full Stack Web Developer Portfolio to Inspire You</a>",
-                    "<a target='_blank' href='https://medium.com/@traversymedia/10-web-developer-portfolio-tips-384491d408a8'>10 Web Developer Portfolio Tips</a>",
+                    "<a target='_blank' href='https://www.hostinger.com/tutorials/web-developer-portfolio'>25 Web Developer Portfolio Examples to Take Inspiration From</a>",
+                    "<a target='_blank' href='https://scrimba.com/articles/web-developer-portfolio-inspiration/'>30 inspiring web developer portfolio examples you have never seen before</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=X6PwyH0thU0'>Portfolio So Good I Hired Him (Youtube)</a>"
                 },
                 Tips = new List<string>
                 {
                     "Keep it simple. The best portfolios are the ones with an impressive amount of quality projects, not fancy, flashy, empty ones. Your goal here is to build your portfolio fast and get back to work.",
-                    "Before publishing your portfolio, make sure it's reviewed by someone in the industry. If you post your work on our <a target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a>, we'll be happy to help.",
+                    "Before publishing your portfolio, make sure it's reviewed by someone in the industry. If you post your work on our <a target='_blank' href='https://discord.gg/bMDgzAxg'>Discord community</a>, we'll be happy to help.",
                     "Simple doesn't mean sloppy. Review it dozens of times so there are no misspellings, typos, broken links, non-matching colours, misaligned sections."
                 }
             },

@@ -6,6 +6,15 @@ namespace TCSA.V2.Helpers.ProjectsSubHelpers;
 
 internal static class StandAloneProjectsHelper
 {
+    private static readonly IConfiguration Configuration;
+    private static readonly string DiscordLink;
+
+    static StandAloneProjectsHelper()
+    {
+        Configuration = ServiceProviderAccessor.ServiceProvider.GetService<IConfiguration>();
+        DiscordLink = Configuration["LinkProvider:DiscordLink"];
+    }
+
     internal static List<Project> GetProjects()
     {
         return new List<Project>
@@ -36,7 +45,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"You need to complete FreeCodeCamp's<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
-                    @"Upon completion you need to submit a screenshot of your certificate either via <a target='blank' href='https://discord.com/invite/aDMDET8ywB'> our Discord Server (Code Reviews Channel)</a> or <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via E-mail</a>, along with the username/email you use to log into the academy."
+                    @$"Upon completion you need to submit a screenshot of your certificate either via <a target='blank' href='{DiscordLink}'> our Discord Server (Code Reviews Channel)</a> or <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via E-mail</a>, along with the username/email you use to log into the academy."
                 },
                 Tips = new List<string>
                 {
@@ -195,7 +204,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"Você precisa completar o curso no Free Code Camp <a target='blank' href='https://www.freecodecamp.org/portuguese/learn/foundational-c-sharp-with-microsoft/'>Fundamentos de C# com a Microsoft</a> com certificação",
-                    @"Após completar a certificação você precisará enviar uma captura de tela do seu certificado via <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> nosso servidor do discord (Code Reviews Channel)</a> ou <a target='blank' href='mailto:thecsharpacademy@gmail.com'>por E-mail"
+                    @$"Após completar a certificação você precisará enviar uma captura de tela do seu certificado via <a target='blank' href='{DiscordLink}'> nosso servidor do discord (Code Reviews Channel)</a> ou <a target='blank' href='mailto:thecsharpacademy@gmail.com'>por E-mail"
                 },
                 Tips = new List<string>
                 {
@@ -242,7 +251,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"Je moet de <a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a>-certificering van FreeCodeCamp voltooien",
-                    @"Na voltooiing moet je een screenshot van jouw certificaat indienen via <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> onze Discord Server (Code Reviews Channel)</a> of <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via e-mail</a>, samen met de gebruikersnaam/e-mailadres die je gebruikt om in te loggen op de academie."
+                    $@"Na voltooiing moet je een screenshot van jouw certificaat indienen via <a target='blank' href='{DiscordLink}'> onze Discord Server (Code Reviews Channel)</a> of <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via e-mail</a>, samen met de gebruikersnaam/e-mailadres die je gebruikt om in te loggen op de academie."
                 },
                 Tips = new List<string>
                 {
@@ -289,7 +298,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"Potrebno je položiti FreeCodeCamp obrazovni program<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a>",
-                    @"Nakon završetka potrebno je dostaviti screenshot certifikata putem <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> našeg Discord Servera (Code Reviews kanal)</a> ili <a target='blank' href='mailto:thecsharpacademy@gmail.com'>poslati E-mail</a>, te navesti username/email koji koristite za prijavu na stranicu C# akademije."
+                    $@"Nakon završetka potrebno je dostaviti screenshot certifikata putem <a target='blank' href='{DiscordLink}'> našeg Discord Servera (Code Reviews kanal)</a> ili <a target='blank' href='mailto:thecsharpacademy@gmail.com'>poslati E-mail</a>, te navesti username/email koji koristite za prijavu na stranicu C# akademije."
                 },
                 Tips = new List<string>
                 {
@@ -337,7 +346,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"Free Code Camp'ta bulunan<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'>Microsoft ile temel C#</a> sertifikasyonunu tamamlamanız gerekmektedir.",
-                    @"Programı tamamladığınızda sertifikanızın ekran görüntüsünü <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Discord sunucumuz (Code Reviews kanalı))</a> yada <a target='blank' href='mailto:thecsharpacademy@gmail.com'> E-posta </a> yolu ile göndermeniz gerekmektedir."
+                    $@"Programı tamamladığınızda sertifikanızın ekran görüntüsünü <a target='blank' href='{DiscordLink}'> Discord sunucumuz (Code Reviews kanalı))</a> yada <a target='blank' href='mailto:thecsharpacademy@gmail.com'> E-posta </a> yolu ile göndermeniz gerekmektedir."
                 },
                 Tips = new List<string>
                 {
@@ -430,7 +439,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"Вам необходимо пройти сертификацию FreeCodeCamp<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Базовый C# с Microsoft",
-                    @"После завершения вам необходимо отправить скриншот вашего сертификата либо через <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> наш сервер Discord (канал проверки кода)</a>, либо <a target='blank' href='mailto:thecsharpacademy@gmail.com'>по электронной почте</a>, вместе с именем пользователя/электронной почтой, которые вы используете для входа в академию."
+                    $@"После завершения вам необходимо отправить скриншот вашего сертификата либо через <a target='blank' href='{DiscordLink}'> наш сервер Discord (канал проверки кода)</a>, либо <a target='blank' href='mailto:thecsharpacademy@gmail.com'>по электронной почте</a>, вместе с именем пользователя/электронной почтой, которые вы используете для входа в академию."
                 },
                 Tips = new List<string>
                 {
@@ -476,7 +485,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"你需要完成FreeCodeCamp的<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> 基礎 C# 並獲得 Microsoft 認證</a>",
-                    @"完成後，請你通過<a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'>我們的 Discord 伺服器（程式碼檢查頻道）</a>或<a target='blank' href='mailto:thecsharpacademy@gmail.com'>電子郵件</a>提交你證書的螢幕截圖，並附上你在學院登錄時使用的用戶名/電子郵件。"
+                    $@"完成後，請你通過<a target='blank' href='{DiscordLink}'>我們的 Discord 伺服器（程式碼檢查頻道）</a>或<a target='blank' href='mailto:thecsharpacademy@gmail.com'>電子郵件</a>提交你證書的螢幕截圖，並附上你在學院登錄時使用的用戶名/電子郵件。"
                 },
                 Tips = new List<string>
                 {
@@ -523,7 +532,7 @@ internal static class StandAloneProjectsHelper
                 Requirements = new List<string>
                 {
                     @"Musisz ukończyć certyfikację <a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Podstawy C# z Microsoftem</a>oferowaną przez Free Code Camp. ",
-                    @"Po ukończeniu, przyślij zrzut ekranu twojego certyfikatu poprzez nasz <a target='blank' href='https://www.cfreecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> serwer Discord (kanał Code Reviews) </a> lub poprzez <a target='blank' href='mailto:thecsharpacademy@gmail.com'>e-mail.</a>, wraz z twoją nazwą użytkownika/ mailem którym logujesz się do Akademii. "
+                    $@"Po ukończeniu, przyślij zrzut ekranu twojego certyfikatu poprzez nasz <a target='blank' href='{DiscordLink}'> serwer Discord (kanał Code Reviews) </a> lub poprzez <a target='blank' href='mailto:thecsharpacademy@gmail.com'>e-mail.</a>, wraz z twoją nazwą użytkownika/ mailem którym logujesz się do Akademii. "
                 },
                 Tips = new List<string>
                 {

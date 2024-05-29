@@ -1,10 +1,19 @@
 ﻿using TCSA.V2.Models;
 using TCSA.V2.Models.LanguageModels;
-using TCSA.V2.Helpers.LinksHelper;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
+
 internal static class MVCProjectsHelper
 {
+    private static readonly IConfiguration Configuration;
+    private static readonly string DiscordLink;
+
+    static MVCProjectsHelper()
+    {
+        Configuration = ServiceProviderAccessor.ServiceProvider.GetService<IConfiguration>();
+        DiscordLink = Configuration["LinkProvider:DiscordLink"];
+    }
+
     internal static List<Project> GetProjects()
     {
         return new List<Project>
@@ -122,7 +131,7 @@ internal static class MVCProjectsHelper
                     "<a href='https://stackoverflow.com/questions/48121928/asp-net-core-razor-pages-vs-full-mvc-core'>Stack Overflow: MVC vs Razor Pages</a>",
                      "<a href='https://www.guru99.com/mvc-vs-mvvm.html'>MVC vs MVVM Article</a>"
                 },
-                ResourcesConclusion = $"Notice that there’s a lot of talk about Razor Pages, MVVM, MVC. Those topics can be confusing. Give these texts a good read and reach out on our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if it doesn’t make sense. And remember, Google is your best friend! 😁",
+                ResourcesConclusion = $"Notice that there’s a lot of talk about Razor Pages, MVVM, MVC. Those topics can be confusing. Give these texts a good read and reach out on our <a  target='_blank' href='{DiscordLink}'>Discord community</a> if it doesn’t make sense. And remember, Google is your best friend! 😁",
                 Tips = new List<string>
                 {
                     "In the Microsoft Docs MVC Tutorial, the first three chapters contain a simple controller with a view, for basic understanding of .NET MVC. Don't skip that part. But the actual Movie App code starts on Part 4.",

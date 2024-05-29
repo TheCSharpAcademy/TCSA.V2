@@ -1,7 +1,10 @@
-﻿@using TCSA.V2.Components.UI
+﻿@using Microsoft.Extensions.Options
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Helpers
 @implements IDisposable
 @inject NavigationManager NavigationManager
+@inject IOptions<LinkProviderOptions> LinkProviderOptions
 
 <nav class="top-menu navbar navbar-expand-lg shadow fixed-top">
     <div class="container container-nav text-end">
@@ -133,7 +136,7 @@
                 </li>
 
                 <li class="nav-item text-start">
-                    <a class="nav-link" target="_blank" href="{LinkProvider.DiscordLink}">
+                    <a class="nav-link" target="_blank" href="@LinkProviderOptions.Value.DiscordLink">
                         <DiscordSVG />
                     </a>
                 </li>

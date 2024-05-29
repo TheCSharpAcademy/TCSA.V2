@@ -1,10 +1,19 @@
 ﻿using TCSA.V2.Models;
 using TCSA.V2.Models.LanguageModels;
-using TCSA.V2.Helpers.LinksHelper;
 
 namespace TCSA.V2.Helpers.ProjectsSubHelpers;
+
 internal static class BlazorProjectsHelper
 {
+    private static readonly IConfiguration Configuration;
+    private static readonly string DiscordLink;
+
+    static BlazorProjectsHelper()
+    {
+        Configuration = ServiceProviderAccessor.ServiceProvider.GetService<IConfiguration>();
+        DiscordLink = Configuration["LinkProvider:DiscordLink"];
+    }
+
     internal static List<Project> GetProjects()
     {
         return new List<Project>
@@ -50,7 +59,7 @@ internal static class BlazorProjectsHelper
                     "<a target='_blank' href='https://www.c-sharpcorner.com/article/blazor-what-it-is-why-should-we-use-it/'>Why use Blazor?</a>",
                     "<a target='_blank' href='https://www.c-sharpcorner.com/blogs/create-a-net-6-app-on-blazor-wasm-for-crud-operations-with-ef-core'>Blazor CRUD Tutorial</a>"
                 },
-                ResourcesConclusion = $"Since this is your first Blazor  project, I recommend you first complete the Blazor Todo App from Microsoft Learn. It’s a very simple project that will give you a basic understanding of how Blazor works. And don’t forget to reach out on our <a  target='_blank' href='{LinkProvider.DiscordLink}'>Discord community</a> if you have questions!",
+                ResourcesConclusion = $"Since this is your first Blazor  project, I recommend you first complete the Blazor Todo App from Microsoft Learn. It’s a very simple project that will give you a basic understanding of how Blazor works. And don’t forget to reach out on our <a  target='_blank' href='{DiscordLink}'>Discord community</a> if you have questions!",
                 Tips = new List<string>
                 {
                     "You only need a single project. Contrary to using Angular and React, you don't need to create two separate projects, since the front-end end and the back-end will be covered by Blazor.",

@@ -14,6 +14,11 @@
 <div class="pt-lg-5 mt-lg-2">
     @if (User != null)
     {
+        @if (ShowBeltNotification)
+        {
+            <BeltNotificationModal BeltColor="@User.Level" BeltImageUrl="@($"/img/Belts/{User.Level}-belt.png")" ShowModal="true" OnClose="HandleModalClose" />
+        }
+
         if (User.DashboardProjects != null && User.DashboardProjects.Any(x => x.IsPendingNotification))
         {
             foreach (var project in CompletedPendingNotificationProjects)
@@ -84,6 +89,7 @@
     private string UserId;
     private bool AlumniComplete = false;
     private bool IsLoading = false;
+    private bool ShowBeltNotification = false;
 
     private int Ranking;
 
@@ -118,6 +124,8 @@
         var areaIconUrls = new List<string> { "" };
 
         Ranking = await LeaderboardService.GetUserRanking(UserId);
+
+        ShowBeltNotification = User?.HasPendingBeltNotification ?? false;
 
         Areas.Add(new DashboardAreaInfo
             {
@@ -356,6 +364,12 @@
         {
             return CompletedPendingNotificationIssues.FirstOrDefault(x => x.Key == projectId).Value;
         }
+    }
+
+    private async void HandleModalClose()
+    {
+        ShowBeltNotification = false;
+        await UserService.DismissBeltNotification(User.Id);
     }
 }
 

@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body text-center">
                 <h3 class="modal-title">Congratulations!</h3>
-                <h3 class="modal-title">You're now a @BeltColor Belt!</h3>
+                <h3 class="modal-title">You're now @(GetArticle(BeltColor)) @BeltColor Belt!</h3>
                 <img src="@BeltImageUrl" alt="Belt Image" class="img-fluid belt-image" />
             </div>
             <div class="modal-footer">
@@ -35,6 +35,12 @@
     {
         ShowModal = false;
         OnClose.InvokeAsync(null);
+    }
+
+    private string GetArticle(Level beltColor)
+    {
+        string color = beltColor.ToString().ToLower();
+        return "aeiou".Contains(color[0]) ? "an" : "a";
     }
 }
 

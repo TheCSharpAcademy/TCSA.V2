@@ -15,8 +15,8 @@ public interface IAdminService
     Task RequestChanges(int id);
     Task DeleteFromDashboard(int id);
     Task ArchiveProject(int id);
-
 }
+
 public class AdminService : IAdminService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
@@ -122,7 +122,14 @@ public class AdminService : IAdminService
                     {
                         var reviewer = context.Users.SingleOrDefault(x => x.Id == reviewerId);
 
-                        prp.Reviewer = $"{reviewer.FirstName} {reviewer.LastName}";
+                        if (string.IsNullOrEmpty(reviewer.FirstName) && string.IsNullOrEmpty(reviewer.LastName))
+                        {
+                            prp.Reviewer = reviewer.DiscordAlias;
+                        }
+                        else
+                        {
+                            prp.Reviewer = $"{reviewer.FirstName} {reviewer.LastName}";
+                        }
                     }
                     catch (Exception ex)
                     {

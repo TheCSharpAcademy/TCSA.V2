@@ -430,7 +430,7 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="This app should be very similar to the <a href='article/12/habit-logger' target='blank'>Habit Tracker</a> you’ve previously completed. It will serve the purpose of reinforcing what you’ve learned with a bit of repetition and building on that knowledge with slightly more challenging requirements. "
+                        Body="This app should be very similar to the <a href='project/12/habit-logger' target='blank'>Habit Logger</a> you’ve previously completed. It will serve the purpose of reinforcing what you’ve learned with a bit of repetition and building on that knowledge with slightly more challenging requirements. "
                     },
                     new Paragraph
                     {
@@ -458,10 +458,10 @@ public class ConsoleProjectsHelper
                 {
                     "<a target='_blank' href='https://spectreconsole.net/'>Spectre Console</a> documentation</a>.",
                     "<a target='_blank' href='https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/store-custom-information-config-file'>Using Configuration Manager</a>",
-                    "<a target='_blank' href='https://stackoverflow.com/questions/3719/how-to-validate-a-datetime-in-c'>Parsing DateTime in C#</a>",
+                    "<a target='_blank' href='https://medium.com/@Has_San/datetime-in-c-1aef47db4feb'>Parsing DateTime in C#</a>",
                     "<a target='_blank' href='https://www.learndapper.com/'>Dapper Tutorial</a>.",
                 },
-                ResourcesIntro = "If you have learned the basics of C# following the <a href='article/8/foundations' target='blank'>C# Foundations</a> article, and completed the <a href='article/12/habit-logger' target='blank'>Habit Tracker</a> project, you should know all the basic techniques needed to complete this project. Here’s a list of extra resources you might need:",
+                ResourcesIntro = "If you have learned the basics of C# following the <a href='article/8/foundations' target='blank'>C# Foundations</a> article, and completed the <a href='project/12/habit-logger' target='blank'>Habit Logger</a> project, you should know all the basic techniques needed to complete this project. Here’s a list of extra resources you might need:",
                 Tips = new List<string>
                 {
                     "It's up to you the order in which you'll build, but we recommend you do it in this order: configuration file, model, database/table creation, CRUD controller (where the operations will happen), TableVisualisationEngine (where the consoleTableExt code will be run) and finally: validation of data.",
@@ -729,7 +729,7 @@ public class ConsoleProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="In the <a href='project/15' target='blank'>Drinks Info App</a> we have created a program that consumed an external API. This time we will track a worker’s “shifts”. We’ll create an API and the console app that will consume it. When using Microsoft’s Documentation, often times you’ll come across Web APIs being developed with Entity Framework, which acts as layer between the “endpoints” and the actual database. "
+                        Body="In the <a href='project/15/drinks' target='blank'>Drinks Info App</a> we have created a program that consumed an external API. This time we will track a worker’s “shifts”. We’ll create an API and the console app that will consume it. When using Microsoft’s Documentation, often times you’ll come across Web APIs being developed with Entity Framework, which acts as layer between the “endpoints” and the actual database. "
                     },
                     new Paragraph
                     {
@@ -962,7 +962,7 @@ public class ConsoleProjectsHelper
                 ResourcesIntro = "Here are a few resources that might be helpful.",
                 Resources = new List<string>
                 {
-                    "<a href='https://fortegrp.com/the-importance-of-unit-testing/'>The Importance of Unit Testing</a>",
+                    "<a href='https://www.accelq.com/blog/unit-testing/'>The Importance of Unit Testing</a>",
                     "<a href='https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest'>MSTest Docs</a>",
                     "<a href='https://www.youtube.com/watch?v=HYrXogLj7vg'>Unit Testing C# Code on Youtube</a>"
                 },

@@ -131,6 +131,7 @@ public class UserService : IUserService
                 .Include(x => x.DashboardProjects)
                 .Include(x => x.CodeReviewProjects)
                 .Include(x => x.Issues)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
             }
         }

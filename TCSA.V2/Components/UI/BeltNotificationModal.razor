@@ -1,0 +1,79 @@
+﻿@using TCSA.V2.Data
+
+<div class="modal fade @ModalDisplayClass" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" @onclick="CloseModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h3 class="modal-title">Congratulations!</h3>
+                <h3 class="modal-title">You're now @(GetArticle(BeltColor)) @BeltColor Belt!</h3>
+                <img src="@BeltImageUrl" alt="Belt Image" class="img-fluid belt-image" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade show"></div>
+
+
+@code {
+    [Parameter] public Level BeltColor { get; set; }
+    [Parameter] public string BeltImageUrl { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private string ModalDisplayClass => ShowModal ? "show" : "";
+
+    [Parameter] public bool ShowModal { get; set; }
+
+    private void CloseModal()
+    {
+        ShowModal = false;
+        OnClose.InvokeAsync(null);
+    }
+
+    private string GetArticle(Level beltColor)
+    {
+        string color = beltColor.ToString().ToLower();
+        return "aeiou".Contains(color[0]) ? "an" : "a";
+    }
+}
+
+<style>
+
+    .modal-content {
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0.5rem;
+    }
+
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-title {
+        font-weight: bolder;
+        font-size: 2rem;
+    }
+
+    .close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+    }
+</style>

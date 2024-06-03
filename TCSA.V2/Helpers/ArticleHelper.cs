@@ -69,7 +69,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "It’s great to have the opportunity to help you in your journey. I hope The C# Academy will give you some direction! I’m a self-taught software developer and got my first job in my thirties, after years of relentless, daily, coding practice. Many times I felt lost. I can't complain about the amount of resources available on the internet, but it was very difficult to connect the dots. I felt hopeless many times and second-guessed myself whenever I got stuck. Hence the desire to create this resource to help others who are going through the same. If you want to know more about my journey, please read <a target='_blank' href='https://www.reddit.com/r/learnprogramming/comments/o7jq75/at_39_i_just_got_an_offer_for_my_first_software/'>this Reddit post.</a>"
+                                Body = "It’s great to have the opportunity to help you in your journey. I hope The C# Academy will give you some direction! I’m a self-taught software developer and got my first job in my thirties, after years of relentless, daily, coding practice. Many times I felt lost. I can't complain about the amount of resources available on the internet, but it was very difficult to connect the dots. I often felt hopeless and second-guessed myself whenever I got stuck. Hence the desire to create this resource to help others who are going through the same. If you want to know more about my journey, please read <a target='_blank' href='https://www.reddit.com/r/learnprogramming/comments/o7jq75/at_39_i_just_got_an_offer_for_my_first_software/'>this Reddit post.</a>"
                             }
                         }
                     },
@@ -81,11 +81,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "<b><i><u>We won’t teach you how to code</u></i></b>. We’ll teach you how to teach yourself and nudge you in the right direction. You have to do it yourself if you want to have any chance of succeeding in a real job. Even if you pay us a lot of money to be your full-time code teacher, if you don’t learn how to learn on your own you don’t have a chance in this industry."
+                                Body = "<b><i><u>We won’t teach you how to code</u></i></b>. We’ll teach you how to teach yourself and nudge you in the right direction. You have to do it yourself if you want to have any chance of succeeding in a real job. Even if you hired us to be your full-time code teacher, if you don’t learn how to learn on your own you don’t have a chance in this industry."
                             },
                             new Paragraph
                             {
-                                Body = $"That being said, you will have all the support needed to go from beginner to advanced. You’ll never be alone. If you get lost or stuck during your journey, you’ll always find help in our <a target='_blank' href='{discordLink}'>Discord community</a>. The things we can help you with are: a clear pathway, feedback on your journey, organization and community."
+                                Body = $"That being said, you will have all the support needed to go from beginner to advanced. You’ll never be alone. If you get lost or stuck during your journey, you’ll always find help in our <a target='_blank' href='{discordLink}'>Discord community</a>. Here's what we can help you with: a clear pathway, feedback on your journey and community."
                             }
                         }
                     },
@@ -97,7 +97,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Learning how to code, you’ll spend hour upon hour by yourself, in front of your computer, banging your head against the wall, solving problems. Chances are you’ll feel lonely and isolated at times. It makes a difference connecting with people that are going through the same. You’re not alone! We’re here to help. <a target='_blank' href='{discordLink}'>Join us on Discord</a> and if the link isn’t working add me and send me a personal message at <b><i><u>pablocappuccino#4729</u></i></b>. No message will be left unanswered."
+                                Body = $"Have you ever heard that it takes ten thousand hours to achieve mastery? That applies to programming too. During your journey you’ll spend countless hours by yourself in front of your computer, banging your head against the wall, solving problems and creating beautiful applications. Chances are you’ll feel lonely and isolated at times. It makes a difference connecting with people that are going through the same. You’re not alone! We’re here to help. <a target='_blank' href='{discordLink}'>Join us on Discord</a> and if the link isn’t working add me and send me a personal message at <b><i><u>pablocappuccino#4729</u></i></b>. No message will be left unanswered."
                             }
                         }
                     },
@@ -113,11 +113,11 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "At the C# Academy you can find a roadmap with all the steps necessary to become a full stack web developer. It’s not necessarily linear and the lines between the stages are blurry. You’ll be constantly revisiting the previous items on the checklist, at any given time during your progress. <a target='_blank' href='dashboard/roadmap' target='blank'>Here's the roadmap</a> (you need to be logged in to see it)."
+                                Body = "At the C# Academy you can find a roadmap with all the steps necessary to become a full stack web developer. Your progress won't be linear. There will be ups and downs and ultimately you'll learn from many sources. You’ll be constantly revisiting the previous items on the program, and close knowledge gaps. We suggest a structure but you can tailor your own experience in the academy. <a target='_blank' href='dashboard/roadmap' target='blank'>Here's the roadmap</a> (you need to be logged in to see it)."
                             },
                             new Paragraph
                             {
-                                Body = "You can also tweak it and lay it out as you wish, but whatever you do, I recommend you have a list of clear steps easily accessible and if possible memorized."
+                                Body = "You can also tweak it and lay it out as you wish, but whatever you do, we recommend you have a list of clear steps easily accessible and if possible memorized. Without that, your journey might be derailed. There's a risk you'll jump from tutorial to tutorial, always starting the new exciting thing, while those who persist are getting the jobs."
                             }
                         }
                     },
@@ -153,15 +153,15 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "<b><i><u>Get a good machine</u></i></b>. I started with a 2014 Dell. I quickly realised I needed something better and bought a 128GB 2019 Mac. About a year later I realised having Windows made things way easier for .Net development and I bought a 500GB 2020 Mac to have more space for a virtual machine. Two years later a bought a powerful HP/Windows machine so I could use the full potential of Microsoft’s tools for .NET developers.  I’m not rich, I just worked hard and saved the money to buy it. It’s part of my “I’ll do whatever it takes” mentality."
+                                Body = "<b><i><u>Get a good machine</u></i></b>. I started with a 2014 Dell. I quickly realised I needed something better and bought a 128GB 2019 Mac. About a year later I realised having Windows made things way easier for .Net development and I bought a 500GB 2020 Mac to have more space for a virtual machine. Two years later a bought a powerful HP/Windows machine so I could use the full potential of Microsoft’s tools for .NET developers.  I’m definitely not rich, but I wanted to learn to code so badly that I just worked hard and saved the money to buy it. It’s part of the “I’ll do whatever it takes” mentality."
                             },
                             new Paragraph
                             {
-                                Body = "A slow machine can be a nightmare. You can absolutely achieve your goal with a bad computer, but again, your life will be much easier if you get the latest computer. Or something close, second hand. You DON’T NEED Windows to become a .NET developer. <b>Having a Windows machine does make things easier</b> at first, but not only it’s not necessary, but using a different operating system will also teach you important skills such as using the command line and troubleshooting the .NET environment, which will ultimately make you a better developer. "
+                                Body = "A slow machine can be a nightmare. You can absolutely achieve your goal with a bad computer, but again, your life will be much easier if you get the latest computer. Or maybe second hand, but with enough power to run at least a code editor and a database server. You DON’T NEED Windows to become a .NET developer. <b>Having a Windows machine does make things easier</b> at first, but not only it’s not necessary, but using a different operating system will also teach you important skills such as using the command line and troubleshooting the .NET environment, which will ultimately make you a better developer. "
                             },
                             new Paragraph
                             {
-                                Body = "Also, I highly recommend getting an extra screen. It doesn’t need to be fancy. You just need to be able to connect it to your computer. Watching a tutorial having to close your video every time you need to code will waste a ton of your time. Here’s a picture of my setup when I started. I got this screen from a friend that didn’t use it anymore. Please get one for yourself, it can be second hand, it just needs to work. If it’s a large screen, even better."
+                                Body = "Also, I highly recommend getting an extra screen. It doesn’t need to be fancy. You just need to be able to connect it to your computer. Watching a tutorial having to close your video every time you need to code will waste a lot of your precious time. Here’s a picture of my setup when I started. I got this screen from a friend that didn’t use it anymore. Please get one for yourself, it can be second hand, it just needs to work. If it’s a large screen, even better."
                             },
                             new Paragraph
                             {
@@ -178,15 +178,15 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "<b><i><u>You have to carve out time in your life if you want to learn how to code</u></i></b>. I admit it was easier for me because I worked from 11am so I would just wake up at 4am every day and code as much as I could."
+                                Body = "<b><i><u>You have to carve out time in your life if you want to learn programming</u></i></b>. I admit it was easier for me because I worked from 11am so I would just woke up at 4am every day and code as much as I could."
                             },
                             new Paragraph
                             {
-                                Body = "If you can do it first thing in the morning, it will be better. If you can’t, do it as soon as you can. If you leave it to bed time, while not impossible, it will be really hard to focus and retain new knowledge."
+                                Body = "If you can do it first thing in the morning, it will be better. If you can’t, do it as soon as you get home from work. If you leave it to bed time, while not impossible, it will be really hard to focus and retain new knowledge."
                             },
                             new Paragraph
                             {
-                                Body = "<b><i><u>You will have to say NO to requests for your time</u></i></b>. I've sacrificed relationships because I wasn’t willing to give up my morning to spend time with them. My morning is sacred, it’s coding time and I would only sacrifice it for something extraordinarily serious, otherwise I would be coding. Find what your sacred time is and protect it fiercely."
+                                Body = "<b><i><u>You will have to say NO to requests for your time</u></i></b>. I've sacrificed relationships because I wasn’t willing to give up my morning to spend time with anyone. My morning is sacred, it’s coding time and I would only sacrifice it for something extraordinarily serious, otherwise I would be coding. Find what your sacred time is and protect it fiercely."
                             },
                             new Paragraph
                             {
@@ -206,7 +206,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "A combination of my notes and previous projects saves me many hours of head-banging. I use <a target='_blank' href='https://roamresearch.com/'>RoamResearch</a>. I think it’s superior to anything I’ve ever used, but Evernote, Google Docs and even your computer’s notepad will do. Keep your notes organized."
+                                Body = "A combination of my notes and previous projects saves me many hours of head-banging. I use <a target='_blank' href='https://roamresearch.com/'>RoamResearch</a>. I think it’s superior to anything I’ve ever used, but Evernote, Google Docs and even your computer’s notepad will do. Keep your notes organized. Other options with great reviews are <a target='_blank' href='https://www.notion.so/'>Notion</a> and <a target='_blank' href='https://obsidian.md/'>Obsidian</a>."
                             }
                         }
                     },
@@ -218,11 +218,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "I have a wandering mind, extreme curiosity and several areas of interest. If I don’t keep a tight leash on my mind, I jump around to the point I don’t get anything done. I can’t stress enough the importance of doing one thing at a time."
+                                Body = "I have a wandering mind, extreme curiosity and several areas of interest. If I don’t keep a tight leash on my mind, I'll be constantly starting new courses and projects and end up not doign anything well. I can’t stress enough the importance of doing one thing at a time."
                             },
                             new Paragraph
                             {
-                                Body = "Don’t work on 10 projects. <b><i><u>One at a time!</u></i></b> Actually, to be honest, I always work on two things, so If I get bored or stuck I can always jump to the other to make me feel better. But still, one of them has to be your main goal. "
+                                Body = "Don’t work on ten projects. <b><i><u>One at a time!</u></i></b> Actually, to be honest, I always work on two things, so If I get bored or stuck I can always jump to the other to make me feel better. But still, one of them has to be your main goal. "
                             },
                             new Paragraph
                             {
@@ -230,7 +230,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "The same applies to your daily life. Don’t cram 20 tasks into your daily schedule. Do one or two big things a day and consider yourself successful for that day. My thing was always coding. If I did my four hours, I won the day. You can have a study goal and parallel goal such as running an important errand or something. But keep it achievable. <b><i><u>You want to win your days</u></i></b>."
+                                Body = "The same applies to your daily life. Don’t cram twenty tasks into your daily schedule. Do one or two big things a day and consider yourself successful for that day. My thing was always coding. If I did my four hours, I won the day. You can have a study goal and a parallel goal such as running an important errand or something. But keep it achievable. <b><i><u>You want to win your days</u></i></b>."
                             }
                         }
                     },
@@ -242,15 +242,15 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "<b><i><u>I read a lot</u></i></b>. I attribute a lot of my success in my programming journey to the scope and depth that reading has given me. Actually, I don’t read, I listen. Books and podcasts. They are absolutely life-changing."
+                                Body = "<b><i><u>I read a lot</u></i></b>. I attribute a lot of my success in my programming journey to the scope and depth that reading has given me. I understand it's hard to find time to read, but audiobooks solve this problem. You can quickly listen to a book while doing running errands or exercising. the same applies to podcasts. They can be life-changing."
                             },
                             new Paragraph
                             {
-                                Body = "If you don’t have some form of input in your life, you’re missing out. In our days technology gives access to curated information easily accessible at any time. Indirect mentorship through podcasts, audiobooks, youtube channels. Yet some of us think that we don’t need it, we know it all."
+                                Body = "If you don’t have some form of input in your life, you’re missing out. In our days technology gives access to curated information easily accessible at any time. We can indirectly mentored  through podcasts, audiobooks, youtube channels. Isn't that absolutely amazing? "
                             },
                             new Paragraph
                             {
-                                Body = "There are a few exceptions out there, but the vast majority of high achievers, the people who run things in this world, are avid readers. If you don’t like it, start liking it. It will pay off. <b><i><u>I promise</u></i></b>."
+                                Body = "There are a few exceptions out there, but the vast majority of high achievers, the people who run things in this world, are avid readers. We believe books are superior to other media because you'll focus your attention on that topic for a few days or weeks. It's a type of immersion that you don't get from articles or blog posts. If you don’t like it, start liking it. It will pay off. <b><i><u>I promise</u></i></b>."
                             },
                             new Paragraph
                             {
@@ -265,7 +265,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "<b><i><u>Atomic Habits</u></i></b> by James Clear – It will help you to get your habits in order. Backed by many amazing anecdotes and scientific studies, if you listen to it over and over, trust me, you’ll be a better person."
+                                Body = "<a target='_blank' href='https://amzn.to/4c1wzWK'><b><i><u>Atomic Habits</u></i></b> by James Clear</a> – It will help you to get your habits in order. Backed by many amazing anecdotes and scientific studies, if you listen to it over and over, trust me, you’ll be a better person."
                             }
                         }
                     },
@@ -276,7 +276,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "<b><i><u>Grit</u></i></b> by Angela Duckworth – This book will demonstrate, also with science and anecdotes, that you should forget about the word talent. Most folks who achieve great success are the ones that <b>SHOW UP CONSISTENTLY</b> and do the hard work."
+                                Body = "<a target='_blank' href='https://amzn.to/4e9KNXi'><b><i><u>Grit</u></i></b> by Angela Duckworth</a> – This book will demonstrate, also with science and anecdotes, that you should forget about the word talent. Most folks who achieve great success are the ones that <b>SHOW UP CONSISTENTLY</b> and do the hard work."
                             }
                         }
                     },
@@ -288,16 +288,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Once you finish reading this page, <a target='_blank' href='{discordLink}'>join us on Discord</a> and introduce yourself.  If the link doesn’t work, add me via my nickname: <b><i><u>pablocappuccino#4729</u></i></b>. You can use this website merely as a reference and to get project ideas here and there, or you can follow the roadmap. If you choose to follow the pathway, you can also choose to <a href='Identity/Account/Register' target='_blank'>register</a> so you can track your progress on our dashboard, participate in <a target='_blank' href='/leaderboard'>our Leaderboard</a> and get your code reviewed. By updating your profile with your LinkedIn and Github, the links will be available in the leaderboard for everyone to see, include potential recruiters."
+                                Body = $"Once you finish reading this page, <a target='_blank' href='{discordLink}'>join us on Discord</a> and introduce yourself.  If the link doesn’t work, add me via my nickname: <b><i><u>pablocappuccino#4729</u></i></b>. You can use this website merely as a reference and to get project ideas here and there, or you can follow our <a target='_blank' href='/dashboard/roadmap'>Roadmap</a> (you need to be logged in to see it). If you choose to follow the pathway, you can also choose to <a href='/Account/Register' target='_blank'>register</a> so you can track your progress in <a target='_blank' href='/dashboard'>our Dashboard</a>, participate in <a target='_blank' href='/leaderboard'>our Leaderboard</a> and <b>get your code reviewed</b>. By updating your profile with your LinkedIn and Github, the links will be available in the leaderboard for everyone to see, include potential recruiters."
                             },
                             new Paragraph
                             {
-                                Body = "We also offer 1-on-1 mentorship and detailed explanations of our projects (including all the challenges) in our <a target='_blank' href='https://thecsharpschool.getlearnworlds.com/subscription/the-c-academy-membership'>Membership Area</a> Subscribing to the VIP Membership doesn't affect your progress in The C# Academy. Everything here is free and will always be free."
-                            },
-                            new Paragraph
-                            {
-                                IsPicture = true,
-                                PictureUrl = "faq4.png"
+                                Body = "If you really want to take your learning seriously and keep yourself accountable, we offer a VIP Membership Area, where your projects will be graded and you'll get certificates of completion of each level. In this area you can also find exclusive tutorials and detailed explanations of our projects (including all the challenges) in our <a target='_blank' href='https://thecsharpschool.getlearnworlds.com/subscription/the-c-academy-membership'>VIP Membership Area</a>. Becoming a VIP doesn't affect your progress in The C# Academy. You'll still get your code reviewed. Everything here is free and will always be free."
                             }
                         }
                     },
@@ -309,15 +304,15 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you want instant rewards, or if you believe you’ll start earning six figures doing something that doesn’t require a lot of effort, this isn’t for you. If you can’t stand the long hours of hard work,  or if you don’t like getting stuck and taking days, sometimes weeks to fix a problem, you might not have the grit, or be passionate enough about coding to make this happen. Maybe this isn’t for you and that’s fine. It might sound harsh but that’s the reality of what it takes to become a programmer (and I would guess, to be good at anything for that matter)."
+                                Body = "If you want instant rewards, or if you believe you’ll start earning six figures doing something that doesn’t require a lot of effort, this isn’t for you. If you can’t stand the long hours of hard work, or if you don’t like getting stuck and taking days, sometimes weeks to fix a problem, you might not have the grit, or be passionate enough about coding to make this happen. Maybe programming isn’t for you and that’s fine. It might sound harsh but that’s the reality of what it takes to become a programmer (and I would guess, to be good at anything for that matter)."
                             },
                             new Paragraph
                             {
-                                Body = "<b><i><u>Most people who start learning to code quit in less than 6 months</u></i></b>. If you stick to it, imagine that in 2 years it’s highly likely you’ve got many interviews and got at least close to a job. Five years training consistently? You’ll probably not only be employed but also making very good money. Now imagine ten years consistently building stuff. I would say it’s impossible you’re not hired and earning great money."
+                                Body = "<b><i><u>Most people who start learning to code quit in less than six months</u></i></b>. If you stick to it, imagine that in two years it’s highly likely you’ve got many interviews and got at least close to a job. Five years training consistently? You’ll probably not only be employed but also making very good money. Now imagine ten years consistently building stuff. The sky is the limit. And don't let anyone tell you that AI is the end of programming. It's actually just the start. 😎"
                             },
                             new Paragraph
                             {
-                                Body = "I’ll let Will Smith do the final talk, enjoy:"
+                                Body = "I’ll let Will Smith say the final words, enjoy:"
                             },
                             new Paragraph
                             {

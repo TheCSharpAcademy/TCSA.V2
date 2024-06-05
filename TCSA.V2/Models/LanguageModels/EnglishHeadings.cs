@@ -6,11 +6,11 @@ public record EnglishHeadings : ILanguageHeadings
 
     public string Requirements => "Requirements";
 
-    public string Learn => "Learn";
+    public string Learn => "What you'll learn";
 
     public string Resources => "Resources";
 
-    public string Tips => "What you'll learn";
+    public string Tips => "Tips";
 
     public string Challenges => "Challenges";
 

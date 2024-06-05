@@ -187,18 +187,71 @@ internal static class AzureProjectsHelper
             },
             new Project
             {
-                Id = 50,
+                Id = 100000,
                 Title = "Azure Functions",
                 IconUrl = "icons8-cloud-connection-480.png",
-                BannerUrl = "",
+                BannerUrl = "functions.jpg",
+                ExperiencePoints = 100,
                 LanguageHeadings = new EnglishHeadings(),
                 Slug = "azure-functions",
                 Description = "Get started with serverless computing creating backend services directly on the cloud",
                 Area = Area.Azure,
                 Level = Level.Blue,
-                Difficulty = Difficulty.Beginner,
                 RepositoryLink = "",
-                ReleaseDate = DateTime.Now.AddDays(28)
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="If you've completed the previous Azure projects, you should now be proficient in deploying full-stack apps to the cloud. But we haven't even scratched the surface. You're about to tap into the true power of Azure: Serverless compute services!"
+                    },
+                    new Paragraph
+                    {
+                        Body="Azure Functions is a serverless compute service designed to run small pieces of code, known as functions, in the cloud. It offers a highly scalable and cost-efficient platform for executing code in response to a variety of events without the need for managing infrastructure. Azure Functions supports not only C#, but various other programming languages, JavaScript, Python, and Java, making it versatile and accessible to a wide range of developers. If you ever quit C# (I don't know why you'd do that), you can still leverage its power. You'll also have learned the principles to use AWS Lambdas, the equivalent to Azure Functions in the Amazon ecosystem."
+                    },
+                     new Paragraph
+                    {
+                        Body="A key advantage of Azure Functions is its serverless nature, which means that developers can focus on writing code while Azure handles the underlying infrastructure, scaling, and maintenance. This allows for faster development and deployment of applications and reduces time-to-release. Functions can be triggered by numerous events, such as HTTP requests, database changes, message queues, and more, enabling seamless integration with other Azure services and external systems."
+                    },
+                      new Paragraph
+                    {
+                        Body="Let's create a cool project to learn about them! "
+                    }
+
+                },
+                RequirementsIntro = "You are working for an online retail company that sells various products. The company wants to automate its order processing system using Azure Functions. The system will handle the entire process from receiving orders to sending notifications and updating the inventory. The project will demonstrate how to use different types of Azure Functions to achieve this.",
+                Requirements = new List<string>
+                {
+                    "Your project will contain the following function triggers: HTTP, Queue, Timer, Blob, Event Grid and Cosmos DB.",
+                    "The HTTP Trigger will receive the order via POST requests. The process can be initiated using a tool such as Postman.",
+                    "You'll store the order details in a Cosmos DB and place an order processing message in an Azure Queue for further processing.",
+                    "Update the order status in Cosmos DB. Use an enumeration 'i.e. 1. OrderPlaced, 2. Payment complete, 3. Order Shipped, 4. Shipment fulfiled.",
+                    "The Timer Trigger will generate daily sales reports at a scheduled time, querying data from Cosmos DB.",
+                    "When an order is placed, you'll need to generate an invoice in a txt file and upload it to a blob.",
+                    "The Blob Trigger will send an email notification to the customer when the order is processed, including the invoice.",
+                    "The Event Grid Trigger will subscribe to status change events from Cosmos DB or other sources and notify customers.",
+                    "The Cosmos DB Trigger will update the inventory based on order transactions.",
+                    "All functions need to be under the same solution.",
+                    "Your repository needs to contain a Readme with instructions on how to run the system, including configuration files.",
+                    "You need to submit a systems design document, with a diagram of the data flow."
+                },
+                ResourcesIntro = "Azure Functions is a vast topic and it's easy to get lost. Here are some resources to get you started:",
+                Resources = new List<string>
+                {
+                     "<a href='https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview?pivots=programming-language-csharp?wt.mc_id=MVP_364708' target='_blank'>Azure Functions Overview</a>",
+                      "<a href='https://www.youtube.com/watch?v=m8Icp_Cid5o' target='_blank'>Systems Design For Beginners</a>",
+                      "<a href='https://www.youtube.com/watch?v=JvDmJybANCQ' target='_blank'>Creating diagrams with Excalidraw</a>",
+                      "<a href='https://learn.microsoft.com/en-us/azure/cosmos-db/introduction?wt.mc_id=MVP_364708' target='_blank'>Welcome to Azure Cosmos DB</a>",
+                },
+                Tips = new List<string>
+                {
+                     "This project intends to push the limits of your knowledge and has several requirements, but it's easier than it looks. Once you understand the concept of triggers, all the rest should be straight-forward.",
+                     "You can create all functions locally. The only service that will need to be run in Azure is Cosmos DB.",
+                     "You'll need to use Storage Explorer to visualize queues and blobs. These can be created in Azure or locally with Azurite.",
+                     "Spend some time fiddling with Cosmos DB. If you haven't used NoSQL databases before it might take a while to understand it, since we've only used relational data in our curriculum so far.",
+                     "If you come up with different ideas for triggers, feel free to implement them. The more you experiment, the more you'll learn.",
+                     "The requirements are many but not comprehensive, there's a lot of room for interpretation and the implementation details are up to you. Use your creativity!",
+                     "Don't refrain from using Chat GPT! Just make sure you understand what it spits out 🤓."
+                }
             },
         };
     }

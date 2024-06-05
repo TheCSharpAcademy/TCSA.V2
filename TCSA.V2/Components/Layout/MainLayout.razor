@@ -20,15 +20,18 @@
 
 @code{
     private Timer _timer;
+    private int intervalTime = 5; //change this value as necessary, currently it ll ping in every 5 min
+
     protected override async Task OnInitializedAsync()
     {
         _timer = new System.Threading.Timer(async _ =>
            {
-              var pulse =await _heartBeat.Beat();
+               var pulse =await _heartBeat.Beat();
+              // Console.Error.WriteLine(pulse); Use to see ping in realtime, remove on Merge
            }, 
            null,
            TimeSpan.Zero,
-           TimeSpan.FromMinutes(5) //change this value as necessary, currently it ll ping in every 5 min to keep connection alive
+           TimeSpan.FromMinutes(intervalTime) 
         ); 
 
     }

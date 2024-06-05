@@ -1,5 +1,7 @@
 ﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Services
 @inherits LayoutComponentBase
+@inject HeartBeat _heartBeat
 
 <div class="page">
     <main>
@@ -15,3 +17,22 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code{
+    private Timer _timer;
+    protected override async Task OnInitializedAsync()
+    {
+
+
+        _timer = new System.Threading.Timer(async _ =>
+    {
+        var pulse =await _heartBeat.Beat();
+        Console.WriteLine(pulse);
+    }, null, TimeSpan.Zero, TimeSpan.FromMinutes(5)); //change this value as necessary, currently it ll ping in every 5 min to keep connection alive
+
+    }
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

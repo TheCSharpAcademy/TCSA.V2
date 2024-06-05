@@ -101,6 +101,7 @@ else
 
     private List<Article>? articles;
     private List<Project>? projects;
+    private Project flagshipProject = new();
 
     private List<string> missingReqs = new();
 
@@ -142,6 +143,7 @@ else
 
         projects = ProjectHelper.GetProjects();
         articles = ArticleHelper.GetArticles();
+        flagshipProject = projects.Single(x => x.Id == 139);
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -433,6 +435,14 @@ else
               IsCompleted = completedProjects.Contains(x.Id)
           })
           .ToList();
+
+           greyBeltTasks.Add(new RoadmapTask
+        {
+            IconUrl = flagshipProject.IconUrl,
+            Name = flagshipProject.Title,
+            IsCompleted = false,
+        });
+
         greyBeltTasks.AddRange(new List<RoadmapTask> {
             new RoadmapTask {
                 IconUrl = "icons8-magnifying-glass-64.png",
@@ -486,17 +496,19 @@ else
             }
         }
     }
+
     protected void GetBlueBeltTasks()
     {
         blueBeltTasks = projects
-       .Where(x => x.Level == Level.Blue)
-       .Select(x => new RoadmapTask
+        .Where(x => x.Level == Level.Blue)
+        .Select(x => new RoadmapTask
            {
                IconUrl = x.IconUrl,
                Name = x.Title,
                IsCompleted = completedProjects.Contains(x.Id)
            })
            .ToList();
+
         blueBeltTasks.AddRange(new List<RoadmapTask> {
             new RoadmapTask {
                 IconUrl = "icons8-magnifying-glass-64.png",
@@ -551,6 +563,7 @@ else
             }
         }
     }
+
     protected void GetBlackBeltTasks()
     {
         blackBeltTasks.AddRange(new List<RoadmapTask> {
@@ -689,6 +702,13 @@ else
                 Name = "Community Project Issue 15",
                 IsCompleted = issuesCount >= 15,
             },
+        });
+
+        blackBeltTasks.Add(new RoadmapTask
+        {
+            IconUrl = flagshipProject.IconUrl,
+            Name = flagshipProject.Title,
+            IsCompleted = false,
         });
 
         if (UserLevel > Level.Grey && blackBeltTasks.Any(x => !x.IsCompleted))

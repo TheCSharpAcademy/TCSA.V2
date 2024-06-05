@@ -129,14 +129,15 @@ internal static class StandAloneProjectsHelper
                 },
                 Requirements = new List<string>
                 {
+                    @"Your project needs to contain a Readme with an overview of the system, justification of your choices and instructions on how to run the application. An initial PR needs to be created with this document and a diagram file (the format is up to you). This PR is a requirement to achieve Grey Belt.",
                     @"You need to build a full-stack web app with front-end, back-end and database. You can choose any front-end technology, but the back end has to be .NET/C#.",
                     @"If you have an amazing idea that doesn't require a front-end, let us know so we can assess it.",
-                    @"Authorization/authentication, including at least one external provider",
+                    @"Authorization/authentication, including at least one external provider.",
                     @"Interaction with an external api. If you don't find a free API that suits your idea, create one and seed the data",
+                    @"You need to use at least two Azure Functions.",
                     @"Your project will be thoroughly tested. Make sure errors are handled properly.",
                     @"Logging and monitoring capabilities. You can choose a service of your choice.",
-                    @"You need to deploy your solution to Azure and produce a link to the website.",
-                    @"You need to be justify your architectural choices."
+                    @"You need to deploy your solution to Azure and produce a link to the website."
                 },
                 Blocks = new List<Block>
                 {
@@ -148,7 +149,7 @@ internal static class StandAloneProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "Before starting your project, you'll have a planning phase. You'll create a pull-request in the project's repository outlining what your app is, what features it will have and detail your tech stack. It needs to include diagrams of your database models and outline what problems you're trying to solve."
+                                Body = "Before starting your project, you'll have a planning phase. You'll create a pull-request in the project's repository outlining what your app is, what features it will have and detail your tech stack. It needs to include diagrams of your database models and outline what problems you're trying to solve. Submitting this initial pull request is a requirement to achieve Grey Belt."
                             },
                             new Paragraph
                             {
@@ -168,6 +169,7 @@ internal static class StandAloneProjectsHelper
                 },
                 Tips = new List<string>
                 {
+                    "Check out this <a target='_blank' href='https://www.youtube.com/watch?v=m8Icp_Cid5o'>Systems Design For Beginners Tutorial</a> to have an idea of the thought processes when creating a large application. And <a target='_blank' href='https://www.youtube.com/watch?v=JvDmJybANCQ'>Mocking Diagrams with Excalidraw</a> for a cool diagram-designing tool.",
                     "We usually recommend you don't work in more than one project at a time. Since this is a comprehensive undertaking, you can work on it in parallel with the rest of the curriculum. This will be specially useful when you get stuck, as you can jump between projects to get some fresh air 😊 "
                 },
             },

@@ -93,10 +93,18 @@ public class RoadmapService : IRoadmapService
             level = Level.Brown;
         }
 
+        var isFlagshipSubmitted = false;
+
+        using (var context = _factory.CreateDbContext())
+        {
+            isFlagshipSubmitted = await context.DashboardProjects.AnyAsync(x => x.AppUserId == userId && x.ProjectId == 139);
+        }
+
         if (level == Level.Brown
         && userIssues >= 7
         && userReviews >= 12
         && userProjects.Count >= 29
+        && isFlagshipSubmitted
         && RoadmapHelper.SqlRequirements.All(project => userProjects.Contains(project)))
         {
             level = Level.Grey;

@@ -7,6 +7,7 @@ public static class RoadmapHelper
     public static readonly int[] YellowRequirements = { 14, 15, 16, 17 };
     public static readonly int[] OrangeRequirements = { 18, 19, 20, 21 };
     public static readonly int[] RedRequirements = { 22, 23 };
+    public static readonly int[] GreyAndBlackRequirements = { 139 };
     public static readonly int[] AspNetRequirements = { 24, 25, 26, 27 };
     public static readonly int[] AngularRequirements = { 31, 32, 33, 34 };
     public static readonly int[] ReactRequirements = { 35, 36, 37, 38 };
@@ -69,7 +70,8 @@ public static class RoadmapHelper
     {
         "Complete SQL Challenges",
         "Complete 5 Code Reviews",
-        "Complete 3 Community Project Issues"
+        "Complete 3 Community Project Issues",
+        "Submit a PR with Readme and Systems Design For Flagship Project"
     };
     public static readonly List<string> BlueBeltReqs = new()
     {
@@ -81,6 +83,7 @@ public static class RoadmapHelper
     {
         "Complete at least 2 full-stack areas. One of them has to be MVC, Blazor or Maui",
         "Complete 8 Code Reviews",
-        "Complete 5 Community Project Issues"
+        "Complete 5 Community Project Issues",
+        "Complete Flagship Project"
     };
 }

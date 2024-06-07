@@ -1,5 +1,7 @@
 ﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Services
 @inherits LayoutComponentBase
+@inject HeartBeat _heartBeat
 
 <div class="page">
     <main>
@@ -15,3 +17,26 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code{
+    private Timer _timer;
+    private int intervalTime = 5; //change this value as necessary, currently it ll ping in every 5 min
+
+    protected override async Task OnInitializedAsync()
+    {
+        _timer = new System.Threading.Timer(async _ =>
+           {
+               var pulse =await _heartBeat.Beat();
+              // Console.Error.WriteLine(pulse); Use to see ping in realtime, remove on Merge
+           }, 
+           null,
+           TimeSpan.Zero,
+           TimeSpan.FromMinutes(intervalTime) 
+        ); 
+
+    }
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

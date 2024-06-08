@@ -24,10 +24,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _timer = new System.Threading.Timer(async _ =>
+        _timer = new Timer(async _ =>
            {
                var pulse =await _heartBeat.Beat();
-              // Console.Error.WriteLine(pulse); Use to see ping in realtime, remove on Merge
+               Console.Error.WriteLine(pulse); //Use to see ping in realtime, remove on Merge
            }, 
            null,
            TimeSpan.Zero,

@@ -50,7 +50,7 @@ public static class ArticleHelper
                 Id = 5,
                 Title = "Start Here",
                 IconUrl = "icons8-door-80.png",
-                Description = "This is your starting point. Click on the door to find out how the academy works and to read very important tips that will help you in your journey. ",
+                Description = "This is your starting point. Click on the door to find out how the academy works and to read very important tips that will help you in your journey.",
                 ExperiencePoints = 5,
                 Slug = "start-here",
                 BannerUrl = "start-line.jpeg",
@@ -344,7 +344,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "Every developer, no matter the experience level, gets stuck, every single day. It’s very important to understand that it’s absolutely normal to spend hours, days, sometimes weeks, trying to solve one single problem. I’ve seen many programming students getting frustrated and quitting because they just don’t expect it to be this way. There’s no such thing as entering a flow state and having your project magically finished without hiccups. At least for most mortals."
+                                Body = "Every developer, no matter the experience level, gets stuck, <b>almost every day</b>. It’s very important to understand that it’s absolutely normal to spend hours, days, sometimes weeks, trying to solve one single problem. I’ve seen many programming students getting frustrated and quitting because they just don’t expect it to be this way. There’s no such thing as entering a flow state and having your project magically finished without hiccups. At least for most mortals."
                             },
                             new Paragraph
                             {
@@ -380,11 +380,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "When something doesn’t work in your code, the first step is to double check it. Read it carefully, word by word. You’ll inevitably have typos, missing words, misplaced code and often times you’ll be able to fix things just by reading again with more attention."
+                                Body = "When something doesn’t work in your code, the first step is to double check it. Read it carefully, word by word. There can be typos, missing words, unclosed brackets, misplaced code, a missing dependency, and the list goes on.  Often you’ll be able to fix things just by reading again with more attention."
                             },
                             new Paragraph
                             {
-                                Body = "If you’re following a tutorial, check the instructors code again. You might have also missed something. In video tutorials, sometimes the teacher will slightly change the code and you’ll miss it because of editing. With time you’ll sharpen your attention to detail and make less of these mistakes, but always keep this tool up your sleeve."
+                                Body = "If you’re following a tutorial, check the instructor's code again. You might have also missed something. In video tutorials, sometimes the teacher will slightly change the code and you’ll miss it because of editing. With time you’ll sharpen your attention to detail and make less of these mistakes, but always keep this tool up your sleeve."
                             }
                         }
                     },
@@ -396,7 +396,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "It might seem obvious, but even experienced developers sometimes just don’t read the errors. More often than not, the solution will be contained in the error message. Software these days is being written with special attention to error messages to help debugging and you’ll be surprised with how much you can solve by just carefully reading its contents."
+                                Body = "It might seem obvious, but even experienced developers sometimes just don’t read the errors the compiler provides. More often than not, the solution will be contained in the error message. Software these days is being written with special attention to error messages to help troubleshooting these issues. You’ll be surprised with how much you can solve by just carefully reading its contents."
                             }
                         }
                     },
@@ -408,7 +408,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "The next step is to look your error up. Basically you have to ask google or chat gpt. When you’re hired you’ll be searching for stuff on your favourite search engine dozens of times a day. I still remember my first day on my first job, when a senior dev was helping me with some Javascript code and he searched for something on google. It was an eye-opener. Everyone does it. It doesn’t mean lack of knowledge, it just means humans aren’t robots that have everything accessible in a hard drive in their brains. Instead, the best developers know where to look. "
+                                Body = "The next step is to look your error up. Basically you have to ask google or your favourite AI tool. When you’re hired you’ll be talking to your AI assistant or searching for stuff on your favourite search engine dozens of times a day. I still remember my first day on my first job, when a senior dev was helping me with some Javascript code and he searched for something on google. It was an eye-opener. Everyone does it. It doesn’t mean lack of knowledge, it just means humans aren’t robots that have everything accessible in a hard drive in their brains. Instead, the best developers <b>simply know where to look</b>. "
                             },
                             new Paragraph
                             {
@@ -424,15 +424,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "If you google the problem using your own words or copying and pasting the error, you’ll quickly find out that most of these questions have been answered on <a href='http://stackoverflow.com/'>Stackoverflow.com</a>."
+                                Body = "If you google the problem using your own words or copying and pasting the error, you’ll quickly find out that most of these questions have been answered on <a target='_blank' href='http://stackoverflow.com/'>Stackoverflow.com</a>. Even though you’ll find answers in different resources, this is the most reliable forum for programmers. You should create an account and if you can’t fix a certain problem, post your code and you’ll get help."
                             },
                             new Paragraph
                             {
-                                Body = "Even though you’ll find answers in different resources, this is the most reliable forum for programmers. You should create an account and if you can’t fix a certain problem, post your code and you’ll get help."
-                            },
-                            new Paragraph
-                            {
-                                Body = "<a href='https://stackoverflow.com/users/11659311/pablo-aguirre-de-souza?tab=answers&sort=votes'>Have a look at my account on stack overflow</a> and you’ll see that I asked tons of questions throughout my journey. Most of these questions weren’t unique. They were problems that have already been solved but I couldn’t translate them into my code. With experience you’ll be able to adapt someone else’s answers to your code, but sometimes you’ll have to post your own for someone else to have a look."
+                                Body = "<a target='_blank' href='https://stackoverflow.com/users/11659311/pablo-aguirre-de-souza?tab=answers&sort=votes'>Have a look at my account on Stack Overflow</a> and you’ll see that I asked several questions when I was a beginner. Most of these questions weren’t unique. They were problems that have already been solved but I couldn’t translate them into my code. With experience you’ll be able to adapt someone else’s answers to your code, but sometimes you’ll have to post your own for someone else to have a look."
                             },
                             new Paragraph
                             {
@@ -448,11 +444,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "More likely than not, you’ve already solved your problem by now, but if even Stackoverflow didn’t do it, you might need to ask someone. It could be a friend that has experience in the stack you’re training, or someone in our community, or myself. I ask questions every day at work, either to the senior devs, to the QA people, to my boss, or even junior devs that have more specific domain experience. "
+                                Body = "More likely than not, you’ve already solved your problem by now, but if even Stack Overflow didn’t do it, you might need to ask someone. It could be a friend that has experience in the stack you’re training, or someone in our Discord community, or myself. I ask questions almost every day at work, either to the senior devs, to the QA people, to my boss, or even junior devs that have more specific domain experience. "
                             },
                             new Paragraph
                             {
-                                Body = "For asking questions directly, I recommend that first you verbalise it really well. Just by doing that you might come up with the solution. And also you save the person’s time because it will be easier to understand. Also make sure you have really exhausted every possible avenue. In your first job, you’ll have problems if you ask questions that are easy to look up, so it’s better to incorporate good habits right now."
+                                Body = "For asking questions directly, I recommend that first you verbalise it really well. Just by doing that you might come up with the solution. Additionally, you save the person’s time because it will be easier for them to understand. Also make sure you have really exhausted every possible avenue. In a professional environment, you’ll have problems if you ask questions that are easy to look up, so it’s better to incorporate good habits right now."
                             }
                         }
                     },
@@ -468,7 +464,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "Remember, looking at a problem for hours isn’t a waste of time. Your brain is piecing everything together. You’re getting familiar with the code. An unproductive day stuck with a problem is really a great opportunity for learning. You learned a thousand ways it doesn’t work. And then, all of the sudden, in the middle of a break, you might have that Eureka moment. Or when you get back into it, you’ll have a fresh brain and renewed perspective. Trust me, it works! "
+                                Body = "Remember, looking at a problem for hours isn’t a waste of time. Your brain is piecing everything together. You’re getting familiar with the code. An unproductive day stuck with a problem is a great opportunity for learning. You learned a thousand ways it doesn’t work. And then, all of the sudden, in the middle of a break, you might have that eureka moment. Or when you get back into it, you’ll have a fresh brain and renewed perspective. Trust me, it works! "
                             }
                         }
                     }

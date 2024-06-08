@@ -498,7 +498,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "Now there’s a bit of preparation to do. But don’t worry, if you have a decent internet connection and a minimally functioning computer, you’ll start writing code in a few hours. You do need space in your computer. If you install the .NET environment and run out of space, your experience will be painful. In that case, free some space, upgrade your hard drive or invest in a new computer."
+                                Body = "Now there’s a bit of preparation to do. But don’t worry, if you have a decent internet connection and a minimally functioning computer, you’ll start writing code in a few hours. You do need space in your machine. If you install the .NET environment and run out of space, your experience will be painful. In that case, free some space up, upgrade your hard drive or invest in a new computer."
                             }
                         }
                     },
@@ -510,15 +510,15 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "The first thing you’ll need is Visual Studio, which is the IDE used in most companies that use .NET C#. It’s totally possible to use other editors such as the super popular Visual Studio Code. I suggest you use Visual Studio because it’s specially designed to work with .NET, but it’s totally up to you. "
+                                Body = "The first thing you’ll need is Visual Studio (VS), which is the IDE used in most companies that use .NET C#. It’s totally possible to use other editors such as the super popular Visual Studio Code (VSC). I suggest you use VS because it’s specially designed to work with .NET, but it’s totally up to you. "
                             },
                             new Paragraph
                             {
-                                Body = "However, you’ll need to watch many tutorials online to close your knowledge gaps and most of them use Visual Studio. Dealing with the project structure in .NET can be a bit confusing in the beginning, so having juggle different editors can add to the confusion. With some experience you’ll be able to use Visual Studio Code or other editors if you really want to. "
+                                Body = "However, you’ll need to watch many tutorials online to close your knowledge gaps and most of them use VS. Dealing with the project structure in .NET can be a bit confusing in the beginning, so having juggle different editors can add to the confusion. With some experience you’ll be able to use VSC or other editors if you really want to. "
                             },
                             new Paragraph
                             {
-                                Body = "On the other hand, a good reason to use Visual Studio Code instead would be if you have a computer that’s too slow or doesn’t have too much space. Visual Studio Code is way lighter and needs less memory to run."
+                                Body = "On the other hand, a good reason to use VSC instead would be if you have a computer that’s too slow or doesn’t have too much space. VSC is much lighter and uses less memory to run. Additionally, if you're on a Mac, VS will be retired in August, so unless you use a paid IDE such as JetBrains' Rider, you'll have to use VSC. "
                             }
                         }
                     },
@@ -534,16 +534,11 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "Visual Studio for Windows looks completely different from the Mac version. Make sure you follow a specific tutorial for the machine you’re using. If your machine is too slow, I highly recommend you use Visual Studio Code."
-                            },
-                            new Paragraph
-                            {
-                                Body = "If you opt for Visual Studio, go for the 2022 version on Windows and the 2019 version on Mac, since the 2022 for Mac is only a preview (as of August 2022).  Below are links to resources to install VS and VSC on all machines."
+                                Body = "VS for Windows looks completely different from the Mac version. Make sure you follow a specific tutorial for the machine you’re using. If your machine is too slow, I highly recommend you use Visual Studio Code."
                             },
                             new Paragraph
                             {
                                 Body = @"<a href='https://www.youtube.com/watch?v=nvTwDirvwIw&t=4s' target='blank'>Visual Studio for Windows</a><br>
-                                         <a href='https://www.youtube.com/watch?v=KMXm43LVNeY&t=36s' target='blank'>Visual Studio for Mac</a><br>
                                          <a href='https://www.youtube.com/watch?v=r5dtl9Uq9V0' target='blank'>Visual Studio Code for Windows</a><br>
                                          <a href='https://www.youtube.com/watch?v=LXxjCNfd5b4' target='blank'>Visual Studio Code for Mac</a><br>
                                          <a href='https://www.youtube.com/watch?v=3YIADWbQFzE' target='blank'>Visual Studio Code for Linux</a><br>"
@@ -558,7 +553,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "Ok, almost good to go. Now you need a source control system. This is where you’ll back up your work and share it with other people. It’s an absolute must for developers and I recommend you start looking into it straight away. The most common source control system is Git. One of the tools invented by the genius Linus Torvalds, the creator of Linux. The most common platform is Github. <a target='_blank' href='https://www.youtube.com/watch?v=QUtk-Uuq9nE'>Here's a quick tutorial on how to create a Github account</a>."
+                                Body = "Ok, almost good to go. Now you need a source control system. This is where you’ll back up your work and share it with other people. It’s an absolute must for developers and I recommend you set it up right now. The most common source control system is Git. One of the tools invented by the genius Linus Torvalds, the creator of Linux. The most common platform is Github. <a target='_blank' href='https://www.youtube.com/watch?v=QUtk-Uuq9nE'>Here's a quick tutorial on how to create a Github account</a>."
                             },
                             new Paragraph
                             {
@@ -583,7 +578,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "The last thing you need is a decent note-taking system. You don’t need to go crazy on your notes. It might slow you down too much. I recommend you use it to optimise your time. Write lists of steps of the things you do repeatedly. Create notes with commands you keep forgetting. Create checklists for tasks that demand them. "
+                                Body = "The last thing you need to get started is a decent note-taking system. You don’t need to go crazy on your notes. Don't let them paralyse you. I recommend you use it to optimise your time. Write lists of steps of the things you do repeatedly. Create notes with commands you keep forgetting. Create checklists for tasks that demand them."
                             },
                             new Paragraph
                             {
@@ -591,7 +586,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "If you want to go fancy, try Evernote or the one I use on a daily basis: <a target='_blank' href='http://roamresearch.com/'>Roamresearch.com</a>. It’s paid but it’s the best I’ve seen so far. Whatever you do, keep your notes simple and organised. Back them up and protect them with your life. "
+                                Body = "If you want to go fancy, try Evernote, Notion, Obsidian, or the one I use on a daily basis: <a target='_blank' href='http://roamresearch.com/'>Roamresearch.com</a>. It’s paid but it’s the best I’ve seen so far. Whatever you do, keep your notes simple and organised. Back them up and protect them with your life. "
                             }
                         }
                     }

@@ -530,7 +530,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "To get started, let’s install our IDE. When installing Visual Studio, you’ll also install the .NET Standard Developer Kit. If you’re confused about things like SDK, runtime, .NET framework, etc, you’re not alone. <a href='https://stackoverflow.com/questions/47733014/whats-the-difference-between-sdk-and-runtime-in-net-core' target='blank'>Here's a stack overflow question</a> where some of these terms and tools are (somewhat) explained."
+                                Body = "To get started, let’s install our IDE. When installing Visual Studio, you’ll also install the .NET Standard Developer Kit. If you’re confused about things like SDK, runtime, .NET framework, etc, you’re not alone. <a href='https://stackoverflow.com/questions/47733014/whats-the-difference-between-sdk-and-runtime-in-net-core' target='blank'>Here's a stack overflow question</a> where some of these terms and tools are (somewhat) explained.<a href='https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net80?wt.mc_id=MVP_364708' target='blank'>You can also find detailed instructions on .NET installation here</a>. Click on the dropdown at the top of the page to switch operation systems."
                             },
                             new Paragraph
                             {

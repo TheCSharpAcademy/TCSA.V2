@@ -1,0 +1,22 @@
+﻿
+<a href="@Href" target="_blank">
+    <button class="btn next-btn" type="button">Next</button>
+</a>
+
+@code {
+    [Parameter]
+    public string Href { get; set; }
+}
+
+<style>
+    .next-btn {
+        background-color: rgb(135, 137, 192);
+        color: white;
+        transition: opacity .2s;
+    }
+
+    .next-btn:hover {
+        background-color: rgba(135, 137, 192, 0.5);
+        color: white;
+    }
+</style>

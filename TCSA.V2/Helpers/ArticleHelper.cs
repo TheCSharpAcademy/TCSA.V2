@@ -56,6 +56,7 @@ public static class ArticleHelper
                 BannerUrl = "start-line.jpeg",
                 Area = Area.StartHere,
                 Level = Level.Green,
+                NextSlug = "article/6/getting-help",
                 Blocks = new List<Block>
                 {
                     new Block
@@ -334,6 +335,7 @@ public static class ArticleHelper
                 Area = Area.StartHere,
                 Level = Level.Green,
                 ExperiencePoints = 5,
+                NextSlug = "article/7/setting-up",
                 Blocks = new List<Block>
                 {
                     new Block
@@ -481,6 +483,7 @@ public static class ArticleHelper
                 Area = Area.StartHere,
                 Level = Level.Green,
                 ExperiencePoints = 5,
+                NextSlug = "article/8/foundations",
                 Blocks = new List<Block>
                 {
                     new Block
@@ -605,6 +608,7 @@ public static class ArticleHelper
                 Area = Area.StartHere,
                 Level = Level.Green,
                 ExperiencePoints = 5,
+                NextSlug = "project/75/freecodecamp-certification",
                 Blocks = new List<Block>
                 {
                     new Block

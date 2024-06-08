@@ -16,6 +16,7 @@ public class Article
     public int ExperiencePoints { get; set; }
     public Level Level { get; set; }
     public bool IsClosed { get; set; }
+    public string NextSlug { get; set; }
 }
 
 public class Block

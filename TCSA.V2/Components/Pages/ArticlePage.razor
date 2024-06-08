@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 
 @using System.Security.Claims;
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
@@ -100,14 +101,13 @@
         </div>
     }
 
-    @if (HasNext)
+    @if (!string.IsNullOrEmpty(@Article.NextSlug))
     {
-        <div class="container user-buttons">
-            <a href="article/@(Article.Id + 1)" target="_blank">
-                <btn class="btn btn-outline-secondary" type="button">Next</btn>
-            </a>
+        <div class="w-100 d-flex align-items-center justify-content-center mt-2">
+            <NextButton Href="@Article.NextSlug"/>
         </div>
     }
+
 </div>
 
 

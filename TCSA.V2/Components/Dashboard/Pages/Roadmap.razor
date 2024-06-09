@@ -9,12 +9,12 @@
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 
-@if(isLoading)
+@if (isLoading)
 {
     <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
-} 
+}
 else
 {
     <div class="mt-lg-5 pt-lg-3">
@@ -101,7 +101,6 @@ else
 
     private List<Article>? articles;
     private List<Project>? projects;
-    private Project flagshipProject = new();
 
     private List<string> missingReqs = new();
 
@@ -143,7 +142,6 @@ else
 
         projects = ProjectHelper.GetProjects();
         articles = ArticleHelper.GetArticles();
-        flagshipProject = projects.Single(x => x.Id == 139);
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -188,8 +186,10 @@ else
         .Where(x => x.Level == Level.Green)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -198,8 +198,10 @@ else
         .Where(x => x.Level == Level.Green)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -222,8 +224,10 @@ else
         .Where(x => x.Level == Level.OliveGreen)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -244,8 +248,10 @@ else
         .Where(x => x.Level == Level.Yellow)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -266,8 +272,10 @@ else
         .Where(x => x.Level == Level.Orange)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -288,8 +296,10 @@ else
         .Where(x => x.Level == Level.Red)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -380,8 +390,10 @@ else
         .Where(x => x.Level == Level.Brown)
         .Select(x => new RoadmapTask
             {
+                Id = x.Id,
                 IconUrl = x.IconUrl,
                 Name = x.Title,
+                Slug = x.Slug,
                 IsCompleted = completedProjects.Contains(x.Id)
             })
             .ToList();
@@ -435,14 +447,6 @@ else
               IsCompleted = completedProjects.Contains(x.Id)
           })
           .ToList();
-
-           greyBeltTasks.Add(new RoadmapTask
-        {
-            IconUrl = flagshipProject.IconUrl,
-            Name = flagshipProject.Title,
-            IsCompleted = false,
-        });
-
         greyBeltTasks.AddRange(new List<RoadmapTask> {
             new RoadmapTask {
                 IconUrl = "icons8-magnifying-glass-64.png",
@@ -496,19 +500,19 @@ else
             }
         }
     }
-
     protected void GetBlueBeltTasks()
     {
         blueBeltTasks = projects
-        .Where(x => x.Level == Level.Blue)
-        .Select(x => new RoadmapTask
+       .Where(x => x.Level == Level.Blue)
+       .Select(x => new RoadmapTask
            {
+               Id = x.Id,
                IconUrl = x.IconUrl,
                Name = x.Title,
+               Slug = x.Slug,
                IsCompleted = completedProjects.Contains(x.Id)
            })
            .ToList();
-
         blueBeltTasks.AddRange(new List<RoadmapTask> {
             new RoadmapTask {
                 IconUrl = "icons8-magnifying-glass-64.png",
@@ -563,7 +567,6 @@ else
             }
         }
     }
-
     protected void GetBlackBeltTasks()
     {
         blackBeltTasks.AddRange(new List<RoadmapTask> {
@@ -575,8 +578,10 @@ else
                 .Where(x => x.Area == Area.MAUI)
                 .Select(x => new RoadmapTask
                     {
+                        Id = x.Id,
                         IconUrl = x.IconUrl,
                         Name = x.Title,
+                        Slug = x.Slug,
                         IsCompleted = completedProjects.Contains(x.Id)
                     })
                     .ToList()
@@ -589,8 +594,10 @@ else
                 .Where(x => x.Area == Area.MVC)
                 .Select(x => new RoadmapTask
                     {
+                        Id = x.Id,
                         IconUrl = x.IconUrl,
                         Name = x.Title,
+                        Slug = x.Slug,
                         IsCompleted = completedProjects.Contains(x.Id)
                     })
                     .ToList()
@@ -603,8 +610,10 @@ else
                 .Where(x => x.Area == Area.React)
                 .Select(x => new RoadmapTask
                     {
+                        Id = x.Id,
                         IconUrl = x.IconUrl,
                         Name = x.Title,
+                        Slug = x.Slug,
                         IsCompleted = completedProjects.Contains(x.Id)
                     })
                     .ToList()
@@ -617,8 +626,10 @@ else
                 .Where(x => x.Area == Area.Angular)
                 .Select(x => new RoadmapTask
                     {
+                        Id = x.Id,
                         IconUrl = x.IconUrl,
                         Name = x.Title,
+                        Slug = x.Slug,
                         IsCompleted = completedProjects.Contains(x.Id)
                     })
                     .ToList()
@@ -631,8 +642,10 @@ else
                 .Where(x => x.Area == Area.Blazor)
                 .Select(x => new RoadmapTask
                     {
+                        Id = x.Id,
                         IconUrl = x.IconUrl,
                         Name = x.Title,
+                        Slug = x.Slug,
                         IsCompleted = completedProjects.Contains(x.Id)
                     })
                     .ToList()
@@ -702,13 +715,6 @@ else
                 Name = "Community Project Issue 15",
                 IsCompleted = issuesCount >= 15,
             },
-        });
-
-        blackBeltTasks.Add(new RoadmapTask
-        {
-            IconUrl = flagshipProject.IconUrl,
-            Name = flagshipProject.Title,
-            IsCompleted = false,
         });
 
         if (UserLevel > Level.Grey && blackBeltTasks.Any(x => !x.IsCompleted))

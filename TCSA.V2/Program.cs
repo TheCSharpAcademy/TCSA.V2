@@ -88,8 +88,8 @@ TCSA.V2.Helpers.ServiceProviderAccessor.ServiceProvider = app.Services;
 using (var scope = app.Services.CreateScope())
 {
   var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-  // dbContext.Database.EnsureDeleted();
-  // dbContext.Database.EnsureCreated();
+    // dbContext.Database.EnsureDeleted();
+    dbContext.Database.EnsureCreated();
 }
 
 if (app.Environment.IsDevelopment())

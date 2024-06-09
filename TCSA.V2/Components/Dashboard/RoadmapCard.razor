@@ -26,9 +26,20 @@
                 <div class="col-12">
                     @foreach (var task in Tasks)
                     {
-                        <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50")"
-                             src='img/Cards/@task.IconUrl' width='50'
-                             title=@(!task.IsCompleted ? task.Name : $"{task.Name} - Completed") />
+                        if (task.Slug != "")
+                        {
+                           <a href='project/@task.Id/@task.Slug'> 
+                           <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50")"
+                                src='img/Cards/@task.IconUrl' width='50'
+                                title=@(!task.IsCompleted ? task.Name : $"{task.Name} - Completed") />
+                            </a>
+                        }
+                        else
+                        {
+                            <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50")"
+                                 src='img/Cards/@task.IconUrl' width='50'
+                                 title=@(!task.IsCompleted ? task.Name : $"{task.Name} - Completed") />
+                        }
                     }
                 </div>
             </div>

@@ -174,7 +174,8 @@ internal static class AzureProjectsHelper
                 },
                 Resources = new List<string>
                 {
-                     "<a href='https://jasonwatmore.com/post/2020/01/08/angular-net-core-sql-on-azure-how-to-deploy-a-full-stack-app-to-microsoft-azure' target='_blank'>Deploying Angular App to Azure </a>(it applies for any other JS framework)",
+                     "<a href='https://jasonwatmore.com/post/2020/01/08/angular-net-core-
+                     on-azure-how-to-deploy-a-full-stack-app-to-microsoft-azure' target='_blank'>Deploying Angular App to Azure </a>(it applies for any other JS framework)",
                       "<a href='https://www.youtube.com/watch?v=cfc_snq9lBg' target='_blank'>Deploying Angular App to Azure </a>(Youtube)",
 
                 },

@@ -111,7 +111,7 @@ internal static class SqlProjectsHelper
                 ExperiencePoints = 10,
                 Description = "Start your SQL journey with easy exercises",
                 Area = Area.SQL,
-                Level = Level.Grey,
+                Level = Level.Brown,
                 Slug = "starter-sql",
                 Difficulty = Difficulty.Beginner,
                 Introduction = new List<Paragraph>
@@ -216,7 +216,7 @@ internal static class SqlProjectsHelper
                 Description = "Creating a solid SQL Foundation",
                 Slug = "starter-sql-2",
                 Area = Area.SQL,
-                Level = Level.Grey,
+                Level = Level.Brown,
                 Difficulty = Difficulty.Beginner,
                 Introduction = new List<Paragraph>
                 {
@@ -306,7 +306,7 @@ internal static class SqlProjectsHelper
                 Slug = "starter-sql-3",
                 Description = "Slightly more advanced challenges",
                 Area = Area.SQL,
-                Level = Level.Grey,
+                Level = Level.Brown,
                 Difficulty = Difficulty.Beginner,
                 RequirementsIntro = "For this project you'll complete the following exercises in the Code Wars Platform:",
                 Requirements = new List<string>

@@ -130,7 +130,14 @@
         var emailStore = GetEmailStore();
         var user = CreateUser();
 
-        await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+        var githubUsername = externalLoginInfo.Principal.Identity?.Name;
+
+        if (githubUsername is not null)
+        {
+            user.GithubUsername = githubUsername;
+            user.UserName = githubUsername;
+        }
+
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
         var result = await UserManager.CreateAsync(user);

@@ -16,6 +16,7 @@ public interface IPeerReviewService
     Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
     Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
     Task<int> GetAvailablePeerReviewsCount(string reviewerId);
+    Task ReleaseUserFromCodeReview(string userId, int id);
 }
 public class PeerReviewService : IPeerReviewService
 {
@@ -186,11 +187,21 @@ public class PeerReviewService : IPeerReviewService
         using (var context = _factory.CreateDbContext())
         {
             await context.UserReviews.AddAsync(new UserReview
-            {
+            {   
                 AppUserId = userId,
                 DashboardProjectId = id
             });
 
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task ReleaseUserFromCodeReview(string userId, int id)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            var reviewToRemove= await context.UserReviews.FirstOrDefaultAsync(review=> review.AppUserId == userId && review.DashboardProjectId==id);
+            context.UserReviews.Remove(reviewToRemove);
             await context.SaveChangesAsync();
         }
     }

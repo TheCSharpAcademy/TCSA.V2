@@ -15,7 +15,7 @@ Appsettings.json:
 "Microsoft.AspNetCore": "Warning"
 }
 },
-"AllowedHosts": "\*"
+"AllowedHosts": "*"
 }
 ```
 GetRanking Store Procedure

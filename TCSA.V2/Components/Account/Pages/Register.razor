@@ -130,6 +130,7 @@
         {
             var user = Activator.CreateInstance<ApplicationUser>();
             user.Country = "";
+            user.EmailConfirmed = true;
             user.FirstName = Input.FirstName;
             user.LastName = Input.LastName;
             user.Level = Level.White;

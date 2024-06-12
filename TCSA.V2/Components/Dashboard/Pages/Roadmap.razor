@@ -451,8 +451,11 @@ else
       .Where(x => x.Level == Level.Grey)
       .Select(x => new RoadmapTask
           {
+              Id = x.Id,
               IconUrl = x.IconUrl,
               Name = x.Title,
+              Slug = x.Slug,
+              IsProject = true,
               IsCompleted = completedProjects.Contains(x.Id)
           })
           .ToList();

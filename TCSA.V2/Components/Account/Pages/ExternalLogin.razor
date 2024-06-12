@@ -130,7 +130,14 @@
         var emailStore = GetEmailStore();
         var user = CreateUser();
 
-        await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+        var githubUsername = externalLoginInfo.Principal.Identity?.Name;
+
+        if (githubUsername is not null)
+        {
+            user.GithubUsername = githubUsername;
+            user.UserName = githubUsername;
+        }
+
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
         var result = await UserManager.CreateAsync(user);
@@ -172,6 +179,7 @@
             user.Country = "";
             user.FirstName = "";
             user.LastName = "";
+            user.EmailConfirmed = true;
             user.Level = Level.White;
             user.CreatedDate = DateTimeOffset.UtcNow;
             return user;

@@ -1530,7 +1530,7 @@ git push</code>"
                             }
                         }
                     },
-                      new Block
+                    new Block
                     {
                         Title = "Microsoft Documentation's Coding Style Guide",
                         Paragraphs = new List<Paragraph>
@@ -1658,6 +1658,196 @@ git push</code>"
                             {
                                 IsPicture = true,
                                 PictureUrl = "code-convention-7.png"
+                            }
+                        }
+                    }
+                }
+            },
+            new Article
+            {
+                Id = 20000,
+                Title = "The C# Academy User Guide",
+                IconUrl = "icons8-notes-64.png",
+                Slug="user-guide",
+                BannerUrl = "",
+                Description = "A quick overview of how to get the most out of the academy.",
+                Area = Area.StandAlone,
+                ExperiencePoints = 5,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        ImgUrl = "icons8-multitasking-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "There's a lot that can be done in The C# Academy. Our program is designed to let you customize your learning experience, whether you’re a complete beginner looking for a clear roadmap or an experienced developer aiming to fill in knowledge gaps. Let's explore how The C# Academy works!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-roadmap-100.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Roadmap</h3><p><p> We offer a series of projects designed to guide you from writing your first line of code to developing professional applications. Each project builds on the last, introducing new concepts and technologies. Once you register and log in, <a href='/dashboard/roadmap' target = '_blank'>you can view the roadmap here</a>. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-karate-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Belt System</h3><p><p> You'll notice that the roadmap is organized into levels, or belts, similar to martial arts. To advance to the next belt, you need to complete a series of tasks. On the roadmap page, you can see icons for the tasks you need to complete to advance to the next belt. Hovering over the question mark on each belt will display a list of the tasks. At the top of the page, you'll find a list of the missing tasks for the current level. "
+                            }
+                        }
+                    },
+                      new Block
+                      {
+                        ImgUrl = "icons8-leaderboard-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Leaderboard</h3><p><p> We also have a <a href='/leaderboard' target='_blank'>leaderboard</a>. You'll feature on the leaderboard as soon as you gain your first points. It's totally independent of the belt system. You can be at the top of the leaderboard and still be a White Belt. We've designed it this way so that you're not forced to follow the roadmap if you don't want to. We really want you to enjoy yourself! "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-sequence-96.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Which Order Should You Follow?</h3><p><p>It's totally up to you. If you're a professional developer with years of experience, you might jump straight to the section that's most relevant to you. If you're following the suggested roadmap and the belt system, here's a super brief overview of the order we recommend: "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-start-100.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>First Steps</h3><p><p>You'll start by reading 6 short articles: Start Here, Getting Help, Setting Up, C# Foundations, The Importance of Console Applications and this guide. We don't want to bore you with a lot of reading, so the whole thing will take you less than an hour. This preparation time will increase if you need to install a few programs."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-certification-94.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Microsoft Certification</h3><p><p>Then you'll jump onto the <a href='/project/75/freecodecamp-certification' target='_blank'>Freecodecamp Certification</a> (FCC). We warn you that many people say it can get boring. However, it provides important knowledge before you start building. And it gives you a Microsoft Certificate! We recommend you do it. If you find it unbearable, divide and conquer. Do one section a day. In parallel, get started with the Math Game. Reading the articles, completing FCC and finishing the Math Game will earn you a Green Belt."
+                            }
+                        }
+                    },
+                     new Block
+                    {
+                        ImgUrl = "icons8-console-64-1.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Console Area</h3><p><p>After this first quick win, complete the <a href='/#console-area' target='_blank'>Console Area</a> and build your <a href='/project/23/resume' target='_blank'>Resume</a> and <a href='/project/22/portfolio' target='_blank'>Portfolio</a>. This will take you all the way up to Red Belt. It's not very hard; if you create a solid study routine you can complete it in a couple of months. However, those who complete it very quickly usually have a good amount of previous programming experience. If you're an absolute beginner, give yourself some time and think of it as a marathon!"
+                            }
+                        }
+                    },
+                     new Block
+                    {
+                        ImgUrl = "icons8-full-stack-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Full Stack</h3><p><p>The next step is to delve into <a href='/project/23/resume' target='_blank'>Resume</a> and <a href='/#mvc-area' target='_blank'>Full Stack Development</a>. While it might seem like we're recommending you to learn ASP.NET Core front-end solutions since it's the first option after the 'Apply for Jobs' area, that's not the case. You can choose any of the following: ASP.NET Core MVC, Angular, React, Blazor, or MAUI. And we'll be including more options soon!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-checklist-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>More Than Projects</h3><p><p>As you go through the Roadmap, you'll notice that some levels have extra tasks, carefully designed to make you a well-rounded developer: Community Projects, Code Reviews, Code Challenges, Flagship Project. Let's see what these are about."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-users-100.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Community Projects</h3><p><p>As a professional developer, you'll often collaborate in teams, exploring large codebases built and maintained by various hands. We offer this experience through community projects, which you can find here. Currently, you can contribute to The C# Academy itself or to the Point of Sale project. Tasks are available for all skill levels, from fixing typos to creating entire features, so we encourage you to try these sooner rather than later. Contributing to large projects will leave you with a sense of accomplishment! While we don't officially label The C# Academy as open source since registration is required to participate, it's similar in spirit!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-code-review-64-1.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Code Reviews</h3><p><p>Starting from Yellow Belt, you'll also be expected to contribute through code reviews. With hundreds of projects being submitted weekly, ensuring everyone receives a thorough review is only possible with the assistance of advanced students. Not only will you be helping the academy, but you'll also benefit from the reviews, gaining more experience with git workflow and honing your communication skills. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-rubik-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Code Challenges</h3><p><p>With the integration of <a href='https://www.codewars.com/' target='_blank'>Codewars</a>, we offer a series of code challenges to test your knowledge in a fun way. Currently, we provide SQL puzzles, but more challenges are being prepared and will be integrated into the curriculum, including <a href='https://leetcode.com/' target='_blank'>Leetcode</a>."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-cloud-data-66.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Cloud Development</h3><p><p>To attain a black belt, you'll also need to grasp the basics of <a href='/#cloud-area' target='_blank'>Azure Cloud Services</a>. This section will instruct you on deploying apps and databases to the cloud and constructing serverless systems. While this section might have been optional a few years ago, the current job market demands proficiency in cloud development. It's prominently featured in most job postings and empowers you to built better and more engaging systems."
+                            }
+                        }
+                    }, 
+                    new Block
+                    {
+                        ImgUrl = "icons8-battleship-55.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Flagship Project</h3><p><p>Last but not least, we have the <a href='/project/139/flagship-project' target='_blank'>Personal Flagship Project</a>, where you get to decide what to build. This project includes a list of features to ensure it's complex enough to be a key feature in your portfolio. However, it's designed to get you even more motivated by allowing you to work on something you're passionate about. There's ample room for creativity! We suggest you start thinking about it early in your journey. If you don't have any interesting ideas, you can use one of our existing projects and add your personal touch. There's nothing wrong with that!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        ImgUrl = "icons8-artist-100.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<h3>Express Yourself</h3><p><p>In fact, all our projects have requirements that ensure you're learning the topics you need to become a developer. We're constantly updating them to reflect what's in demand by the industry. But beyond meeting these requirements, we suggest you always try to add your personal touch. When I started, I built several apps for things I deeply cared about: Football, languages, personal finance. I had a great time creating a Fifa World Cup app with Blazor when it was first launched. I suggest you do the same. In all projects, you can use your own business case and ideas. This concept is backed by science. People learn much better when they apply what's being studied to things they relate to and care about. Keep this in mind and you'll always be motivated!"
                             }
                         }
                     }

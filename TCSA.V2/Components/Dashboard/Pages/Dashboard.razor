@@ -133,7 +133,8 @@
                 ImgUrl = "icons8-baby-app-96.png",
                 Projects = Articles.Where(x => x.Area == Area.StartHere),
                 Description = GetNotCompletedMessage(Area.StartHere, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.StartHere, null),
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles, 
+                    CompletedProjects, Area.StartHere, null),
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -141,7 +142,8 @@
                 ImgUrl = "icons8-mommy-and-me-classes-96.png",
                 Projects = Projects.Where(x => x.Area == Area.Console && x.Difficulty == Difficulty.Beginner),
                 Description = GetNotCompletedMessage(Area.Console, Difficulty.Beginner),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Beginner),
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Console, Difficulty.Beginner),
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -149,7 +151,8 @@
                 ImgUrl = "icons8-teenager-64.png",
                 Projects = Projects.Where(x => x.Area == Area.Console && x.Difficulty == Difficulty.Intermediate),
                 Description = GetNotCompletedMessage(Area.Console, Difficulty.Intermediate),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Intermediate)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Console, Difficulty.Intermediate)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -157,7 +160,8 @@
                 ImgUrl = "icons8-executive-64.png",
                 Projects = Projects.Where(x => x.Area == Area.Console && x.Difficulty == Difficulty.Advanced),
                 Description = GetNotCompletedMessage(Area.Console, Difficulty.Advanced),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Console, Difficulty.Advanced)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Console, Difficulty.Advanced)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -165,7 +169,8 @@
                 ImgUrl = "icons8-permanent-job-96.png",
                 Projects = Projects.Where(x => x.Area == Area.StartApplying),
                 Description = GetNotCompletedMessage(Area.StartApplying, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.StartApplying, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.StartApplying, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -173,7 +178,8 @@
                 ImgUrl = "icons8-sql-server-64.png",
                 Projects = Projects.Where(x => x.Area == Area.SQL),
                 Description = GetNotCompletedMessage(Area.SQL, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.SQL, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.SQL, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -181,7 +187,8 @@
                 ImgUrl = "mvc.png",
                 Projects = Projects.Where(x => x.Area == Area.MVC),
                 Description = GetNotCompletedMessage(Area.MVC, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.MVC, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.MVC, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -189,7 +196,8 @@
                 ImgUrl = "icons8-authentication-100.png",
                 Projects = Projects.Where(x => x.Area == Area.Auth),
                 Description = GetNotCompletedMessage(Area.Auth, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Auth, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Auth, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -197,7 +205,8 @@
                 ImgUrl = "icons8-react-80.png",
                 Projects = Projects.Where(x => x.Area == Area.React),
                 Description = GetNotCompletedMessage(Area.React, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.React, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.React, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -205,7 +214,8 @@
                 ImgUrl = "icons8-angularjs-96.png",
                 Projects = Projects.Where(x => x.Area == Area.Angular),
                 Description = GetNotCompletedMessage(Area.Angular, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Angular, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Angular, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -213,7 +223,8 @@
                 ImgUrl = "blazor.png",
                 Projects = Projects.Where(x => x.Area == Area.Blazor),
                 Description = GetNotCompletedMessage(Area.Blazor, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Blazor, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Blazor, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -221,7 +232,8 @@
                 ImgUrl = "maui.png",
                 Projects = Projects.Where(x => x.Area == Area.MAUI),
                 Description = GetNotCompletedMessage(Area.MAUI, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.MAUI, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.MAUI, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -229,7 +241,8 @@
                 ImgUrl = "icons8-cloud-connection-480.png",
                 Projects = Projects.Where(x => x.Area == Area.Azure),
                 Description = GetNotCompletedMessage(Area.Azure, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.Azure, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles,
+                        CompletedProjects, Area.Azure, null)
             });
         Areas.Add(new DashboardAreaInfo
             {
@@ -237,57 +250,11 @@
                 ImgUrl = "icons8-challenge-64.png",
                 Projects = Projects.Where(x => x.Area == Area.MonthlyChallenge),
                 Description = GetNotCompletedMessage(Area.MonthlyChallenge, null),
-                IsCompleted = CheckIfAreaIsCompleted(Area.MonthlyChallenge, null)
+                IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles, 
+                    CompletedProjects, Area.MonthlyChallenge, null)
             });
 
         AlumniComplete = CompletedProjects.Contains(86);
-    }
-
-    // TODO: Move this to helper and add unit test
-    private bool CheckIfAreaIsCompleted(Area area, Difficulty? difficulty)
-    {
-        if (difficulty != null)
-        {
-            var ids = Projects.Where(x => x.Area == area && x.Difficulty == difficulty).Select(x => x.Id).ToList();
-
-            foreach (int id in ids)
-            {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
-                {
-                    return false;
-                } else
-                {
-                    return true;
-                }
-            }
-        }
-
-        if (area != Area.StartHere)
-        {
-            var projectIds = Projects.Where(x => x.Area == area).Select(x => x.Id);
-
-            foreach (int id in projectIds)
-            {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            var articleIds = Articles.Where(x => x.Area == Area.StartHere).Select(x => x.Id);
-
-            foreach (int id in articleIds)
-            {
-                if (CompletedProjects != null && !CompletedProjects.Contains(id))
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 
     private string GetNotCompletedMessage(Area? area, Difficulty? difficulty)

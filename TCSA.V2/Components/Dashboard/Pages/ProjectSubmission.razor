@@ -89,6 +89,8 @@ else
             NavigationManager.NavigateTo("Account/Login");
         }
 
+        var nonReviewProjects = new[] { 54, 70, 71, 76, 77, 78, 85, 87 };
+
         if (AuthSate.User.Identity.IsAuthenticated)
         {
             var claims = AuthSate.User;
@@ -97,6 +99,7 @@ else
 
             ProjectsNotCompleted = ProjectHelper.GetProjects()
             .Where(x => !DashboardProjects.Contains(x.Id))
+            .Where(x => !nonReviewProjects.Contains(x.Id))
             .ToList();
         }
     }

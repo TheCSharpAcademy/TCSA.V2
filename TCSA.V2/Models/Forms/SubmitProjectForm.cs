@@ -30,14 +30,11 @@ public class GitHubUrlAttribute : ValidationAttribute
             return new ValidationResult(ErrorMessage);
         }
 
-        // Default behavior if project ID doesn't match or validation passes
         return ValidationResult.Success;
     }
 
     private bool IsValidGitHubUrl(string url)
     {
-        // Implement your GitHub URL validation logic here
-        // Example: Check if the URL starts with a specific pattern
         return url.StartsWith("https://github.com/TheCSharpAcademy/CodeReviews");
     }
 }

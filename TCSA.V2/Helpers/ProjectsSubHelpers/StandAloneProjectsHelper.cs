@@ -35,28 +35,28 @@ internal static class StandAloneProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="For a long time Microsoft has put a lot of effort into educational material for .NET and C#. There are of resources in their <a href='https://learn.microsoft.com/en-au/docs/' target='blank'>technical documentation</a> and <a href='https://learn.microsoft.com/en-us/training/' target='blank'>learning platform</a>, targeting from absolute beginners to senior developers seeking to improve their skills. Such an extensive library has the downside of sometimes being confused, particularly when considering the variety of technologies, their different versions accross the years and the constant evolution of .NET."
+                        Body="For a long time, Microsoft has put a lot of effort into educational material for .NET and C#. There are plenty of resources in their <a href='https://learn.microsoft.com/en-au/docs/?wt.mc_id=MVP_364708' target='_blank'>technical documentation</a> and <a href='https://learn.microsoft.com/en-us/training/?wt.mc_id=MVP_364708' target='_blank'>learning platform</a>, catering to everyone from absolute beginners to senior developers seeking to improve their skills. Such an extensive library has the downside of sometimes being confusing, particularly considering the variety of technologies, their different versions over the years, and the constant evolution of .NET."
                     },
                     new Paragraph
                     {
-                        Body="In August 2023, FreeCodeCamp and Microsoft paired up to offer a single unified learning resource, which gives students a professional certification when completed. This certification is comprised of a step-by-step list of topics in a curriculum provided by FreeCodeCamp, but the studying and completion of the modules happens within Microsoft's learning materials. It's a fantastic resource that prevents learners from getting lost in tutorial hell when learning the basics. "
+                        Body="In August 2023, FreeCodeCamp and Microsoft teamed up to offer a single unified learning resource, providing students with a professional certification upon completion. This certification comprises a step-by-step list of topics in a curriculum provided by FreeCodeCamp, but the studying and completion of the modules occur within Microsoft's learning materials. It's a fantastic resource that prevents learners from getting lost in tutorial hell when learning the basics. "
                     }
                 },
                 Requirements = new List<string>
                 {
                     @"You need to complete FreeCodeCamp's<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
-                    @$"Upon completion you need to submit a screenshot of your certificate either via <a target='blank' href='{DiscordLink}'> our Discord Server (Code Reviews Channel)</a> or <a target='blank' href='mailto:thecsharpacademy@gmail.com'>via E-mail</a>, along with the username/email you use to log into the academy."
+                    @$"Upon completion, you need to submit the link to your project on the <a target='blank' href='/dashboard/submit-project'> project submission page</a>. Choose the certification from the project's dropdown menu and fill the textbox with the link to your certificate. If you encounter any problems, contact us <a target='_blank' href='mailto:thecsharpacademy@gmail.com'>via email</a>, along with the username/email you use to log into the academy."
                 },
                 Tips = new List<string>
                 {
                     "You might be tempted to speed through the certification, rushing past the topics you might be familiar with. Instead, read each paragraph carefully. There are always gaps in your knowledge. We don't know what we don't know.",
                     "You don't need to complete the coding challenges in the certification to mark a section as completed. But we recommend you actually complete them, no matter how easy they are. If an exercise is too easy, try using an approach you haven't used before.",
-                    "Make lots of notes, but don't fall into the trap of writing EVERYTHING down. Notes are useful when you can have a quick glance at them for reference. A good approach is to write down concise bullet points with concepts you were not familiar with. You can also have separate notes with follow-up topics you want to study.",
+                    "Make lots of notes, but don't fall into the trap of writing <b>everything</b> down. Notes are useful when you can have a quick glance at them for reference. A good approach is to write down concise bullet points with concepts you were not familiar with. You can also have separate notes with follow-up topics you want to study.",
                     "Although you can complete the certification in a few hours, we recommend doing each section in a different day, so you're always studying with maximum focus."
                 },
                 Challenges = new List<string>
                 {
-                    "Upon completion of your project, have a go at completing the <a target='_blank' href='project/53/math-game'>Math Game</a> project without watching the video tutorial in the project's page. It might be challenging if this is your first time building something yourself but this approach will speed up your learning.",
+                    "Upon completion of your project, the next roadmap step is the <a target='_blank' href='/project/53/math-game'>Math Game</a> Try completing it without watching the video tutorial in the project's page. It might be challenging if this is your first time building something yourself but this approach will speed up your learning.",
                 }
             },
              new Project
@@ -82,7 +82,7 @@ internal static class StandAloneProjectsHelper
                     },
                      new Paragraph
                     {
-                        Body="To mark yourself as a student, make sure your profile is updated your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and submit the project <a target='blank' href='dashboard/submit-project'>in the dashboard</a>. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
+                        Body="To mark yourself as a student, make sure your profile is updated with your LinkedIn url. You can view and update your profile in the dashboard. Then <a target='blank' href='https://www.linkedin.com/help/linkedin/answer/a542784'>follow these instructions</a> and submit the project <a target='_blank' href='dashboard/submit-project'>in the dashboard</a>. Please be aware that we don't have integration with Linkedin at this stage. Allow a few hours for this project to be marked as complete and receive your experience points."
                     }
                 }
             },

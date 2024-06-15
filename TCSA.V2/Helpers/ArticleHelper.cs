@@ -617,7 +617,7 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "Now it’s time to learn the basic C# syntax. You need to be familiar with a few concepts and techniques before jumping into your first real project. The way you’ll attack this first contact with the language will depend on your learning style, but here’s my advice: Don’t try to understand <b>EVERYTHING</b> before starting to build."
+                                Body = "Now it’s time to learn basic C# syntax. You need to be familiar with a few concepts and techniques before jumping into your first real project. How you approach this initial contact with the language will depend on your learning style, but here’s our advice: Don’t try to understand <b>everything</b> before starting to build."
                             }
                         }
                     },
@@ -629,11 +629,11 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "One of the biggest mistakes people make when starting to code is assuming they need to know <b>A LOT</b> before building interesting things. You’ll be surprised about what you can create with basic concepts you can learn within a few hours."
+                                Body = "One of the biggest mistakes people make when starting to code is assuming they need to know <b>a lot</b> before building interesting things. You’ll be surprised by what you can create with basic concepts you can learn within a few hours."
                             },
                             new Paragraph
                             {
-                                Body = "By all means, make lots of notes when you’re first learning to code. Go through the entire material once or twice. But that’s it! The basic syntax hasn’t and won’t change significantly across the years. You’ll have to get back to the basics many times during your journey. Everything you initially have contact with will only be internalised with <b>PRACTICE</b>. So make sure you don’t spend more than a few hours learning the basic theory."
+                                Body = "By all means, make lots of notes when you’re first learning to code. Go through the entire material once or twice. But that’s it! The basic syntax hasn’t changed significantly over the years, and it won’t in the future. You’ll have to revisit the basics many times during your journey. Everything you initially encounter will only be internalized with <b>practice</b>. So make sure you don’t spend more than a few hours learning the basic theory."
                             },
                             new Paragraph
                             {
@@ -649,35 +649,40 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "In 2023, Microsoft partnered up with Free Code Camp to create a <a target='blank' href='https://thecsharpacademy.com/project/75/freecodecamp-certification'>C# certification</a>. It's an excellent course, perfect for absolute beginners to get started. Experienced C# learners will also benefit from this certification as we all have knowledge gaps, no matter how long we have been learning for."
+                                Body = "In 2023, Microsoft partnered with Freecodecamp to create a <a target='blank' href='https://thecsharpacademy.com/project/75/freecodecamp-certification'>C# certification</a>. It's an excellent course, perfect for absolute beginners to get started. Experienced C# learners will also benefit from this certification, as we all have knowledge gaps, no matter how long we have been learning."
                             },
 
                             new Paragraph
                             {
-                                Body = "We highly recommend you don't rush past the sections of this C# Certification. Read every line carefully and make notes. An effective way to write notes is writing the concepts that are new to you. Or anything that jumps to your attention. Don't write down things you already knew, as it's unlikely you'll ever touch those notes again if they aren't actually interesting."
+                                Body = "If you're just getting started, we highly recommend that you don't rush past the sections of the certification. Read every line carefully and make notes. An effective way to write notes is to focus the concepts that are new to you or anything that stands out. Avoid writing down things you already know, as it's unlikely you'll ever refer to those notes again if they aren't genuinely interesting."
                             },
                             new Paragraph
                             {
-                                Body = "After submitting your certificate to the Academy, you'll be rewarded with <b>20 Experience Points</b>. The certification is required for students get their <b>Green Belt</b>."
+                                Body = "After submitting your certificate to the Academy, you'll be rewarded with <b>20 Experience Points</b>. The certification is a requirement to achieve <b>Green Belt</b>."
                             }
                         }
                     },
                     new Block
                     {
-                        Title = "Video Course",
+                        Title = "Math Game",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "Here’s a playlist of videos with an intro course by the C# Academy that aim to provide the foundation you need for the upcoming projects. It differs from most beginners tutorials because we don’t just teach concepts that you have no idea how to apply in a real program. We will create a desktop game so that you see how each concept is applied in the context of a real world application."
+                                Body = "After the certification, the next step in the roadmap is <a target='blank' href='https://thecsharpacademy.com/project/53/math-game'>the Math Game</a>. You might even start the project in parallel with the certification, if you find it boring. We've had feedback from a few students in that regard. People have different learning styles and going through the sections might be difficult for some. If that's the case, start the project right away!"
+                            },
+                            new Paragraph
+                            {
+                                Body = "In this project you'll be using and reinforcing the basic concepts, techniques and syntax learned so far, laying a solid foundation before we can move on to more complex software. We suggest you try to complete all projects without help initially. With the Math Game it might be difficult if you don't have previous experience with C# or programming in general. <a target='blank' href='https://thecsharpacademy.com/project/53/math-game'>In the project page</a>, you'll find a video tutorial to get you unstuck in case you need it."
                             },
                             new Paragraph
                             {
                                 Body = "In the first part of the tutorial, we will build a console app where we’ll go over all the basics you need to get started. Starting with a console app is important because you can focus purely on C#. If you jump straight into Web, Desktop or Mobile Apps, there’s a lot of overhead code and setup that will distract you from actually learning what’s necessary at this stage."
                             },
+
                             new Paragraph
                             {
-                                Body = "But we understand that console apps aren’t very exciting. It’s nice to create something beautiful very early on, so in the second part of the tutorial we will build the same app using the state-of-the-art .NET Maui, a modern cross-platform solutin that allows us to build apps for Windows, Apple, Android and Mac using a single code base. "
+                                Body = "But we understand that console apps aren’t necessarily very exciting. It’s nice to create something beautiful early on. So in the second part, we will build the same app using the .NET Maui, a modern cross-platform solution that enables us to build apps for Windows, Apple, Android and Mac using one single code base. "
                             },
                             new Paragraph
                             {
@@ -699,7 +704,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "In the <a href='article/7/setting-up' target='blank'>C# Setup</a> article , you learned you have to create your source control repository. This will be your ultimate reference book. Every piece of code you ever write should be saved there. And guess what? That will also become your tool box. You’ll constantly grab pieces of code you’ve written before to reuse in your projects. "
+                                Body = "In the <a href='article/7/setting-up' target='blank'>C# Setup</a> article , you learned you have to create your source control repository. This will be your ultimate reference book. Every piece of code you ever write should be saved there. And guess what? That will also become your toolbox. You’ll constantly grab pieces of code you’ve written before to reuse in your projects. "
                             },
                             new Paragraph
                             {
@@ -715,15 +720,15 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "It’s great to learn from different sources. While we’re biased towards C# Academy’s beginner’s tutorial above, since it’s unique in that you learn concepts by applying them, we strongly encourage you to learn from different instructors throughout your journey. Here’s my favourite <a target='_blank' href='https://www.youtube.com/watch?v=gfkTfcpWqAY'>Beginners tutorial</a>. Mosh touches on everything you need to get started and after this video you can jump straight into the projects. <a target='_blank' href='https://www.youtube.com/playlist?list=PLLWMQd6PeGY2GVsQZ-u3DPXqwwKW8MkiP'>Tim Corey</a> is another excellent instructor to get started with."
+                                Body = "It’s great to learn from different sources. While we’re biased towards C# Academy’s beginner’s tutorial above, since it’s unique in that you learn concepts by applying them, we recommend you try different instructors throughout your journey. Here’s my favourite <a target='_blank' href='https://www.youtube.com/watch?v=gfkTfcpWqAY'>Beginners tutorial</a>. Mosh touches on everything you need to get started. <a target='_blank' href='https://www.youtube.com/playlist?list=PLLWMQd6PeGY2GVsQZ-u3DPXqwwKW8MkiP'>Tim Corey</a> is another excellent instructor to get started with."
                             },
                             new Paragraph
                             {
-                                Body = "The <a target='_blank' href='https://www.youtube.com/watch?v=GhQdlIFylQ8&t=8242s'> most watched C# course</a> on Youtube is excellent but it’s 4 hours long. It might take you weeks to watch it. I suggest you don’t go through the whole thing before jumping into projects. That’s exactly the type of behaviour that makes people quit. Initially stay away from super long, comprehensive tutorials, unless you break them in pieces and mix theory with practice. "
+                                Body = "The <a target='_blank' href='https://www.youtube.com/watch?v=GhQdlIFylQ8&t=8242s'> most watched C# course</a> on Youtube is excellent but it’s four hours long. It might take you weeks to watch it. We suggest you don’t go through the whole thing before jumping into projects. That’s exactly the type of behaviour that makes people quit. Initially stay away from super long, comprehensive tutorials, unless you break them in pieces and mix theory with practice. "
                             },
                             new Paragraph
                             {
-                                Body = "Also, use Youtube to close knowledge gaps. If there’s something you don’t get during your journey, search for that specific topic and you’ll find tutorials just about that subject. The different teaching styles and approaches will help you understand that particular area you’re having trouble with."
+                                Body = "Also, use other sources such as Youtube, ChatGPT and other learning platforms to fill knowledge gaps. If there’s something you don’t get during your journey, search for that specific topic, and you’ll find tutorials tailored to it. The various teaching styles and approaches will help you understand the particular area you’re struggling with."
                             }
                         }
                     }

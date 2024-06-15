@@ -289,7 +289,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = $"Once you finish reading this page, <a target='_blank' href='{discordLink}'>join us on Discord</a> and introduce yourself.  If the link doesn’t work, add me via my nickname: <b><i><u>pablocappuccino#4729</u></i></b>. You can use this website merely as a reference and to get project ideas here and there, or you can follow our <a target='_blank' href='/dashboard/roadmap'>Roadmap</a> (you need to be logged in to see it). If you choose to follow the pathway, you can also choose to <a href='/Account/Register' target='_blank'>register</a> so you can track your progress in <a target='_blank' href='/dashboard'>our Dashboard</a>, participate in <a target='_blank' href='/leaderboard'>our Leaderboard</a> and <b>get your code reviewed</b>. By updating your profile with your LinkedIn and Github, the links will be available in the leaderboard for everyone to see, include potential recruiters."
+                                Body = $"Once you finish reading this page, read <a target='_blank' href='/article/20000/user-guide'>The C# Academy Intro Guide</a> for a quick overview of how the academy works. Then, <a target='_blank' href='{discordLink}'>join us on Discord</a> and introduce yourself.  If the link doesn’t work, add me via my nickname: <b><i><u>pablocappuccino#4729</u></i></b>. You can use this website merely as a reference and to get project ideas here and there, or you can follow our <a target='_blank' href='/dashboard/roadmap'>Roadmap</a> (you need to be logged in to see it). If you choose to follow the pathway, you can also choose to <a href='/Account/Register' target='_blank'>register</a> so you can track your progress in <a target='_blank' href='/dashboard'>our Dashboard</a>, participate in <a target='_blank' href='/leaderboard'>our Leaderboard</a> and <b>get your code reviewed</b>. By <a target='_blank' href='/dashboard/profile'>updating your profile</a> with your LinkedIn and Github, the links will be available in the leaderboard for everyone to see, include potential recruiters. "
                             },
                             new Paragraph
                             {
@@ -366,11 +366,11 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
-                                Body = "1 – Quitting is not an option.<br>2 – “We have a drone on Mars”. If we are able to control a drone on Mars, <b><i><u>THERE IS A SOLUTION</u></i></b> for whatever programming problem I’m having."
+                                Body = "1 – Quitting is not an option.<br>2 – “We have a drone on Mars”. If we are able to control a drone on Mars, <b><i><u>there is a solution</u></i></b> for whatever programming problem I’m having."
                             },
                             new Paragraph
                             {
-                                Body="Remember this: <b><i><u>THERE IS A SOLUTION</u></i></b>. It will take many years of programming to run into problems that haven’t been solved before. So if you stick to it, no matter how long it takes, you will solve it. So let’s see how we solve problems in software development."
+                                Body="Remember this: <b><i><u>there is a solution</u></i></b>. It will take many years of programming to run into problems that haven’t been solved before. So if you stick to it, no matter how long it takes, you will solve it. So let’s see how we solve problems in software development."
                             }
                         }
                     },
@@ -494,7 +494,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "So you’ve decided to start your backend journey using C#. You should be excited! .NET is a vast, powerful framework with endless tools for developers. There will always be something to learn!"
+                                Body = "So you’ve decided to start your backend journey using C#. You should be excited! .NET is a vast, powerful framework with endless tools for developers. There will always be something to learn! If you haven't yet, read <a target='_blank' href='/article/20000/user-guide'>The C# Academy Intro Guide</a> for a quick overview of how the academy works."
                             },
                             new Paragraph
                             {
@@ -1666,7 +1666,7 @@ git push</code>"
             new Article
             {
                 Id = 20000,
-                Title = "The C# Academy User Guide",
+                Title = "The C# Academy Intro Guide",
                 IconUrl = "icons8-notes-64.png",
                 Slug="user-guide",
                 BannerUrl = "",

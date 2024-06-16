@@ -1,0 +1,117 @@
+﻿@page "/admin/create"
+@using Microsoft.AspNetCore.Authorization
+@using TCSA.V2.Components.UI
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
+@using TCSA.V2.Models
+@using TCSA.V2.Models.Responses
+@using TCSA.V2.Services
+@inject IChallengeService ChallengeService
+@layout AdminLayout
+@rendermode InteractiveServer
+
+<div class="mt-5 mb-5 pt-5">
+    @if (showNotification)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissNotification" />
+        <ResultCard Message="@message" IsSuccess="@isSuccess" />
+    }
+
+    <h3>Create New Challenge</h3>
+
+    <EditForm Model="@challenge" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name:</label>
+            <InputText id="Name" @bind-Value="challenge.Name" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="ExternalId" class="form-label">External ID:</label>
+            <InputText id="ExternalId" @bind-Value="challenge.ExternalId" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="Description" class="form-label">Description:</label>
+            <InputTextArea id="Description" @bind-Value="challenge.Description" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="Keywords" class="form-label">Keywords:</label>
+            <InputText id="Keywords" @bind-Value="challenge.Keywords" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="ReleaseDate" class="form-label">Release Date:</label>
+            <InputDate id="ReleaseDate" @bind-Value="challenge.ReleaseDate" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="ExperiencePoints" class="form-label">Experience Points:</label>
+            <InputNumber id="ExperiencePoints" @bind-Value="challenge.ExperiencePoints" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="Platform" class="form-label">Platform:</label>
+            <InputSelect id="Platform" @bind-Value="challenge.Platform" class="form-control">
+                @foreach (var platform in Enum.GetValues(typeof(ChallengePlatform)))
+                {
+                    <option value="@platform">@platform</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="mb-3">
+            <label for="Level" class="form-label">Level:</label>
+            <InputSelect id="Level" @bind-Value="challenge.Level" class="form-control">
+                @foreach (var level in Enum.GetValues(typeof(Level)))
+                {
+                    <option value="@level">@level</option>
+                }
+            </InputSelect>
+        </div>
+
+        @if (isSubmitting)
+        {
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary">
+                Submit
+            </button>
+        }
+    </EditForm>
+</div>
+
+@code {
+    private Challenge challenge = new Challenge();
+    private string message = string.Empty;
+    private bool isSuccess;
+    private bool showNotification = false;
+    private bool isSubmitting = false;
+
+    protected override void OnInitialized()
+    {
+        challenge.ReleaseDate = DateTime.Today;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        isSubmitting = true;
+
+        var response = await ChallengeService.CreateChallenge(challenge);
+        message = response.Message;
+        isSuccess = response.Status == ResponseStatus.Success;
+        
+        showNotification = true;
+        isSubmitting = false;
+
+        if (isSuccess)
+        {
+            challenge = new Challenge();
+        }
+    }
+
+    private void DismissNotification()
+    {
+        showNotification = false;
+    }
+}

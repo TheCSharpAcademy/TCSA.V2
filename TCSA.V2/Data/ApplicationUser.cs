@@ -22,6 +22,7 @@ public class ApplicationUser : IdentityUser
     public string? LinkedInUrl { get; set; }
     public string? GithubUsername { get; set; }
     public string? DisplayName { get; set; }
+    public virtual ICollection<UserChallenge> UserChallenges { get; set; }
 }
 
 public enum Level

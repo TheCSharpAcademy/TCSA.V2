@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCSA.V2", "TCSA.V2\TCSA.V2.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCSA.V2.IntegrationTests", "TCSA.V2.IntegrationTests\TCSA.V2.IntegrationTests.csproj", "{53E5E095-3045-4754-A4F8-DD2D72492BDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCSA.V2.UnitTests", "TCSA.V2.UnitTests\TCSA.V2.UnitTests.csproj", "{8DE473B9-C331-4D7B-AE06-B80EA3974B76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCSA.V2.UnitTests", "TCSA.V2.UnitTests\TCSA.V2.UnitTests.csproj", "{8DE473B9-C331-4D7B-AE06-B80EA3974B76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

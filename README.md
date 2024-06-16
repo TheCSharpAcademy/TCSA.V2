@@ -1,5 +1,8 @@
-Appsettings.json:
-```
+### 🛠️ Configure Project Locally
+
+1. Create **appsettings.json** file and paste the following:
+
+``` appsettings.json
 {
 "Values": {
 "GithubClientId": "",
@@ -18,7 +21,34 @@ Appsettings.json:
 "AllowedHosts": "*"
 }
 ```
-GetRanking Store Procedure
+
+2. Make sure you have SQL Server Management Studio (or other Database 
+   Management Software) installed and configured.
+3. Replace ```DefaultConnection``` string with your own Connection String.
+4. Go to **Program.cs** and uncomment lines 92 and 93:
+
+```Program.cs
+using (var scope = app.Services.CreateScope())
+{
+  var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    //dbContext.Database.EnsureDeleted();
+    //dbContext.Database.EnsureCreated();
+}
+```
+
+5. Run the project.
+
+#### _If you want to log in to dummy account via Github_
+
+1. Update ```GithubClientId``` and ```GithubClientSecret``` 
+   with random values (e.x. abcde12345).
+2. Run the project and register using Github.
+3. Log in to that account.
+
+
+
+
+### GetRanking Store Procedure
 
 ```
 /****** Object:  StoredProcedure [dbo].[GetRanking]    Script Date: 17/02/2024 5:39:04 PM ******/

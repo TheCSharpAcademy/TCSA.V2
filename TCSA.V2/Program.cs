@@ -43,6 +43,7 @@ builder.Services.AddScoped<ICommunityService, CommunityService>();
 builder.Services.AddScoped<ICodeWarsService, CodeWarsService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IRoadmapService, RoadmapService>();
+builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddScoped<HeartBeat>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
@@ -88,8 +89,8 @@ ServiceProviderAccessor.ServiceProvider = app.Services;
 using (var scope = app.Services.CreateScope())
 {
   var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-  // dbContext.Database.EnsureDeleted();
-  // dbContext.Database.EnsureCreated();
+    //dbContext.Database.EnsureDeleted();
+    //dbContext.Database.EnsureCreated();
 }
 
 if (app.Environment.IsDevelopment())

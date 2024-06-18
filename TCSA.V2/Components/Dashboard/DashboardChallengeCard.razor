@@ -2,6 +2,7 @@
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+
 <div class="row horizontal-card-review shadow rounded d-none d-md-flex">
     <div class="col-md-2 d-flex align-items-center justify-content-center">
         <div class="date-cell">
@@ -27,7 +28,7 @@
     <div class="col-md-1 d-flex align-items-center justify-content-center">
         <div class="row text-center">
             <div class="col-12 view-btn">
-                <a target="_blank" href="https://www.codewars.com/kata/50654ddff44f800200000007">
+                <a target="_blank" href=@($"https://www.codewars.com/kata/{Challenge.ExternalId}")>
                     <ViewProjectSVG />
                     <div class="col-12 dashboard-review-action-text">
                         View

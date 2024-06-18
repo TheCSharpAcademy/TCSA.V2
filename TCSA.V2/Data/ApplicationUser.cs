@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using TCSA.V2.Models;
 
 namespace TCSA.V2.Data;
+
 public class ApplicationUser : IdentityUser
 {
     public string FirstName { get; set; }
@@ -23,6 +24,7 @@ public class ApplicationUser : IdentityUser
     public string? GithubUsername { get; set; }
     public string? DisplayName { get; set; }
     public virtual ICollection<UserChallenge> UserChallenges { get; set; }
+    public virtual DailyStreak DailyStreak { get; set; }
 }
 
 public enum Level

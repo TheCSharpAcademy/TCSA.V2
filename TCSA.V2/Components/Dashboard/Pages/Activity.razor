@@ -45,7 +45,8 @@
 @code {
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IUserActivityService ActivityService { get; set; }
-    [Inject] protected ICommunityService CommunityService { get; set; }
+    [Inject] private ICommunityService CommunityService { get; set; }
+    [Inject] private IChallengeService ChallengeService { get; set; }
 
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
@@ -87,6 +88,7 @@
         foreach (var item in Activities)
         {
             var communityIssue = new CommunityIssue();
+            var challenge = new Challenge();
 
             if (Activities != null)
             {
@@ -95,13 +97,18 @@
                     communityIssue = await CommunityService.GetIssueByProjectId(item.ProjectId);
                 }
 
-                var experiencePoints = GetXPs(item, communityIssue);
+                if (item.ActivityType == ActivityType.ChallengeCompleted)
+                {
+                    challenge = await ChallengeService.GetChallengeById(item.ChallengeId);
+                }
+
+                var experiencePoints = GetXPs(item, communityIssue, challenge);
 
                 activityDisplay.Add(new UserActivityDisplay
                     {
                         Date = item.DateSubmitted,
-                        Description = await GetDescriptionMarkup(item, item.AppUserId, communityIssue),
-                        ExperiencePoints = GetXPs(item, communityIssue),
+                        Description = await GetDescriptionMarkup(item, item.AppUserId, communityIssue, challenge),
+                        ExperiencePoints = GetXPs(item, communityIssue, challenge),
                         CurrentExperiencePoints = currentXP,
                         AppUserId = item.AppUserId,
                         ActivityType = item.ActivityType
@@ -112,17 +119,23 @@
         }
     }
 
-    public int GetXPs(AppUserActivity item, CommunityIssue? issue = null)
+    public int GetXPs(AppUserActivity item, CommunityIssue? issue = null, Challenge? challenge = null)
     {
         if (item.ActivityType == ActivityType.ProjectSubmitted || item.ActivityType == ActivityType.IssueSubmitted)
         {
             return 0;
         }
 
+        if (item.ActivityType == ActivityType.ChallengeCompleted)         
+        {
+            return challenge.ExperiencePoints;
+        }
+
         if (issuesIds.Contains(item.ProjectId))
         {
             return issue.ExperiencePoints;
         }
+
         else if (item.ActivityType == ActivityType.ArticleRead)
         {
             return ArticleHelper.GetArticles().Single(x => x.Id == item.ProjectId).ExperiencePoints;
@@ -131,9 +144,9 @@
         return ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).ExperiencePoints;
     }
 
-    private async Task<MarkupString> GetDescriptionMarkup(AppUserActivity item, string userId, CommunityIssue? issue = null)
+    private async Task<MarkupString> GetDescriptionMarkup(AppUserActivity item, string userId, CommunityIssue? issue = null, Challenge? challenge = null)
     {
-        var description = UserActivityHelper.GetDescription(issuesIds, item, issue);
+        var description = UserActivityHelper.GetDescription(issuesIds, item, issue, challenge);
         return new MarkupString(description);
     }
 }
@@ -160,6 +173,11 @@
 
     .review-completed {
         background-color: purple !important;
+        color: white;
+    }
+
+    .challenge-completed {
+        background-color: red !important;
         color: white;
     }
 

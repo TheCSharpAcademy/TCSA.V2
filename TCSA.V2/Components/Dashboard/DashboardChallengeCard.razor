@@ -1,0 +1,187 @@
+﻿@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+<div class="row horizontal-card-review shadow rounded">
+    <div class="col-md-2 d-flex align-items-center justify-content-center">
+        <div class="date-cell">
+            <div>
+                <b>@DateTimeHelper.GetDateForUserActivity(Challenge.ReleaseDate)</b>
+            </div>
+            <div class="day-of-the-week-cell">
+                <span class="day-of-the-week">@Challenge.ReleaseDate.DayOfWeek</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 d-flex align-items-center justify-content-center">
+        <img src="@($"/img/Belts/{Challenge.Level}-belt.png")" width="60" alt="...">
+    </div>
+    <div class="col-md-5 col-lg-4">
+        <p class="card-title-dashboard-review">@Challenge.Name</p>
+        <p class="project-card-text">@Challenge.Description</p>
+        <div class="experience-points-reviews d-flex align-items-center">
+            <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
+            @Challenge.ExperiencePoints
+        </div>
+    </div>
+    <div class="col-md-1 d-flex align-items-center justify-content-center">
+        <div class="row text-center">
+            <div class="col-12 view-btn">
+                <a target="_blank" href="https://www.codewars.com/kata/50654ddff44f800200000007">
+                    <ViewProjectSVG />
+                    <div class="col-12 dashboard-review-action-text">
+                        View
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 d-flex align-items-center justify-content-start">
+        <div class="row text-center">
+            @if (IsCompleted)
+            {
+                <div class="col-12 view-btn">
+                    <a target="_blank" href="https://www.codewars.com/kata/50654ddff44f800200000007">
+                        <CheckCircleSVG />
+                        <div class="col-12 dashboard-review-action-approve">
+                            Completed
+                        </div>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 view-btn">
+                    @if (IsLoading)
+                    {
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <a target="_blank" href="" @onclick:preventDefault @onclick="OnSyncCallBack">
+                            <SyncSVG />
+                            <div class="col-12 dashboard-review-action-approve">
+                                Synchronize
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-2 d-flex align-items-center justify-content-start">
+        <div class="row text-center">
+            @if (NotFound)
+            {
+                <div class="col-12 view-btn">
+                    <NotFoundSVG />
+                    <div class="col-12 dashboard-review-action-take">
+                        Not Completed
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Challenge Challenge { get; set; }
+    [Parameter] public bool IsCompleted { get; set; }
+    [Parameter] public bool NotFound { get; set; }
+    [Parameter] public bool IsLoading { get; set; }
+
+    [Parameter] public EventCallback OnSyncCallBack { get; set; }
+}
+
+<style>
+    .dashboard-review-action-text {
+        color: var(--text-highlight-color);
+    }
+
+    .dashboard-review-action-approve {
+        color: green;
+    }
+
+    .dashboard-review-action-take {
+        color: red;
+    }
+
+    .card-img-top {
+        max-width: 50px !important;
+    }
+
+    .horizontal-card-review {
+        padding: 10px;
+        border-radius: 15px;
+        margin: 5px 0 !important;
+        transition: all 200ms ease-in-out;
+        background-color: var(--card-background-color);
+    }
+
+    .card-title-dashboard-review {
+        padding-left: 10px;
+        font-size: 18px;
+        font-family: Roboto, sans-serif;
+        color: var(--text-highlight-color);
+        font-weight: 600;
+    }
+
+    .card-text {
+        padding-left: 10px !important;
+        margin-top: -15px !important;
+    }
+
+    .card-text-complete {
+        margin-bottom: -20px;
+        font-size: 18px;
+        color: green;
+        font-weight: 600;
+    }
+
+    .card-text-incomplete {
+        font-size: 18px;
+        color: red;
+    }
+
+    .incomplete-project {
+        max-width: 80px;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
+
+    .completed {
+        border: green solid 2px;
+    }
+
+    .community-btn {
+        background-color: var(--text-highlight-color);
+        color: white;
+    }
+
+    .project-card-text {
+        padding-left: 10px !important;
+        margin-top: -15px !important;
+        margin-bottom: -5px !important;
+        color: var(--text-color) !important;
+        font-size: 15px;
+    }
+
+    .experience-points-reviews {
+        margin-top: 5px;
+        margin-left: 4px;
+        font-weight: 600;
+    }
+
+    .community-btn {
+        width: 150px;
+    }
+
+    .card-img {
+        margin-top: 10px;
+    }
+</style>

@@ -1,8 +1,115 @@
 ﻿@page "/dashboard/challenges"
-@layout DashboardLayout
+@layout DashboardChallengesLayout
 
+@using System.Security.Claims
 @using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Data
+@using TCSA.V2.Models
+@using TCSA.V2.Services
+
+<div class="mt-5 pt-5">
+    @if (user.CodeWarsUsername == null || string.IsNullOrEmpty(user.CodeWarsUsername))
+    {
+        <div class="alert alert-warning" role="alert">
+            You have not connected your CodeWars account. Please update it <a href="/dashboard/profile">here</a>.
+        </div>
+    }
+    else
+    {
+        @foreach (var challenge in challenges)
+        {
+            <DashboardChallengeCard Challenge="@challenge"
+                                    IsCompleted="@GetStatus(challenge.Id)"
+                                    OnSyncCallBack=@(() => Synchronize(challenge.ExternalId, challenge.Id, challenge.ExperiencePoints))
+                                    NotFound="@IsNotFound(challenge.ExternalId)"
+                                    IsLoading="@IsLoading(challenge.ExternalId)" />
+        }
+    }
+</div>
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
 
+    [Inject] private IChallengeService ChallengeService { get; set; }
+    [Inject] private ICodeWarsService CodeWarsService { get; set; }
+    [Inject] private IUserActivityService ActivityService { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+
+    private Dictionary<string, bool> loadingStates = new Dictionary<string, bool>();
+    private Dictionary<string, bool> notFoundStates = new Dictionary<string, bool>();
+
+    private List<int> completedChallenges = new();
+    private List<Challenge> challenges = new();
+    private ApplicationUser user = new();
+    private string notFoundId = string.Empty;
+    private string userId = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (!authState.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("Account/Login");
+        }
+
+        var claims = authState.User;
+        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        user = await ChallengeService.GetChallengeUser(userId);
+
+        challenges = await ChallengeService.GetChallenges();
+        completedChallenges = user.UserChallenges.Select(uc => uc.ChallengeId).ToList();
+    }
+
+    private bool GetStatus(int challengeId)
+    {
+        return completedChallenges.Contains(challengeId);
+    }
+
+    private async Task Synchronize(string externalId, int challengeId, int experiencePoints)
+    {
+        loadingStates[externalId] = true;
+        notFoundStates[externalId] = false;
+
+        var challengeToCheck = new CodeWarsChallenge { Id = externalId };
+        var challenges = new List<CodeWarsChallenge>() { challengeToCheck };
+
+        var response = await CodeWarsService.GetCodeWarsCompletedChallenges(user.CodeWarsUsername, challenges);
+
+        if (response.Challenges != null && response.Challenges.Any(x => x.IsCompleted))
+        {
+            await ChallengeService.CompleteChallenge(userId, challengeId);
+
+            await ActivityService.PostUserActivity(new AppUserActivity
+                {
+                    ChallengeId = challengeId,
+                    AppUserId = userId,
+                    DateSubmitted = DateTimeOffset.UtcNow,
+                    ActivityType = ActivityType.ChallengeCompleted
+                });
+
+            var currentPoints = await UserService.GetCurrentXPs(userId);
+
+            await UserService.AddExperiencePoints(userId, experiencePoints + currentPoints);
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+
+        }
+        else
+        {
+            notFoundStates[externalId] = true;
+        }
+
+        loadingStates[externalId] = false;
+    }
+
+    private bool IsLoading(string externalId)
+    {
+        return loadingStates.ContainsKey(externalId) && loadingStates[externalId];
+    }
+
+    private bool IsNotFound(string externalId)
+    {
+        return notFoundStates.ContainsKey(externalId) && notFoundStates[externalId];
+    }
 }

@@ -43,17 +43,4 @@ public static class DateTimeHelper
 
         return $"<span class='{style}'>{difference.Days} {days} {difference.Hours} {hours}</span>";
     }
-    
-    public static string GetDuration(DateTimeOffset date, DateTime timeNow)
-    {
-        if (date < new DateTime(2019, 1, 1))
-        {
-            return "N/A";
-        }
-        var difference = timeNow - date;
-        var hours = difference.Hours != 1 ? "hours" : "hour";
-        var days = difference.Days != 1 ? "days" : "day";
-        
-        return $"{difference.Days} {days} {difference.Hours} {hours}";
-    }
 }

@@ -63,7 +63,7 @@
     [Parameter] public int ExperiencePoints { get; set; }
     [Parameter] public EventCallback OnAssignCallBack { get; set; }
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
-    [Parameter] public string DurationOpen { get; set; }
+    [Parameter] public MarkupString DurationOpen { get; set; }
 }
 
 <style>
@@ -166,5 +166,9 @@
 
     .card-img {
         margin-top: 10px;
+    }
+
+    .overdue {
+        color: red;
     }
 </style>

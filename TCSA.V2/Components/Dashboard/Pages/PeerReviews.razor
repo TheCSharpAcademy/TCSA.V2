@@ -45,7 +45,8 @@
                                          ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
                                          GithubUrl=@project.GithubUrl
                                          OnAssignCallBack="@(() => AssignMyself(project.Id))"
-                                         OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))" />
+                                         OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))"
+                                         DurationOpen="@DateTimeHelper.GetDuration((DateTimeOffset)project.DateSubmitted, DateTime.UtcNow)"/>
                 </div>
             }
         </div>

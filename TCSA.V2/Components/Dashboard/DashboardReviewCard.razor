@@ -6,6 +6,7 @@
     <div class="col-md-4 col-lg-4">
         <p class="card-title-dashboard-review">@Title</p>
         <p class="project-card-text">@Name</p>
+        <p class="project-card-submitted-duration">@DurationOpen</p>
         <div class="experience-points-reviews d-flex align-items-center">
             <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
             @ExperiencePoints
@@ -62,6 +63,7 @@
     [Parameter] public int ExperiencePoints { get; set; }
     [Parameter] public EventCallback OnAssignCallBack { get; set; }
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
+    [Parameter] public string DurationOpen { get; set; }
 }
 
 <style>
@@ -142,6 +144,14 @@
         margin-bottom: -5px !important;
         color: var(--text-color) !important;
         font-size: 15px;
+    }    
+    
+    .project-card-submitted-duration {
+        padding-left: 10px !important;
+        margin-top: 0px !important;
+        margin-bottom: -5px !important;
+        color: var(--text-color) !important;
+        font-size: 12px;
     }
 
     .experience-points-reviews {

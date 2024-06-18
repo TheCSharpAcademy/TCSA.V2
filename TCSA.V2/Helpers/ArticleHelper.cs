@@ -1819,7 +1819,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "<h3>Code Challenges</h3><p><p>With the integration of <a href='https://www.codewars.com/' target='_blank'>Codewars</a>, we offer a series of code challenges to test your knowledge in a fun way. Currently, we provide SQL puzzles, but more challenges are being prepared and will be integrated into the curriculum, including <a href='https://leetcode.com/' target='_blank'>Leetcode</a>."
+                                Body = "<h3>Code Challenges</h3><p><p>With the integration of <a href='https://www.codewars.com/' target='_blank'>Codewars</a>, we offer a series of code challenges to test your knowledge in a fun way. You'll also be able to record daily streaks to help you create the habit of coding a little bit every day. This feature has just been launched, and more challenges are being prepared and will be integrated into the curriculum, including <a href='https://leetcode.com/' target='_blank'>Leetcode</a>. <a href='/dashboard/challenges' target='_blank'>Click here to see the challenges</a>. You can only see the ones that are visible to your belt."
                             }
                         }
                     },

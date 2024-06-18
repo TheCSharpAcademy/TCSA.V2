@@ -39,7 +39,10 @@ public class ChallengeService : IChallengeService
     {
         using (var context = _factory.CreateDbContext())
         {
-            return await context.Challenges.ToListAsync().ConfigureAwait(false);
+            return await context.Challenges
+                .OrderByDescending(c => c.ReleaseDate)
+                .ToListAsync()
+                .ConfigureAwait(false);
         }
     }
 

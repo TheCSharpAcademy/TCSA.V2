@@ -2,7 +2,7 @@
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
-<div class="row horizontal-card-review shadow rounded">
+<div class="row horizontal-card-review shadow rounded d-none d-md-flex">
     <div class="col-md-2 d-flex align-items-center justify-content-center">
         <div class="date-cell">
             <div>
@@ -86,6 +86,74 @@
     </div>
 </div>
 
+<div class="row horizontal-card-review shadow rounded d-flex d-md-none">
+    <div class="col-12">       
+          <b>@DateTimeHelper.GetDateForUserActivity(Challenge.ReleaseDate) - @Challenge.ReleaseDate.DayOfWeek</b>
+    </div>
+    <div class="col-12">
+        <p class="challenge-card-title-mobile">@Challenge.Name</p>
+        <p class="challenge-card-text-mobile">@Challenge.Description</p>
+    </div>
+    <div class="mt-2 col-2 d-flex align-items-center justify-content-center">
+        <img src="img/experience.png" width="40" class="img-xp-header" alt="..." /> <span class="xps">@Challenge.ExperiencePoints</span>
+    </div>
+
+    <div class="mt-2 col-2 d-flex align-items-center justify-content-center">
+        <img src="@($"/img/Belts/{Challenge.Level}-belt.png")" width="40" alt="...">
+    </div>
+    <div class="mt-2 col-2 d-flex align-items-center justify-content-center">
+        <div class="row text-center">
+            <div class="col-12 view-btn">
+                <a target="_blank" href="https://www.codewars.com/kata/50654ddff44f800200000007">
+                    <ViewProjectSVG />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2 col-2 d-flex align-items-center justify-content-start">
+        <div class="row text-center">
+            @if (IsCompleted)
+            {
+                <div class="col-12 view-btn">
+                    <a target="_blank" href="https://www.codewars.com/kata/50654ddff44f800200000007">
+                        <CheckCircleSVG />
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 view-btn">
+                    @if (IsLoading)
+                    {
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <a target="_blank" href="" @onclick:preventDefault @onclick="OnSyncCallBack">
+                            <SyncSVG />
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div class="mt-2 col-2 d-flex align-items-center justify-content-start">
+        <div class="row text-center">
+            @if (NotFound)
+            {
+                <div class="col-12 view-btn">
+                    <NotFoundSVG />
+                    <div class="col-12 dashboard-review-action-take">
+                        Not Completed
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
 @code {
     [Parameter] public Challenge Challenge { get; set; }
     [Parameter] public bool IsCompleted { get; set; }
@@ -96,6 +164,22 @@
 }
 
 <style>
+    .card-title-dashboard-review {
+        padding-left: 10px;
+        font-size: 18px;
+        font-family: Roboto, sans-serif;
+        color: var(--text-highlight-color);
+        font-weight: 600;
+    }
+
+    .project-card-text {
+        padding-left: 10px !important;
+        margin-top: -15px !important;
+        margin-bottom: -5px !important;
+        color: var(--text-color) !important;
+        font-size: 15px;
+    }
+
     .dashboard-review-action-text {
         color: var(--text-highlight-color);
     }
@@ -120,8 +204,7 @@
         background-color: var(--card-background-color);
     }
 
-    .card-title-dashboard-review {
-        padding-left: 10px;
+    .challenge-card-title-mobile {
         font-size: 18px;
         font-family: Roboto, sans-serif;
         color: var(--text-highlight-color);
@@ -131,6 +214,11 @@
     .card-text {
         padding-left: 10px !important;
         margin-top: -15px !important;
+    }
+
+    .xps {
+        font-size: 20px;
+        font-weight: 600;
     }
 
     .card-text-complete {
@@ -163,8 +251,7 @@
         color: white;
     }
 
-    .project-card-text {
-        padding-left: 10px !important;
+    .challenge-card-text-mobile {
         margin-top: -15px !important;
         margin-bottom: -5px !important;
         color: var(--text-color) !important;

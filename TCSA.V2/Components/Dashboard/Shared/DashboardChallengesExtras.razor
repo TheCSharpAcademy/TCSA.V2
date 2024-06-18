@@ -6,37 +6,36 @@
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
-    <div class="nav-scrollable dashboard-menu pt-5 h-100">
-        <nav class="flex-column">
-            <div class="dashboard-menu pt-5 text-center h-100">
-                <div class="row dashboard-side-card rounded">
-                    <div class="col-12 dashboard-side-card-text">
-                        Challenges completed
-                    </div>
-                    <div class="col-12 dashboard-side-card-number">
-                        @ChallengeCount
-                    </div>
+<div class="nav-scrollable dashboard-menu pt-5 h-100">
+    <nav class="flex-column">
+        <div class="dashboard-menu pt-5 text-center h-100">
+            <div class="row dashboard-side-card rounded">
+                <div class="col-12 dashboard-side-card-text">
+                    Challenges completed
                 </div>
-                <div class="row dashboard-side-card rounded">
-                    <div class="col-12 dashboard-side-card-text">
-                        Current Streak
-                    </div>
-                    <div class="col-12 dashboard-side-card-number">
-                        @StreakInfo.CurrentStreak
-                    </div>
-                </div>
-                <div class="row dashboard-side-card rounded">
-                    <div class="col-12 dashboard-side-card-text">
-                        Longest Streak
-                    </div>
-                    <div class="col-12 dashboard-side-card-number">
-                        @StreakInfo.LongestStreak
-                    </div>
+                <div class="col-12 dashboard-side-card-number">
+                    @ChallengeCount
                 </div>
             </div>
-        </nav>
-    </div>
-}
+            <div class="row dashboard-side-card rounded">
+                <div class="col-12 dashboard-side-card-text">
+                    Current Streak
+                </div>
+                <div class="col-12 dashboard-side-card-number">
+                    @StreakInfo.CurrentStreak
+                </div>
+            </div>
+            <div class="row dashboard-side-card rounded">
+                <div class="col-12 dashboard-side-card-text">
+                    Longest Streak
+                </div>
+                <div class="col-12 dashboard-side-card-number">
+                    @StreakInfo.LongestStreak
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
 
 @code {
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }

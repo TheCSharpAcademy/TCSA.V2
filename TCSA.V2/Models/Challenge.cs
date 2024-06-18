@@ -37,6 +37,16 @@ public class Challenge
     public virtual ICollection<UserChallenge> UserChallenges { get; set; }
 }
 
+public class DailyStreak
+{
+    public string AppUserId { get; set; }
+    public ApplicationUser User { get; set; }
+
+    public int CurrentStreak { get; set; }
+    public int LongestStreak { get; set; }
+    public DateTime LastCompletedDate { get; set; }
+}
+
 
 public class UserChallenge
 {
@@ -45,6 +55,8 @@ public class UserChallenge
 
     public string UserId { get; set; }
     public ApplicationUser User { get; set; }
+
+    public DateTime CompletedAt { get; set; }
 }
 
 public enum ChallengePlatform 
@@ -52,11 +64,4 @@ public enum ChallengePlatform
     CodeWars = 1, 
     LeetCode, 
     HackerRank 
-}
-
-public enum  ChallengeType 
-{
-    Strings,
-    Arrays,
-    SQL
 }

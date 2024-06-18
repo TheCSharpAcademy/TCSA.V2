@@ -12,11 +12,12 @@ public static class UserActivityHelper
             ActivityType.ArticleRead => "article-read",
             ActivityType.ProjectSubmitted => "project-submitted",
             ActivityType.CodeReviewCompleted => "review-completed",
-            ActivityType.IssueSubmitted => "issue-submitted"
+            ActivityType.IssueSubmitted => "issue-submitted",
+            ActivityType.ChallengeCompleted => "challenge-completed"
         };
     }
 
-    public static string GetDescription(List<int> issuesIds, AppUserActivity item, CommunityIssue? issue = null)
+    public static string GetDescription(List<int> issuesIds, AppUserActivity item, CommunityIssue? issue = null, Challenge? challenge = null)
     {
         switch (item.ActivityType)
         {
@@ -30,6 +31,8 @@ public static class UserActivityHelper
                 return GetTitle(issuesIds, item, issue);
             case ActivityType.CodeReviewCompleted:
                 return $"You've finished a code review for a <b>{ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).Title}</b> project.";
+            case ActivityType.ChallengeCompleted:
+                return $"You've completed the challenge <b>{challenge.Name}</b>.";
             default:
                 return "";
         }

@@ -24,12 +24,17 @@ public class UserActivityService : IUserActivityService
 
     public async Task PostUserActivity(AppUserActivity activity)
     {
+        var alreadyExists = false;
+
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var alreadyExists = await context.UserActivity
-                .AnyAsync(x => x.ProjectId == activity.ProjectId && x.AppUserId == activity.AppUserId);
+                if (activity.ActivityType != ActivityType.ChallengeCompleted)
+                {
+                    alreadyExists = await context.UserActivity
+                   .AnyAsync(x => x.ProjectId == activity.ProjectId && x.AppUserId == activity.AppUserId);
+                }
 
                 if (!alreadyExists)
                 {

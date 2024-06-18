@@ -39,7 +39,9 @@ public class ChallengeService : IChallengeService
     {
         using (var context = _factory.CreateDbContext())
         {
+            var currentUtcDate = DateTime.UtcNow;
             return await context.Challenges
+                .Where(c => c.ReleaseDate < currentUtcDate)
                 .OrderByDescending(c => c.ReleaseDate)
                 .ToListAsync()
                 .ConfigureAwait(false);

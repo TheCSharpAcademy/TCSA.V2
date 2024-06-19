@@ -98,9 +98,9 @@ internal static class StandAloneProjectsHelper
                 Area = Area.StandAlone
             },
              new Project
-            {
+             {
                 Id = 139,
-                Title = "Personal Flagship Project",
+                Title = "Flagship Project",
                 IconUrl = "flagship.png",
                 BannerUrl = "",
                 Slug = "flagship-project",
@@ -173,7 +173,39 @@ internal static class StandAloneProjectsHelper
                     "We usually recommend you don't work in more than one project at a time. Since this is a comprehensive undertaking, you can work on it in parallel with the rest of the curriculum. This will be specially useful when you get stuck, as you can jump between projects to get some fresh air 😊 "
                 },
             },
-        };
+
+             new Project
+             {
+                Id = 100001,
+                Title = "Free Style Project",
+                IconUrl = "icons8-creativity-512.png",
+                BannerUrl = "freestyle-banner.jpg",
+                Slug = "free-style",
+                LanguageHeadings = new EnglishHeadings(),
+                ExperiencePoints = 10,
+                Description = "Have an idea? Create whatever you want!",
+                Area = Area.GraduationProject,
+                Introduction = new List<Paragraph>
+                {
+                    new Paragraph
+                    {
+                        Body="The C# Academy's curriculum is hard to complete. Getting to black belt will take you at least a few months if you're disciplined and consistent. And most of the curriculum involves building stuff suggested by us. The objective of this projects is to let you express yourself. Throughout your journey you might have ideas of projects to create. We want to encourage you act on these ideas. Although having a set roadmap gives you an useful structure, your motivation will sky rocket if you're building things that you care about. And we will reward you for that!"
+                    }
+                },
+                RequirementsIntro = "This project has only two requirements: ",
+                Requirements = new List<string>
+                {
+                    @"You can't build a project with the same features/challenges already present in the academy. But you can definitely expand or tweak our existing projects. Example: Do you want to create a multi-player function for the Math Game? Yup, that counts and will be approved.",
+                    @"You need to provide a Readme with information on how to run your project and detailing your thought process. This is extremely useful for your learning. Science shows self-reflection goes a long way in retention and motivation. Plus you'll be working on your communication skills."
+                },
+                RequirementsConclusion = "You can use any technology you want, as long as .NET/C# is involved. It can be just console or full-stack. You'll be rewarded from <b>10 to 200 Experience Points</b> based on the creativity, complexity and quality of your project. That's it! We can't wait to see what you come up with.",
+                Tips = new List<string>
+                {
+                    "This project is different from the <a href='/project/139/flagship-project' target='_blank'>Flagship Project</a>. While you can also create whatever you want, that project has a strict set of complex requirements as its intended to be showcased in portfolios. If you're creating a very complex full-stack project, consider submitting it as your Flagship project."
+                },
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Freestyle"
+            },
+        };  
     }
     internal static List<Project> GetProjectsInPortuguese()
     {

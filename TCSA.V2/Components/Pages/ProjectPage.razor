@@ -97,9 +97,10 @@
                         }
                     </ul>
                 }
+                
                 @if (!String.IsNullOrEmpty(Project.RequirementsConclusion))
                 {
-                    <p>@((MarkupString)(Project.RequirementsConclusion))</p>
+                    <p class="mt-3">@((MarkupString)(Project.RequirementsConclusion))</p>
                 }
             </div>
         </div>

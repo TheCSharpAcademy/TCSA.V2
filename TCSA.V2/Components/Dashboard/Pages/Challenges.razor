@@ -58,7 +58,7 @@
         userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         user = await ChallengeService.GetChallengeUser(userId);
 
-        challenges = await ChallengeService.GetChallenges();
+        challenges = await ChallengeService.GetChallenges(user.Level);
         completedChallenges = user.UserChallenges.Select(uc => uc.ChallengeId).ToList();
     }
 

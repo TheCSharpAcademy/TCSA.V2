@@ -8,7 +8,7 @@ namespace TCSA.V2.Services;
 
 public interface IChallengeService
 {
-    Task<List<Challenge>> GetChallenges();
+    Task<List<Challenge>> GetChallenges(Level level);
     Task<Challenge> GetTodaysChallenge();
     Task<List<int>> GetCompletedChallenges(string userId);
     Task<BaseResponse> CreateChallenge(Challenge challenge);
@@ -35,13 +35,13 @@ public class ChallengeService : IChallengeService
         throw new NotImplementedException();
     }
 
-    public async Task<List<Challenge>> GetChallenges()
+    public async Task<List<Challenge>> GetChallenges(Level level)
     {
         using (var context = _factory.CreateDbContext())
         {
             var currentUtcDate = DateTime.UtcNow;
             return await context.Challenges
-                .Where(c => c.ReleaseDate < currentUtcDate)
+                .Where(c => c.ReleaseDate <= currentUtcDate && c.Level <= level)
                 .OrderByDescending(c => c.ReleaseDate)
                 .ToListAsync()
                 .ConfigureAwait(false);

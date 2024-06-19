@@ -7,7 +7,7 @@
 <div class="container p-3 w-75 mt-3 mb-1 rounded">
     @if (users != null && !isLoading)
     {
-        <table class="table leaderboard-table">
+        <table class="table leaderboard-table public-leaderboard-table">
             <tbody>
                 @foreach (var user in users)
                 {
@@ -53,7 +53,7 @@
                                 </div>
                             }
                         </td>
-                        <td class="leaderboard-cell">
+                        <td class="leaderboard-cell leaderboard-links">
                             @if(!string.IsNullOrEmpty(user.LinkedInUrl))
                             {
                                 <a target="_blank" href="@user.LinkedInUrl" class="btn">
@@ -63,7 +63,7 @@
                                 </a>
                             }
                         </td>
-                        <td class="leaderboard-cell">
+                        <td class="leaderboard-cell leaderboard-links">
                             @if (!string.IsNullOrEmpty(user.GithubUsername))
                             {
                                 <a target="_blank" href=@($"https://github.com/{user.GithubUsername}") class="btn">

@@ -151,6 +151,20 @@ h1:focus {
 }
 
 @media (max-width: 992px) {
+    .public-leaderboard-table {
+        margin-top: 50px !important;
+        margin-left: -20px;
+        color: green;
+    }
+
+    .leaderboard-country{
+        display: none;
+    }
+
+    .leaderboard-links {
+        display:none;
+    }
+
     .title-item {
         font-size: 30px !important;
     }

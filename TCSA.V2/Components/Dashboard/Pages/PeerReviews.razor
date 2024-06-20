@@ -11,7 +11,7 @@
 @using TCSA.V2.Models
 @using TCSA.V2.Services
 
-<div class="mt-5 pt-3">
+<div class="mt-md-5 pt-md-3">
     @if (userAssigned)
     {
         <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
@@ -37,7 +37,7 @@
         <div class="row">
             @foreach (var project in availableProjects)
             {
-                <div class="col-6">
+                <div class="col-md-6">
                     <DashboardReviewCard Status="@(@CheckIfAssigned(project.Id) ? "is-assigned" : "")"
                                          Title=@GetProject(project.ProjectId).Title
                                          Name=@GetName(project.AppUserId)

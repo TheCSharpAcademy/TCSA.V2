@@ -2,10 +2,10 @@
 @using TCSA.V2.Models
 
 <div class="row p-2 horizontal-card-issue shadow rounded @Status">
-    <div class="col-md-2">
+    <div class="col-2">
         <img src="img/cards/@Issue.IconUrl" width="50" alt="...">
     </div>
-    <div class="col-lg-6">
+    <div class="col-6">
         <div class-issue-description>
             <p class="card-title-issue">@Issue.Title</p>
         </div>
@@ -14,7 +14,7 @@
             @Issue.ExperiencePoints
         </div>
     </div>
-    <div class="col-md-2 d-flex align-items-center justify-content-center">
+    <div class="col-2 d-flex align-items-center justify-content-center">
         @if (!IsAssigned)
         {
             <div class="row text-center">
@@ -29,7 +29,7 @@
             </div>
         }
     </div>
-    <div class="col-md-2 d-flex align-items-center justify-content-start">
+    <div class="col-2 d-flex align-items-center justify-content-start">
         @if (!IsAssigned)
         {
             <div class="row text-center">

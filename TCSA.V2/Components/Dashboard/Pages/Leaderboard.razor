@@ -54,7 +54,7 @@
                     <tr class="my-row @(user.Id == userId ? "is-user" : "")">
                         <th class="leaderboard-cell index-cell" scope="row">@user.Ranking</th>
                         <td class="leaderboard-cell">
-                            <div class="belt-label-wrap">
+                            <div class="belt-label-wrap d-flex align-items-center">
                                 <div class="belt-label">
                                     <img class="img-xp-leaderboard" src="img/experience.png" width="30" alt="...">
                                 </div>
@@ -81,11 +81,11 @@
                         <td class="leaderboard-cell country-cell">
                             @if (!string.IsNullOrEmpty(user.Country))
                             {
-                                <div class="belt-label-wrap">
-                                    <div class="belt-label">
+                                <div class="row belt-label-wrap d-flex align-items-center">
+                                    <div class="col-3 belt-label d-flex align-items-center">
                                         <img class="dashboard-flag" src="@FlagHelper.GetFlag(user.Country)" width="30" alt="...">
                                     </div>
-                                    <div class="belt-label d-sm-none d-md-block">
+                                    <div class="col-9 belt-label d-sm-none d-md-inline d-flex align-items-center">
                                         <p class="leaderboard-country">@user.Country</p>
                                     </div>
                                 </div>
@@ -259,5 +259,14 @@
 
     .is-user .belt-label, .is-user p {
         color: var(--text-dark-color);
+    }
+
+    .leaderboard-country {
+        margin-top: 15px;
+    }
+
+    .leaderboard-xp {
+        margin-top: 15px;
+        margin-left: 10px; 
     }
 </style>

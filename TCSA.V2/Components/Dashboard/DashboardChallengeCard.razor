@@ -3,7 +3,7 @@
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 
-<div class="row horizontal-card-review shadow rounded d-none d-md-flex">
+<div class="row horizontal-card-review shadow rounded d-none d-md-flex @(IsCompleted ? "faded-card" : "")">
     <div class="col-md-2 d-flex align-items-center justify-content-center">
         <div class="date-cell">
             <div>
@@ -87,7 +87,7 @@
     </div>
 </div>
 
-<div class="row horizontal-card-review shadow rounded d-flex d-md-none">
+<div class="row horizontal-card-review shadow rounded d-flex d-md-none @(IsCompleted ? "faded-card" : "")">
     <div class="col-12">       
           <b>@DateTimeHelper.GetDateForUserActivity(Challenge.ReleaseDate) - @Challenge.ReleaseDate.DayOfWeek</b>
     </div>
@@ -271,5 +271,9 @@
 
     .card-img {
         margin-top: 10px;
+    }
+
+    .faded-card {
+        opacity: 0.5;
     }
 </style>

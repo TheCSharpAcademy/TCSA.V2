@@ -16,13 +16,21 @@
     }
     else
     {
+         <button @onclick="ToggleShowCompleted" class="btn btn-primary mb-3">
+            @(showCompleted ? "Hide Completed Challenges" : "Show Completed Challenges")
+        </button>
+
         @foreach (var challenge in challenges)
         {
-            <DashboardChallengeCard Challenge="@challenge"
-                                    IsCompleted="@GetStatus(challenge.Id)"
-                                    OnSyncCallBack=@(() => Synchronize(challenge.ExternalId, challenge.Id, challenge.ExperiencePoints))
-                                    NotFound="@IsNotFound(challenge.ExternalId)"
-                                    IsLoading="@IsLoading(challenge.ExternalId)" />
+            var isCompleted = GetStatus(challenge.Id);
+            if (!isCompleted || showCompleted)
+            {
+                <DashboardChallengeCard Challenge="@challenge"
+                                        IsCompleted="@isCompleted"
+                                        OnSyncCallBack=@(() => Synchronize(challenge.ExternalId, challenge.Id, challenge.ExperiencePoints))
+                                        NotFound="@IsNotFound(challenge.ExternalId)"
+                                        IsLoading="@IsLoading(challenge.ExternalId)" />
+            }
         }
     }
 </div>
@@ -44,6 +52,7 @@
     private ApplicationUser user = new();
     private string notFoundId = string.Empty;
     private string userId = string.Empty;
+    private bool showCompleted = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -111,5 +120,10 @@
     private bool IsNotFound(string externalId)
     {
         return notFoundStates.ContainsKey(externalId) && notFoundStates[externalId];
+    }
+
+    private void ToggleShowCompleted()
+    {
+        showCompleted = !showCompleted;
     }
 }

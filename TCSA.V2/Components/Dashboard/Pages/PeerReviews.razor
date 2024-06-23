@@ -22,6 +22,16 @@
         </div>
     }
 
+    @if (userReleased)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissUserReleased" />
+        <div class="card card-success">
+            <div class="card-body card-body-success">
+                You have been releaved from the issue. Don't forget to unassign yourself from the issue on Github as well <a class="article-link" href="article/57/review-guidelines" target="_blank">Please read this article</a> for a comprehensive code review tutorial.
+            </div>
+        </div>
+    }
+
     @if (projectCompleted)
     {
         <CloseButtonSVG OnClickCallback="@DismissProjectCompleted" />
@@ -45,7 +55,8 @@
                                          ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
                                          GithubUrl=@project.GithubUrl
                                          OnAssignCallBack="@(() => AssignMyself(project.Id))"
-                                         OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))" />
+                                         OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))"
+                                         OnReleaseAssignmentCallBack="@(()=> ReleaseAssignment(project.Id))"/>
                 </div>
             }
         </div>
@@ -70,6 +81,7 @@
     private string userId = "";
     private bool userAssigned = false;
     private bool projectCompleted = false;
+    private bool userReleased = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -121,12 +133,21 @@
         availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
     }
 
+    private async Task ReleaseAssignment(int id)
+    {
+        await PeerReviewService.ReleaseUserFromCodeReview(userId, id);
+        User = await PeerReviewService.GetUserForPeerReview(userId);
+        userReleased = true;
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+    }
+
     private bool CheckIfAssigned(int id)
     {
         return User?.CodeReviewProjects?.Any(x => x.DashboardProjectId == id) ?? false;
     }
 
     private void DismissUserAssigned() => userAssigned = false;
+    private void DismissUserReleased() => userReleased = false;
     private void DismissProjectCompleted() => projectCompleted = false;
 }
 

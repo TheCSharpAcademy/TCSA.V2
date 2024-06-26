@@ -42,6 +42,8 @@
                                          Title=@GetProject(project.ProjectId).Title
                                          Name=@GetName(project.AppUserId)
                                          IconUrl=@GetProject(project.ProjectId).IconUrl
+                                         ProjectId=@GetProject(project.ProjectId).Id
+                                         ProjectSlug=@GetProject(project.ProjectId).Slug
                                          ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
                                          GithubUrl=@project.GithubUrl
                                          OnAssignCallBack="@(() => AssignMyself(project.Id))"

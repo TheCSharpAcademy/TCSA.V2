@@ -1,5 +1,7 @@
 ### 🛠️ Configure Project Locally
 
+0. If it doesn't exist, create a ticket in https://github.com/users/TheCSharpAcademy/projects/5 and https://www.thecsharpacademy.com/dashboard/community (both are necessary)
+
 1. Create **appsettings.json** file and paste the following:
 
 ``` appsettings.json

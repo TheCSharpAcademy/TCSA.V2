@@ -64,7 +64,7 @@ public class ConsoleProjectsHelper
                 {
                     "Don't forget to ALWAYS, I mean ALWAYS have your code saved on Github (or whatever source control you use). This way you won't lose your work, and you can always refer back to it in the future. You're building a library of your own!",
                     "Don't rush through the steps, even if this tutorial is easy for you. Make sure you understand EACH WORD of the code. Leave no stone unturned.",
-                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google is your best friend. You'll find explanations about pretty much everything in forums like stackoveflow.com.",
+                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google is your best friend. You'll find explanations about pretty much everything in forums like stackoverflow.com.",
                     "If this is your first project, I recommend doing it twice. You'll be surprised at how much your retention increases, and how many gaps were left in the first time.",
                     $"Upon completion of your project, go to our <a target='_blank' href='{DiscordLink}'>Discord community</a> and brag about it! It's a very important step to complete a project and you should celebrate."
                 },
@@ -159,7 +159,7 @@ public class ConsoleProjectsHelper
                 Tips = new List<string>
                 {
                     "Don't rush through the steps, even if this tutorial is easy for you. Make sure you understand EACH WORD of the code. Leave no stone unturned.",
-                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google and chat gpt are your best friends. And you can find thorough explanations about pretty much everything in forums like stackoveflow.com.",
+                    "If there's anything you don't understand, hover over the code, and you'll get an explanation of what the term means. If you still can't understand it, google and chat gpt are your best friends. And you can find thorough explanations about pretty much everything in forums like stackoverflow.com.",
                     "Don't skip the debugging section in Part II. This is one of the most important skills you'll learn in this tutorial and it will be vital for future projects."
                 },
                  Challenges = new List<string>
@@ -1738,7 +1738,7 @@ public class ConsoleProjectsHelper
                 {
                     "HER ZAMAN ama HER ZAMAN kodunuzu Github'a (veya kullandığınız benzer bir sürüm kontrol ortamına) kaydetmeyi unutmayın. Bu şekilde çalışmanızı kaybetmezsiniz ve gelecekte her zaman ona başvurabilirsiniz. Kendinize ait bir kütüphane inşa ediyorsunuz!",
                     "Bu eğitim sizin için kolay olsa bile bitirmek için acele etmeyin. Kodun HER KELİMESİNİ anladığınızdan emin olun. Altına bakılmadık taş bırakmayın.",
-                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoveflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
+                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoverflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
                     "Bu ilk projenizse, iki kez yapmanızı öneririm. Akılda kalma miktarının ne kadar arttığına ve ilk seferde ne kadar boşluk kaldığına şaşıracaksınız.",
                     $"Projenizi tamamladıktan sonra <a target='_blank' href='{DiscordLink}'>Discord topluluğumuza</a> gidin ve projenizden övgüyle bahsedin! Bir projeyi tamamlamak çok önemli bir adımdır ve kutlamanız gerekir."
                 },
@@ -1833,7 +1833,7 @@ public class ConsoleProjectsHelper
                 Tips = new List<string>
                 {
                     "Bu eğitim sizin için kolay olsa bile bitirmek için acele etmeyin. Kodun HER KELİMESİNİ anladığınızdan emin olun. Altına bakılmadık taş bırakmayın.",
-                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoveflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
+                    "Anlamadığınız bir şey varsa fare imlecini kodun üzerine getirin; terimin ne anlama geldiğine dair bir açıklama göreceksiniz. Hala anlayamıyorsanız Google en iyi dostunuzdur. Stackoverflow.com gibi forumlarda hemen hemen her şey hakkında açıklamalar bulabilirsiniz.",
                     "2. Kısımdaki hata ayıklama kısmını atlamayın. Bu projede öğreneceğiniz ve ileriki projelerde hayati öneme sahip olan en önemli becerilerden birisidir."
                 },
                  Challenges = new List<string>
@@ -2141,7 +2141,7 @@ public class ConsoleProjectsHelper
                 {
                     "Не забывайте ВСЕГДА, я имею в виду, ВСЕГДА сохранять свой код на Github (или любой другой системе управления версиями, которую вы используете). Таким образом, вы не потеряете свою работу и всегда сможете вернуться к ней в будущем. Вы создаете свою собственную библиотеку!",
                     "Не торопитесь выполнять шаги, даже если это руководство для вас простое. Убедитесь, что вы понимаете КАЖДОЕ СЛОВО кода. Не оставляйте камня на камне.",
-                    "Если вы чего-то не понимаете, наведите курсор на код, и вы получите объяснение того, что означает этот термин. Если вы все еще не можете этого понять, Google - ваш лучший друг. Вы найдете объяснения практически обо всем на форумах, таких как stackoveflow.com.",
+                    "Если вы чего-то не понимаете, наведите курсор на код, и вы получите объяснение того, что означает этот термин. Если вы все еще не можете этого понять, Google - ваш лучший друг. Вы найдете объяснения практически обо всем на форумах, таких как stackoverflow.com.",
                     "Если это ваш первый проект, я рекомендую сделать это два раза. Вы будете удивлены тем, насколько увеличится ваше удержание и сколько пробелов было оставлено в первый раз.",
                     $"По завершении вашего проекта зайдите в наше <a target='_blank' href='{DiscordLink}'>Discord канал</a> и похвастайтесь этим! Это очень важный шаг для завершения проекта, и вы должны отпраздновать."
                 },
@@ -2236,7 +2236,7 @@ public class ConsoleProjectsHelper
                 Tips = new List<string>
                 {
                     "Не торопитесь выполнять шаги, даже если это руководство для вас прост. Убедитесь, что вы понимаете КАЖДОЕ СЛОВО кода. Не оставляйте камня на камне.",
-                    "Если вы чего-то не понимаете, наведите курсор на код, и вы получите объяснение того, что означает этот термин. Если вы все еще не можете этого понять, Google и ChatGPT - ваши лучшие друзья. И вы можете найти подробные объяснения практически обо всем на форумах, таких как stackoveflow.com.",
+                    "Если вы чего-то не понимаете, наведите курсор на код, и вы получите объяснение того, что означает этот термин. Если вы все еще не можете этого понять, Google и ChatGPT - ваши лучшие друзья. И вы можете найти подробные объяснения практически обо всем на форумах, таких как stackoverflow.com.",
                     "Не пропускайте раздел отладки во второй части. Это один из самых важных навыков, которому вы научитесь в этом руководстве, и он будет жизненно важен для будущих проектов."
                 },
                  Challenges = new List<string>

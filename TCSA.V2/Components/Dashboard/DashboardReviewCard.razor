@@ -4,7 +4,9 @@
         <img src="img/cards/@IconUrl" width="60" alt="...">
     </div>
     <div class="col-md-4 col-6">
-        <p class="card-title-dashboard-review">@Title</p>
+        <a href=@Href target="_blank">
+            <p class="card-title-dashboard-review">@Title</p>
+        </a>
         <p class="project-card-text">@Name</p>
         <p class="project-card-submitted-duration">@DurationOpen</p>
         <div class="experience-points-reviews d-flex align-items-center">
@@ -61,9 +63,17 @@
     [Parameter] public string GithubUrl { get; set; }
     [Parameter] public string Status { get; set; }
     [Parameter] public int ExperiencePoints { get; set; }
+    [Parameter] public int ProjectId { get; set; }
+    [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public EventCallback OnAssignCallBack { get; set; }
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
     [Parameter] public MarkupString DurationOpen { get; set; }
+    public string Href { get; set; }
+    
+    protected async override Task OnParametersSetAsync()
+    {
+        Href = $"project/{ProjectId}/{ProjectSlug}";
+    }
 }
 
 <style>

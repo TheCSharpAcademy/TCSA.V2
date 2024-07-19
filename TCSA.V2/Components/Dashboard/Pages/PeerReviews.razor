@@ -58,7 +58,7 @@
                                          GithubUrl=@project.GithubUrl
                                          OnAssignCallBack="@(() => AssignMyself(project.Id))"
                                          OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))"
-                                         DurationOpen="@((MarkupString)DateTimeHelper.GetTimeSpan((DateTimeOffset)project.DateSubmitted, DateTime.UtcNow))" />
+                                         OnReleaseAssignmentCallBack="@(()=> ReleaseAssignment(project.Id))"/>
                 </div>
             }
         </div>

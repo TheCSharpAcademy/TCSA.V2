@@ -82,13 +82,7 @@
     [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public EventCallback OnAssignCallBack { get; set; }
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
-    [Parameter] public MarkupString DurationOpen { get; set; }
-    public string Href { get; set; }
-    
-    protected async override Task OnParametersSetAsync()
-    {
-        Href = $"project/{ProjectId}/{ProjectSlug}";
-    }
+    [Parameter] public EventCallback OnReleaseAssignmentCallBack { get; set; }
 }
 
 <style>

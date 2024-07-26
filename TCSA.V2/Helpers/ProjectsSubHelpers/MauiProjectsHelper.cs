@@ -136,10 +136,6 @@ internal static class MauiProjectsHelper
                     {
                         Body="Learning the MVVM pattern can be quite overwhelming, especially if you’re new to XAML and MAUI, so in this project we will get more MVVM practice while practicing our XAML skills and using native features for mobile apps. We will get help from James Montemagno, the amazing Microsoft Instructor focused on all things XAML. It’s a long tutorial but as always James makes it really easy to follow and enjoy. So let’s not waste any time!"
                     },
-                     new Paragraph
-                    {
-                        Body="In this project you’ll log data about your sleep, either manually inputting your time in bed or using a timer to automatically log it. Dealing with time is always a challenge and great practice. Also, you’ll be using Angular Material, a powerful UI component library ubiquitous in enterprise Angular projects. This is a massive library that does take some time to learn, but once you master it, it becomes extremely easy to build interesting and great-looking UI components. You’ll be saying goodbye to Bootstrap! "
-                    }
                 },
                 Requirements = new List<string>
                 {

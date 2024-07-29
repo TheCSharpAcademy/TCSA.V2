@@ -205,7 +205,6 @@ internal static class ReactProjectsHelper
                     "<a target='_blank' href='https://www.valentinog.com/blog/redux/'>Beginners Redux: Complete Guide</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=hXpYQqykORU'>React Redux Crud App (Youtube).</a>"
                 },
-                ResourcesConclusion = $"Angular Material can be tricky at first, but trust us, you’ll learn to love it and once you master it, you will never look back. But as always, reach out in our <a  target='_blank' href='{DiscordLink}'>Discord community</a> if you get stuck!",
                 Tips = new List<string>
                 {
                     "You won't find many tutorials of React-Redux with C# Web Api. But with the knowledge of the previous React projects you should be able to setup the required front-end and call a C# server.",

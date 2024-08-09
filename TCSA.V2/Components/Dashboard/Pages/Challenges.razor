@@ -4,8 +4,11 @@
 @using System.Security.Claims
 @using TCSA.V2.Components.Dashboard.Shared
 @using TCSA.V2.Data
+@using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
+
+<PageTitle>@StringConstants.PageTitle - Challenges</PageTitle>
 
 <div class="mt-md-5 pt-md-5">
     @if (user.CodeWarsUsername == null || string.IsNullOrEmpty(user.CodeWarsUsername))

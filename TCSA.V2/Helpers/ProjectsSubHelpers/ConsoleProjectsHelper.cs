@@ -79,6 +79,23 @@ public class ConsoleProjectsHelper
                 {
                     new Block
                     {
+                        Title = "AI Challenge",
+                        ImgUrl= "icons8-artificial-intelligence-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This is a slightly more advanced project but it taps into the future of programming: Artificial intelligence. Can you make it so the users of your game are able to reply to the game's questions using their voice? For this you'll use Azure's Language Services. You can find a step-by-step tutorial below:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/XMJS-eQ4Y48?si=Bwbn0UZUe-thB8md"
+                            }
+                        }
+                    },
+                    new Block
+                    {
                         Title = "Source Control",
                         ImgUrl = "icons8-git-96.png",
                         Paragraphs = new List<Paragraph>
@@ -171,8 +188,26 @@ public class ConsoleProjectsHelper
                 },
                  Blocks = new List<Block>
                 {
+                     new Block
+                    {
+                        Title = "AI Challenge",
+                        ImgUrl= "icons8-artificial-intelligence-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This is a slightly more advanced project but it taps into the future of programming: Artificial intelligence. Can you make it so the users can make calculations using their voice? For this you'll use Azure's Language Services. You can find a step-by-step tutorial below:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/mHb_wSNYZ9I?si=IZjMHd9Tv5duMMr4"
+                            }
+                        }
+                    },
                     new Block
                     {
+
                         Title = "Code Review",
                         ImgUrl= "icons8-code-review-64.png",
                         Paragraphs = new List<Paragraph>
@@ -249,18 +284,25 @@ public class ConsoleProjectsHelper
                     "Seed Data into the database automatically when the database gets created for the first time, generating a few habits and inserting a hundred records with randomly generated values. This is specially helpful during development so you don't have to reinsert data every time you create the database. ",
                     "Create a report functionality where the users can view specific information (i.e. how many times the user ran in a year? how many kms?) SQL allows you to ask very interesting things from your database."
                 },
-                 LearningIntro = "If you have learned the basics of C# following the <a href='article/8/foundations' target='blank'>C# Foundations</a> article, you should know all the basic techniques needed to complete this project. Here’s a list of the things you’ll need to fulfil the requirements:",
-                 LearningItems = new List<string>
-                 {
-                     "Taking user input from the console.",
-                     "Printing messages on the console. ",
-                     "Installing nuget packages (ASP.NET libraries that will help you write your program).",
-                     "Basic control flow with 'if-else' and 'switch statements'",
-                     "Connecting to a Sqlite database.",
-                     "Basics of SQL(the language you use to communicate with the database). If you want to train some SQL before getting started, <a href='https://www.w3schools.com/sql/sql_exercises.asp'>here's an excellent place</a>."
-                 },
                  Blocks = new List<Block>
                 {
+                    new Block
+                    {
+                        Title = "AI Challenge",
+                        ImgUrl= "icons8-artificial-intelligence-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This is a slightly more advanced project but it taps into the future of programming: Artificial intelligence. Can you let the users add records using their voice? For this you'll use Azure's Language Services. You can find a step-by-step tutorial below:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/mHb_wSNYZ9I?si=IZjMHd9Tv5duMMr4"
+                            }
+                        }
+                    },
                     new Block
                     {
                         Title = "Creating The Project",
@@ -478,6 +520,23 @@ public class ConsoleProjectsHelper
                 },
                  Blocks = new List<Block>
                 {
+                     new Block
+                    {
+                        Title = "AI Challenge",
+                        ImgUrl= "icons8-artificial-intelligence-64.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This is a slightly more advanced project but it taps into the future of programming: Artificial intelligence. Can you let the users add records using their voice? For this you'll use Azure's Language Services. You can find a step-by-step tutorial below:"
+                            },
+                            new Paragraph
+                            {
+                                IsVideo = true,
+                                VideoUrl = "https://www.youtube.com/embed/mHb_wSNYZ9I?si=IZjMHd9Tv5duMMr4"
+                            }
+                        }
+                    },
                     new Block
                     {
                         Title = "Creating a Configuration File",
@@ -2103,7 +2162,7 @@ public class ConsoleProjectsHelper
                 Title = "Math Game",
                 IconUrl = projects.FirstOrDefault(p => p.Id == 53).IconUrl,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 53).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Slug = projects.FirstOrDefault(p => p.Id == 53).Slug,
                 Description = "В своем первом проекте вы создадите математическую игру (math game), чтобы закрепить то, чему вы научились в Foundations area",
                 Area = projects.FirstOrDefault(p => p.Id == 53).Area,
@@ -2207,7 +2266,7 @@ public class ConsoleProjectsHelper
                 IconUrl = projects.FirstOrDefault(p => p.Id == 11).IconUrl,
                 Slug = projects.FirstOrDefault(p => p.Id == 11).Slug,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 11).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Level = projects.FirstOrDefault(p => p.Id == 11).Level,
                 Description = "Для этого вы создадите калькулятор с помощью документации от Microsoft",
                 Area = projects.FirstOrDefault(p => p.Id == 11).Area,
@@ -2269,7 +2328,7 @@ public class ConsoleProjectsHelper
                 Title = "Отслеживание привычек (Habit Logger)",
                 IconUrl = projects.FirstOrDefault(p => p.Id == 12).IconUrl,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 12).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Slug = projects.FirstOrDefault(p => p.Id == 12).Slug,
                 Description = "Создайте логгер по привычке. Узнайте, как взаимодействовать с базой данных с помощью SQLite, а также получать и проверять вводимые пользователем данные",
                 Area = projects.FirstOrDefault(p => p.Id == 12).Area,
@@ -2493,7 +2552,7 @@ public class ConsoleProjectsHelper
                 Title = "Отслеживатель кодирования (Coding Tracker)",
                 IconUrl = projects.FirstOrDefault(p => p.Id == 13).IconUrl,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 13).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Slug = projects.FirstOrDefault(p => p.Id == 13).Slug,
                 Level = projects.FirstOrDefault(p => p.Id == 13).Level,
                 Description = "Отслеживайте время, затраченное на написание кода. Узнайте, как работать с датами, использовать разделение задач и использовать свою первую внешнюю библиотеку для улучшения вашего приложения",
@@ -2586,7 +2645,7 @@ public class ConsoleProjectsHelper
                 Title = "Флэш-карты",
                 IconUrl = projects.FirstOrDefault(p => p.Id == 14).IconUrl,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 14).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Slug = projects.FirstOrDefault(p => p.Id == 14).Slug,
                 Level = projects.FirstOrDefault(p => p.Id == 14).Level,
                 Description = "Создание пачки (stacks) флэш-карты и функционала для изучения. Научитесь работать с реляционными  базами данных с помощью SQL Server и использовать объекты передачи данных (Data Transfer Objects)",
@@ -2688,7 +2747,7 @@ public class ConsoleProjectsHelper
                 Title = "Информация о напитках",
                 IconUrl = projects.FirstOrDefault(p => p.Id == 15).IconUrl,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 15).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Slug = projects.FirstOrDefault(p => p.Id == 15).Slug,
                 Level = projects.FirstOrDefault(p => p.Id == 15).Level,
                 Description = "Создайте консольное приложение для использования внешнего API с HTTP-запросами на C#",
@@ -2735,7 +2794,7 @@ public class ConsoleProjectsHelper
                 Title = "Телефонный справочник",
                 IconUrl = projects.FirstOrDefault(p => p.Id == 16).IconUrl,
                 BannerUrl = projects.FirstOrDefault(p => p.Id == 16).BannerUrl,
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Slug = projects.FirstOrDefault(p => p.Id == 16).Slug,
                 Description = "Теперь, когда у вас есть базовые представления о SQL, пришло время изучить основы Entity Framework с помощью консольного приложения Phone Book",
                 Area = projects.FirstOrDefault(p => p.Id == 16).Area,

@@ -2,9 +2,12 @@
 @using TCSA.V2.Components.UI
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Helpers
+@rendermode InteractiveServer
 @implements IDisposable
 @inject NavigationManager NavigationManager
 @inject IOptions<LinkProviderOptions> LinkProviderOptions
+@inject IJSRuntime JS
+
 
 <nav class="top-menu navbar navbar-expand-lg shadow fixed-top">
     <div class="container container-nav text-end">
@@ -148,18 +151,78 @@
                     </a>
                 </li>
             </ul>
+            <button class="btn switchButton" type="button" @onclick="SwitchModeA">
+                @if (isLightMode)
+                {
+                    <img class="m0" src="./img/Switch/light.png" width="40" height="16"/>
+                }
+                else
+                {
+                    <img class="m0" src="./img/Switch/dark.png" width="40" height="16"/>
+                }
+            </button>
         </div>
     </div>
 </nav>
 
+<script>
+
+
+    var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function SwitchMode() {
+        isDark = !isDark;
+        if (isDark) {
+            document.body.classList.add('dark-theme');
+            return;
+        } else {
+            document.body.classList.remove('dark-theme');
+        }
+    }
+
+    window.isDarkMode = function () {
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    window.isLightMode = function () {
+        return !isDark;
+    }
+
+
+    window.updateTheme = function () {
+        if (isDark) {
+            document.body.classList.add('dark-theme');
+            return;
+        }
+
+        document.body.classList.remove('dark-theme');
+    }
+
+    window.updateTheme();
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', window.updateTheme);
+
+    window.updateTheme();
+
+
+
+
+</script>
+
 @code {
     private string? currentUrl;
     private bool IsNavbarShown { get; set; } = false;
+    private bool isLightMode { get; set; }
 
     protected override void OnInitialized()
     {
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        isLightMode = await JS.InvokeAsync<bool>("isLightMode");
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
@@ -177,6 +240,13 @@
     public void Dispose()
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    public async void SwitchModeA()
+    {
+        await JS.InvokeVoidAsync("SwitchMode");
+        isLightMode = await JS.InvokeAsync<bool>("isLightMode");
+        StateHasChanged();
     }
 }
 
@@ -211,5 +281,10 @@
 
     .blink {
         animation: blinker 1s linear infinite;
+    }
+
+    .switchButton {
+        border:none;
+        padding:0;
     }
 </style>

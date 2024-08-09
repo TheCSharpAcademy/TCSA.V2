@@ -10,6 +10,7 @@
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
+@using TCSA.V2.Components.UI
 
 <div class="mt-md-5 pt-md-3">
     @if (userAssigned)
@@ -25,11 +26,7 @@
     @if (projectCompleted)
     {
         <CloseButtonSVG OnClickCallback="@DismissProjectCompleted" />
-        <div class="horizontal-card card-success">
-            <div class="card-body card-body-success">
-                The project was successfuly marked as complete.
-            </div>
-        </div>
+        <ResultCard IsSuccess=@projectCompleted Message="The project was successfully marked as complete." />
     }
 
     @if (availableProjects != null)
@@ -52,6 +49,12 @@
                 </div>
             }
         </div>
+    } 
+    @if (availableProjects == null || availableProjects.Count == 0)
+    {
+        <h3 class="text-center">
+            There are no reviews to take right now.
+        </h3>
     }
 </div>
 

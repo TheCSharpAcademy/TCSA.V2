@@ -90,7 +90,7 @@ public class ConsoleProjectsHelper
                             new Paragraph
                             {
                                 IsVideo = true,
-                                VideoUrl = "https://www.youtube.com/embed/mHb_wSNYZ9I?si=IZjMHd9Tv5duMMr4"
+                                VideoUrl = "https://www.youtube.com/embed/XMJS-eQ4Y48?si=Bwbn0UZUe-thB8md"
                             }
                         }
                     },

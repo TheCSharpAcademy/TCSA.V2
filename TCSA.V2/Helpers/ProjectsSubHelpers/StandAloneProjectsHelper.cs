@@ -454,7 +454,7 @@ internal static class StandAloneProjectsHelper
                 IconUrl = "freecodecamp.jpg",
                 Slug = "freecodecamp-certification",
                 BannerUrl = "",
-                LanguageHeadings = new EnglishHeadings(),
+                LanguageHeadings = new RussianHeadings(),
                 Description = "Пройдите эту профессиональную сертификацию на C#",
                 Area = Area.StandAlone,
                 Level = Level.Green,

@@ -1,0 +1,27 @@
+﻿<button class="toggle-btn" @onclick="ToggleCompleted">@(IsActive ? "Show" : "Hide") Completed</button>
+
+@code {
+    [Parameter] public EventCallback OnToggle { get; set; }
+    bool IsActive { get; set; }
+
+    private void ToggleCompleted()
+    {
+        OnToggle.InvokeAsync();
+        IsActive = !IsActive;
+    }
+}
+
+<style>
+    .toggle-btn {
+        background: #8789C0;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        padding: 8px 12px;
+        transition: opacity .2s ease-in-out;
+    }
+    
+    .toggle-btn:hover {
+        opacity: 0.5;
+    }
+</style>

@@ -205,11 +205,12 @@ public class PeerReviewService : IPeerReviewService
                     .Where(x => x.Id.Equals(revieweeId))
                     .Select(x => new
                     {
-                        DisplayName = string.IsNullOrEmpty(x.DisplayName) ? x.FirstName + " " + x.LastName : x.DisplayName
+                        DisplayName = string.IsNullOrEmpty(x.DisplayName) ? x.FirstName + " " + x.LastName : x.DisplayName,
+                        GithubUsername = string.IsNullOrEmpty(x.GithubUsername) ? "" : x.GithubUsername
                     })
                     .FirstOrDefault();
 
-                return reviewee?.DisplayName;
+                return reviewee?.DisplayName == " " ? reviewee?.GithubUsername : reviewee?.DisplayName;
             }
         }
         catch (Exception ex)

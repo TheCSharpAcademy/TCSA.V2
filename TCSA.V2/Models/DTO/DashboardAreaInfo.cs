@@ -10,4 +10,5 @@ public class DashboardAreaInfo
     public string CardName { get; set; }
 
     public IEnumerable<Article> Projects { get; set; } 
+    public bool IsHidden { get; set; }
 }

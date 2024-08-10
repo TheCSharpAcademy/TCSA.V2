@@ -52,6 +52,10 @@
                          ExperiencePoints=@User.ExperiencePoints
                          Ranking=@Ranking
                          DisplayName=@User.DisplayName />
+        
+        <div class="m-2 w-100 d-flex align-items-center justify-content-center">
+            <ToggleCompletedButton OnToggle="ToggleCompleted" />
+        </div>
 
         <div class="row">
             @if (!AlumniComplete)
@@ -63,7 +67,7 @@
                 </div>
 
             }
-            @foreach (var area in Areas)
+            @foreach (var area in Areas.Where(a => !a.IsHidden))
             {
                 <div class="col-lg-6 col-md-12 col-sm-12 my-1 dashboard-area-card">
                     <DashboardAreaCard CardName=@area.CardName
@@ -351,6 +355,14 @@
     {
         ShowBeltNotification = false;
         await UserService.DismissBeltNotification(User.Id);
+    }
+
+    public void ToggleCompleted()
+    {
+        foreach (var area in Areas.Where(area => area.IsCompleted))
+        {
+            area.IsHidden = !area.IsHidden;
+        }
     }
 }
 

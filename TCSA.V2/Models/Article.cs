@@ -10,6 +10,7 @@ public class Article
     public string Description { get; set; }
     public string IconUrl { get; set; }
     public string BannerUrl { get; set; }
+    public string BannerV2 { get; set; }
     public Area Area { get; set; }
     public List<Block> Blocks { get; set; }
     public DateTime ReleaseDate { get; set; }

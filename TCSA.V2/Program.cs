@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -31,6 +33,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, BlazorAuthorizationMiddlewareResultHandler>();
 
 builder.Services.AddScoped<IDataSeedService, DataSeedService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
@@ -124,3 +127,11 @@ app.UseEndpoints(endpoints =>
 app.MapAdditionalIdentityEndpoints();
 
 app.Run();
+
+public class BlazorAuthorizationMiddlewareResultHandler : IAuthorizationMiddlewareResultHandler
+{
+    public Task HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+    {
+        return next(context);
+    }
+}

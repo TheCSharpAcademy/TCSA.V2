@@ -8,15 +8,31 @@
 @using System.Security.Claims;
 @using TCSA.V2.Services
 
+@inject IConfiguration Configuration
+
 <PageTitle>@StringConstants.PageTitle - @Project.Title</PageTitle>
 
-<div class="container">
-    <div class="jumbotron jumbotron-fluid project-banner">
-        <div class="container text-center align-content-center">
-            <h1 class="page-title">@Project.Title</h1>
+@if (@ShowBanner)
+{
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="jumbotron jumbotron-fluid text-center project-banner-v2">
+            <div class="container">
+                <h1 class="page-title"></h1>
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid project-banner">
+            <div class="container text-center align-content-center">
+                <h1 class="page-title">@Project.Title</h1>
+            </div>
+        </div>
+    </div>
+}
+
 
 <div class="container project-container w-50">
     @if (IsCompleted)
@@ -384,13 +400,17 @@
     private bool IsPendingReview { get; set; } = false;
     private bool IsCompleted { get; set; } = false;
     private bool codeWarsNotFoundShowing = false;
+    private bool ShowBanner = false;
 
     private string BackgroundImage;
+    private string BackgroundImageV2;
     private string UserId;
     private string ResultMessage = "";
 
     protected async override Task OnInitializedAsync()
     {
+        ShowBanner = Configuration.GetValue<bool>("Values:V2BannerFeatureSwitch");
+
         Project = SelectedLanguage switch
         {
             Language.English => ProjectHelper.GetProjects().Single(x => x.Id == ProjectId),
@@ -407,6 +427,7 @@
         GetAvailableLanguages();
 
         BackgroundImage = Project.BannerUrl != "" ? Project.BannerUrl : "article-banner.jpg";
+        BackgroundImageV2 = Project.BannerV2 != "" ? $"bannerv2-{Project.BannerV2}.png" : "article-banner.jpg";
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
@@ -517,6 +538,13 @@
         background-image: url("../img/Banners/@BackgroundImage");
         background-size: cover;
         box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .project-banner-v2 {
+        background-image: url("../img/Banners/V2/@BackgroundImageV2");
+        background-size: cover;
+        height: 512px;
+        width: 896px;
     }
 
     .page-title {

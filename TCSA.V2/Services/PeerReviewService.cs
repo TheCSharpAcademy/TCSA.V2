@@ -144,7 +144,7 @@ public class PeerReviewService : IPeerReviewService
         {
             using (var context = _factory.CreateDbContext())
             {
-                var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
+                var level = context.Users.FirstOrDefault(x => x.Id == reviewerId)?.Level;
 
                 if (level < Level.Yellow)
                 {

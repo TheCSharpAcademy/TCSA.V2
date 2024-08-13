@@ -135,6 +135,11 @@
 
     protected async override Task OnInitializedAsync()
     {
+        await OnParametersSetAsync();
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
         Article = ArticleHelper.GetArticles().Single(x => x.Id == ArticleId);
         BackgroundImage = Article.BannerUrl != "" ? Article.BannerUrl : "article-banner.jpg";
 

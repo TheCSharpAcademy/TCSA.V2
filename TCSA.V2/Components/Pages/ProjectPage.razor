@@ -13,8 +13,21 @@
         <div class="container text-center align-content-center">
             <h1 class="page-title">@Project.Title</h1>
         </div>
+        <div class="container text-end align-self-end">
+            @if (NumberOfUserCompletedProjects > 0)
+            {
+                <p class="text-light">@NumberOfUserCompletedProjects users have completed this project</p>
+
+            }
+            else
+            {
+                <p class="text-light"> No user has completed this project</p>
+            }
+        </div>
     </div>
 </div>
+
+
 
 <div class="container project-container w-50">
     @if (IsCompleted)
@@ -378,6 +391,7 @@
     private Project Project { get; set; }
     private List<Language> AvailableLanguages { get; set; } = new();
 
+    private int NumberOfUserCompletedProjects{get; set;} = 0;
     private bool IsLoggedIn;
     private bool IsPendingReview { get; set; } = false;
     private bool IsCompleted { get; set; } = false;
@@ -415,6 +429,7 @@
             UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
+        NumberOfUserCompletedProjects = await ProjectService.GetCompletedProjectsbyProjectId(ProjectId);
         IsCompleted = await ProjectService.IsProjectCompleted(UserId, ProjectId);
 
 

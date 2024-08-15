@@ -74,7 +74,7 @@ public class ConsoleProjectsHelper
                     "Try to implement levels of difficulty.",
                     "Add a timer to track how long the user takes to finish the game.",
                     "Create a 'Random Game' option where the players will be presented with questions from random operations",
-                    "To follow the <a href='https://devinduct.com/blogpost/57/software-design-principles-the-dry-don-t-repeat-yourself-principle' target='_blank'>DRY Principle</a>, try using just one method for all games. Additionally, double check your code and try to find opportunities to do the same with less code, avoiding repetition when possible."
+                    "To follow the <a href='https://devinduct.com/blogpost/57/software-design-principles-the-dry-don-t-repeat-yourself-principle' target='_blank'>DRY Principle</a>, try using just one method for all games. Additionally, double check your project and try to find opportunities to achieve the same functionality with less code, avoiding repetition when possible."
                 },
                 Blocks = new List<Block>
                 {

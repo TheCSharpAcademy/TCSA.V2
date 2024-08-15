@@ -122,9 +122,9 @@
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
-        CompletedProjects = User.DashboardProjects?.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
-        PendingProjects = User.DashboardProjects?.Where(x => x.IsPendingReview).Select(x => x.ProjectId).ToList();
-        CompletedPendingNotificationProjects = User.DashboardProjects?.Where(x => x.IsPendingNotification).Select(x => x.ProjectId).ToList();
+        CompletedProjects = User?.DashboardProjects?.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
+        PendingProjects = User?.DashboardProjects?.Where(x => x.IsPendingReview).Select(x => x.ProjectId).ToList();
+        CompletedPendingNotificationProjects = User?.DashboardProjects?.Where(x => x.IsPendingNotification).Select(x => x.ProjectId).ToList();
         CompletedPendingNotificationIssues = await CommunityService.GetIssuesTitles(CompletedPendingNotificationProjects);
 
         var areaIconUrls = new List<string> { "" };
@@ -268,7 +268,9 @@
             IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles, CompletedProjects, Area.GraduationProject, null)
         });
 
-        AlumniComplete = CompletedProjects.Contains(86);
+         AlumniComplete = CompletedProjects != null && CompletedProjects.Contains(86);
+       
+
     }
 
     private string GetNotCompletedMessage(Area? area, Difficulty? difficulty)

@@ -13,6 +13,7 @@ public interface IProjectService
     Task<List<DashboardProject>> GetDetailedProjectsById(string userId);
     Task<int> MarkCertificateAsCompleted(string userId, int currentPoints);
     Task<int> MarkAsNotified(int id);
+    Task<int> GetCompletedProjectsbyProjectId(int projectId);
 }
 public class ProjectService : IProjectService
 {
@@ -53,6 +54,24 @@ public class ProjectService : IProjectService
         {
             _logger.LogError(ex, $"Error in {nameof(GetCompletedProjectsById)}");
             return null;
+        }
+    }
+
+    public async Task<int> GetCompletedProjectsbyProjectId(int projectId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.DashboardProjects
+                    .Where(x => x.IsCompleted && x.ProjectId == projectId)
+                    .CountAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetCompletedProjectsbyProjectId)}");
+            return 0;
         }
     }
 

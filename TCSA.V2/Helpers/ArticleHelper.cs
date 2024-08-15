@@ -1670,6 +1670,47 @@ git push</code>"
             },
             new Article
             {
+                Id = 100,
+                Title = "Books",
+                Area = Area.StandAlone,
+                ExperiencePoints = 5,
+                Slug="books",
+                BannerUrl = "code-review-banner.png",
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Title = "Introduction",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @"In this article, we will list a series of recommended books you can read on your free time. These can range from C# specific books to general programming ones."
+                            },
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "The C# player's Guide - RB Whitaker",
+                        BookImgUrl = "books/playerguidecsharp.png",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = @$"Click here to check it on <a href='https://www.amazon.com/C-Players-Guide-5th/dp/0985580151' target='_blank'>Amazon</a>."        
+                                       
+                            },
+
+                            new Paragraph
+                            {
+                                Body = "This book has been around for quite some time, it is considered a great book for starters due to it's very simple and to the point language. The book also makes great use of fixation exercises and challenges you to create a full blown project at the end."
+                            }
+                        }
+                    },
+                }
+            },
+            new Article
+            {
                 Id = 20000,
                 Title = "The C# Academy Intro Guide",
                 IconUrl = "icons8-notes-64.png",

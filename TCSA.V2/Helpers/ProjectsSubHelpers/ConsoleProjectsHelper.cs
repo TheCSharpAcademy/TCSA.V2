@@ -259,32 +259,34 @@ public class ConsoleProjectsHelper
                 },
                 Requirements = new List<string>
                 {
-                    "This is an application where you’ll register one habit.",
+                    "This is an application where you’ll log occurrences of a habit.",
                     "This habit can't be tracked by time (ex. hours of sleep), only by quantity (ex. number of water glasses a day)",
+                    "Users need to be able to input the date of the occurrence of the habit",
                     "The application should store and retrieve data from a real database",
                     "When the application starts, it should create a sqlite database, if one isn’t present.",
                     "It should also create a table in the database, where the habit will be logged.",
-                    "The app should show the user a menu of options.",
                     "The users should be able to insert, delete, update and view their logged habit.",
                     "You should handle all possible errors so that the application never crashes.",
-                    "The application should only be terminated when the user inserts 0.",
-                    "You can only interact with the database using raw SQL. You can’t use mappers such as Entity Framework.",
+                    "You can only interact with the database using ADO.NET. You can’t use mappers such as Entity Framework or Dapper.",
                     "Your project needs to contain a Read Me file where you'll explain how your app works. Here's a nice example:"
                 },
                 RequirementsConclusion = "<a href='https://github.com/thags/ConsoleTimeLogger'>Github project with an example of a tidy Read Me file.</a><br>Don't panic! I'll help! 😁",
 
                 Tips = new List<string>
                 {
+                    "Read <a href='https://www.bytehide.com/blog/kiss-principle-csharp' target='_blank'>this article about the KISS principle</a> and try to apply it to this project.",
                     "Test your SQL commands on DB Browser before using them in your program.",
-                    "You can keep all of the code in one single class if you wish.",
+                    "To improve the user's experience, when asking for a date input, give the option to type a simple command to add today's date",
+                    "You can keep all of the code in one single class if you wish. We'll deal with Object Oriented Programming in the next project",
                     "Use a switch statement for the user input menus.",
                     "Don't forget the user input's validation: Check for incorrect dates. What happens if a menu option is chosen that's not available? What happens if the users input a string instead of a number?"
                 },
                  Challenges = new List<string>
                 {
+                    "If you haven't, <a href='https://reintech.io/blog/mastering-parameterized-queries-ado-net' target='_blank'>try using parameterized queries</a> to make your application more secure.",
                     "Let the users create their own habits to track. That will require that you let them choose the unit of measurement of each habit.",
                     "Seed Data into the database automatically when the database gets created for the first time, generating a few habits and inserting a hundred records with randomly generated values. This is specially helpful during development so you don't have to reinsert data every time you create the database. ",
-                    "Create a report functionality where the users can view specific information (i.e. how many times the user ran in a year? how many kms?) SQL allows you to ask very interesting things from your database."
+                    "Create a report functionality where the users can view specific information (i.e. how many times the user ran in a year? how many kms?) SQL allows you to ask very interesting things from your database.",
                 },
                  Blocks = new List<Block>
                 {
@@ -296,32 +298,12 @@ public class ConsoleProjectsHelper
                         {
                             new Paragraph
                             {
-                                Body = "This is a slightly more advanced project but it taps into the future of programming: Artificial intelligence. Can you let the users add records using their voice? For this you'll use Azure's Language Services. You can find a step-by-step tutorial below:"
+                                Body = "Since this is a slightly more advanced challenge <b>you'll be rewarded with 20 extra points</b>. It taps into the future of programming: Artificial intelligence. Can you let the users add records using their voice? For this you'll use Azure's Language Services. You can find a step-by-step tutorial below:"
                             },
                             new Paragraph
                             {
                                 IsVideo = true,
-                                VideoUrl = "https://www.youtube.com/embed/mHb_wSNYZ9I?si=IZjMHd9Tv5duMMr4"
-                            }
-                        }
-                    },
-                    new Block
-                    {
-                        Title = "Creating The Project",
-                        ImgUrl= "icons8-software-installer-96-1.png",
-                        Paragraphs = new List<Paragraph>
-                        {
-                            new Paragraph
-                            {
-                                Body = "This tutorial requires that you already have set up your .NET environment. If you haven’t yet, check <a href='article/7/setting-up' target='blank'>this article</a> out with the first steps. If you absolutely want to use another IDE, let me know."
-                            },
-                            new Paragraph
-                            {
-                                Body = "1. In Visual Studio, choose Create new project. If you’re using Visual Studio Code, let me know if you have difficulties creating the project.<br>2. Search for Console Application and click Next.<br>3. Choose a Project Name and a Location and click Next.<br>3. Choose the latest framework (Net 6 at the time of this tutorial) and click Create.<br>4. Run your application by clicking on the green play button on the top of the screen."
-                            },
-                            new Paragraph
-                            {
-                                Body = "A CLI (command line interface) will open and print ‘Hello World’ and the application will close itself. That means your application ASP.NET environment and your application are working properly."
+                                VideoUrl = "https://www.youtube.com/embed/XMJS-eQ4Y48?si=Bwbn0UZUe-thB8md"
                             }
                         }
                     },
@@ -399,38 +381,6 @@ public class ConsoleProjectsHelper
                     },
                     new Block
                     {
-                        Title = "Source Control",
-                        ImgUrl = "icons8-git-96.png",
-                        Paragraphs = new List<Paragraph>
-                        {
-                            new Paragraph
-                            {
-                                Body = "If this is your first tutorial, you might be tempted to skip this step and start coding. Don’t do it or you’ll learn the hard way. One day after working for many hours on a difficult problem you won’t save your work on a source control repository and for whatever reason all of your work will be lost."
-                            },
-                            new Paragraph
-                            {
-                                Body = "Get into the habit of saving every line of code you ever write. I promise it will save you from many headaches. All serious developers save their work on a backup repository. The most commonly used is Github. Create an account if you haven’t yet. "
-                            },
-                            new Paragraph
-                            {
-                                Body="1. In Visual Studio, go to Git > Create Git Repository<br>2. Enter your Login Details<br>3. Click on Create and Push. "
-                            },
-                            new Paragraph
-                            {
-                                Body="✅ Done! Your repository is good to go. Don’t forget to commit and push your changes after every step!"
-                            }, new Paragraph
-                            {
-                                Body="You can take further step and learn how to integrate Github with Visual Studio watching this tutorial:"
-                            },
-                            new Paragraph
-                            {
-                                IsVideo = true,
-                                VideoUrl = "https://www.youtube.com/embed/oCvb-Q5lXb8"
-                            }
-                        }
-                    },
-                    new Block
-                    {
                         Title = "Code Review",
                         ImgUrl= "icons8-code-review-64.png",
                         Paragraphs = new List<Paragraph>
@@ -440,19 +390,7 @@ public class ConsoleProjectsHelper
                                 Body = "If you want your code to be reviewed by a member of the C# Academy, instead of creating your own repository, <a href='article/52/code-reviews'>follow this article</a>, where you’ll learn how to create a fork from our base review repository."
                             }
                         }
-                    },
-                    new Block
-                    {
-                        Title = "Next Step: Desktop App",
-                        ImgUrl = "icons8-staircase-80.png",
-                        Paragraphs = new List<Paragraph>
-                        {
-                            new Paragraph
-                            {
-                                Body = $"If you have watched the <a href='https://www.youtube.com/watch?v=o81wpRuOGjE&list=PL4G0MUH8YWiAMypwveH2LlLK_o8Jto9CE'>entire C# Foundation course</a>, you have already created a Math Game Desktop app using the amazing .NET MAUI. It will be great practice to build a desktop Habit Tracker App with the same functionality you’ve created for this console app. There will be some challenges, but you’ve already got all the skills necessary. And remember, if you get stuck, reach out on our <a  target='_blank' href='{DiscordLink}'>Discord community</a> and we will help!"
-                            }
-                        }
-                    },
+                    }
                 }
             },
              new Project

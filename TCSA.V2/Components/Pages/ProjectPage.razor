@@ -20,17 +20,6 @@
                 <h1 class="page-title"></h1>
             </div>
         </div>
-        <div class="container text-end align-self-end">
-            @if (NumberOfUserCompletedProjects > 0)
-            {
-                <p class="text-light">@NumberOfUserCompletedProjects users have completed this project</p>
-
-            }
-            else
-            {
-                <p class="text-light"> No user has completed this project</p>
-            }
-        </div>
     </div>
 }
 else
@@ -48,6 +37,16 @@ else
 
 
 <div class="container project-container w-50">
+    @if (NumberOfUserCompletedProjects > 0)
+    {
+        <p class="completed-users">@NumberOfUserCompletedProjects users have completed this project</p>
+
+    }
+    else
+    {
+        <p> No user has completed this project</p>
+    }
+
     @if (IsCompleted)
     {
         <div class="card card-completed">
@@ -582,5 +581,9 @@ else
 
     .card-pending {
         background-color: orange;
+    }
+
+    .completed-users {
+        font-weight: 600; 
     }
 </style>

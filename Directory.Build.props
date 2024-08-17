@@ -1,0 +1,21 @@
+<!--Common build settings for all projects
+
+  Documentation
+
+  https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props
+  https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/errors-warnings -->
+<Project>
+  <PropertyGroup>
+    <!-- For non-SDK projects that import this file and then import Microsoft.Common.props,
+         tell Microsoft.Common.props not to import Directory.Build.props again. -->
+    <ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
+
+    <!-- REPRODUCIBLE BUILDS
+      Avoid potentially poisoining the NuGet cache
+      https://github.com/dotnet/reproducible-builds/blob/abfe986832aa28597d3340b92469d1a702013d23/Documentation/Reproducible-MSBuild/Techniques/DisableImplicitNuGetFallbackFolder.md -->
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <!--Use a lock file (`packages.lock.json`) for NuGet packages
+      https://devblogs.microsoft.com/nuget/enable-repeatable-package-restores-using-a-lock-file/ -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+</Project>

@@ -145,8 +145,8 @@ else
             DashboardProjects = await ProjectService.GetCompletedProjectsById(UserId);
 
             ProjectsNotCompleted = ProjectHelper.GetProjects()
-            //.Where(x => !DashboardProjects.Contains(x.Id))
-            //.Where(x => !nonReviewProjects.Contains(x.Id))
+            .Where(x => !DashboardProjects.Contains(x.Id))
+            .Where(x => !nonReviewProjects.Contains(x.Id))
             .ToList();
         }
     }

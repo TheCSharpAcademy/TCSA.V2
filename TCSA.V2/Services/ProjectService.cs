@@ -8,7 +8,9 @@ namespace TCSA.V2.Services;
 public interface IProjectService
 {
     Task<bool> IsProjectCompleted(string userId, int projectId);
+    Task<bool> IsProjectPendingReview(string userId, int projectId);
     Task<int> PostArticle(DashboardProject project);
+    Task<int> UpdateArticle(DashboardProject project);
     Task<List<int>> GetCompletedProjectsById(string userId);
     Task<List<DashboardProject>> GetDetailedProjectsById(string userId);
     Task<int> MarkCertificateAsCompleted(string userId, int currentPoints);
@@ -115,6 +117,31 @@ public class ProjectService : IProjectService
         }
     }
 
+    public async Task<bool> IsProjectPendingReview(string userId, int projectId)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var result = await context.DashboardProjects
+                    .AnyAsync(
+                        x => x.IsPendingReview == true 
+                        && x.ProjectId == projectId
+                        && x.AppUserId == userId
+                    );
+
+                _logger.LogInformation($"{nameof(IsProjectPendingReview)} executed correctly");
+
+                return result;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(IsProjectPendingReview)}");
+            return false;
+        }
+    }
+
     public async Task<int> PostArticle(DashboardProject project)
     {
         try
@@ -139,6 +166,36 @@ public class ProjectService : IProjectService
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Error in {nameof(PostArticle)}");
+            return 0;
+        }
+    }
+
+    public async Task<int> UpdateArticle(DashboardProject project)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var ExistingProject = await context.DashboardProjects
+                .FirstOrDefaultAsync(x => x.ProjectId == project.ProjectId && x.AppUserId == project.AppUserId);
+
+                if (ExistingProject != null)
+                {
+                    
+                    ExistingProject.GithubUrl = project.GithubUrl;
+                    ExistingProject.DateSubmitted = project.DateSubmitted; 
+                    var result = await context.SaveChangesAsync();
+
+                    _logger.LogInformation($"{nameof(UpdateArticle)} executed correctly");
+                    return result;
+                }
+
+                return 0;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(UpdateArticle)}");
             return 0;
         }
     }

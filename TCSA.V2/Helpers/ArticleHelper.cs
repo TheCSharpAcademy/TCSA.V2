@@ -1703,7 +1703,7 @@ git push</code>"
 
                             new Paragraph
                             {
-                                Body = "This book has been around for quite some time, it is considered a great book for starters due to it's very simple and to the point language. The book also makes great use of fixation exercises and challenges you to create a full blown project at the end."
+                                Body = "This book has been around for quite some time. It is considered a great book for starters due to its very simple and to the point language. The book also makes great use of fixation exercises and challenges you to create a full-blown project at the end."
                             }
                         }
                     },

@@ -21,4 +21,11 @@ public class Enums
         TraditionalChinese,
         Polish
     }
+
+    public enum ProjectStatus
+    {
+        Pending,
+        Completed,
+        None
+    }
 }

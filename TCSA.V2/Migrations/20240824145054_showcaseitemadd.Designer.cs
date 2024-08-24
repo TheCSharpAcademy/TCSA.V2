@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TCSA.V2.Data;
 
@@ -11,9 +12,11 @@ using TCSA.V2.Data;
 namespace TCSA.V2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240824145054_showcaseitemadd")]
+    partial class showcaseitemadd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +273,7 @@ namespace TCSA.V2.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             CodeWarsUsername = "pabloqueensland",
-                            ConcurrencyStamp = "e34d0817-cdea-4633-83d7-5744c3728ab9",
+                            ConcurrencyStamp = "ecd11ea8-daab-4505-90bb-a358b854fbf8",
                             Country = "Brazil",
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "pablo.queensland@gmail.com",
@@ -483,49 +486,6 @@ namespace TCSA.V2.Migrations
                     b.ToTable("DashboardProjects");
                 });
 
-            modelBuilder.Entity("TCSA.V2.Models.ShowcaseItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Area")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("GoldenProject")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("ShowcaseItems");
-                });
-
             modelBuilder.Entity("TCSA.V2.Models.UserChallenge", b =>
                 {
                     b.Property<int>("ChallengeId")
@@ -648,17 +608,6 @@ namespace TCSA.V2.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("TCSA.V2.Models.ShowcaseItem", b =>
-                {
-                    b.HasOne("TCSA.V2.Data.ApplicationUser", "User")
-                        .WithMany("ShowcaseItems")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TCSA.V2.Models.UserChallenge", b =>
                 {
                     b.HasOne("TCSA.V2.Models.Challenge", "Challenge")
@@ -699,8 +648,6 @@ namespace TCSA.V2.Migrations
                     b.Navigation("DashboardProjects");
 
                     b.Navigation("Issues");
-
-                    b.Navigation("ShowcaseItems");
 
                     b.Navigation("UserChallenges");
                 });

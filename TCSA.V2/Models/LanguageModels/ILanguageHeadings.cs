@@ -3,7 +3,7 @@
 public interface ILanguageHeadings
 {
     public string Introduction => "Introduction";
-    
+
     public string Requirements => "Requirements";
 
     public string Learn => "Learn";

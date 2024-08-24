@@ -21,7 +21,7 @@ public static class LeaderboardHelper
         {
             lastTwoDigits = ranking % 100;
             lastDigit = ranking % 1000;
-        } 
+        }
         else if (ranking > 1000)
         {
             lastTwoDigits = ranking % 1000;

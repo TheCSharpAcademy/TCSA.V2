@@ -1874,7 +1874,7 @@ git push</code>"
                                 Body = "<h3>Cloud Development</h3><p><p>To attain a black belt, you'll also need to grasp the basics of <a href='/#cloud-area' target='_blank'>Azure Cloud Services</a>. This section will instruct you on deploying apps and databases to the cloud and constructing serverless systems. While this section might have been optional a few years ago, the current job market demands proficiency in cloud development. It's prominently featured in most job postings and empowers you to built better and more engaging systems."
                             }
                         }
-                    }, 
+                    },
                     new Block
                     {
                         ImgUrl = "icons8-battleship-55.png",

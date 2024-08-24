@@ -26,14 +26,14 @@ public static class RoadmapHelper
         "Complete Math Game project"
     };
 
-    public static readonly List<string> OliveGreenBeltReqs = new() 
+    public static readonly List<string> OliveGreenBeltReqs = new()
     {
         "Complete Calculator project",
         "Complete Habit Logger project",
         "Complete Coding Tracker project"
     };
 
-    public static readonly List<string> YellowBeltReqs = new() 
+    public static readonly List<string> YellowBeltReqs = new()
     {
         "Complete Flashcards project",
         "Complete Drinks Info project",

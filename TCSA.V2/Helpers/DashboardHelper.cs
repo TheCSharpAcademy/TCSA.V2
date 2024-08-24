@@ -5,10 +5,10 @@ namespace TCSA.V2.Helpers;
 public static class DashboardHelper
 {
     public static bool CheckIfAreaIsCompleted(
-        IEnumerable<Project> projects, 
-        List<Article> articles, 
-        List<int> completedProjects, 
-        Area area, 
+        IEnumerable<Project> projects,
+        List<Article> articles,
+        List<int> completedProjects,
+        Area area,
         Difficulty? difficulty)
     {
         if (difficulty != null)

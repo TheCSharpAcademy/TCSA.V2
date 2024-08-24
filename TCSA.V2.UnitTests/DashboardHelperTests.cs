@@ -1,6 +1,6 @@
-using TCSA.V2.Models;
-using TCSA.V2.Helpers;
 using TCSA.V2.Data;
+using TCSA.V2.Helpers;
+using TCSA.V2.Models;
 
 namespace TCSA.V2.UnitTests;
 
@@ -30,7 +30,7 @@ public class DashboardHelperTests
                 BannerUrl = "start-line.jpeg",
                 Area = Area.StartHere,
                 Level = Level.Green,
-                NextSlug = "article/6/getting-help"   
+                NextSlug = "article/6/getting-help"
             },
             new Article
             {
@@ -44,7 +44,7 @@ public class DashboardHelperTests
                 Level = Level.Green,
                 ExperiencePoints = 5,
                 NextSlug = "article/7/setting-up",
-            
+
             },
             new Article
             {
@@ -70,7 +70,7 @@ public class DashboardHelperTests
                 Area = Area.StartHere,
                 Level = Level.Green,
                 ExperiencePoints = 5
-                
+
             },
             new Article
             {
@@ -83,7 +83,7 @@ public class DashboardHelperTests
     }
 
     [Theory]
-    [InlineData(new[] { 5,6,7,8 })]
+    [InlineData(new[] { 5, 6, 7, 8 })]
     public void CheckIfAreaIsCompleted_AreaCompleted_ReturnsTrue(int[] completedProjects)
     {
         // Act

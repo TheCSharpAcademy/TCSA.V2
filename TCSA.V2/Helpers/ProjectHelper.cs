@@ -1,5 +1,6 @@
 ﻿using TCSA.V2.Helpers.ProjectsSubHelpers;
 using TCSA.V2.Models;
+using TCSA.V2.Models.DTO;
 
 namespace TCSA.V2.Helpers;
 
@@ -8,9 +9,9 @@ public static class ProjectHelper
     public static List<Project> GetProjects()
     {
         var projects = new List<Project>();
-        
+
         return projects
-            .Concat(StandAloneProjectsHelper.GetProjects()) 
+            .Concat(StandAloneProjectsHelper.GetProjects())
             .Concat(ConsoleProjectsHelper.GetProjects())
             .Concat(StartApplyingProjectsHelper.GetProjects())
             .Concat(MVCProjectsHelper.GetProjects())
@@ -23,7 +24,18 @@ public static class ProjectHelper
             .Concat(MauiProjectsHelper.GetProjects())
             .Concat(ChallengeProjectsHelper.GetProjects())
             .Concat(OpenSourceProjectsHelper.GetProjects())
-            .ToList();  
+            .ToList();
+    }
+
+    public static List<ShowcaseProjectInfo> GetProjectInfos()
+    {
+        return GetProjects().Select(project => new ShowcaseProjectInfo
+        {
+            Id = project.Id,
+            Title = project.Title,
+            Area = project.Area,
+
+        }).ToList();
     }
 
     public static List<Project> GetProjectsInPortuguese()
@@ -35,7 +47,7 @@ public static class ProjectHelper
             .Concat(ConsoleProjectsHelper.GetProjectsInPortuguese())
             .ToList();
     }
-    
+
     public static List<Project> GetProjectsInDutch()
     {
         var projects = new List<Project>();

@@ -14,10 +14,19 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public virtual DbSet<Challenge> Challenges { get; set; }
     public virtual DbSet<UserChallenge> UserChallenges { get; set; }
     public virtual DbSet<DailyStreak> DailyStreaks { get; set; }
+    public virtual DbSet<ShowcaseItem> ShowcaseItems { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<ShowcaseItem>()
+                .HasOne(sci => sci.User)
+                .WithMany(sci => sci.ShowcaseItems)
+                .HasForeignKey(sci => sci.AppUserId)
+                .IsRequired();
+
 
         modelBuilder.Entity<UserReview>()
             .HasOne(ur => ur.User)

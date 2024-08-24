@@ -22,6 +22,8 @@ public class Project : Article
     public List<CodeWarsChallenge>? CodeWarsChallenges { get; set; }
     public ILanguageHeadings LanguageHeadings { get; set; }
     public string? RepositoryLink { get; set; }
+    public ICollection<ShowcaseItem> ShowcaseItems { get; set; } = [];
+
 }
 
 public enum Difficulty

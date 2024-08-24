@@ -59,9 +59,9 @@ public class UserChallenge
     public DateTime CompletedAt { get; set; }
 }
 
-public enum ChallengePlatform 
-{ 
-    CodeWars = 1, 
-    LeetCode, 
-    HackerRank 
+public enum ChallengePlatform
+{
+    CodeWars = 1,
+    LeetCode,
+    HackerRank
 }

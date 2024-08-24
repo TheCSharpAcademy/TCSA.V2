@@ -1,0 +1,57 @@
+﻿@page "/gallery"
+@using TCSA.V2.Components.Gallery.Shared
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.DTO
+@using TCSA.V2.Services
+@using System.Security.Claims;
+
+<div class="row m-5 m-lg-2 p-1">
+    <div class="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+        <TCSA.V2.Components.Gallery.Shared.CategoryList OnClickCallback="@GetAreaItems"></TCSA.V2.Components.Gallery.Shared.CategoryList>
+    </div>
+    <div class="col-12 col-lg-9 col-xl-10 ">
+        <!-- KARTLAR BURAYA KONACAK -->
+        <p>asdasd</p>
+    </div>
+</div>
+<AuthorizeView>
+    <p>This section is authorized view for users to add new item</p>
+     @if(User is not null){
+    <h2>@User.Id</h2>
+     }
+</AuthorizeView>
+
+
+@code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
+
+    private ApplicationUser User;
+    private string UserId;
+    private IEnumerable<ShowcaseProjectInfo> Projects;
+
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        //Get active user if authenticated
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        User = await UserService.GetUserById(UserId);
+
+        //Get Short Project infos
+        Projects = ProjectHelper.GetProjectInfos();
+    }
+
+    private async Task GetAreaItems(string area)
+    {
+        Console.WriteLine(area);
+    }
+
+}

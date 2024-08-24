@@ -12,15 +12,15 @@ using TCSA.V2.Data;
 namespace TCSA.V2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240314100148_IssuesTable")]
-    partial class IssuesTable
+    [Migration("20240824153915_showcaseitemadd2")]
+    partial class showcaseitemadd2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -266,6 +266,34 @@ namespace TCSA.V2.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            CodeWarsUsername = "pabloqueensland",
+                            ConcurrencyStamp = "ce93d991-8b3c-4277-bbea-249619707ff4",
+                            Country = "Brazil",
+                            CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Email = "pablo.queensland@gmail.com",
+                            EmailConfirmed = true,
+                            ExperiencePoints = 0,
+                            FirstName = "John",
+                            GithubLogin = false,
+                            HasPendingBeltNotification = false,
+                            HasUnreviewableProjectNotification = false,
+                            LastName = "Doe",
+                            Level = 0,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "pablo.queensland@gmail.com",
+                            NormalizedUserName = "pablo.queensland@gmail.com",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPglSOjEpJHarP9YEcFBV42oyI3H27zy9fnQkFQ4C5eGaZ0advvTUUmZxb2ld0iIzg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "LMEDMQOELGOLEONATD5I5OEATIHYPVHO",
+                            TwoFactorEnabled = false,
+                            UserName = "pablo.queensland@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.AppUserActivity", b =>
@@ -283,6 +311,9 @@ namespace TCSA.V2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ChallengeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTimeOffset>("DateSubmitted")
                         .HasColumnType("datetimeoffset");
 
@@ -294,6 +325,53 @@ namespace TCSA.V2.Migrations
                     b.ToTable("UserActivity");
                 });
 
+            modelBuilder.Entity("TCSA.V2.Models.Challenge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExperiencePoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Keywords")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Platform")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Name")
+                        .HasName("AlternateKey_Name");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique();
+
+                    b.ToTable("Challenges");
+                });
+
             modelBuilder.Entity("TCSA.V2.Models.CommunityIssue", b =>
                 {
                     b.Property<int>("Id")
@@ -303,7 +381,7 @@ namespace TCSA.V2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CommunityProjectId")
                         .HasColumnType("int");
@@ -325,6 +403,9 @@ namespace TCSA.V2.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -334,7 +415,28 @@ namespace TCSA.V2.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.ToTable("Issues");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.DailyStreak", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CurrentStreak")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastCompletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LongestStreak")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId");
+
+                    b.ToTable("DailyStreaks");
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.DashboardProject", b =>
@@ -362,6 +464,9 @@ namespace TCSA.V2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -379,6 +484,67 @@ namespace TCSA.V2.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("DashboardProjects");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.ShowcaseItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Area")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("GoldenProject")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("ShowcaseItems");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.UserChallenge", b =>
+                {
+                    b.Property<int>("ChallengeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CompletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ChallengeId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserChallenges");
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.UserReview", b =>
@@ -454,6 +620,26 @@ namespace TCSA.V2.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TCSA.V2.Models.CommunityIssue", b =>
+                {
+                    b.HasOne("TCSA.V2.Data.ApplicationUser", "AppUser")
+                        .WithMany("Issues")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.DailyStreak", b =>
+                {
+                    b.HasOne("TCSA.V2.Data.ApplicationUser", "User")
+                        .WithOne("DailyStreak")
+                        .HasForeignKey("TCSA.V2.Models.DailyStreak", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TCSA.V2.Models.DashboardProject", b =>
                 {
                     b.HasOne("TCSA.V2.Data.ApplicationUser", "AppUser")
@@ -463,6 +649,36 @@ namespace TCSA.V2.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.ShowcaseItem", b =>
+                {
+                    b.HasOne("TCSA.V2.Data.ApplicationUser", "User")
+                        .WithMany("ShowcaseItems")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.UserChallenge", b =>
+                {
+                    b.HasOne("TCSA.V2.Models.Challenge", "Challenge")
+                        .WithMany("UserChallenges")
+                        .HasForeignKey("ChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TCSA.V2.Data.ApplicationUser", "User")
+                        .WithMany("UserChallenges")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Challenge");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.UserReview", b =>
@@ -480,7 +696,21 @@ namespace TCSA.V2.Migrations
                 {
                     b.Navigation("CodeReviewProjects");
 
+                    b.Navigation("DailyStreak")
+                        .IsRequired();
+
                     b.Navigation("DashboardProjects");
+
+                    b.Navigation("Issues");
+
+                    b.Navigation("ShowcaseItems");
+
+                    b.Navigation("UserChallenges");
+                });
+
+            modelBuilder.Entity("TCSA.V2.Models.Challenge", b =>
+                {
+                    b.Navigation("UserChallenges");
                 });
 #pragma warning restore 612, 618
         }

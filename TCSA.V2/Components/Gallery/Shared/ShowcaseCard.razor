@@ -1,11 +1,16 @@
 ﻿@using TCSA.V2.Models
-<div class="m-2">
-    @((MarkupString)Item.Link)
-    <p>@Item.ProjectName</p>
-    <p>@Item.UserName @Item.UserLastName</p>
+        
 
+<div class="card m-5 " style="width:600px">
+    <div class="text-center mt-3">
+        @((MarkupString)Item.Link)
+
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Item.UserName @Item.UserLastName</h5>
+        <p class="card-text">@Item.ProjectName</p>
+    </div>
 </div>
-    
 @code {
     [Parameter]
     public ShowcaseItem Item { get; set; }

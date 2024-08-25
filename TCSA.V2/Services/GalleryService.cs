@@ -23,6 +23,7 @@ public class GalleryService
         {
             try
             {
+               await Task.Delay(4000);
               return  await context.ShowcaseItems.AsNoTracking().ToListAsync();
             }
             catch

@@ -1,4 +1,5 @@
 ﻿@page "/gallery"
+@rendermode InteractiveServer
 @using TCSA.V2.Components.Gallery.Shared
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
@@ -6,35 +7,61 @@
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 @using System.Security.Claims;
+@using System.Linq;
 
 <div class="row m-5 m-lg-2 p-1">
     <div class="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
-        <TCSA.V2.Components.Gallery.Shared.CategoryList OnClickCallback="@GetAreaItems"></TCSA.V2.Components.Gallery.Shared.CategoryList>
+        <CategoryList OnClickCallback="@GetAreaItems"></CategoryList>
     </div>
-    <div class="col-12 col-lg-9 col-xl-10 ">
-        <!-- KARTLAR BURAYA KONACAK -->
-        <p>asdasd</p>
-    </div>
+
+    @if (ProjectSelections.Any())
+    {
+        <div class="dropup mt-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Select Project
+            </button>
+
+            <ul class="dropdown-menu">
+                @foreach (var project in ProjectSelections)
+                {
+                    var currentProject = project;
+
+                    <li> <button type="button" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
+                }
+            </ul>
+        </div>
+    }
 </div>
+
+<div class="col-12 col-lg-9 col-xl-10 ">
+    <!-- KARTLAR BURAYA KONACAK -->
+    <p>asdasd</p>
+   
+
+</div>
+
 <AuthorizeView>
     <p>This section is authorized view for users to add new item</p>
-     @if(User is not null){
-    <h2>@User.Id</h2>
-     }
+    @if (User is not null)
+    {
+        <h2>@User.Id</h2>
+    }
 </AuthorizeView>
 
 
 @code {
-    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
-    [Inject] private IUserService UserService { get; set; }
-    [Inject] private NavigationManager NavigationManager { get; set; }
-    [Inject] private IProjectService ProjectService { get; set; }
-
+        [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+        [Inject] private IUserService UserService { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
+        [Inject] private IProjectService ProjectService { get; set; }
+        [Inject] private GalleryService _galleryService {get;set;}
 
     private ApplicationUser User;
     private string UserId;
-    private IEnumerable<ShowcaseProjectInfo> Projects;
-
+    private IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
+    private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
+    private List<ShowcaseItem> ItemsToShow { get; set; } = [];
 
 
     protected async override Task OnInitializedAsync()
@@ -46,12 +73,23 @@
         User = await UserService.GetUserById(UserId);
 
         //Get Short Project infos
-        Projects = ProjectHelper.GetProjectInfos();
+        Projects = ProjectHelper.GetProjectInfos().AsQueryable();
+
+        AllItems = await _galleryService.GetItems();
     }
 
     private async Task GetAreaItems(string area)
     {
-        Console.WriteLine(area);
+        if (area == "All")
+        {
+            ProjectSelections = [];
+        }
+        else
+        {
+            var areaEnum = Enum.Parse<Area>(area);
+            ProjectSelections = Projects.Where(project => project.Area == areaEnum).ToList();
+            ItemsToShow = AllItems.Where(project => project.Area == areaEnum).ToList();
+        }
     }
 
 }

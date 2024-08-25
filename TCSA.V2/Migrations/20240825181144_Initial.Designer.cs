@@ -12,8 +12,8 @@ using TCSA.V2.Data;
 namespace TCSA.V2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240824153915_showcaseitemadd2")]
-    partial class showcaseitemadd2
+    [Migration("20240825181144_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -273,7 +273,7 @@ namespace TCSA.V2.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             CodeWarsUsername = "pabloqueensland",
-                            ConcurrencyStamp = "ce93d991-8b3c-4277-bbea-249619707ff4",
+                            ConcurrencyStamp = "326f6063-8b46-49a7-bd9a-028547a1c40c",
                             Country = "Brazil",
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "pablo.queensland@gmail.com",
@@ -488,13 +488,11 @@ namespace TCSA.V2.Migrations
 
             modelBuilder.Entity("TCSA.V2.Models.ShowcaseItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AppUserId")
+                    b.Property<string>("ApplicationUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -502,13 +500,15 @@ namespace TCSA.V2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Comments")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("GoldenProject")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Likes")
+                    b.Property<int?>("Likes")
                         .HasColumnType("int");
 
                     b.Property<string>("Link")
@@ -524,7 +524,7 @@ namespace TCSA.V2.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppUserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("ShowcaseItems");
                 });
@@ -653,13 +653,11 @@ namespace TCSA.V2.Migrations
 
             modelBuilder.Entity("TCSA.V2.Models.ShowcaseItem", b =>
                 {
-                    b.HasOne("TCSA.V2.Data.ApplicationUser", "User")
+                    b.HasOne("TCSA.V2.Data.ApplicationUser", null)
                         .WithMany("ShowcaseItems")
-                        .HasForeignKey("AppUserId")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TCSA.V2.Models.UserChallenge", b =>

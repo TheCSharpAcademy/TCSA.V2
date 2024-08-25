@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -283,6 +284,32 @@ namespace TCSA.V2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShowcaseItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    Area = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GoldenProject = table.Column<bool>(type: "bit", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Likes = table.Column<int>(type: "int", nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShowcaseItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShowcaseItems_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserReviews",
                 columns: table => new
                 {
@@ -330,7 +357,7 @@ namespace TCSA.V2.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "CodeWarsUsername", "ConcurrencyStamp", "Country", "CreatedDate", "DiscordAlias", "DisplayName", "Email", "EmailConfirmed", "ExperiencePoints", "FirstName", "GithubLogin", "GithubUsername", "HasPendingBeltNotification", "HasUnreviewableProjectNotification", "LastName", "Level", "LinkedInUrl", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "pabloqueensland", "49c30f39-1d8a-4471-a035-5800cde556ae", "Brazil", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "pablo.queensland@gmail.com", true, 0, "John", false, null, false, false, "Doe", 0, null, false, null, "pablo.queensland@gmail.com", "pablo.queensland@gmail.com", "AQAAAAIAAYagAAAAEPglSOjEpJHarP9YEcFBV42oyI3H27zy9fnQkFQ4C5eGaZ0advvTUUmZxb2ld0iIzg==", null, false, "LMEDMQOELGOLEONATD5I5OEATIHYPVHO", false, "pablo.queensland@gmail.com" });
+                values: new object[] { "1", 0, "pabloqueensland", "326f6063-8b46-49a7-bd9a-028547a1c40c", "Brazil", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null, "pablo.queensland@gmail.com", true, 0, "John", false, null, false, false, "Doe", 0, null, false, null, "pablo.queensland@gmail.com", "pablo.queensland@gmail.com", "AQAAAAIAAYagAAAAEPglSOjEpJHarP9YEcFBV42oyI3H27zy9fnQkFQ4C5eGaZ0advvTUUmZxb2ld0iIzg==", null, false, "LMEDMQOELGOLEONATD5I5OEATIHYPVHO", false, "pablo.queensland@gmail.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -388,6 +415,11 @@ namespace TCSA.V2.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShowcaseItems_ApplicationUserId",
+                table: "ShowcaseItems",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserChallenges_UserId",
                 table: "UserChallenges",
                 column: "UserId");
@@ -424,6 +456,9 @@ namespace TCSA.V2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Issues");
+
+            migrationBuilder.DropTable(
+                name: "ShowcaseItems");
 
             migrationBuilder.DropTable(
                 name: "UserActivity");

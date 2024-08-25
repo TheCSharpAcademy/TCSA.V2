@@ -9,45 +9,45 @@
 @using System.Security.Claims;
 @using System.Linq;
 
-<div class="row m-5 m-lg-2 p-1">
-    <div class="col-12 col-lg-3 col-xl-2 mb-2 mb-lg-0">
+<div class="hstack gap-3">
+    <div class="mb-2 mb-lg-0">
         <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas"></CategoryList>
+
+        @if (ProjectSelections.Any())
+        {
+            <div class="dropup mt-2">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Project
+                </button>
+
+                <ul class="dropdown-menu">
+                    @foreach (var project in ProjectSelections)
+                    {
+                        var currentProject = project;
+
+                        <li> <button type="button" class="dropdown-item btn btn-sm" @onclick="()=>FilterItemsByProject(currentProject)">@currentProject.Title</button>  </li>
+                    }
+                </ul>
+            </div>
+        }
     </div>
 
-    @if (ProjectSelections.Any())
-    {
-        <div class="dropup mt-2">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Project
-            </button>
-
-            <ul class="dropdown-menu">
-                @foreach (var project in ProjectSelections)
-                {
-                    var currentProject = project;
-
-                    <li> <button type="button" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
-                }
-            </ul>
-        </div>
-    }
-</div>
-
-<div class="col-12 col-lg-9 col-xl-10 ">
-    @if (AllItems.Any())
-    {
-        foreach(var item in AllItems)
+    <div class="d-flex flex-wrap justify-content-evenly  m-1 p-1">
+        @if (AllItems.Any())
         {
-            <p>@item.ProjectName</p>
+            foreach (var item in ItemsToShow)
+            {
+                var currentItem = item;
+                <ShowcaseCard Item="@currentItem" />
+            }
         }
-    } else
-    {
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    }
-   
-
+        else
+        {
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        }
+    </div>
 </div>
 
 <AuthorizeView>
@@ -55,7 +55,7 @@
     @if (User is not null)
     {
         <h2>@User.Id</h2>
-        <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList"/>
+        <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
     }
 </AuthorizeView>
 
@@ -65,7 +65,7 @@
     [Inject] private IUserService UserService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
-    [Inject] private GalleryService _galleryService {get;set;}
+    [Inject] private GalleryService _galleryService { get; set; }
 
     private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
@@ -92,6 +92,7 @@
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
 
         AllItems = await _galleryService.GetItems();
+        ItemsToShow = AllItems.ToList();
     }
 
     private async Task GetAreaItems(string area)
@@ -99,6 +100,7 @@
         if (area == "All")
         {
             ProjectSelections = [];
+            ItemsToShow = AllItems.ToList();
         }
         else
         {
@@ -110,7 +112,15 @@
 
     private async Task UpdateItemList(ShowcaseItem addedItem)
     {
-       AllItems=AllItems.Append(addedItem);
+        AllItems = AllItems.Append(addedItem);
+        ItemsToShow = AllItems.ToList();
     }
+
+    private async Task FilterItemsByProject(ShowcaseProjectInfo project)
+    {
+        ItemsToShow = AllItems.Where(i => i.ProjectId == project.Id).ToList();
+    }
+
+
 
 }

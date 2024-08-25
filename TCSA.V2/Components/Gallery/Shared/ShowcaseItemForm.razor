@@ -86,6 +86,8 @@
             NewItem.ProjectId = selectedProject.Id;
             NewItem.Area = selectedArea;
             NewItem.ApplicationUserId = CurrentUser.Id;
+            NewItem.UserName = CurrentUser.FirstName;
+            NewItem.UserLastName = CurrentUser.LastName;
 
 
             try

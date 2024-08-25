@@ -1,7 +1,7 @@
 ﻿@using TCSA.V2.Models
 @using TCSA.V2.Data
 @using TCSA.V2.Models.DTO
-
+@using TCSA.V2.Services
 
 <EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
     <DataAnnotationsValidator />
@@ -51,6 +51,8 @@
     [Parameter] public ApplicationUser CurrentUser { get; set; }
     [Parameter] public List<string> Areas { get; set; }
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    [Inject] private GalleryService _galleryService { get; set; }
+
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private ValidationMessageStore? messageStore;
     Area selectedArea { get; set; } 
@@ -79,7 +81,7 @@
     }
 
 
-    private void Submit()
+    private async Task Submit()
     {
         if(selectedProject is not null)
         {
@@ -87,15 +89,20 @@
             NewItem.ProjectName = selectedProject.Title;
             NewItem.ProjectId = selectedProject.Id;
             NewItem.User = CurrentUser;
-            // newitem.id 0 olarak oluşuyor db save ederken kontrol et otomatik id alacakmı
             try
             {
-                //var addedItem=await _galleryService.AddItem(NewItem);
+                var addedItem=await _galleryService.AddItem(NewItem);
                 NewItem = new();
                 selectedProject = new();
                 selectedArea = new();
 
                 OnAddNewItem.InvokeAsync(addedItem);
+            }
+            catch
+            {
+                NewItem = new();
+                selectedProject = new();
+                selectedArea = new();
             }
 
         }

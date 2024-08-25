@@ -12,8 +12,8 @@ namespace TCSA.V2.Helpers
                 return new ValidationResult("Embed code cant be empty");
             }
 
-            var embedCode = value.ToString();           
-            string pattern = @"<iframe.*?src=""https:\/\/www\.youtube\.com\/embed\/[a-zA-Z0-9_-]+""[^>]*><\/iframe>";
+            var embedCode = value.ToString();
+            string pattern = @"<iframe.*?src=""https:\/\/www\.youtube\.com\/embed\/[a-zA-Z0-9_-]+(\?.*?)?""[^>]*><\/iframe>";
             Regex regex = new Regex(pattern);
 
             if (!regex.IsMatch(embedCode))

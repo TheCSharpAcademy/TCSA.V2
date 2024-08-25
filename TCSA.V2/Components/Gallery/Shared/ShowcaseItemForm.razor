@@ -3,18 +3,8 @@
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 
-<EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
-    <DataAnnotationsValidator />
-    <ValidationSummary />    
-    <div>
-        <label>
-            Youtube Link:
-            <InputText @bind-Value="NewItem!.Link" />
-        </label>
-    </div>
-    <button type="submit">Submit</button>
-
-    <div class="dropup mt-2">
+<div class="d-flex flex-wrap">
+    <div class="dropup m-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Select Area
         </button>
@@ -27,9 +17,10 @@
                 <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm">@currentArea</button>  </li>
             }
         </ul>
+        <p>@selectedArea</p>
     </div>
 
-    <div class="dropup mt-2">
+    <div class="dropup m-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Select Project
         </button>
@@ -42,8 +33,25 @@
                 <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
             }
         </ul>
+        <p>@selectedProject</p>
+
     </div>
-</EditForm>
+    <EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="d-flex align-items-start">
+            <label class="m-1">
+                Youtube Link:
+            </label>
+            <InputTextArea @bind-Value="NewItem!.Link" style="width:300px;height:300px" />
+
+            <button class="m-1 btn btn-sm btn-secondary" ="submit">Submit</button>
+        </div>
+    </EditForm>
+
+</div>
+
+
 
 @code {
     [SupplyParameterFromForm] private ShowcaseItem NewItem { get; set; }
@@ -55,14 +63,16 @@
 
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private ValidationMessageStore? messageStore;
-    Area selectedArea { get; set; } 
-    ShowcaseProjectInfo selectedProject { get; set;} 
-
+    Area selectedArea { get; set; }
+    ShowcaseProjectInfo selectedProject { get; set; }
+    private List<string> FormAreas { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         NewItem ??= new();
         selectedProject ??= new();
+        FormAreas = Areas.ToList();
+
     }
 
 
@@ -80,7 +90,7 @@
 
     private async Task Submit()
     {
-        if(selectedProject is not null)
+        if (selectedProject is not null)
         {
             NewItem.ProjectName = selectedProject.Title;
             NewItem.ProjectId = selectedProject.Id;
@@ -92,7 +102,7 @@
 
             try
             {
-                var addedItem=await _galleryService.AddItem(NewItem);
+                var addedItem = await _galleryService.AddItem(NewItem);
                 NewItem = new();
                 selectedProject = new();
                 selectedArea = new();

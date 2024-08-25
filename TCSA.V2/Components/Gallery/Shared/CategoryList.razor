@@ -10,7 +10,7 @@
 <div class="mt-5">
     <h5>Areas</h5>
     <div class="listgroup" Style="width:180px;font-size:12px">
-        @foreach (var area in Areas)
+        @foreach (var area in CategoryListAreas)
         {
             var localArea = area;
             <button type="button" class="list-group-item list-group-item-action" @onclick="()=>HandleClick(localArea)">@area</button>
@@ -25,10 +25,12 @@
 @code {
     [Parameter] public EventCallback<string> OnClickCallback { get; set; }
     [Parameter] public List<string> Areas { get; set; }
+    private List<string> CategoryListAreas { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        Areas.Add("All");
+        CategoryListAreas = Areas.ToList();
+        CategoryListAreas.Add("All");
     }
 
     private async Task HandleClick(string area)

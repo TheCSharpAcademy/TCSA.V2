@@ -21,7 +21,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
 
-       
+
 
 
         modelBuilder.Entity<UserReview>()

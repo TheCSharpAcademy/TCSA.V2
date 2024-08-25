@@ -31,7 +31,7 @@ public class GalleryService
 
     public async Task<ShowcaseItem> AddItem(ShowcaseItem newItem)
     {
-        
+
         using (var context = _factory.CreateDbContext())
         {
             await context.ShowcaseItems.AddAsync(newItem);

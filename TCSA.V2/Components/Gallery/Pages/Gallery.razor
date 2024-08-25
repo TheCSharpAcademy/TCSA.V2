@@ -34,7 +34,13 @@
 </div>
 
 <div class="col-12 col-lg-9 col-xl-10 ">
-    <!-- KARTLAR BURAYA KONACAK -->
+    @if (AllItems.Any())
+    {
+        foreach(var item in AllItems)
+        {
+            <p>@item.ProjectName</p>
+        }
+    }
     <p>asdasd</p>
    
 
@@ -45,7 +51,7 @@
     @if (User is not null)
     {
         <h2>@User.Id</h2>
-        <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="UpdateItemList"/>
+        <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList"/>
     }
 </AuthorizeView>
 
@@ -100,7 +106,7 @@
 
     private async Task UpdateItemList(ShowcaseItem addedItem)
     {
-        AllItems = AllItems.Concat(new[] { addedItem });
+       AllItems=AllItems.Append(addedItem);
     }
 
 }

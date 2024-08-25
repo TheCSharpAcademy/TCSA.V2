@@ -61,10 +61,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        NewItem ??= new()
-            {
-                User = CurrentUser
-            };
+        NewItem ??= new();
         selectedProject ??= new();
     }
 
@@ -85,10 +82,12 @@
     {
         if(selectedProject is not null)
         {
-            NewItem.AppUserId = CurrentUser.Id;
             NewItem.ProjectName = selectedProject.Title;
             NewItem.ProjectId = selectedProject.Id;
-            NewItem.User = CurrentUser;
+            NewItem.Area = selectedArea;
+            NewItem.ApplicationUserId = CurrentUser.Id;
+
+
             try
             {
                 var addedItem=await _galleryService.AddItem(NewItem);

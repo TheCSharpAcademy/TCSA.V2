@@ -21,11 +21,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<ShowcaseItem>()
-                .HasOne(sci => sci.User)
-                .WithMany(sci => sci.ShowcaseItems)
-                .HasForeignKey(sci => sci.AppUserId)
-                .IsRequired();
+       
 
 
         modelBuilder.Entity<UserReview>()

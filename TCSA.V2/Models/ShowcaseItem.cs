@@ -18,6 +18,8 @@ public class ShowcaseItem
     public string Link { get; set; }
     public int? Likes { get; set; } = 0;
     public List<string>? Comments { get; set; }
+    public string UserName { get; set; }
+    public string UserLastName { get; set; }
     public string AreaName
     {
         get

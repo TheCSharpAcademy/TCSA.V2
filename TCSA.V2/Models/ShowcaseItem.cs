@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using TCSA.V2.Helpers;
 namespace TCSA.V2.Models;
 
 public class ShowcaseItem
@@ -12,6 +13,8 @@ public class ShowcaseItem
     public Area Area { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.Now;
     public bool GoldenProject { get; set; } = false;
+    [Required]
+    [EmbedCodeValidator(ErrorMessage = "Please enter a valid YouTube embed code.")]
     public string Link { get; set; }
     public int? Likes { get; set; } = 0;
     public List<string>? Comments { get; set; }

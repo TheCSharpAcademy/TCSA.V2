@@ -270,7 +270,7 @@ namespace TCSA.V2.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             CodeWarsUsername = "pabloqueensland",
-                            ConcurrencyStamp = "326f6063-8b46-49a7-bd9a-028547a1c40c",
+                            ConcurrencyStamp = "1098a776-e1d9-4ea0-9b8a-0260cab3b6be",
                             Country = "Brazil",
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "pablo.queensland@gmail.com",

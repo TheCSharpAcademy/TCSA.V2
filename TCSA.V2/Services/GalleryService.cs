@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Octokit;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
 
@@ -18,15 +19,18 @@ public class GalleryService
     public async Task<IEnumerable<ShowcaseItem>> GetItems()
     {
 
-        return new List<ShowcaseItem>()
+        using (var context = _factory.CreateDbContext())
         {
-            new ShowcaseItem()
+            try
             {
-                Id = Guid.NewGuid(),
-                Area=Area.React,
-                ProjectName="Friends Manager"
+              return  await context.ShowcaseItems.AsNoTracking().ToListAsync();
             }
-        };
+            catch
+            {
+                return [];
+            }            
+        }
+        
     }
 
     public async Task<ShowcaseItem> AddItem(ShowcaseItem newItem)

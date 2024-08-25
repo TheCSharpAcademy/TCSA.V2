@@ -4,7 +4,7 @@ namespace TCSA.V2.Models;
 
 public class ShowcaseItem
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }= Guid.NewGuid();
     public ApplicationUser User { get; set; }
     public string AppUserId { get; set; }
     public int ProjectId { get; set; }

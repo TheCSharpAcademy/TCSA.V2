@@ -1,0 +1,52 @@
+﻿@using TCSA.V2.Models
+@using TCSA.V2.Data
+
+
+<EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    
+    <div>
+        <label>
+            Project:
+            <InputSelect @bind-Value="NewItem!.Link" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Youtube Link:
+            <InputText @bind-Value="NewItem!.Link" />
+        </label>
+    </div>
+
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    private ShowcaseItem NewItem { get; set; }
+    [Parameter]
+    public ApplicationUser CurrentUser { get; set; }
+    [Parameter]
+    public List<string> Areas { get; set; }
+
+    private ValidationMessageStore? messageStore;
+    string selectedArea { get; set; } = string.Empty;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewItem ??= new()
+            {
+                User = CurrentUser
+            };
+    }
+
+
+    private void Submit()
+    {
+        
+    }
+
+
+
+}

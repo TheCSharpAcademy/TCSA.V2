@@ -1,36 +1,60 @@
 ﻿@using TCSA.V2.Models
 @using TCSA.V2.Data
+@using TCSA.V2.Models.DTO
 
 
 <EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
     <DataAnnotationsValidator />
-    <ValidationSummary />
-    
-    <div>
-        <label>
-            Project:
-            <InputSelect @bind-Value="NewItem!.Link" />
-        </label>
-    </div>
+    <ValidationSummary />    
     <div>
         <label>
             Youtube Link:
             <InputText @bind-Value="NewItem!.Link" />
         </label>
     </div>
+    <button type="submit">Submit</button>
 
+    <div class="dropup mt-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Select Area
+        </button>
+
+        <ul class="dropdown-menu">
+            @foreach (var area in Areas)
+            {
+                var currentArea = area;
+
+                <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm">@currentArea</button>  </li>
+            }
+        </ul>
+    </div>
+
+    <div class="dropup mt-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Select Project
+        </button>
+
+        <ul class="dropdown-menu">
+            @foreach (var project in ProjectSelections)
+            {
+                var currentProject = project;
+
+                <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
+            }
+        </ul>
+    </div>
 </EditForm>
 
 @code {
-    [SupplyParameterFromForm]
-    private ShowcaseItem NewItem { get; set; }
-    [Parameter]
-    public ApplicationUser CurrentUser { get; set; }
-    [Parameter]
-    public List<string> Areas { get; set; }
-
+    [SupplyParameterFromForm] private ShowcaseItem NewItem { get; set; }
+    [Parameter] public EventCallback<ShowcaseItem> OnAddNewItem { get; set; }
+    [Parameter] public ApplicationUser CurrentUser { get; set; }
+    [Parameter] public List<string> Areas { get; set; }
+    [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private ValidationMessageStore? messageStore;
-    string selectedArea { get; set; } = string.Empty;
+    Area selectedArea { get; set; } 
+    ShowcaseProjectInfo selectedProject { get; set;} 
 
 
     protected override async Task OnInitializedAsync()
@@ -39,12 +63,44 @@
             {
                 User = CurrentUser
             };
+        selectedProject ??= new();
+    }
+
+
+    private void SelectArea(string area)
+    {
+        selectedArea = Enum.Parse<Area>(area);
+        ProjectSelections = Projects.Where(project => project.Area == selectedArea).ToList();
+    }
+
+    private void SelectProject(ShowcaseProjectInfo project)
+    {
+        selectedProject = project;
     }
 
 
     private void Submit()
     {
-        
+        if(selectedProject is not null)
+        {
+            NewItem.AppUserId = CurrentUser.Id;
+            NewItem.ProjectName = selectedProject.Title;
+            NewItem.ProjectId = selectedProject.Id;
+            NewItem.User = CurrentUser;
+            // newitem.id 0 olarak oluşuyor db save ederken kontrol et otomatik id alacakmı
+            try
+            {
+                //var addedItem=await _galleryService.AddItem(NewItem);
+                NewItem = new();
+                selectedProject = new();
+                selectedArea = new();
+
+                OnAddNewItem.InvokeAsync(addedItem);
+            }
+
+        }
+        return;
+
     }
 
 

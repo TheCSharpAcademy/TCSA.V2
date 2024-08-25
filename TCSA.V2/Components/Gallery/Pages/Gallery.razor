@@ -41,8 +41,8 @@
         }
     </div>
 
-    <div class="d-flex flex-wrap justify-content-left  m-1 p-1">
-        @if (AllItems.Any())
+    <div class=" @(!ItemsToShow.Any()?"container text-center" :"d-flex justify-content-left flex-wrap mt-5")">
+        @if (ItemsToShow.Any())
         {
             foreach (var item in ItemsToShow)
             {
@@ -52,9 +52,17 @@
         }
         else
         {
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+            if (isLoading)
+            {
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+            }
+            else
+            {
+                <h2>No content...</h2>
+            }
+
         }
     </div>
 </div>
@@ -77,6 +85,7 @@
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
     private List<ShowcaseItem> ItemsToShow { get; set; } = [];
+    private bool isLoading = true;
 
 
     protected async override Task OnInitializedAsync()
@@ -94,6 +103,7 @@
 
         AllItems = await _galleryService.GetItems();
         ItemsToShow = AllItems.ToList();
+        isLoading = false;
     }
 
     private async Task GetAreaItems(string area)

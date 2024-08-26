@@ -8,7 +8,8 @@
     </div>
     <div class="card-body">
         <h5 class="card-title">@Item.UserName @Item.UserLastName</h5>
-        <p class="card-text">@Item.ProjectName</p>
+        <p class="card-text">Area: @Item.AreaName</p>
+        <p class="card-text">Project: @Item.ProjectName</p>
     </div>
 
     <AuthorizeView>
@@ -21,9 +22,7 @@
     </AuthorizeView>
     <AuthorizeView Roles="Admin">
         <div class="card-footer">
-
-            <p>Admin section</p>
-            <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
             <button type="button" class="btn" style="color:orange;border:none" @onclick="@HandleGoldenStatusChange">
                 @if (!Item.GoldenProject)
                 {

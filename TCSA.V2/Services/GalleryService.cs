@@ -19,38 +19,39 @@ public class GalleryService
     public async Task<IEnumerable<ShowcaseItem>> GetItems()
     {
 
-        using (var context = _factory.CreateDbContext())
+        using var context = _factory.CreateDbContext();
+        try
         {
-            try
-            {
-               await Task.Delay(4000);
-              return  await context.ShowcaseItems.AsNoTracking().ToListAsync();
-            }
-            catch
-            {
-                return [];
-            }            
+            return await context.ShowcaseItems.AsNoTracking().OrderBy(i=> i.GoldenProject).ToListAsync();
         }
-        
+        catch
+        {
+            return [];
+        }
+
     }
 
     public async Task<ShowcaseItem> AddItem(ShowcaseItem newItem)
     {
 
-        using (var context = _factory.CreateDbContext())
-        {
-            await context.ShowcaseItems.AddAsync(newItem);
-            await context.SaveChangesAsync();
-            return newItem;
-        }
+        using var context = _factory.CreateDbContext();
+        await context.ShowcaseItems.AddAsync(newItem);
+        await context.SaveChangesAsync();
+        return newItem;
     }
 
     public async Task DeleteItem(ShowcaseItem itemToDelete)
     {
-        using (var context = _factory.CreateDbContext())
-        {
-           context.ShowcaseItems.Remove(itemToDelete);
-           await context.SaveChangesAsync();
-        }
+        using var context = _factory.CreateDbContext();
+        context.ShowcaseItems.Remove(itemToDelete);
+        await context.SaveChangesAsync();
     }
+
+    public async Task UpdateItem(ShowcaseItem itemToUpdate)
+    {
+        using var context = _factory.CreateDbContext();
+        context.ShowcaseItems.Update(itemToUpdate);
+        await context.SaveChangesAsync();
+    }
+
 }

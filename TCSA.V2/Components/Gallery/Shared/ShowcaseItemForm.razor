@@ -4,7 +4,7 @@
 @using TCSA.V2.Services
 
 <div class="d-flex flex-wrap">
-    <div class="dropup m-2">
+    <div class="dropdown m-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Select Area
         </button>
@@ -17,10 +17,10 @@
                 <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm">@currentArea</button>  </li>
             }
         </ul>
-        <p>@selectedArea</p>
+        <span>Area: @if(selectedArea==Area.HowItWorks) {  } else {@selectedArea} </span>
     </div>
 
-    <div class="dropup m-2">
+    <div class="dropdown m-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Select Project
         </button>
@@ -33,19 +33,19 @@
                 <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
             }
         </ul>
-        <p>@selectedProject</p>
+        <span>Project: @selectedProject.Title </span>
 
     </div>
     <EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="d-flex align-items-start">
-            <label class="m-1">
+            <label class="m-3">
                 Youtube Link:
             </label>
             <InputTextArea @bind-Value="NewItem!.Link" style="width:300px;height:300px" />
-
-            <button class="m-1 btn btn-sm btn-secondary" ="submit">Submit</button>
+                     
+            <button class="ms-5 btn btn-sm btn-secondary" ="submit">Submit</button>
         </div>
     </EditForm>
 
@@ -80,6 +80,7 @@
     {
         selectedArea = Enum.Parse<Area>(area);
         ProjectSelections = Projects.Where(project => project.Area == selectedArea).ToList();
+        selectedProject = new();
     }
 
     private void SelectProject(ShowcaseProjectInfo project)

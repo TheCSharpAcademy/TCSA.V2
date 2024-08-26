@@ -17,7 +17,6 @@
             </button>
             <AuthorizeView>
                 <button class="btn btn-outline-success d-none d-md-inline-block" @onclick="ToggleAddForm" type="button"><AddSvg /> Video</button>
-
             </AuthorizeView>
                             
             <div class="collapse navbar-collapse ms-auto" id="GallerynavbarSupportedContent">
@@ -58,7 +57,6 @@
     <AuthorizeView>
         @if (User is not null && isFormOpen)
         {
-            <h2>@User.FirstName</h2>
             <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
         }
     </AuthorizeView>
@@ -69,7 +67,7 @@
             foreach (var item in ItemsToShow)
             {
                 var currentItem = item;
-                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" OnDelete="@HandleDelete" />
+                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" OnDelete="@HandleDelete" OnGoldenChange="@HandleGoldenChange"/>
             }
         }
         else
@@ -186,6 +184,18 @@
             await _galleryService.DeleteItem(itemToDelete);
             AllItems=AllItems.Where(i=> i!=itemToDelete);
             ItemsToShow = AllItems.ToList();
+        }
+        catch
+        {
+            return;
+        }
+    }
+
+    private async Task HandleGoldenChange(ShowcaseItem updateItem)
+    {
+        try
+        {
+            await _galleryService.UpdateItem(updateItem);
         }
         catch
         {

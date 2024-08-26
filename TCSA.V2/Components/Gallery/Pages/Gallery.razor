@@ -8,24 +8,28 @@
 @using TCSA.V2.Services
 @using System.Security.Claims;
 @using System.Linq;
+
 <div class="mt-5 pt-3">
     <nav class="top-menu navbar navbar-expand-lg mt-5">
-        <div class="container-fluid justify-content-around">
+        <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#GallerynavbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-              <button type="button">Add new video</button>
-                            
-            <div class="collapse navbar-collapse" id="GallerynavbarSupportedContent">
+            <AuthorizeView>
+                <button class="btn btn-outline-success d-none d-md-inline-block" @onclick="ToggleAddForm" type="button"><AddSvg /> Video</button>
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </AuthorizeView>
+                            
+            <div class="collapse navbar-collapse ms-auto" id="GallerynavbarSupportedContent">
+
+                <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
 
                     <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" />
 
                     @if (ProjectSelections.Any())
                     {
 
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown me-5">
                             <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Project
                             </a>
@@ -52,8 +56,7 @@
     </nav>
 
     <AuthorizeView>
-        <p>This section is authorized view for users to add new item</p>
-        @if (User is not null)
+        @if (User is not null && isFormOpen)
         {
             <h2>@User.FirstName</h2>
             <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
@@ -109,6 +112,7 @@
     private string videoContainer = "d-flex justify-content-center flex-wrap mt-5";
     private string searchText = string.Empty;
     private object Search = new() { };
+    private bool isFormOpen;
 
     protected async override Task OnInitializedAsync()
     {
@@ -168,7 +172,11 @@
             return;
         }
         ItemsToShow = AllItems.Where(i => i.UserName.Contains(searchText)).ToList();
+    }
 
+    private async Task ToggleAddForm()
+    {
+        isFormOpen = !isFormOpen;
     }
 
 

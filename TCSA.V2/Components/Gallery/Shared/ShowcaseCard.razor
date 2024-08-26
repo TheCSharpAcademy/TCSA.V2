@@ -1,5 +1,5 @@
 ﻿@using TCSA.V2.Models
-        
+
 
 <div class="card m-5 " style="width:600px">
     <div class="text-center mt-3">
@@ -10,9 +10,42 @@
         <h5 class="card-title">@Item.UserName @Item.UserLastName</h5>
         <p class="card-text">@Item.ProjectName</p>
     </div>
+
+    <AuthorizeView>
+        @if (isUserOwner)
+        {
+            <div class="card-footer">
+
+                <button>delete</button>
+            </div>
+
+        }
+    </AuthorizeView>
+    <AuthorizeView Roles="Admin">
+        <div class="card-footer">
+
+            <p>Admin section</p>
+            <button>delete</button>
+            <button>set golden project</button>
+        </div>
+    </AuthorizeView>
+
 </div>
+
 @code {
     [Parameter]
     public ShowcaseItem Item { get; set; }
+    [Parameter]
+    public string? CurrentUserId { get; set; }
+
+    private bool isUserOwner = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item.ApplicationUserId == CurrentUserId)
+            isUserOwner = true;
+
+    }
+
 
 }

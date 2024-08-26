@@ -8,55 +8,74 @@
 @using TCSA.V2.Services
 @using System.Security.Claims;
 @using System.Linq;
+<div class="mt-5 pt-3">
+    <nav class="top-menu navbar navbar-expand-lg mt-5">
+        <div class="container-fluid justify-content-around">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#GallerynavbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+              <button type="button">Add new video</button>
+                            
+            <div class="collapse navbar-collapse" id="GallerynavbarSupportedContent">
 
-<AuthorizeView>
-    <p>This section is authorized view for users to add new item</p>
-    @if (User is not null)
-    {
-        <h2>@User.FirstName</h2>
-        <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
-    }
-</AuthorizeView>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-<div class="hstack gap-3">
-    <div class="mb-2 mb-lg-0">
-        <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas"></CategoryList>
+                    <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" />
 
-        @if (ProjectSelections.Any())
-        {
-            <div class="dropup mt-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Select Project
-                </button>
-
-                <ul class="dropdown-menu">
-                    @foreach (var project in ProjectSelections)
+                    @if (ProjectSelections.Any())
                     {
-                        var currentProject = project;
 
-                        <li> <button type="button" class="dropdown-item btn btn-sm" @onclick="()=>FilterItemsByProject(currentProject)">@currentProject.Title</button>  </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Select Project
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+                                @foreach (var project in ProjectSelections)
+                                {
+                                    var currentProject = project;
+
+                                    <li> <button type="button" class="dropdown-item btn btn-sm" @onclick="()=>FilterItemsByProject(currentProject)">@currentProject.Title</button>  </li>
+                                }
+                            </ul>
+                        </li>
                     }
+                    <li>
+                        <EditForm Model="@Search" OnSubmit="@ApplySearchFilter">
+                            <input type="text" @bind="@searchText" placeholder="User name" aria-label="Search" />
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </EditForm>
+                    </li>
                 </ul>
-            </div>
-        }
-    </div>
 
-    <div class=" @(!ItemsToShow.Any()?"container text-center" :"d-flex justify-content-left flex-wrap mt-5")">
+            </div>
+        </div>
+    </nav>
+
+    <AuthorizeView>
+        <p>This section is authorized view for users to add new item</p>
+        @if (User is not null)
+        {
+            <h2>@User.FirstName</h2>
+            <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
+        }
+    </AuthorizeView>
+
+    <div class=" @(!ItemsToShow.Any()?loadingContainer :videoContainer)">
         @if (ItemsToShow.Any())
         {
             foreach (var item in ItemsToShow)
             {
                 var currentItem = item;
-                <ShowcaseCard Item="@currentItem" />
+                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" />
             }
         }
         else
         {
             if (isLoading)
             {
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             }
             else
             {
@@ -66,7 +85,6 @@
         }
     </div>
 </div>
-
 
 
 @code {
@@ -86,7 +104,11 @@
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
     private List<ShowcaseItem> ItemsToShow { get; set; } = [];
     private bool isLoading = true;
-
+    private string CurrentUserId = "none";
+    private string loadingContainer = "container text-center";
+    private string videoContainer = "d-flex justify-content-center flex-wrap mt-5";
+    private string searchText = string.Empty;
+    private object Search = new() { };
 
     protected async override Task OnInitializedAsync()
     {
@@ -97,6 +119,11 @@
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
         User = await UserService.GetUserById(UserId);
+
+        if (User is not null)
+        {
+            CurrentUserId = User.Id;
+        }
 
         //Get Short Project infos
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
@@ -130,6 +157,18 @@
     private async Task FilterItemsByProject(ShowcaseProjectInfo project)
     {
         ItemsToShow = AllItems.Where(i => i.ProjectId == project.Id).ToList();
+    }
+
+    private async Task ApplySearchFilter()
+    {
+        if (string.IsNullOrEmpty(searchText))
+        {
+            ItemsToShow = AllItems.ToList();
+            ProjectSelections = [];
+            return;
+        }
+        ItemsToShow = AllItems.Where(i => i.UserName.Contains(searchText)).ToList();
+
     }
 
 

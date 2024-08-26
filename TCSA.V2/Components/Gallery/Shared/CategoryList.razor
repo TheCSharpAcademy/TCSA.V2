@@ -1,5 +1,4 @@
-﻿
-@using TCSA.V2.Data
+﻿@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.DTO
@@ -7,16 +6,19 @@
 @using System.Security.Claims
 @using System;
 @using System.Linq;
-<div class="mt-5">
-    <h5>Areas</h5>
-    <div class="listgroup" Style="width:180px;font-size:12px">
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Select Area
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
         @foreach (var area in CategoryListAreas)
         {
             var localArea = area;
-            <button type="button" class="list-group-item list-group-item-action" @onclick="()=>HandleClick(localArea)">@area</button>
+            <li> <button type="button" class="dropdown-item" @onclick="()=>HandleClick(localArea)">@area</button></li>
         }
-    </div>
-</div>
+    </ul>
+</li>
 
 
 

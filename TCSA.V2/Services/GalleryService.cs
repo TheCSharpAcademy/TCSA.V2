@@ -2,10 +2,19 @@
 using Octokit;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.Forms;
 
 namespace TCSA.V2.Services;
 
-public class GalleryService
+public interface IGalleryService
+{
+    Task<IEnumerable<ShowcaseItem>> GetItems();
+    Task<ShowcaseItem> AddItem(ShowcaseItem newItem);
+    Task DeleteItem(ShowcaseItem itemToDelete);
+    Task UpdateItem(ShowcaseItem itemToUpdate);
+}
+
+public class GalleryService :IGalleryService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<GalleryService> _logger;

@@ -93,7 +93,7 @@
     [Inject] private IUserService UserService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
-    [Inject] private GalleryService _galleryService { get; set; }
+    [Inject] private IGalleryService _galleryService { get; set; }
 
     private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();

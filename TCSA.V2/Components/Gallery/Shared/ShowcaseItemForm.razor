@@ -59,7 +59,7 @@
     [Parameter] public ApplicationUser CurrentUser { get; set; }
     [Parameter] public List<string> Areas { get; set; }
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
-    [Inject] private GalleryService _galleryService { get; set; }
+    [Inject] private IGalleryService _galleryService { get; set; }
 
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private ValidationMessageStore? messageStore;

@@ -15,8 +15,7 @@
         @if (isUserOwner)
         {
             <div class="card-footer">
-
-                <button>delete</button>
+                <button type="button" class="btn btn-outline-secondary" @onclick="@HandleDelete"><DeleteSvg/></button>
             </div>
 
         }
@@ -25,7 +24,7 @@
         <div class="card-footer">
 
             <p>Admin section</p>
-            <button>delete</button>
+            <button type="button" class="btn btn-outline-secondary"><DeleteSvg /></button>
             <button>set golden project</button>
         </div>
     </AuthorizeView>
@@ -37,6 +36,8 @@
     public ShowcaseItem Item { get; set; }
     [Parameter]
     public string? CurrentUserId { get; set; }
+    [Parameter]
+    public EventCallback<ShowcaseItem> OnDelete { get; set; }
 
     private bool isUserOwner = false;
 
@@ -44,7 +45,11 @@
     {
         if (Item.ApplicationUserId == CurrentUserId)
             isUserOwner = true;
+    }
 
+    private async Task HandleDelete()
+    {
+       await OnDelete.InvokeAsync(Item);
     }
 
 

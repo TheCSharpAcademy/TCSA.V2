@@ -44,4 +44,13 @@ public class GalleryService
             return newItem;
         }
     }
+
+    public async Task DeleteItem(ShowcaseItem itemToDelete)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+           context.ShowcaseItems.Remove(itemToDelete);
+           await context.SaveChangesAsync();
+        }
+    }
 }

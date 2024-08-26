@@ -69,7 +69,7 @@
             foreach (var item in ItemsToShow)
             {
                 var currentItem = item;
-                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" />
+                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" OnDelete="@HandleDelete" />
             }
         }
         else
@@ -177,6 +177,20 @@
     private async Task ToggleAddForm()
     {
         isFormOpen = !isFormOpen;
+    }
+
+    private async Task HandleDelete(ShowcaseItem itemToDelete)
+    {
+        try
+        {
+            await _galleryService.DeleteItem(itemToDelete);
+            AllItems=AllItems.Where(i=> i!=itemToDelete);
+            ItemsToShow = AllItems.ToList();
+        }
+        catch
+        {
+            return;
+        }
     }
 
 

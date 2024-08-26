@@ -22,7 +22,7 @@ public class GalleryService
         using var context = _factory.CreateDbContext();
         try
         {
-            return await context.ShowcaseItems.AsNoTracking().OrderBy(i=> i.GoldenProject).ToListAsync();
+            return await context.ShowcaseItems.AsNoTracking().OrderByDescending(i=> i.GoldenProject).ToListAsync();
         }
         catch
         {

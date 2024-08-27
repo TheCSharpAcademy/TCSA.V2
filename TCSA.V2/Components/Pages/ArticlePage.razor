@@ -35,6 +35,12 @@
                     <img src="img/@block.ImgUrl" width="70" alt="" class="align-middle">
                 </div>
             }
+            @if (!String.IsNullOrEmpty(block.BookImgUrl))
+            {
+                <div class="col-lg-3 d-flex align-items-center justify-content-center mt-sm-2">
+                    <img src="img/@block.BookImgUrl" width="150" height="220" alt="" class="align-middle">
+                </div>
+            }
             <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
                 <div class="d-flex justify-content-center">
                     <h1 class="article-section-title">@block.Title</h1>

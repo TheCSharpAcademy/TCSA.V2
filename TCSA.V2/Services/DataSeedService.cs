@@ -11,7 +11,7 @@ public interface IDataSeedService
     Task SeedData(DataSeedForm form);
 }
 
-public class DataSeedService: IDataSeedService
+public class DataSeedService : IDataSeedService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
 
@@ -33,7 +33,7 @@ public class DataSeedService: IDataSeedService
                 await context.UserActivity.AddRangeAsync(userActivity);
                 await context.SaveChangesAsync();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -44,9 +44,9 @@ public class DataSeedService: IDataSeedService
     {
         var activity = new List<AppUserActivity>();
 
-        foreach(var appUser in appUsers)
+        foreach (var appUser in appUsers)
         {
-            foreach(var project in appUser.DashboardProjects)
+            foreach (var project in appUser.DashboardProjects)
             {
                 activity.Add(new AppUserActivity
                 {
@@ -73,7 +73,7 @@ public class DataSeedService: IDataSeedService
     {
         var users = new List<ApplicationUser>();
 
-        for (int i = 0; i < form.NumberOfUsers ; i++)
+        for (int i = 0; i < form.NumberOfUsers; i++)
         {
             var faker = new Faker("en");
             Guid newGuid = Guid.NewGuid();
@@ -89,7 +89,7 @@ public class DataSeedService: IDataSeedService
                 Country = faker.Address.Country(),
                 ExperiencePoints = 50,
                 DashboardProjects = projects,
-            }); 
+            });
         }
 
         return users;
@@ -102,7 +102,7 @@ public class DataSeedService: IDataSeedService
     //    var articleIds = ArticleHelper.GetArticles().Select(x => x.Id);
     //    var projectIds = ProjectHelper.GetProjects().Select(x => x.Id);
     //    var issueIds = IssueHelper.GetIssues().Select(x => x.Id);
-    
+
     //    foreach (int i in ints)
     //    {
     //        if (articleIds.Contains(i))
@@ -141,7 +141,7 @@ public class DataSeedService: IDataSeedService
                 DateCompleted = randomDate.AddDays(1),
                 GithubUrl = "",
                 IsCompleted = true
-            }); 
+            });
         }
 
         return projects;

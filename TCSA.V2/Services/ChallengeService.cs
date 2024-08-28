@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TCSA.V2.Components.Dashboard.Pages;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
 using TCSA.V2.Models.Responses;
@@ -167,7 +166,7 @@ public class ChallengeService : IChallengeService
     {
         using (var context = _factory.CreateDbContext())
         {
-            var result = await context.Challenges   
+            var result = await context.Challenges
                 .FirstOrDefaultAsync(x => x.Id == challengeId)
                 .ConfigureAwait(false);
 

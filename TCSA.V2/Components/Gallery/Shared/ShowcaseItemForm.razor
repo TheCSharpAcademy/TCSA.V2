@@ -1,0 +1,124 @@
+﻿@using TCSA.V2.Models
+@using TCSA.V2.Data
+@using TCSA.V2.Models.DTO
+@using TCSA.V2.Services
+
+<div class="d-inline-flex flex-wrap col-4">
+    <div class="dropdown m-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:200px">
+            @AreaSelectMenuText
+        </button>
+
+        <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")">
+            @foreach (var area in Areas)
+            {
+                var currentArea = area;
+                <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm customdropdown" style="width:200px">@currentArea</button>  </li>
+            }
+        </ul>
+    </div>
+
+    <div class="dropdown m-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @ProjectSelectMenuText
+        </button>
+
+        <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")">
+            @foreach (var project in ProjectSelections)
+            {
+                var currentProject = project;
+                <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<EditForm class="col-6" Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="d-flex align-items-start">
+        <label class="m-3">
+            Youtube Link:
+        </label>
+        <InputTextArea @bind-Value="NewItem!.Link" style="width:300px;height:300px" />
+        <button class="ms-5 btn btn-sm btn-secondary" type="submit">Submit</button>
+    </div>
+</EditForm>
+
+
+@code {
+    [SupplyParameterFromForm] private ShowcaseItem NewItem { get; set; }
+    [Parameter] public EventCallback<ShowcaseItem> OnAddNewItem { get; set; }
+    [Parameter] public ApplicationUser CurrentUser { get; set; }
+    [Parameter] public List<string> Areas { get; set; }
+    [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    [Parameter] public bool IsLightMode { get; set; }
+    [Inject] private IGalleryService _galleryService { get; set; }
+
+    private string ProjectSelectMenuText = "Select Project";
+    private string AreaSelectMenuText = "Select Area";
+    private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
+    private ValidationMessageStore? messageStore;
+    Area selectedArea { get; set; }
+    ShowcaseProjectInfo selectedProject { get; set; }
+    private List<string> FormAreas { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewItem ??= new();
+        selectedProject ??= new();
+        FormAreas = Areas.ToList();
+
+    }
+
+
+    private void SelectArea(string area)
+    {
+        selectedArea = Enum.Parse<Area>(area);
+        ProjectSelections = Projects.Where(project => project.Area == selectedArea).ToList();
+        AreaSelectMenuText = area;
+        ProjectSelectMenuText = "Select Project";
+        selectedProject = new();
+    }
+
+
+    private void SelectProject(ShowcaseProjectInfo project)
+    {
+        selectedProject = project;
+        ProjectSelectMenuText = project.Title;
+    }
+
+
+    private async Task Submit()
+    {
+        if (selectedProject is not null)
+        {
+            NewItem.ProjectName = selectedProject.Title;
+            NewItem.ProjectId = selectedProject.Id;
+            NewItem.Area = selectedArea;
+            NewItem.ApplicationUserId = CurrentUser.Id;
+            NewItem.UserName = CurrentUser.FirstName;
+            NewItem.UserLastName = CurrentUser.LastName;
+
+
+            try
+            {
+                var addedItem = await _galleryService.AddItem(NewItem);
+                NewItem = new();
+                selectedProject = new();
+                selectedArea = new();
+                OnAddNewItem.InvokeAsync(addedItem);
+                AreaSelectMenuText = "Select Area";
+                ProjectSelectMenuText = "Select Project";
+            }
+            catch
+            {
+                NewItem = new();
+                selectedProject = new();
+                selectedArea = new();
+            }
+        }
+        return;
+    }
+}

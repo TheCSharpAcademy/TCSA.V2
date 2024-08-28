@@ -977,7 +977,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInDutch()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
             new Project
@@ -1468,7 +1468,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInKorean()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
              new Project
@@ -1579,7 +1579,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInPortuguese()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
             new Project
@@ -1690,7 +1690,7 @@ public class ConsoleProjectsHelper
     internal static List<Project> GetProjectsInTurkish()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
             new Project
@@ -2089,11 +2089,11 @@ public class ConsoleProjectsHelper
              }
          }
         };
-}
+    }
     internal static List<Project> GetProjectsInRussian()
     {
         var projects = GetProjects();
-        
+
         return new List<Project>
         {
              new Project

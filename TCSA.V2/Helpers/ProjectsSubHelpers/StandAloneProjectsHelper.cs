@@ -205,7 +205,7 @@ internal static class StandAloneProjectsHelper
                 },
                 RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Freestyle"
             },
-        };  
+        };
     }
     internal static List<Project> GetProjectsInPortuguese()
     {

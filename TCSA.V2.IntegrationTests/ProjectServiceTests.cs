@@ -14,8 +14,8 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     }
 
     [Theory]
-    [InlineData("testId", 1, true)] 
-    [InlineData("testId", 2, false)]  
+    [InlineData("testId", 1, true)]
+    [InlineData("testId", 2, false)]
     public async Task CheckIfProjectExistsReturnCorrectResult(string userId, int projectId, bool expectedResult)
     {
         var factory = _fixture.CreateDbContextFactory();
@@ -52,7 +52,7 @@ public class ProjectServiceTests : IClassFixture<TestDatabaseFixture>
     public async Task GetCompletedProjectsById_ReturnsCorrectProjects()
     {
         var userId = "testId";
-        var expectedCompletedProjects = new List<int> { 1, 12, 13 }; 
+        var expectedCompletedProjects = new List<int> { 1, 12, 13 };
 
         var projectService = new ProjectService(_fixture.MockLogger.Object, _fixture.CreateDbContextFactory());
 

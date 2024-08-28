@@ -10,11 +10,11 @@ public class CommunityIssue
     public ApplicationUser? AppUser { get; set; }
     public int ProjectId { get; set; }
     public int CommunityProjectId { get; set; }
-    public int ExperiencePoints { get; set; }   
+    public int ExperiencePoints { get; set; }
     public IssueType Type { get; set; }
     public string GithubUrl { get; set; }
     public string IconUrl { get; set; }
-    public bool IsClosed { get; set; }  
+    public bool IsClosed { get; set; }
     public string? Reference { get; set; }
 }
 

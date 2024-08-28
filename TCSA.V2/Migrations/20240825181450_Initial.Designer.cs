@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TCSA.V2.Data;
 
@@ -11,9 +12,11 @@ using TCSA.V2.Data;
 namespace TCSA.V2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240825181450_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +273,7 @@ namespace TCSA.V2.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             CodeWarsUsername = "pabloqueensland",
-                            ConcurrencyStamp = "688ca468-c1f3-40e0-a5c1-bbf9221bdcbf",
+                            ConcurrencyStamp = "1098a776-e1d9-4ea0-9b8a-0260cab3b6be",
                             Country = "Brazil",
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "pablo.queensland@gmail.com",
@@ -516,14 +519,6 @@ namespace TCSA.V2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserLastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

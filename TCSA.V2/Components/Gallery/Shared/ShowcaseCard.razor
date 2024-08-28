@@ -1,0 +1,91 @@
+﻿@using TCSA.V2.Models
+@using TCSA.V2.Components.UI.SVGs
+
+<div class="card m-5 " style="width:600px">
+    <div class="text-center mt-3">
+        @((MarkupString)Item.Link)
+
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Item.UserName @Item.UserLastName</h5>
+        <p class="card-text">Area: @Item.AreaName</p>
+        <p class="card-text">Project: @Item.ProjectName</p>
+    </div>
+
+    <AuthorizeView>
+        @if (isUserOwner)
+        {
+            <div class="card-footer">
+                <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+            </div>
+        }
+    </AuthorizeView>
+    <AuthorizeView Roles="Admin">
+        <div class="card-footer">
+            <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+            <button type="button" class="btn" style="color:orange;border:none" @onclick="@HandleGoldenStatusChange">
+                @if (!Item.GoldenProject)
+                {
+                    <EmptyStarSvg />
+                }
+                else
+                {
+                    <FilledStarSvg />
+                }
+            </button>
+        </div>
+    </AuthorizeView>
+</div>
+
+
+<div class="modal fade" id="DeleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete warning</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>This will delete selected video. Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" style="color:rebeccapurple;border:none" @onclick="@HandleDelete" data-bs-dismiss="modal">Confirm delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ShowcaseItem Item { get; set; }
+    [Parameter]
+    public string? CurrentUserId { get; set; }
+    [Parameter]
+    public EventCallback<ShowcaseItem> OnDelete { get; set; }
+    [Parameter]
+    public EventCallback<ShowcaseItem> OnGoldenChange { get; set; }
+
+    private bool isUserOwner = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Item.ApplicationUserId == CurrentUserId)
+            isUserOwner = true;
+    }
+
+    private async Task HandleDelete()
+    {
+        await OnDelete.InvokeAsync(Item);
+    }
+
+    private async Task HandleGoldenStatusChange()
+    {
+        Item.GoldenProject = !Item.GoldenProject;
+        OnGoldenChange.InvokeAsync(Item);
+    }
+
+
+
+
+}

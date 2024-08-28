@@ -8,7 +8,7 @@ public class UserActivityDisplay
     public DateTimeOffset Date { get; set; }
     public string Time { get; set; }
     public MarkupString Description { get; set; }
-    public string AppUserId {  get; set; }
+    public string AppUserId { get; set; }
     public int ExperiencePoints { get; set; }
-    public int CurrentExperiencePoints {  get; set; }
+    public int CurrentExperiencePoints { get; set; }
 }

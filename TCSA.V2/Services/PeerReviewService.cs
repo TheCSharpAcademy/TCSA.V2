@@ -99,11 +99,11 @@ public class PeerReviewService : IPeerReviewService
             {
                 var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
 
-                if (level < Level.Yellow) 
-                { 
-                    return new List<DashboardProject> { }; 
+                if (level < Level.Yellow)
+                {
+                    return new List<DashboardProject> { };
                 }
-                else if( level > Level.Yellow)
+                else if (level > Level.Yellow)
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }

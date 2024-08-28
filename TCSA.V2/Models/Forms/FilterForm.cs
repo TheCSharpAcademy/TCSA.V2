@@ -7,5 +7,5 @@ public class FilterForm
     public Level Level { get; set; }
 
     public int ProjectId { get; set; }
-   
+
 }

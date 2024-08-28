@@ -3,42 +3,42 @@
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 
-<div class="d-flex flex-wrap">
-    <div class="dropdown m-2">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Select Area
-        </button>
+    <div class="d-inline-flex flex-wrap col-4">
+        <div class="dropdown m-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:200px">
+                @AreaSelectMenuText
+            </button>
 
-        <ul class="dropdown-menu">
-            @foreach (var area in Areas)
-            {
-                var currentArea = area;
+            <ul class="dropdown-menu">
+                @foreach (var area in Areas)
+                {
+                    var currentArea = area;
 
-                <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm">@currentArea</button>  </li>
-            }
-        </ul>
-        <span>Area: @if(selectedArea==Area.HowItWorks) {  } else {@selectedArea} </span>
-    </div>
+                    <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm" style="width:200px">@currentArea</button>  </li>
+                }
+            </ul>
+        </div>
 
-    <div class="dropdown m-2">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Select Project
-        </button>
+        <div class="dropdown m-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @ProjectSelectMenuText
+            </button>
 
-        <ul class="dropdown-menu">
-            @foreach (var project in ProjectSelections)
-            {
-                var currentProject = project;
+            <ul class="dropdown-menu">
+                @foreach (var project in ProjectSelections)
+                {
+                    var currentProject = project;
 
-                <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
-            }
-        </ul>
-        <span>Project: @selectedProject.Title </span>
+                    <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
+                }
+            </ul>
+        </div>
+   </div>
 
-    </div>
-    <EditForm Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
+    <EditForm  class="col-6" Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
         <DataAnnotationsValidator />
         <ValidationSummary />
+
         <div class="d-flex align-items-start">
             <label class="m-3">
                 Youtube Link:
@@ -49,7 +49,7 @@
         </div>
     </EditForm>
 
-</div>
+
 
 
 
@@ -61,6 +61,8 @@
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     [Inject] private IGalleryService _galleryService { get; set; }
 
+    private string ProjectSelectMenuText="Select Project";
+    private string AreaSelectMenuText = "Select Area";
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private ValidationMessageStore? messageStore;
     Area selectedArea { get; set; }
@@ -80,12 +82,16 @@
     {
         selectedArea = Enum.Parse<Area>(area);
         ProjectSelections = Projects.Where(project => project.Area == selectedArea).ToList();
+        AreaSelectMenuText = area;
+        ProjectSelectMenuText = "Select Project";
         selectedProject = new();
     }
+
 
     private void SelectProject(ShowcaseProjectInfo project)
     {
         selectedProject = project;
+        ProjectSelectMenuText = project.Title;
     }
 
 
@@ -107,8 +113,9 @@
                 NewItem = new();
                 selectedProject = new();
                 selectedArea = new();
-
                 OnAddNewItem.InvokeAsync(addedItem);
+                AreaSelectMenuText = "Select Area";
+                ProjectSelectMenuText = "Select Project";
             }
             catch
             {

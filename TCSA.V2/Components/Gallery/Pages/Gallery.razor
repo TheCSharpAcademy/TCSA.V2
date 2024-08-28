@@ -57,7 +57,10 @@
     <AuthorizeView>
         @if (User is not null && isFormOpen)
         {
-            <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
+            <div class="d-flex row flex-wrap">
+                <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
+
+        </div>
         }
     </AuthorizeView>
 

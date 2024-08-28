@@ -25,6 +25,16 @@
         </div>
     }
 
+    @if (userReleased)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissUserReleased" />
+        <div class="card card-success">
+            <div class="card-body card-body-success">
+                You have been released from the issue. Don't forget to clear your assignment from the issue on Github as well if you haven't yet.
+            </div>
+        </div>
+    }
+
     @if (projectCompleted)
     {
         <CloseButtonSVG OnClickCallback="@DismissProjectCompleted" />
@@ -46,6 +56,7 @@
                                          ExperiencePoints=@GetProject(project.ProjectId).ExperiencePoints
                                          GithubUrl=@project.GithubUrl
                                          OnAssignCallBack="@(() => AssignMyself(project.Id))"
+                                         OnReleaseCallBack="@(() => ReleaseMyself(project.Id))"
                                          OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))"
                                          DurationOpen="@((MarkupString)DateTimeHelper.GetTimeSpan((DateTimeOffset)project.DateSubmitted, DateTime.UtcNow))" />
                 </div>
@@ -77,6 +88,7 @@
 
     private string userId = "";
     private bool userAssigned = false;
+    private bool userReleased = false;
     private bool projectCompleted = false;
 
     protected override async Task OnInitializedAsync()
@@ -129,12 +141,23 @@
         availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
     }
 
+    private async Task ReleaseMyself(int id)
+    {
+        await PeerReviewService.ReleaseUserFromCodeReview(userId, id);
+        User = await PeerReviewService.GetUserForPeerReview(userId);
+
+        userReleased = true;
+
+        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
+    }
+
     private bool CheckIfAssigned(int id)
     {
         return User?.CodeReviewProjects?.Any(x => x.DashboardProjectId == id) ?? false;
     }
 
     private void DismissUserAssigned() => userAssigned = false;
+    private void DismissUserReleased() => userReleased = false;
     private void DismissProjectCompleted() => projectCompleted = false;
 }
 

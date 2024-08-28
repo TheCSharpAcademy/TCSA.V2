@@ -1,4 +1,4 @@
-﻿@page "/gallery"
+﻿@page "/gallery/{IsLightMode:bool}"
 @rendermode InteractiveServer
 @using TCSA.V2.Components.Gallery.Shared
 @using TCSA.V2.Data
@@ -23,7 +23,7 @@
 
                 <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
 
-                    <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" />
+                    <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" IsLightMode="@IsLightMode"/>
 
                     @if (ProjectSelections.Any())
                     {
@@ -32,7 +32,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Project
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+                            <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")"  aria-labelledby="ProjectDropdown">
                                 @foreach (var project in ProjectSelections)
                                 {
                                     var currentProject = project;
@@ -58,7 +58,7 @@
         @if (User is not null && isFormOpen)
         {
             <div class="d-flex row flex-wrap">
-                <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" />
+                <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" IsLightMode=@IsLightMode/>
 
         </div>
         }
@@ -92,6 +92,8 @@
 
 
 @code {
+    [Parameter]
+    public bool IsLightMode{ get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IUserService UserService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }

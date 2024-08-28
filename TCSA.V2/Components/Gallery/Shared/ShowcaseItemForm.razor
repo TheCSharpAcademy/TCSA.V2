@@ -4,17 +4,17 @@
 @using TCSA.V2.Services
 
     <div class="d-inline-flex flex-wrap col-4">
-        <div class="dropdown m-2">
+    <div class="dropdown m-2">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:200px">
                 @AreaSelectMenuText
             </button>
 
-            <ul class="dropdown-menu">
+        <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")">
                 @foreach (var area in Areas)
                 {
                     var currentArea = area;
 
-                    <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm" style="width:200px">@currentArea</button>  </li>
+                    <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm customdropdown" style="width:200px">@currentArea</button>  </li>
                 }
             </ul>
         </div>
@@ -24,7 +24,7 @@
                 @ProjectSelectMenuText
             </button>
 
-            <ul class="dropdown-menu">
+        <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")">
                 @foreach (var project in ProjectSelections)
                 {
                     var currentProject = project;
@@ -59,6 +59,7 @@
     [Parameter] public ApplicationUser CurrentUser { get; set; }
     [Parameter] public List<string> Areas { get; set; }
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    [Parameter] public bool IsLightMode {get;set;}
     [Inject] private IGalleryService _galleryService { get; set; }
 
     private string ProjectSelectMenuText="Select Project";

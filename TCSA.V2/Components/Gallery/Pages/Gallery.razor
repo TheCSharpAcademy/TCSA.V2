@@ -18,21 +18,19 @@
             <AuthorizeView>
                 <button class="btn btn-outline-success d-none d-md-inline-block" @onclick="ToggleAddForm" type="button"><AddSvg /> Video</button>
             </AuthorizeView>
-                            
+
             <div class="collapse navbar-collapse ms-auto" id="GallerynavbarSupportedContent">
 
                 <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
-
-                    <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" IsLightMode="@IsLightMode"/>
+                    <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" IsLightMode="@IsLightMode" />
 
                     @if (ProjectSelections.Any())
                     {
-
                         <li class="nav-item dropdown me-5">
                             <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Select Project
                             </a>
-                            <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")"  aria-labelledby="ProjectDropdown">
+                            <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")" aria-labelledby="ProjectDropdown">
                                 @foreach (var project in ProjectSelections)
                                 {
                                     var currentProject = project;
@@ -49,7 +47,6 @@
                         </EditForm>
                     </li>
                 </ul>
-
             </div>
         </div>
     </nav>
@@ -58,9 +55,9 @@
         @if (User is not null && isFormOpen)
         {
             <div class="d-flex row flex-wrap">
-                <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" IsLightMode=@IsLightMode/>
+                <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" IsLightMode=@IsLightMode />
 
-        </div>
+            </div>
         }
     </AuthorizeView>
 
@@ -70,7 +67,7 @@
             foreach (var item in ItemsToShow)
             {
                 var currentItem = item;
-                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" OnDelete="@HandleDelete" OnGoldenChange="@HandleGoldenChange"/>
+                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" OnDelete="@HandleDelete" OnGoldenChange="@HandleGoldenChange" />
             }
         }
         else
@@ -85,7 +82,6 @@
             {
                 <h2>No content...</h2>
             }
-
         }
     </div>
 </div>
@@ -93,7 +89,7 @@
 
 @code {
     [Parameter]
-    public bool IsLightMode{ get; set; }
+    public bool IsLightMode { get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IUserService UserService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
@@ -187,7 +183,7 @@
         try
         {
             await _galleryService.DeleteItem(itemToDelete);
-            AllItems=AllItems.Where(i=> i!=itemToDelete);
+            AllItems = AllItems.Where(i => i != itemToDelete);
             ItemsToShow = AllItems.ToList();
         }
         catch

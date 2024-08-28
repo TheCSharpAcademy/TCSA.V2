@@ -24,7 +24,7 @@ public class Block
 {
     public string? Title { get; set; }
     public string? ImgUrl { get; set; }
-    public string? BookImgUrl {  get; set; }
+    public string? BookImgUrl { get; set; }
     public List<Paragraph> Paragraphs { get; set; }
 }
 

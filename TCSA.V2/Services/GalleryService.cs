@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Octokit;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
-using TCSA.V2.Models.Forms;
 
 namespace TCSA.V2.Services;
 
@@ -14,7 +12,7 @@ public interface IGalleryService
     Task UpdateItem(ShowcaseItem itemToUpdate);
 }
 
-public class GalleryService :IGalleryService
+public class GalleryService : IGalleryService
 {
     private readonly IDbContextFactory<ApplicationDbContext> _factory;
     private readonly ILogger<GalleryService> _logger;
@@ -31,7 +29,7 @@ public class GalleryService :IGalleryService
         using var context = _factory.CreateDbContext();
         try
         {
-            return await context.ShowcaseItems.AsNoTracking().OrderByDescending(i=> i.GoldenProject).ToListAsync();
+            return await context.ShowcaseItems.AsNoTracking().OrderByDescending(i => i.GoldenProject).ToListAsync();
         }
         catch
         {

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TCSA.V2.Helpers
 {
-    public class EmbedCodeValidator:ValidationAttribute
+    public class EmbedCodeValidator : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -20,7 +20,7 @@ namespace TCSA.V2.Helpers
             {
                 return new ValidationResult("The embed code is not a valid YouTube embed code.");
             }
-                      
+
             return ValidationResult.Success;
         }
     }

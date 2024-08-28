@@ -3,54 +3,48 @@
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Services
 
-    <div class="d-inline-flex flex-wrap col-4">
+<div class="d-inline-flex flex-wrap col-4">
     <div class="dropdown m-2">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:200px">
-                @AreaSelectMenuText
-            </button>
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:200px">
+            @AreaSelectMenuText
+        </button>
 
         <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")">
-                @foreach (var area in Areas)
-                {
-                    var currentArea = area;
+            @foreach (var area in Areas)
+            {
+                var currentArea = area;
+                <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm customdropdown" style="width:200px">@currentArea</button>  </li>
+            }
+        </ul>
+    </div>
 
-                    <li> <button type="button" @onclick="()=>SelectArea(currentArea)" class="dropdown-item btn btn-sm customdropdown" style="width:200px">@currentArea</button>  </li>
-                }
-            </ul>
-        </div>
-
-        <div class="dropdown m-2">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                @ProjectSelectMenuText
-            </button>
+    <div class="dropdown m-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @ProjectSelectMenuText
+        </button>
 
         <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")">
-                @foreach (var project in ProjectSelections)
-                {
-                    var currentProject = project;
+            @foreach (var project in ProjectSelections)
+            {
+                var currentProject = project;
+                <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
+            }
+        </ul>
+    </div>
+</div>
 
-                    <li> <button type="button" @onclick="()=>SelectProject(currentProject)" class="dropdown-item btn btn-sm">@currentProject.Title</button>  </li>
-                }
-            </ul>
-        </div>
-   </div>
+<EditForm class="col-6" Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-    <EditForm  class="col-6" Model="NewItem" OnValidSubmit="Submit" FormName="ShowCaseItemForm">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-        <div class="d-flex align-items-start">
-            <label class="m-3">
-                Youtube Link:
-            </label>
-            <InputTextArea @bind-Value="NewItem!.Link" style="width:300px;height:300px" />
-                     
-            <button class="ms-5 btn btn-sm btn-secondary" ="submit">Submit</button>
-        </div>
-    </EditForm>
-
-
-
+    <div class="d-flex align-items-start">
+        <label class="m-3">
+            Youtube Link:
+        </label>
+        <InputTextArea @bind-Value="NewItem!.Link" style="width:300px;height:300px" />
+        <button class="ms-5 btn btn-sm btn-secondary" type="submit">Submit</button>
+    </div>
+</EditForm>
 
 
 @code {
@@ -59,10 +53,10 @@
     [Parameter] public ApplicationUser CurrentUser { get; set; }
     [Parameter] public List<string> Areas { get; set; }
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
-    [Parameter] public bool IsLightMode {get;set;}
+    [Parameter] public bool IsLightMode { get; set; }
     [Inject] private IGalleryService _galleryService { get; set; }
 
-    private string ProjectSelectMenuText="Select Project";
+    private string ProjectSelectMenuText = "Select Project";
     private string AreaSelectMenuText = "Select Area";
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private ValidationMessageStore? messageStore;
@@ -124,12 +118,7 @@
                 selectedProject = new();
                 selectedArea = new();
             }
-
         }
         return;
-
     }
-
-
-
 }

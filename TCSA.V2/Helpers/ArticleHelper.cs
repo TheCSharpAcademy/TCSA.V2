@@ -1697,8 +1697,8 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = @$"Click here to check it on <a href='https://www.amazon.com/C-Players-Guide-5th/dp/0985580151' target='_blank'>Amazon</a>."        
-                                       
+                                Body = @$"Click here to check it on <a href='https://www.amazon.com/C-Players-Guide-5th/dp/0985580151' target='_blank'>Amazon</a>."
+
                             },
 
                             new Paragraph

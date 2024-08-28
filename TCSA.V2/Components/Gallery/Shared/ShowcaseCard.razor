@@ -22,14 +22,15 @@
     </AuthorizeView>
     <AuthorizeView Roles="Admin">
         <div class="card-footer">
-                <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+            <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
             <button type="button" class="btn" style="color:orange;border:none" @onclick="@HandleGoldenStatusChange">
                 @if (!Item.GoldenProject)
                 {
-                    <EmptyStarSvg/>
-                } else
+                    <EmptyStarSvg />
+                }
+                else
                 {
-                    <FilledStarSvg/>
+                    <FilledStarSvg />
                 }
             </button>
         </div>

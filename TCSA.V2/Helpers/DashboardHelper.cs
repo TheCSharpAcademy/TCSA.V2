@@ -62,4 +62,39 @@ public static class DashboardHelper
 
         return true;
     }
+
+    public static List<Project> GetPendingProjects(
+        IEnumerable<Project> projects,
+        List<int> pendingProjects
+    )
+    {
+        List<Project> pendingUserProjects = new();
+
+        foreach (int projectId in pendingProjects)
+        {
+            Project project = projects.FirstOrDefault(x => x.Id == projectId);
+            if (project != null)
+            {
+                pendingUserProjects.Add(project);
+            }
+        }
+        return pendingUserProjects;
+    }
+    public static List<Project> GetCompletedProjects(
+    IEnumerable<Project> projects,
+    List<int> completedProjects
+)
+    {
+        List<Project> completedUserProjects = new();
+
+        foreach (int projectId in completedProjects)
+        {
+            Project project = projects.FirstOrDefault(x => x.Id == projectId);
+            if (project != null)
+            {
+                completedUserProjects.Add(project);
+            }
+        }
+        return completedUserProjects;
+    }
 }

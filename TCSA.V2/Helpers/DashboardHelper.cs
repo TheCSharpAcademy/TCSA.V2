@@ -24,11 +24,9 @@ public static class DashboardHelper
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
             }
+
+            return true;
         }
 
         if (area != Area.StartHere)

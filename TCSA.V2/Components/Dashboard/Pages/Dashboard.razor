@@ -55,7 +55,7 @@
                          DisplayName=@User.DisplayName />
         
         <div class="my-3 w-100 d-flex align-items-center justify-content-start gap-2">
-            <ToggleCompletedButton OnToggle="ToggleCompletedArea" Name="Completed Area" Active="false" />
+            <ToggleCompletedButton OnToggle="ToggleCompletedArea" Name="Completed Area" Active=IsCompletedAreaClicked />
             <ToggleCompletedButton OnToggle="TogglePendingProjects" Name="Pending Projects" Active=!IsPendingProjectButtonClicked />
             <ToggleCompletedButton OnToggle="ToggleCompletedProjects" Name="Completed Projects" Active=!IsCompletedProjectButtonClicked />
         </div>
@@ -122,6 +122,7 @@
     private bool ShowBeltNotification = false;
     private Enums.DashboardState State = Enums.DashboardState.Area;
     private int Ranking;
+    private bool IsCompletedAreaClicked = false;
     private bool IsPendingProjectButtonClicked = false;
     private bool IsCompletedProjectButtonClicked = false;
     private List<DashboardAreaInfo> Areas = new();
@@ -387,6 +388,7 @@
     public void ToggleCompletedArea()
     {
         State = Enums.DashboardState.Area;
+        IsCompletedAreaClicked = !IsCompletedAreaClicked;
         foreach (var area in Areas.Where(area => area.IsCompleted))
         {
             area.IsHidden = !area.IsHidden;

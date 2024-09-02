@@ -13,13 +13,57 @@
 
 @if (IsProjectSubmittedMessageShowing)
 {
-    <div class="mt-5 pt-5">
-        <div class="card submit-project-card @(IsSubmissionSuccessful ? "bg-success" : "bg-danger")">
-            <div class="card-body">
-                Your project has been submitted for review.
+    @if (!IsSubmissionSuccessful && IsPendingReview)
+    {
+        <div class="mt-5 pt-5">
+            <div class="card submit-project-card bg-danger">
+                <div class="card-body">
+                    This project has been submitted and is pending review.
+                </div>
+            </div>
+            <EditForm Model="@Model" OnValidSubmit="UpdateUrl" FormName="SubmitProjectForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-floating mt-1">
+                    <InputText id="githubUrl" class="form-control" @bind-Value="Model.GithubUrl" />
+                    <label for="githubUrl">Pull Request Url</label>
+                </div>
+
+                @if (IsSubmitting)
+                {
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                }
+                else
+                {
+                    <button class="btn btn-outline-secondary mt-1" type="submit">Update GitHubUrl</button>
+                }
+
+            </EditForm>
+        </div>
+    }
+    else if(IsSubmissionSuccessful)
+    {
+        <div class="mt-5 pt-5">
+            <div class="card submit-project-card bg-success">
+                <div class="card-body">
+                    Your project has been submitted for review.
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="mt-5 pt-5">
+            <div class="card submit-project-card bg-danger">
+                <div class="card-body">
+                    This Project has been marked as completed
+                </div>
+            </div>
+        </div>
+    }
+
 } 
 else
 {
@@ -76,6 +120,7 @@ else
 
     private bool IsSubmitting;
     private bool IsProjectSubmittedMessageShowing;
+    private bool IsPendingReview;
     private bool IsSubmissionSuccessful;
     private string ResultMessage;
     private string UserId;
@@ -104,6 +149,34 @@ else
             .Where(x => !nonReviewProjects.Contains(x.Id))
             .ToList();
         }
+    }
+    private async Task UpdateUrl()
+    {
+        IsSubmitting = true;
+
+        var dashboardProject = new DashboardProject
+            {
+                DateSubmitted = DateTime.UtcNow,
+                IsPendingReview = true,
+                AppUserId = UserId,
+                ProjectId = Model.ProjectId,
+                GithubUrl = Model.GithubUrl
+            };
+
+        var response = await ProjectService.UpdateArticle(dashboardProject);
+
+        if (response == 1)
+        {
+            ResultMessage = "Your project was submitted successfuly";
+            IsSubmissionSuccessful = true;
+        }
+        else
+        {
+            ResultMessage = "There was an error when submitting your project";
+        }
+
+        IsProjectSubmittedMessageShowing = true;
+        IsSubmitting = false;
     }
 
     private async Task Submit()
@@ -138,6 +211,8 @@ else
         {
             ResultMessage = "There was an error when submitting your project";
         }
+
+        IsPendingReview = await ProjectService.IsProjectPendingReview(UserId, Model.ProjectId);
 
         IsProjectSubmittedMessageShowing = true;
         IsSubmitting = false;

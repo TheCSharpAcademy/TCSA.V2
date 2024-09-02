@@ -17,6 +17,7 @@
     {
         <nav aria-label="Page navigation example">
             <btn class="btn btn-primary w-100 mb-3" @onclick="Filter2024">Click to See @(is2024 ? "all time" : "2024") Leaderboard</btn>
+            <btn class="btn btn-primary w-100 mb-3" @onclick="FilterReviews">Reviewers Leaderboard</btn>
 
             @if (!is2024 && Ranking > 50)
             {
@@ -155,6 +156,11 @@
         users = incomingUsers.ToList();
 
         isLoading = false;
+    }
+
+    protected async Task FilterReviews()
+    {
+        
     }
 
     protected async Task Filter2024()

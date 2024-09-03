@@ -35,10 +35,9 @@
             }
         </div>
         <div class="col">
-            <EditForm Model="@Search" OnSubmit="@ApplySearchFilter">
-                <input type="text" class="form-control" @bind="@searchText" placeholder="User name" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </EditForm>
+            <div class="col">
+                <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="User name" aria-label="Search" />
+            </div>
         </div>
     </div>
 
@@ -164,24 +163,22 @@
         ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
     }
 
-    private async Task ApplySearchFilter()
+    private async Task ApplySearchFilter(ChangeEventArgs e)
     {
+        searchText = e.Value?.ToString();
+
         if (string.IsNullOrEmpty(searchText))
         {
-            ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
-                {
-                    ApplicationUserId = x.AppUserId.ToString()
-                }).ToList();
+            ItemsToShow = ItemsToShowCache;
             ProjectSelections = [];
             return;
         }
-        ItemsToShow = ItemsToShow.Where(i => i.UserFirstName.Contains(searchText) || i.UserLastName.Contains(searchText)).ToList();
+        ItemsToShow = ItemsToShow
+        .Where(i => i.UserFirstName.Contains(searchText) || i.UserLastName.Contains(searchText))
+        .ToList();
     }
 
-    private async Task ToggleAddForm()
-    {
-        isFormOpen = !isFormOpen;
-    }
+    private void ToggleAddForm() => isFormOpen = !isFormOpen;
 
     private async Task HandleDelete(ShowcaseItem itemToDelete)
     {
@@ -201,12 +198,11 @@
     }
 
 
-    private async Task HandleProjectSelection(ChangeEventArgs e)
+    private void HandleProjectSelection(ChangeEventArgs e)
     {
         int selectedProject = int.Parse(e.Value.ToString());
         ItemsToShow = ItemsToShowCache;
-        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
-        
+        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();      
     }
 
     // private async Task HandleGoldenChange(ShowcaseItem updateItem)

@@ -7,33 +7,32 @@
 @using System;
 @using System.Linq;
 
-<li class="nav-item dropdown me-5">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Select Area
-    </a>
-    <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")" aria-labelledby="navbarDropdown">
-        @foreach (var area in CategoryListAreas)
-        {
-            var localArea = area;
-            <li> <button type="button" class="btn dropdown-item" @onclick="()=>HandleClick(localArea)">@area</button></li>
-        }
-    </ul>
-</li>
-
-
-
-
+<select shadow rounded class="form-select" @onchange="HandleSelectionChange">
+    @foreach (var area in CategoryListAreas)
+    {
+        <option value="@area">@area</option>
+    }
+</select>
 
 @code {
     [Parameter] public EventCallback<string> OnClickCallback { get; set; }
     [Parameter] public List<string> Areas { get; set; }
     private List<string> CategoryListAreas { get; set; }
-    [Parameter] public bool IsLightMode{ get; set; }
+    [Parameter] public bool IsLightMode { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
         CategoryListAreas = Areas.ToList();
         CategoryListAreas.Add("All");
+    }
+
+    private async Task HandleSelectionChange(ChangeEventArgs e)
+    {
+        var selectedArea = e.Value?.ToString();
+        if (!string.IsNullOrEmpty(selectedArea))
+        {
+            await HandleClick(selectedArea);
+        }
     }
 
     private async Task HandleClick(string area)

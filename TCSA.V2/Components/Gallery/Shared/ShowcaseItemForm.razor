@@ -41,14 +41,14 @@
         <label class="m-3">
             Youtube Link:
         </label>
-        <InputTextArea @bind-Value="NewItem!.Link" style="width:300px;height:300px" />
+        <InputTextArea @bind-Value="NewItem!.VideoUrl" style="width:300px;height:300px" />
         <button class="ms-5 btn btn-sm btn-secondary" type="submit">Submit</button>
     </div>
 </EditForm>
 
 
 @code {
-    [SupplyParameterFromForm] private ShowcaseItem NewItem { get; set; }
+    [SupplyParameterFromForm] private ShowcaseItemDTO NewItem { get; set; }
     [Parameter] public EventCallback<ShowcaseItem> OnAddNewItem { get; set; }
     [Parameter] public ApplicationUser CurrentUser { get; set; }
     [Parameter] public List<string> Areas { get; set; }
@@ -71,7 +71,6 @@
         FormAreas = Areas.ToList();
 
     }
-
 
     private void SelectArea(string area)
     {
@@ -98,17 +97,16 @@
             NewItem.ProjectId = selectedProject.Id;
             NewItem.Area = selectedArea;
             NewItem.ApplicationUserId = CurrentUser.Id;
-            NewItem.UserName = CurrentUser.FirstName;
+            NewItem.UserFirstName = CurrentUser.FirstName;
             NewItem.UserLastName = CurrentUser.LastName;
 
 
             try
             {
-                var addedItem = await _galleryService.AddItem(NewItem);
+                await _galleryService.AddItem(NewItem);
                 NewItem = new();
                 selectedProject = new();
                 selectedArea = new();
-                OnAddNewItem.InvokeAsync(addedItem);
                 AreaSelectMenuText = "Select Area";
                 ProjectSelectMenuText = "Select Project";
             }

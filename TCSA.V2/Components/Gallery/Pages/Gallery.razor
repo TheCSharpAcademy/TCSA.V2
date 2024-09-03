@@ -1,6 +1,7 @@
 ﻿@page "/gallery/{IsLightMode:bool}"
 @rendermode InteractiveServer
 @using TCSA.V2.Components.Gallery.Shared
+@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
@@ -9,47 +10,35 @@
 @using System.Security.Claims;
 @using System.Linq;
 
-<div class="mt-5 pt-3">
-    <nav class="top-menu navbar navbar-expand-lg mt-5">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#GallerynavbarSupportedContent" aria-controls="GallerynavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <img width="50" src="https://css-tricks.com/wp-content/uploads/2012/10/threelines.png" />
-            </button>
+<div class="container mt-5 pt-3">
+    <div class="row">
+        <div class="col">
             <AuthorizeView>
-                <button class="btn btn-outline-success d-none d-md-inline-block" @onclick="ToggleAddForm" type="button"><AddSvg /> Video</button>
+                <button class="btn btn-outline-success d-none d-md-inline-block" @onclick="ToggleAddForm" type="button">Add Project</button>
             </AuthorizeView>
-
-            <div class="collapse navbar-collapse ms-auto" id="GallerynavbarSupportedContent">
-
-                <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
-                    <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" IsLightMode="@IsLightMode" />
-
-                    @if (ProjectSelections.Any())
-                    {
-                        <li class="nav-item dropdown me-5">
-                            <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Select Project
-                            </a>
-                            <ul class="dropdown-menu @(IsLightMode ? "" : "dropdown-menu-dark")" aria-labelledby="ProjectDropdown">
-                                @foreach (var project in ProjectSelections)
-                                {
-                                    var currentProject = project;
-
-                                    <li> <button type="button" class="dropdown-item btn btn-sm" @onclick="()=>FilterItemsByProject(currentProject)">@currentProject.Title</button>  </li>
-                                }
-                            </ul>
-                        </li>
-                    }
-                    <li>
-                        <EditForm Model="@Search" OnSubmit="@ApplySearchFilter">
-                            <input type="text" @bind="@searchText" placeholder="User name" aria-label="Search" />
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </EditForm>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </nav>
+        <div class="col">
+            <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" IsLightMode="@IsLightMode" />
+        </div>
+        <div class="col">
+            @if (ProjectSelections.Any()) {
+                <select shadow rounded class="form-select">
+                    <option selected>Select Project</option>
+                    @foreach (var project in ProjectSelections)
+                    {
+                        var currentProject = project;
+                        <option @onclick="()=>FilterItemsByProject(currentProject)" value="@project.Id">@project.Area - @project.Title</option>
+                    }
+                </select>
+            }
+        </div>
+        <div class="col">
+            <EditForm Model="@Search" OnSubmit="@ApplySearchFilter">
+                <input type="text" class="form-control" @bind="@searchText" placeholder="User name" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </EditForm>
+        </div>
+    </div>
 
     <AuthorizeView>
         @if (User is not null && isFormOpen)
@@ -67,7 +56,7 @@
             foreach (var item in ItemsToShow)
             {
                 var currentItem = item;
-                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId" OnDelete="@HandleDelete" OnGoldenChange="@HandleGoldenChange" />
+                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId"  />
             }
         }
         else
@@ -104,7 +93,7 @@
     private IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
-    private List<ShowcaseItem> ItemsToShow { get; set; } = [];
+    private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
     private bool isLoading = true;
     private string CurrentUserId = "none";
     private string loadingContainer = "container text-center";
@@ -115,9 +104,8 @@
 
     protected async override Task OnInitializedAsync()
     {
-        Areas = EnumAreas.Except(ProjectlessAreas).ToList(); //Get areas which has projects
+        Areas = EnumAreas.Except(ProjectlessAreas).ToList();
 
-        //Get active user if authenticated
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -128,11 +116,17 @@
             CurrentUserId = User.Id;
         }
 
-        //Get Short Project infos
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
 
         AllItems = await _galleryService.GetItems();
-        ItemsToShow = AllItems.ToList();
+        ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
+        {
+            ApplicationUserId = x.AppUserId.ToString(),
+            ProjectId = x.ProjectId,
+            UserFirstName = x.ApplicationUser.FirstName,
+            UserLastName = x.ApplicationUser.LastName
+
+        }).ToList();
         isLoading = false;
     }
 
@@ -141,36 +135,45 @@
         if (area == "All")
         {
             ProjectSelections = [];
-            ItemsToShow = AllItems.ToList();
+            ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
+            {
+                    ApplicationUserId = x.AppUserId.ToString()
+            }).ToList();
         }
         else
         {
             var areaEnum = Enum.Parse<Area>(area);
             ProjectSelections = Projects.Where(project => project.Area == areaEnum).ToList();
-            ItemsToShow = AllItems.Where(project => project.Area == areaEnum).ToList();
+            ItemsToShow = ItemsToShow.Where(project => project.Area == areaEnum).ToList();
         }
     }
 
     private async Task UpdateItemList(ShowcaseItem addedItem)
     {
         AllItems = AllItems.Append(addedItem);
-        ItemsToShow = AllItems.ToList();
+        ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
+            {
+                ApplicationUserId = x.AppUserId.ToString()
+            }).ToList();
     }
 
     private async Task FilterItemsByProject(ShowcaseProjectInfo project)
     {
-        ItemsToShow = AllItems.Where(i => i.ProjectId == project.Id).ToList();
+        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
     }
 
     private async Task ApplySearchFilter()
     {
         if (string.IsNullOrEmpty(searchText))
         {
-            ItemsToShow = AllItems.ToList();
+            ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
+                {
+                    ApplicationUserId = x.AppUserId.ToString()
+                }).ToList();
             ProjectSelections = [];
             return;
         }
-        ItemsToShow = AllItems.Where(i => i.UserName.Contains(searchText)).ToList();
+        ItemsToShow = ItemsToShow.Where(i => i.UserFirstName.Contains(searchText) || i.UserLastName.Contains(searchText)).ToList();
     }
 
     private async Task ToggleAddForm()
@@ -184,7 +187,10 @@
         {
             await _galleryService.DeleteItem(itemToDelete);
             AllItems = AllItems.Where(i => i != itemToDelete);
-            ItemsToShow = AllItems.ToList();
+            ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
+                {
+                    ApplicationUserId = x.AppUserId.ToString()
+                }).ToList();
         }
         catch
         {
@@ -192,18 +198,15 @@
         }
     }
 
-    private async Task HandleGoldenChange(ShowcaseItem updateItem)
-    {
-        try
-        {
-            await _galleryService.UpdateItem(updateItem);
-        }
-        catch
-        {
-            return;
-        }
-    }
-
-
-
+    // private async Task HandleGoldenChange(ShowcaseItem updateItem)
+    // {
+    //     try
+    //     {
+    //         await _galleryService.UpdateItem(updateItem);
+    //     }
+    //     catch
+    //     {
+    //         return;
+    //     }
+    // }
 }

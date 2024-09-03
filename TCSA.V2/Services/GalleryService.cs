@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
+using TCSA.V2.Models.DTO;
 
 namespace TCSA.V2.Services;
 
 public interface IGalleryService
 {
     Task<IEnumerable<ShowcaseItem>> GetItems();
-    Task<ShowcaseItem> AddItem(ShowcaseItem newItem);
+    Task AddItem(ShowcaseItemDTO newItem);
     Task DeleteItem(ShowcaseItem itemToDelete);
     Task UpdateItem(ShowcaseItem itemToUpdate);
 }
@@ -25,26 +26,42 @@ public class GalleryService : IGalleryService
 
     public async Task<IEnumerable<ShowcaseItem>> GetItems()
     {
-
         using var context = _factory.CreateDbContext();
         try
         {
-            return await context.ShowcaseItems.AsNoTracking().OrderByDescending(i => i.GoldenProject).ToListAsync();
+            return await context.ShowcaseItems
+                .Include(x => x.ApplicationUser)
+                .AsNoTracking()
+                .OrderByDescending(i => i.GoldenProject)
+                .ToListAsync();
         }
-        catch
+        catch (Exception ex) 
         {
-            return [];
+            Console.WriteLine(ex.ToString());
+            return null;
         }
 
     }
 
-    public async Task<ShowcaseItem> AddItem(ShowcaseItem newItem)
+    public async Task AddItem(ShowcaseItemDTO newItem)
     {
+        var showcaseItem = new ShowcaseItem
+        {
+            ProjectId = newItem.ProjectId,
+            AppUserId = newItem.ApplicationUserId,
+            VideoUrl = newItem.VideoUrl
+        };
 
-        using var context = _factory.CreateDbContext();
-        await context.ShowcaseItems.AddAsync(newItem);
-        await context.SaveChangesAsync();
-        return newItem;
+        try
+        {
+            using var context = _factory.CreateDbContext();
+            await context.ShowcaseItems.AddAsync(showcaseItem);
+            var result = await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     public async Task DeleteItem(ShowcaseItem itemToDelete)

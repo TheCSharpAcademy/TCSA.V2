@@ -21,9 +21,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
 
-
-
-
         modelBuilder.Entity<UserReview>()
             .HasOne(ur => ur.User)
             .WithMany(u => u.CodeReviewProjects)
@@ -56,13 +53,18 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasForeignKey(uc => uc.UserId);
 
         modelBuilder.Entity<DailyStreak>()
-                .HasKey(ds => ds.AppUserId);
+            .HasKey(ds => ds.AppUserId);
 
         modelBuilder.Entity<DailyStreak>()
             .HasOne(ds => ds.User)
             .WithOne(u => u.DailyStreak)
             .HasForeignKey<DailyStreak>(ds => ds.AppUserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ShowcaseItem>()
+            .HasOne(si => si.ApplicationUser)
+            .WithMany(au => au.ShowcaseItems) 
+            .HasForeignKey(si => si.AppUserId);
 
         //modelBuilder.Entity<Challenge>().HasData(
         //    new Challenge

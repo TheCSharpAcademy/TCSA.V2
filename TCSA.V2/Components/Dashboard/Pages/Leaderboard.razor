@@ -160,7 +160,8 @@
 
     protected async Task FilterReviews()
     {
-        
+        var incomingUsers = await LeaderboardService.GetUsersForLeaderboard();
+        users = incomingUsers.ToList();
     }
 
     protected async Task Filter2024()

@@ -18,16 +18,18 @@
             </AuthorizeView>
         </div>
         <div class="col">
-            <CategoryList OnClickCallback="@GetAreaItems" Areas="@Areas" IsLightMode="@IsLightMode" />
+            <CategoryList OnClickCallback="@GetAreaItems" 
+                Areas="@Areas" 
+                IsLightMode="@IsLightMode" />
         </div>
         <div class="col">
             @if (ProjectSelections.Any()) {
-                <select shadow rounded class="form-select">
+                <select shadow rounded class="form-select" @onchange="HandleProjectSelection">
                     <option selected>Select Project</option>
                     @foreach (var project in ProjectSelections)
                     {
                         var currentProject = project;
-                        <option @onclick="()=>FilterItemsByProject(currentProject)" value="@project.Id">@project.Area - @project.Title</option>
+                        <option value="@project.Id">@project.Area - @project.Title</option>
                     }
                 </select>
             }
@@ -44,7 +46,11 @@
         @if (User is not null && isFormOpen)
         {
             <div class="d-flex row flex-wrap">
-                <ShowcaseItemForm CurrentUser="User" Areas="@Areas" Projects="@Projects" OnAddNewItem="@UpdateItemList" IsLightMode=@IsLightMode />
+                <ShowcaseItemForm 
+                    CurrentUser="User" 
+                    Areas="@Areas" 
+                    Projects="@Projects" 
+                    IsLightMode=@IsLightMode />
 
             </div>
         }
@@ -56,7 +62,9 @@
             foreach (var item in ItemsToShow)
             {
                 var currentItem = item;
-                <ShowcaseCard Item="@currentItem" CurrentUserId="@CurrentUserId"  />
+                <ShowcaseCard 
+                    Item="@currentItem" 
+                    CurrentUserId="@CurrentUserId"  />
             }
         }
         else
@@ -150,17 +158,9 @@
         }
     }
 
-    private async Task UpdateItemList(ShowcaseItem addedItem)
+    private void FilterItemsByProject(ShowcaseProjectInfo project)
     {
-        AllItems = AllItems.Append(addedItem);
-        ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
-            {
-                ApplicationUserId = x.AppUserId.ToString()
-            }).ToList();
-    }
-
-    private async Task FilterItemsByProject(ShowcaseProjectInfo project)
-    {
+        ItemsToShow = ItemsToShowCache;
         ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
     }
 
@@ -198,6 +198,15 @@
         {
             return;
         }
+    }
+
+
+    private async Task HandleProjectSelection(ChangeEventArgs e)
+    {
+        int selectedProject = int.Parse(e.Value.ToString());
+        ItemsToShow = ItemsToShowCache;
+        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
+        
     }
 
     // private async Task HandleGoldenChange(ShowcaseItem updateItem)

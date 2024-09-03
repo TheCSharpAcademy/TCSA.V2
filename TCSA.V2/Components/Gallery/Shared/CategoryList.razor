@@ -8,6 +8,7 @@
 @using System.Linq;
 
 <select shadow rounded class="form-select" @onchange="HandleSelectionChange">
+    <option value="" disabled selected>Select area</option>
     @foreach (var area in CategoryListAreas)
     {
         <option value="@area">@area</option>

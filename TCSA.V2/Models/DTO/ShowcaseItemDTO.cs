@@ -8,7 +8,5 @@ public class ShowcaseItemDTO
     public string UserFirstName { get; set; }
     public string UserLastName { get; set; }
     public Area Area { get; set; }
-    public string AreaName { get; set; }
     public string VideoUrl { get; set; }
-
 }

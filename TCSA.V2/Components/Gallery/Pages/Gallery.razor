@@ -12,7 +12,7 @@
 
 <div class="container mt-5 pt-3">
     <div class="row">
-        <div class="col">
+        <div class="col-sm-2">
             <AuthorizeView>
                 <button class="btn btn-outline-success d-none d-md-inline-block" @onclick="ToggleAddForm" type="button">Add Project</button>
             </AuthorizeView>
@@ -94,6 +94,7 @@
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
+    private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
     private bool isLoading = true;
     private string CurrentUserId = "none";
     private string loadingContainer = "container text-center";
@@ -124,21 +125,22 @@
             ApplicationUserId = x.AppUserId.ToString(),
             ProjectId = x.ProjectId,
             UserFirstName = x.ApplicationUser.FirstName,
-            UserLastName = x.ApplicationUser.LastName
+            UserLastName = x.ApplicationUser.LastName,
+            Area = Projects.First(y => y.Id == x.ProjectId).Area,
+            ProjectName = Projects.First(y => y.Id == x.ProjectId).Title
 
         }).ToList();
+        ItemsToShowCache = ItemsToShow;
         isLoading = false;
     }
 
-    private async Task GetAreaItems(string area)
+    private void GetAreaItems(string area)
     {
+        ItemsToShow = ItemsToShowCache;
         if (area == "All")
         {
             ProjectSelections = [];
-            ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
-            {
-                    ApplicationUserId = x.AppUserId.ToString()
-            }).ToList();
+            ItemsToShow = ItemsToShow;
         }
         else
         {

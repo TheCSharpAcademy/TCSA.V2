@@ -137,8 +137,7 @@
         {
             ApplicationUserId = x.AppUserId.ToString(),
             ProjectId = x.ProjectId,
-            UserFirstName = x.ApplicationUser.FirstName,
-            UserLastName = x.ApplicationUser.LastName,
+            Username = string.IsNullOrEmpty(x.ApplicationUser.FirstName) ? x.ApplicationUser.UserName : $"{x.ApplicationUser.FirstName} {x.ApplicationUser.LastName}",
             Area = Projects.First(y => y.Id == x.ProjectId).Area,
             VideoUrl = x.VideoUrl,
             ProjectName = Projects.First(y => y.Id == x.ProjectId).Title
@@ -181,7 +180,7 @@
             return;
         }
         ItemsToShow = ItemsToShow
-        .Where(i => i.UserFirstName.Contains(searchText) || i.UserLastName.Contains(searchText))
+        .Where(i => i.Username.Contains(searchText))
         .ToList();
     }
 

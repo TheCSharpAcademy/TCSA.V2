@@ -2,25 +2,26 @@
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Models.DTO
 
-<div class="col-sm-3">
-    <div class="card m-3">
-        <div class="text-center mt-3">
-            <div class="video-paragraph d-flex mt-3 mb-4 justify-content-center embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" width="100%" height="auto" src="@Item.VideoUrl" allowfullscreen></iframe>
-            </div>
-        <div class="card-body">
-            <p class="card-text">@Item.UserFirstName @Item.UserLastName</p>
-            <p class="card-text">@Item.Area</p>
-            <p class="card-text">@Item.ProjectName</p>
+<div class="col-sm-3 rounded-3">
+    <div class="card m-1">
+        <div class="video-paragraph d-flex justify-content-center embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="100%" height="auto" src="@Item.VideoUrl" allowfullscreen></iframe>
         </div>
-        <AuthorizeView>
-            @if (isUserOwner)
-            {
-                <div class="card-footer">
-                    <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
-                </div>
-            }
-        </AuthorizeView>
+        <div class="card-body">
+            <div class="showcaseitem-metadata d-flex justify-content-between w-100">
+                <p class="card-text showcaseitem-project">@Item.ProjectName</p>
+                <p class="card-text showcaseitem-area">@Item.Area</p>
+            </div>
+            <div class="showcaseitem-metadata d-flex justify-content-between w-100 @(!isUserOwner ? "showcaseitem-correct-margin" : "")">
+                <p class="card-text showcaseitem-username">@Item.Username</p>
+                <AuthorizeView>
+                    @if (isUserOwner)
+                    {
+                            <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                    }
+                </AuthorizeView>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -65,3 +66,32 @@
         await OnDelete.InvokeAsync(Item);
     }
 }
+
+<style>
+    .showcaseitem-correct-margin {
+        margin-bottom: 7px !important;
+    }
+
+    .showcaseitem-username {
+        font-weight: 600;
+    }
+
+    .showcaseitem-project {
+        font-weight: 600;
+        color: #1C236D
+    }
+
+    .showcaseitem-area {
+        font-size: 16px;
+        margin-top: 2px;
+    }
+
+    .showcaseitem-metadata {
+        margin-bottom: -10px;
+    }
+
+    .showcaseitem-delete-button {
+        margin-top: -10px;
+        margin-bottom: 5px;
+    }
+ </style>

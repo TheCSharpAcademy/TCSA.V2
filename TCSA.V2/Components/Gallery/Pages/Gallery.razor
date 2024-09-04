@@ -48,14 +48,14 @@
             </div>
             }
     </div>
-    <div class=" @(!ItemsToShow.Any()?loadingContainer :videoContainer)">
+    <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
             @if (ItemsToShow.Any())
             {
                 foreach (var item in ItemsToShow)
                 {
                     var currentItem = item;
-                    <ShowcaseCard Item="@currentItem"
-                                  CurrentUserId="@CurrentUserId" />
+                        <ShowcaseCard Item="@currentItem"
+                                      CurrentUserId="@CurrentUserId" />
                 }
             }
             else
@@ -70,8 +70,8 @@
                 {
                     <h2>No content...</h2>
                 }
-            }
-        </div>
+            }         
+ </div>
 
     <AuthorizeView>
         @if (User is not null && isFormOpen)
@@ -140,6 +140,7 @@
             UserFirstName = x.ApplicationUser.FirstName,
             UserLastName = x.ApplicationUser.LastName,
             Area = Projects.First(y => y.Id == x.ProjectId).Area,
+            VideoUrl = x.VideoUrl,
             ProjectName = Projects.First(y => y.Id == x.ProjectId).Title
 
         }).ToList();

@@ -2,42 +2,28 @@
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Models.DTO
 
-<div class="card m-5 " style="width:600px">
-    <div class="text-center mt-3">
-        @((MarkupString)Item.VideoUrl)
-
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">@Item.UserFirstName @Item.UserLastName</h5>
-        <p class="card-text">Area: @Item.Area</p>
-        <p class="card-text">Project: @Item.ProjectName</p>
-    </div>
-
-    <AuthorizeView>
-        @if (isUserOwner)
-        {
-            <div class="card-footer">
-                <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+<div class="col-sm-3">
+    <div class="card m-3">
+        <div class="text-center mt-3">
+            <div class="video-paragraph d-flex mt-3 mb-4 justify-content-center embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="100%" height="auto" src="@Item.VideoUrl" allowfullscreen></iframe>
             </div>
-        }
-    </AuthorizeView>
-   @*  <AuthorizeView Roles="Admin">
-        <div class="card-footer">
-            <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
-            <button type="button" class="btn" style="color:orange;border:none" @onclick="@HandleGoldenStatusChange">
-                @if (!Item.GoldenProject)
-                {
-                    <EmptyStarSvg />
-                }
-                else
-                {
-                    <FilledStarSvg />
-                }
-            </button>
         </div>
-    </AuthorizeView> *@
+        <div class="card-body">
+            <p class="card-text">@Item.UserFirstName @Item.UserLastName</p>
+            <p class="card-text">@Item.Area</p>
+            <p class="card-text">@Item.ProjectName</p>
+        </div>
+        <AuthorizeView>
+            @if (isUserOwner)
+            {
+                <div class="card-footer">
+                    <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                </div>
+            }
+        </AuthorizeView>
+    </div>
 </div>
-
 
 <div class="modal fade" id="DeleteModal" tabindex="-1">
     <div class="modal-dialog">
@@ -79,14 +65,4 @@
     {
         await OnDelete.InvokeAsync(Item);
     }
-
-    // private async Task HandleGoldenStatusChange()
-    // {
-    //     Item.GoldenProject = !Item.GoldenProject;
-    //     OnGoldenChange.InvokeAsync(Item);
-    // }
-
-
-
-
 }

@@ -1,4 +1,5 @@
-﻿@using TCSA.V2.Models
+﻿@using TCSA.V2.Helpers
+@using TCSA.V2.Models
 @using TCSA.V2.Data
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Models.Forms
@@ -6,16 +7,17 @@
 
 <div class="form-group mt-2">
     <div class="row">
-        <div class="col">
+        <div class="col-sm-3">
             <CategoryList OnClickCallback="@GetAreaItems"
                           Areas="@Areas"
+                          SelectText="Select Area"
                           IsLightMode="@IsLightMode" />
         </div>
-        <div class="col">
+        <div class="col-sm-3">
             @if (ProjectSelections.Any())
             {
                 <select shadow rounded class="form-select" @bind="ProjectId">
-                    <option selected>Select Project</option>
+                    <option disabled selected>Select Project</option>
                     @foreach (var project in ProjectSelections)
                     {
                         var currentProject = project;
@@ -25,38 +27,61 @@
             }
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <textarea @bind="VideoUrl" class="form-control"></textarea>
+    <div class="row mt-1">
+        <div class="col-sm-6">
+            <input @bind="VideoUrl" class="form-control"></input>
+            @if (!string.IsNullOrEmpty(ValidationMessage))
+            {
+                <div class="text-danger mt-2">@ValidationMessage</div>
+            }
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-1">
         <div class="col">
-            <button class="btn btn-success" type="button" @onclick=SubmitProject>Submit</button>
+            <button class="btn btn-success" type="button" disabled="@IsSubmitDisabled" @onclick=SubmitProject>Submit</button>
         </div>
     </div>
 </div>
 
 
 @code {
-    private SubmitShowCaseItemForm Model { get; set; } = new();
-    private string VideoUrl { get; set; } = string.Empty;
+    [Inject] private IGalleryService _galleryService { get; set; }
     [Parameter] public EventCallback<ShowcaseItem> OnAddNewItem { get; set; } = new();
     [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
     [Parameter] public List<string> Areas { get; set; } = new();
-    [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; } 
-    [Parameter] public bool IsLightMode { get; set; } = new();
-    [Inject] private IGalleryService _galleryService { get; set; } 
+    [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    [Parameter] public bool IsLightMode { get; set; } = false;
 
-    private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
-    private string ProjectSelectMenuText = "Select Project";
-    private string AreaSelectMenuText = "Select Area";
-    private int ProjectId = 0;
+    private readonly List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
+
+    private string _videoUrl;
+    private string VideoUrl
+    {
+        get => _videoUrl;
+        set
+        {
+            _videoUrl = value;
+            ValidateForm();
+        }
+    }
+
+    private int _projectId;
+    private int ProjectId
+    {
+        get => _projectId;
+        set
+        {
+            _projectId = value;
+            ValidateForm(); 
+        }
+    }
+
+    private bool IsSubmitDisabled { get; set; } = true; 
+    private string ValidationMessage { get; set; }
+
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
-    Area selectedArea { get; set; }
-    ShowcaseProjectInfo selectedProject { get; set; }
-    private List<string> FormAreas { get; set; }
-    private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
+    private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -79,10 +104,26 @@
     private void SubmitProject()
     {
         _galleryService.AddItem(new ShowcaseItemDTO
+            {
+                ApplicationUserId = CurrentUser.Id,
+                ProjectId = ProjectId,
+                VideoUrl = VideoUrl
+            });
+    }
+
+    private void ValidateForm()
+    {
+        bool isUrlValid = GalleryHelpers.YouTubeUrlValidator(VideoUrl);
+
+        if (!isUrlValid)
         {
-            ApplicationUserId = CurrentUser.Id,
-            ProjectId = ProjectId,
-            VideoUrl = VideoUrl
-        });
+            ValidationMessage = "The URL is not a valid YouTube video link. Example of valid URL: 'https://www.youtube.com/watch?v=JJN5iZcUYtQ'";
+        }
+        else
+        {
+            ValidationMessage = string.Empty;
+        }
+
+        IsSubmitDisabled = !(ProjectId > 0 && isUrlValid);
     }
 }

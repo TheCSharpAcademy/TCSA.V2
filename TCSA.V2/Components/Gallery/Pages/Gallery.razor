@@ -12,50 +12,55 @@
 
 <div class="container mt-5 pt-3">
     <div class="row">
-        <div class="col-sm-2">
+        <div class="">
             <AuthorizeView>
-                <button 
-                    class="btn btn-outline-success d-none d-md-inline-block"
-                    @onclick="ToggleAddForm" 
-                    type="button">
+                <button class="btn btn-outline-success d-none d-md-inline-block"
+                        @onclick="ToggleAddForm"
+                        type="button">
                     @(isFormOpen ? "Back to Gallery" : "Add Project")
                 </button>
             </AuthorizeView>
         </div>
-         @if (!isFormOpen) {
-            <div class="col">
+    </div>
+    <div class="row">
+        @if (!isFormOpen)
+        {
+            <div class="col-sm-3">
                 <CategoryList OnClickCallback="@GetAreaItems"
+                              SelectText="Filter By Area"
                               Areas="@Areas"
                               IsLightMode="@IsLightMode" />
             </div>
-            <div class="col">
-                @if (ProjectSelections.Any())
-                {
+            @if (ProjectSelections.Any())
+            {
+                <div class="col-sm-3">
                     <select shadow rounded class="form-select" @onchange="HandleProjectSelection">
-                        <option selected>Select Project</option>
+                        <option selected>Filter By Project</option>
                         @foreach (var project in ProjectSelections)
                         {
                             var currentProject = project;
                             <option value="@project.Id">@project.Area - @project.Title</option>
                         }
                     </select>
-                }
-            </div>
-            <div class="col">
+                </div>
+            }
+            <div class="col-sm-3">
                 <div class="col">
-                    <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="User name" aria-label="Search" />
+                    <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="Search by Username" aria-label="Search" />
                 </div>
             </div>
-            }
+        }
     </div>
-    <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
+    @if (!isFormOpen)
+    {
+        <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
             @if (ItemsToShow.Any())
             {
                 foreach (var item in ItemsToShow)
                 {
                     var currentItem = item;
-                        <ShowcaseCard Item="@currentItem"
-                                      CurrentUserId="@CurrentUserId" />
+                    <ShowcaseCard Item="@currentItem"
+                                  CurrentUserId="@CurrentUserId" />
                 }
             }
             else
@@ -70,18 +75,17 @@
                 {
                     <h2>No content...</h2>
                 }
-            }         
- </div>
-
+            }
+        </div>
+    }
     <AuthorizeView>
         @if (User is not null && isFormOpen)
         {
             <div class="d-flex row flex-wrap">
-                <ShowcaseItemForm 
-                    CurrentUser="User" 
-                    Areas="@Areas" 
-                    Projects="@Projects" 
-                    IsLightMode=@IsLightMode />
+                <ShowcaseItemForm CurrentUser="User"
+                                  Areas="@Areas"
+                                  Projects="@Projects"
+                                  IsLightMode=@IsLightMode />
 
             </div>
         }
@@ -134,15 +138,15 @@
 
         AllItems = await _galleryService.GetItems();
         ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
-        {
-            ApplicationUserId = x.AppUserId.ToString(),
-            ProjectId = x.ProjectId,
-            Username = string.IsNullOrEmpty(x.ApplicationUser.FirstName) ? x.ApplicationUser.UserName : $"{x.ApplicationUser.FirstName} {x.ApplicationUser.LastName}",
-            Area = Projects.First(y => y.Id == x.ProjectId).Area,
-            VideoUrl = x.VideoUrl,
-            ProjectName = Projects.First(y => y.Id == x.ProjectId).Title
+            {
+                ApplicationUserId = x.AppUserId.ToString(),
+                ProjectId = x.ProjectId,
+                Username = string.IsNullOrEmpty(x.ApplicationUser.FirstName) ? x.ApplicationUser.UserName : $"{x.ApplicationUser.FirstName} {x.ApplicationUser.LastName}",
+                Area = Projects.First(y => y.Id == x.ProjectId).Area,
+                VideoUrl = x.VideoUrl,
+                ProjectName = Projects.First(y => y.Id == x.ProjectId).Title
 
-        }).ToList();
+            }).ToList();
         ItemsToShowCache = ItemsToShow;
         isLoading = false;
     }
@@ -208,18 +212,6 @@
     {
         int selectedProject = int.Parse(e.Value.ToString());
         ItemsToShow = ItemsToShowCache;
-        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();      
+        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
     }
-
-    // private async Task HandleGoldenChange(ShowcaseItem updateItem)
-    // {
-    //     try
-    //     {
-    //         await _galleryService.UpdateItem(updateItem);
-    //     }
-    //     catch
-    //     {
-    //         return;
-    //     }
-    // }
 }

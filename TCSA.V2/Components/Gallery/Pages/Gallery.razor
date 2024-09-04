@@ -60,7 +60,8 @@
                 {
                     var currentItem = item;
                     <ShowcaseCard Item="@currentItem"
-                                  CurrentUserId="@CurrentUserId" />
+                                  CurrentUserId="@CurrentUserId"
+                                  OnDelete=@(() => HandleDelete(item))/>
                 }
             }
             else
@@ -139,6 +140,7 @@
         AllItems = await _galleryService.GetItems();
         ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
             {
+                Id = x.Id,
                 ApplicationUserId = x.AppUserId.ToString(),
                 ProjectId = x.ProjectId,
                 Username = string.IsNullOrEmpty(x.ApplicationUser.FirstName) ? x.ApplicationUser.UserName : $"{x.ApplicationUser.FirstName} {x.ApplicationUser.LastName}",
@@ -190,21 +192,9 @@
 
     private void ToggleAddForm() => isFormOpen = !isFormOpen;
 
-    private async Task HandleDelete(ShowcaseItem itemToDelete)
+    private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
-        try
-        {
-            await _galleryService.DeleteItem(itemToDelete);
-            AllItems = AllItems.Where(i => i != itemToDelete);
-            ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
-                {
-                    ApplicationUserId = x.AppUserId.ToString()
-                }).ToList();
-        }
-        catch
-        {
-            return;
-        }
+         await _galleryService.DeleteItem(itemToDelete);
     }
 
     private void HandleProjectSelection(ChangeEventArgs e)

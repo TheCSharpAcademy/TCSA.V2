@@ -9,8 +9,7 @@ public interface IGalleryService
 {
     Task<IEnumerable<ShowcaseItem>> GetItems();
     Task AddItem(ShowcaseItemDTO newItem);
-    Task DeleteItem(ShowcaseItem itemToDelete);
-    Task UpdateItem(ShowcaseItem itemToUpdate);
+    Task DeleteItem(ShowcaseItemDTO itemToDelete);
 }
 
 public class GalleryService : IGalleryService
@@ -64,18 +63,17 @@ public class GalleryService : IGalleryService
         }
     }
 
-    public async Task DeleteItem(ShowcaseItem itemToDelete)
+    public async Task DeleteItem(ShowcaseItemDTO itemToDelete)
     {
-        using var context = _factory.CreateDbContext();
-        context.ShowcaseItems.Remove(itemToDelete);
-        await context.SaveChangesAsync();
+        try
+        {
+            using var context = _factory.CreateDbContext();
+            context.ShowcaseItems.Remove(new ShowcaseItem { Id = itemToDelete.Id });
+            await context.SaveChangesAsync();
+        } 
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
-
-    public async Task UpdateItem(ShowcaseItem itemToUpdate)
-    {
-        using var context = _factory.CreateDbContext();
-        context.ShowcaseItems.Update(itemToUpdate);
-        await context.SaveChangesAsync();
-    }
-
 }

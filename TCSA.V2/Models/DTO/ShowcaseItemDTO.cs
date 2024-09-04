@@ -2,6 +2,7 @@
 
 public class ShowcaseItemDTO
 {
+    public string Id { get; set; }
     public string ApplicationUserId { get; set; }
     public int ProjectId { get; set; }
     public string ProjectName { get; set; }

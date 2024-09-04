@@ -17,7 +17,7 @@
                 <AuthorizeView>
                     @if (isUserOwner)
                     {
-                            <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                            <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
                     }
                 </AuthorizeView>
             </div>
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-academy" style="color:rebeccapurple;border:none" @onclick="@HandleDelete" data-bs-dismiss="modal">Confirm delete</button>
+                    <button type="button" class="btn btn-success btn-academy" @onclick="@HandleDelete" data-bs-dismiss="modal">Confirm delete</button>
                 </div>
             </div>
         </div>
@@ -96,4 +96,4 @@
         margin-top: -10px;
         margin-bottom: 5px;
     }
- </style>
+</style>

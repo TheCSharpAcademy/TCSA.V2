@@ -12,7 +12,7 @@ public interface ILeaderboardService
 {
     Task<int> GetUserRanking(string userId);
     Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard(int pageNumber);
-    Task<List<AppUserForLeaderboard>> GetUserForReviewLeaderboard();
+    Task<List<AppUserForReviewLeaderboard>> GetUserForReviewLeaderboard();
     Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard();
 }
 public class LeaderboardService : ILeaderboardService
@@ -60,56 +60,65 @@ public class LeaderboardService : ILeaderboardService
         }
     }
 
-    public async Task<List<AppUserForLeaderboard>> GetUserForReviewLeaderboard()
+    public async Task<List<AppUserForReviewLeaderboard>> GetUserForReviewLeaderboard()
     {
         var users = new List<ApplicationUser>();
-        var result = new List<AppUserForLeaderboard>();
-        var index = 0;
+        var result = new List<AppUserForReviewLeaderboard>();
+        var index = 1;
 
         try
         {
             using (var context = _factory.CreateDbContext())
             {
                 users = await context.Users
-                .Where(x => x.CodeReviewProjects != null || x.CodeReviewProjects.Count > 0)
                 .ToListAsync();
 
                 foreach (ApplicationUser user in users)
                 {
-                    if (user.ReviewExperiencePoints is null || user.ReviewExperiencePoints == 0)
+                    var reviewedProjects = await context.UserActivity
+                    .Where(x => x.AppUserId.ToString() == user.Id && x.ActivityType == ActivityType.CodeReviewCompleted)
+                    .ToListAsync();
+
+                    if (user.ReviewExperiencePoints == 0 && reviewedProjects.Count > 0)
                     {
-                        foreach (UserReview review in user.CodeReviewProjects!)
+                        //This has to be retroactive, so if some user has reviews but no points, it will calculate them first.
+                        //The biggest load would be the first time doing this, and subsequent queries to the leaderboard will be fast.
+                        foreach (AppUserActivity review in reviewedProjects)
                         {
-                            var dashboardProject = await context.DashboardProjects.FirstOrDefaultAsync(x => x.Id == review.DashboardProjectId);
+                            var reviewAcademyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == review.ProjectId);
 
-                            var academyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
-
-                            user.ReviewExperiencePoints = user.ReviewExperiencePoints + academyProject.ExperiencePoints;
+                            user.ReviewExperiencePoints = user.ReviewExperiencePoints + reviewAcademyProject.ExperiencePoints;
                         }
 
                             context.Users
                            .Where(x => x.Id == user.Id)
                            .ExecuteUpdate(y => y.SetProperty(u => u.ReviewExperiencePoints, user.ExperiencePoints));
 
+                        context.Users
+                           .Where(x => x.Id == user.Id)
+                           .ExecuteUpdate(y => y.SetProperty(u => u.ReviewdProjects, reviewedProjects.Count));
+
                         await context.SaveChangesAsync();
                     }
 
-                    var userForLeaderboard = new AppUserForLeaderboard
+                    var userForLeaderboard = new AppUserForReviewLeaderboard
                     {
                         Id = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
-                        Country = user.Country,
-                        Level = user.Level,
                         DisplayName = user.DisplayName,
-                        ExperiencePoints = user.ExperiencePoints,
-                        Ranking = index
+                        TotalXp = user.ReviewExperiencePoints,
+                        ReviewsNumber = reviewedProjects.Count,
                     };
 
-                    userForLeaderboard.GithubUsername = user.GithubUsername ?? string.Empty;
-                    userForLeaderboard.LinkedInUrl = user.LinkedInUrl ?? string.Empty;
-
                     result.Add(userForLeaderboard);
+                }
+
+                result = result.OrderByDescending(x => x.TotalXp).ToList();
+                foreach (var user in result)
+                {
+                    user.Ranking = index;
+                    index++;
                 }
 
                 return result;

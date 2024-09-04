@@ -55,6 +55,7 @@ public enum Area
     MonthlyChallenge,
     SQL,
     Auth,
-    GraduationProject
+    GraduationProject,
+    FreestyleProject
 }
 

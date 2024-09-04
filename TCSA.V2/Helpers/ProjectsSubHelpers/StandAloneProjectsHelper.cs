@@ -184,7 +184,7 @@ internal static class StandAloneProjectsHelper
                 LanguageHeadings = new EnglishHeadings(),
                 ExperiencePoints = 10,
                 Description = "Have an idea? Create whatever you want!",
-                Area = Area.GraduationProject,
+                Area = Area.FreestyleProject,
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

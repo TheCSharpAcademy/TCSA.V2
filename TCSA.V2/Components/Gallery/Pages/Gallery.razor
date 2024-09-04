@@ -11,10 +11,10 @@
 @using System.Linq;
 
 <div class="container mt-5 pt-3">
-    <div class="row">
-        <div class="">
+    <div class="row mb-1">
+        <div class="col">
             <AuthorizeView>
-                <button class="btn btn-outline-success d-none d-md-inline-block"
+                <button class="btn btn-success d-none d-md-inline-block btn-academy"
                         @onclick="ToggleAddForm"
                         type="button">
                     @(isFormOpen ? "Back to Gallery" : "Add Project")
@@ -94,11 +94,11 @@
 
 
 @code {
-    [Parameter]
-    public bool IsLightMode { get; set; }
+
+    [Parameter] public bool IsLightMode { get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
-    [Inject] private IUserService UserService { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private IUserService UserService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private IGalleryService _galleryService { get; set; }
 
@@ -206,7 +206,6 @@
             return;
         }
     }
-
 
     private void HandleProjectSelection(ChangeEventArgs e)
     {

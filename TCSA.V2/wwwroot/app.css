@@ -163,6 +163,30 @@ h1:focus {
     font-weight: 600;
 }
 
+.btn-academy {
+    background-color: #1C236D;
+}
+
+    .btn-academy:hover {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:active {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:visited {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:focus {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:disabled {
+        background-color: #1C236D;
+    }
+
 @media (max-width: 992px) {
     .public-leaderboard-table {
         margin-top: 50px !important;

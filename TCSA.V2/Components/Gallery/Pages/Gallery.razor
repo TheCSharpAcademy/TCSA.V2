@@ -97,7 +97,7 @@
             <div class="d-flex row flex-wrap">
                 <ShowcaseItemForm CurrentUser="User"
                                   Areas="@Areas"
-                                  Projects="@Projects.Where(x => CompletedProjects.Contains(x.Id))"
+                                  Projects="@Projects.Where(x => CompletedProjectsNotShowcased.Contains(x.Id))"
                                   IsLightMode=@IsLightMode
                                   OnAddNewItem="HandleAddNewItem"/>
 
@@ -126,7 +126,9 @@
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
-    private List<int> CompletedProjects { get; set; } = new();
+    private List<int> CompletedProjectIds { get; set; } = new();
+    private List<int> ShowCaseProjectIds { get; set; } = new();
+    private List<int> CompletedProjectsNotShowcased { get; set; } = new();
 
     private bool isLoading = true;
     private string CurrentUserId = "none";
@@ -153,12 +155,15 @@
             CurrentUserId = User.Id;
         }
 
-        CompletedProjects = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
-
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
 
         ItemsToShow = await _galleryService.GetItems();
         ItemsToShowCache = ItemsToShow;
+
+        CompletedProjectIds = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
+        ShowCaseProjectIds = ItemsToShow.Where(x => x.ApplicationUserId == UserId).Select(x => x.ProjectId).ToList();
+        CompletedProjectsNotShowcased = CompletedProjectIds.Except(ShowCaseProjectIds).ToList();
+
         isLoading = false;
     }
 
@@ -210,6 +215,7 @@
             ResultMessage = "Item deleted successfully.";
             ResultCardStatus = true;
             ItemsToShow.Remove(itemToDelete);
+            CompletedProjectsNotShowcased.Add(itemToDelete.ProjectId);
         }
         else
         {
@@ -244,6 +250,7 @@
                 : $"{User.FirstName} {User.LastName}";
 
                 ItemsToShow.Add(newItem);
+                CompletedProjectsNotShowcased.Remove(newItem.ProjectId);
             }
         }
         else

@@ -12,7 +12,7 @@
 @using System.Security.Claims;
 @using System.Linq;
 
-<div class="container mt-5 pt-3">
+<div class="container container-gallery mt-5 pt-3">
     @if (IsResultCardShowing)
     {
         <CloseButtonSVG OnClickCallback="@DismissResultCard" />
@@ -20,12 +20,12 @@
                     IsSuccess="@ResultCardStatus" />
     }
     
-    <div class="row mb-1">
+    <div class="row b-1">
         <div class="col">
             @if(User != null && User.DashboardProjects.Any(x => x.IsCompleted))
             {
                 <AuthorizeView>
-                    <button class="btn btn-success d-none d-md-inline-block btn-academy"
+                    <button class="btn btn-success d-md-inline-block btn-academy"
                             @onclick="ToggleAddForm"
                             type="button">
                         @(isFormOpen ? "Back to Gallery" : "Add Project")
@@ -153,16 +153,15 @@
         if (User is not null)
         {
             CurrentUserId = User.Id;
+            CompletedProjectIds = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
+            ShowCaseProjectIds = ItemsToShow.Where(x => x.ApplicationUserId == UserId).Select(x => x.ProjectId).ToList();
+            CompletedProjectsNotShowcased = CompletedProjectIds.Except(ShowCaseProjectIds).ToList();
         }
 
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
 
         ItemsToShow = await _galleryService.GetItems();
         ItemsToShowCache = ItemsToShow;
-
-        CompletedProjectIds = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
-        ShowCaseProjectIds = ItemsToShow.Where(x => x.ApplicationUserId == UserId).Select(x => x.ProjectId).ToList();
-        CompletedProjectsNotShowcased = CompletedProjectIds.Except(ShowCaseProjectIds).ToList();
 
         isLoading = false;
     }

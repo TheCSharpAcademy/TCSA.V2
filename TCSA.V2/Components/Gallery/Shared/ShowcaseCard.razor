@@ -12,10 +12,10 @@
                 <p class="card-text showcaseitem-project">@Item.ProjectName</p>
                 <p class="card-text showcaseitem-area">@Item.Area</p>
             </div>
-            <div class="showcaseitem-metadata d-flex w-100 @(!isUserOwner ? "showcaseitem-correct-margin" : "")">
+            <div class="showcaseitem-metadata d-flex w-100">
                 <p class="card-text showcaseitem-username">@Item.Username</p>
             </div>
-            <div class="d-flex">
+            <div class="d-flex showcasecard-buttons">
                 <AuthorizeView>
                     @if (isUserOwner)
                     {
@@ -75,10 +75,6 @@
 }
 
 <style>
-    .showcaseitem-correct-margin {
-        margin-bottom: 7px !important;
-    }
-
     .showcaseitem-username {
         font-weight: 600;
     }
@@ -102,10 +98,15 @@
     }
 
     .showcaseitem-delete-button {
+        margin-left: -12px;
         margin-top: 10px;
     }
 
     .showcaseitem-delete {
         margin-top: 15px;
+    }
+
+    .showcasecard-buttons {
+        margin-top: 5px;
     }
 </style>

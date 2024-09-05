@@ -188,6 +188,10 @@ h1:focus {
     }
 
 @media (max-width: 992px) {
+    .container-gallery {
+        padding-top: 100px !important;
+    }
+
     .public-leaderboard-table {
         margin-top: 50px !important;
         margin-left: -20px;

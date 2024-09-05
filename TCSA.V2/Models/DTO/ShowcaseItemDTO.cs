@@ -10,4 +10,5 @@ public class ShowcaseItemDTO
     public string Username { get; set; }
     public Area Area { get; set; }
     public string VideoUrl { get; set; }
+    public string GithubUrl { get; set; }
 }

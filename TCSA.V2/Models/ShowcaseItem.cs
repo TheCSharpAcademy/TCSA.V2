@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TCSA.V2.Data;
+﻿using TCSA.V2.Data;
 namespace TCSA.V2.Models;
 
 public class ShowcaseItem
@@ -11,5 +10,6 @@ public class ShowcaseItem
     public DashboardProject DashboardProject { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.Now;
     public string VideoUrl { get; set; }
+    public string GithubUrl { get; set; }
 }
 

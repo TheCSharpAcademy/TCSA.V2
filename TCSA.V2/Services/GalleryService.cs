@@ -59,7 +59,8 @@ public class GalleryService : IGalleryService
         {
             DashboardProjectId = newItem.DashboardProjectId,
             AppUserId = newItem.ApplicationUserId,
-            VideoUrl = newItem.VideoUrl
+            VideoUrl = newItem.VideoUrl,
+            GithubUrl = newItem.GithubUrl,
         };
 
         try

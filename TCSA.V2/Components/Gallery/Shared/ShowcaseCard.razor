@@ -12,14 +12,19 @@
                 <p class="card-text showcaseitem-project">@Item.ProjectName</p>
                 <p class="card-text showcaseitem-area">@Item.Area</p>
             </div>
-            <div class="showcaseitem-metadata d-flex justify-content-between w-100 @(!isUserOwner ? "showcaseitem-correct-margin" : "")">
+            <div class="showcaseitem-metadata d-flex w-100 @(!isUserOwner ? "showcaseitem-correct-margin" : "")">
                 <p class="card-text showcaseitem-username">@Item.Username</p>
+            </div>
+            <div class="d-flex">
                 <AuthorizeView>
                     @if (isUserOwner)
                     {
-                            <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                        <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
                     }
                 </AuthorizeView>
+                <a target="_blank" class="showcaseitem-github-button" href=@Item.GithubUrl>
+                    <GithubSVGForCard />
+                </a>
             </div>
         </div>
     </div>
@@ -92,8 +97,15 @@
         margin-bottom: -10px;
     }
 
+    .showcaseitem-github-button {
+        margin-top: 15px;
+    }
+
     .showcaseitem-delete-button {
-        margin-top: -10px;
-        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+
+    .showcaseitem-delete {
+        margin-top: 15px;
     }
 </style>

@@ -6,37 +6,42 @@
 @using TCSA.V2.Models.Responses
 @using TCSA.V2.Services
 
-<div class="form-group mt-2">
-    <div class="row">
-        <div class="col-sm-3">
-                <select shadow rounded class="form-select" @bind="ProjectId">
-                    <option disabled selected>Select Project</option>
-                    @foreach (var project in Projects)
-                    {
-                        var currentProject = project;
-                        <option value="@project.Id">@project.Area - @project.Title</option>
-                    }
-                </select>
-        </div>
+<EditForm Model="@Model" OnValidSubmit="SubmitProject" FormName="SubmitShowCaseItemForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputSelect shadow rounded @bind-Value="Model.ProjectId" class="form-select w-50">
+        <option disabled value="0" selected>Select Project</option>
+        @foreach (var project in Projects)
+        {
+            <option value="@project.Id">@project.Area - @project.Title</option>
+        }
+    </InputSelect>
+    <div class="form-floating mt-1">
+        <InputText id="videourl" class="form-control w-50" @bind-Value="Model.VideoUrl" />
+        <label for="githubUrl">Pull Request Url</label>
     </div>
-    <div class="row mt-1">
-        <div class="col-sm-6">
-            <input @bind="VideoUrl" class="form-control"></input>
-            @if (!string.IsNullOrEmpty(ValidationMessage))
-            {
-                <div class="text-danger mt-2">@ValidationMessage</div>
-            }
-        </div>
+    <div class="form-floating mt-1">
+        <InputText id="githubUrl" class="form-control w-50" @bind-Value="Model.GithubUrl" />
+        <label for="githubUrl">Github Url</label>
     </div>
-    <div class="row mt-1">
-        <div class="col">
-            <button class="btn btn-success btn-academy" type="button" disabled="@IsSubmitDisabled" @onclick=SubmitProject>Submit</button>
+    <button class="btn btn-success btn-academy mt-1" type="submit">Submit</button>
+@* 
+    @if (IsSubmitting)
+    {
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
-    </div>
-</div>
+    }
+    else
+    {
+        <button class="btn btn-outline-secondary mt-1" type="submit">Update GitHubUrl</button>
+    } *@
+
+</EditForm>
 
 
 @code {
+    [SupplyParameterFromForm] public SubmitShowCaseItemForm Model { get; set; } = new();
     [Inject] private IGalleryService _galleryService { get; set; }
     [Parameter] public EventCallback<BaseResponse> OnAddNewItem { get; set; } = new();
     [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
@@ -46,83 +51,22 @@
 
     private readonly List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
 
-    private string _videoUrl;
-    private string VideoUrl
-    {
-        get => _videoUrl;
-        set
-        {
-            _videoUrl = value;
-            ValidateForm();
-        }
-    }
-
-    private int _projectId;
-    private int ProjectId
-    {
-        get => _projectId;
-        set
-        {
-            _projectId = value;
-            ValidateForm(); 
-        }
-    }
-
     private bool IsSubmitDisabled { get; set; } = true; 
     private string ValidationMessage { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
 
     private async Task SubmitProject()
     {
         var newItem = new ShowcaseItemDTO
             {
                 ApplicationUserId = CurrentUser.Id,
-                DashboardProjectId = CurrentUser.DashboardProjects.First(x => x.ProjectId == ProjectId).Id,
-                ProjectId = ProjectId,
-                VideoUrl = GalleryHelpers.GalleryVideoUrlFormatter(VideoUrl)
+                DashboardProjectId = CurrentUser.DashboardProjects.First(x => x.ProjectId == Model.ProjectId).Id,
+                ProjectId = Model.ProjectId,
+                VideoUrl = GalleryHelpers.GalleryVideoUrlFormatter(Model.VideoUrl),
+                GithubUrl = Model.GithubUrl
             };
 
         var response = await _galleryService.AddItem(newItem);
 
         await OnAddNewItem.InvokeAsync(response);
-
-        ResetForm();
-    }
-
-    private void ResetForm()
-    {
-        ProjectId = 0;
-        VideoUrl = string.Empty;
-        ValidationMessage = string.Empty;
-        IsSubmitDisabled = true;
-    }
-
-    private void ValidateForm()
-    {
-        if(string.IsNullOrEmpty(VideoUrl))
-        {
-            ValidationMessage = "Video URL can't be empty. Example of valid URL: 'https://www.youtube.com/watch?v=JJN5iZcUYtQ'";
-
-            IsSubmitDisabled = true;
-        } 
-        else
-        {
-            bool isUrlValid = GalleryHelpers.YouTubeUrlValidator(VideoUrl);
-
-            if (!isUrlValid)
-            {
-                ValidationMessage = "The URL is not a valid YouTube video link. Example of valid URL: 'https://www.youtube.com/watch?v=JJN5iZcUYtQ'";
-            }
-            else
-            {
-                ValidationMessage = string.Empty;
-            }
-
-            IsSubmitDisabled = !(ProjectId > 0 && isUrlValid);
-        }
     }
 }

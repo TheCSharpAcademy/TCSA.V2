@@ -66,6 +66,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .WithMany(au => au.ShowcaseItems) 
             .HasForeignKey(si => si.AppUserId);
 
+        modelBuilder.Entity<ShowcaseItem>()
+            .HasOne(si => si.DashboardProject)
+            .WithOne()
+            .HasForeignKey<ShowcaseItem>(si => si.DashboardProjectId);
+
         //modelBuilder.Entity<Challenge>().HasData(
         //    new Challenge
         //    {

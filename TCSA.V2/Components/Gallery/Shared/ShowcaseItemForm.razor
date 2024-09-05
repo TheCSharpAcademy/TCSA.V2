@@ -3,28 +3,20 @@
 @using TCSA.V2.Data
 @using TCSA.V2.Models.DTO
 @using TCSA.V2.Models.Forms
+@using TCSA.V2.Models.Responses
 @using TCSA.V2.Services
 
 <div class="form-group mt-2">
     <div class="row">
         <div class="col-sm-3">
-            <CategoryList OnClickCallback="@GetAreaItems"
-                          Areas="@Areas"
-                          SelectText="Select Area"
-                          IsLightMode="@IsLightMode" />
-        </div>
-        <div class="col-sm-3">
-            @if (ProjectSelections.Any())
-            {
                 <select shadow rounded class="form-select" @bind="ProjectId">
                     <option disabled selected>Select Project</option>
-                    @foreach (var project in ProjectSelections)
+                    @foreach (var project in Projects)
                     {
                         var currentProject = project;
                         <option value="@project.Id">@project.Area - @project.Title</option>
                     }
                 </select>
-            }
         </div>
     </div>
     <div class="row mt-1">
@@ -46,7 +38,7 @@
 
 @code {
     [Inject] private IGalleryService _galleryService { get; set; }
-    [Parameter] public EventCallback<ShowcaseItem> OnAddNewItem { get; set; } = new();
+    [Parameter] public EventCallback<BaseResponse> OnAddNewItem { get; set; } = new();
     [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
     [Parameter] public List<string> Areas { get; set; } = new();
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
@@ -79,51 +71,58 @@
     private bool IsSubmitDisabled { get; set; } = true; 
     private string ValidationMessage { get; set; }
 
-    private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
-    private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
-
-
     protected override async Task OnInitializedAsync()
     {
-        Areas = EnumAreas.Except(ProjectlessAreas).ToList();
+
     }
 
-    private void GetAreaItems(string area)
+    private async Task SubmitProject()
     {
-        if (area == "All")
-        {
-            ProjectSelections = [];
-        }
-        else
-        {
-            var areaEnum = Enum.Parse<Area>(area);
-            ProjectSelections = Projects.Where(project => project.Area == areaEnum).ToList();
-        }
-    }
-
-    private void SubmitProject()
-    {
-        _galleryService.AddItem(new ShowcaseItemDTO
+        var newItem = new ShowcaseItemDTO
             {
                 ApplicationUserId = CurrentUser.Id,
+                DashboardProjectId = CurrentUser.DashboardProjects.First(x => x.ProjectId == ProjectId).Id,
                 ProjectId = ProjectId,
-                VideoUrl = VideoUrl
-            });
+                VideoUrl = GalleryHelpers.GalleryVideoUrlFormatter(VideoUrl)
+            };
+
+        var response = await _galleryService.AddItem(newItem);
+
+        await OnAddNewItem.InvokeAsync(response);
+
+        ResetForm();
+    }
+
+    private void ResetForm()
+    {
+        ProjectId = 0;
+        VideoUrl = string.Empty;
+        ValidationMessage = string.Empty;
+        IsSubmitDisabled = true;
     }
 
     private void ValidateForm()
     {
-        bool isUrlValid = GalleryHelpers.YouTubeUrlValidator(VideoUrl);
-
-        if (!isUrlValid)
+        if(string.IsNullOrEmpty(VideoUrl))
         {
-            ValidationMessage = "The URL is not a valid YouTube video link. Example of valid URL: 'https://www.youtube.com/watch?v=JJN5iZcUYtQ'";
-        }
+            ValidationMessage = "Video URL can't be empty. Example of valid URL: 'https://www.youtube.com/watch?v=JJN5iZcUYtQ'";
+
+            IsSubmitDisabled = true;
+        } 
         else
         {
-            ValidationMessage = string.Empty;
-        }
+            bool isUrlValid = GalleryHelpers.YouTubeUrlValidator(VideoUrl);
 
-        IsSubmitDisabled = !(ProjectId > 0 && isUrlValid);
+            if (!isUrlValid)
+            {
+                ValidationMessage = "The URL is not a valid YouTube video link. Example of valid URL: 'https://www.youtube.com/watch?v=JJN5iZcUYtQ'";
+            }
+            else
+            {
+                ValidationMessage = string.Empty;
+            }
+
+            IsSubmitDisabled = !(ProjectId > 0 && isUrlValid);
+        }
     }
 }

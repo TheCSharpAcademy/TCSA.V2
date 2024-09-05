@@ -1,25 +1,37 @@
 ﻿@page "/gallery/{IsLightMode:bool}"
 @rendermode InteractiveServer
 @using TCSA.V2.Components.Gallery.Shared
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.DTO
+@using TCSA.V2.Models.Responses
 @using TCSA.V2.Services
 @using System.Security.Claims;
 @using System.Linq;
 
 <div class="container mt-5 pt-3">
+    @if (IsResultCardShowing)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissResultCard" />
+        <ResultCard Message="@ResultMessage"
+                    IsSuccess="@ResultCardStatus" />
+    }
+    
     <div class="row mb-1">
         <div class="col">
-            <AuthorizeView>
-                <button class="btn btn-success d-none d-md-inline-block btn-academy"
-                        @onclick="ToggleAddForm"
-                        type="button">
-                    @(isFormOpen ? "Back to Gallery" : "Add Project")
-                </button>
-            </AuthorizeView>
+            @if(User != null && User.DashboardProjects.Any(x => x.IsCompleted))
+            {
+                <AuthorizeView>
+                    <button class="btn btn-success d-none d-md-inline-block btn-academy"
+                            @onclick="ToggleAddForm"
+                            type="button">
+                        @(isFormOpen ? "Back to Gallery" : "Add Project")
+                    </button>
+                </AuthorizeView>
+            }
         </div>
     </div>
     <div class="row">
@@ -85,17 +97,16 @@
             <div class="d-flex row flex-wrap">
                 <ShowcaseItemForm CurrentUser="User"
                                   Areas="@Areas"
-                                  Projects="@Projects"
-                                  IsLightMode=@IsLightMode />
+                                  Projects="@Projects.Where(x => CompletedProjects.Contains(x.Id))"
+                                  IsLightMode=@IsLightMode
+                                  OnAddNewItem="HandleAddNewItem"/>
 
             </div>
         }
     </AuthorizeView>
 </div>
 
-
 @code {
-
     [Parameter] public bool IsLightMode { get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
@@ -106,13 +117,17 @@
     private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
     private List<string> Areas { get; set; }
+
     private ApplicationUser User;
     private string UserId;
+
     private IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
+    private List<int> CompletedProjects { get; set; } = new();
+
     private bool isLoading = true;
     private string CurrentUserId = "none";
     private string loadingContainer = "container text-center";
@@ -120,6 +135,9 @@
     private string searchText = string.Empty;
     private object Search = new() { };
     private bool isFormOpen;
+    private string ResultMessage;
+    private bool ResultCardStatus;
+    private bool IsResultCardShowing = false;
 
     protected async override Task OnInitializedAsync()
     {
@@ -135,20 +153,11 @@
             CurrentUserId = User.Id;
         }
 
+        CompletedProjects = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
+
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
 
-        AllItems = await _galleryService.GetItems();
-        ItemsToShow = AllItems.Select(x => new ShowcaseItemDTO
-            {
-                Id = x.Id,
-                ApplicationUserId = x.AppUserId.ToString(),
-                ProjectId = x.ProjectId,
-                Username = string.IsNullOrEmpty(x.ApplicationUser.FirstName) ? x.ApplicationUser.UserName : $"{x.ApplicationUser.FirstName} {x.ApplicationUser.LastName}",
-                Area = Projects.First(y => y.Id == x.ProjectId).Area,
-                VideoUrl = x.VideoUrl,
-                ProjectName = Projects.First(y => y.Id == x.ProjectId).Title
-
-            }).ToList();
+        ItemsToShow = await _galleryService.GetItems();
         ItemsToShowCache = ItemsToShow;
         isLoading = false;
     }
@@ -194,7 +203,20 @@
 
     private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
-         await _galleryService.DeleteItem(itemToDelete);
+        var result = await _galleryService.DeleteItem(itemToDelete);
+
+        if (result.Status == Models.Responses.ResponseStatus.Success)
+        {
+            ResultMessage = "Item deleted successfully.";
+            ResultCardStatus = true;
+            ItemsToShow.Remove(itemToDelete);
+        }
+        else
+        {
+            ResultMessage = "Failed to delete the item.";
+            ResultCardStatus = false;
+        }
+        IsResultCardShowing = true;
     }
 
     private void HandleProjectSelection(ChangeEventArgs e)
@@ -202,5 +224,36 @@
         int selectedProject = int.Parse(e.Value.ToString());
         ItemsToShow = ItemsToShowCache;
         ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
+    }
+
+    private void DismissResultCard() => IsResultCardShowing = false;
+
+    private async Task HandleAddNewItem(BaseResponse response)
+    {
+        if (response.Status == ResponseStatus.Success)
+        {
+            ResultMessage = "Project added successfully!";
+            ResultCardStatus = true; 
+
+            if (response.Data is ShowcaseItemDTO newItem)
+            {
+                newItem.ProjectName = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Title;
+                newItem.Area = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Area;
+                newItem.Username = string.IsNullOrEmpty(User.FirstName)
+                ? User.UserName
+                : $"{User.FirstName} {User.LastName}";
+
+                ItemsToShow.Add(newItem);
+            }
+        }
+        else
+        {
+            ResultMessage = $"Failed to add project: {response.Message}";
+            ResultCardStatus = false; 
+        }
+
+        IsResultCardShowing = true;
+
+        isFormOpen = false;
     }
 }

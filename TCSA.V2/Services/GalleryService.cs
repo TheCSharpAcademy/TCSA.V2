@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TCSA.V2.Data;
+using TCSA.V2.Helpers;
 using TCSA.V2.Models;
+using TCSA.V2.Models.DTO;
+using TCSA.V2.Models.Responses;
 
 namespace TCSA.V2.Services;
 
 public interface IGalleryService
 {
-    Task<IEnumerable<ShowcaseItem>> GetItems();
-    Task<ShowcaseItem> AddItem(ShowcaseItem newItem);
-    Task DeleteItem(ShowcaseItem itemToDelete);
-    Task UpdateItem(ShowcaseItem itemToUpdate);
+    Task<List<ShowcaseItemDTO>> GetItems();
+    Task<BaseResponse> AddItem(ShowcaseItemDTO newItem);
+    Task<BaseResponse> DeleteItem(ShowcaseItemDTO itemToDelete);
 }
 
 public class GalleryService : IGalleryService
@@ -23,42 +25,102 @@ public class GalleryService : IGalleryService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<ShowcaseItem>> GetItems()
+    public async Task<List<ShowcaseItemDTO>> GetItems()
     {
-
         using var context = _factory.CreateDbContext();
         try
         {
-            return await context.ShowcaseItems.AsNoTracking().OrderByDescending(i => i.GoldenProject).ToListAsync();
+            var items = await context.ShowcaseItems
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.DashboardProject)
+                .AsNoTracking()
+                .OrderByDescending(i => i.DateCreated)
+                .ToListAsync();
+
+            return items.Select(x => GalleryHelpers.ConvertToDTO(x)).ToList();
         }
-        catch
+        catch (Exception ex) 
         {
-            return [];
+            Console.WriteLine(ex.ToString());
+            return null;
         }
 
     }
 
-    public async Task<ShowcaseItem> AddItem(ShowcaseItem newItem)
+    public async Task<BaseResponse> AddItem(ShowcaseItemDTO newItem)
     {
+        var response = new BaseResponse
+        {
+            Status = ResponseStatus.Success,
+            Message = "Item added successfully"
+        };
 
-        using var context = _factory.CreateDbContext();
-        await context.ShowcaseItems.AddAsync(newItem);
-        await context.SaveChangesAsync();
-        return newItem;
+        var showcaseItem = new ShowcaseItem
+        {
+            DashboardProjectId = newItem.DashboardProjectId,
+            AppUserId = newItem.ApplicationUserId,
+            VideoUrl = newItem.VideoUrl,
+            GithubUrl = newItem.GithubUrl,
+        };
+
+        try
+        {
+            using var context = _factory.CreateDbContext();
+            await context.ShowcaseItems.AddAsync(showcaseItem);
+            var result = await context.SaveChangesAsync();
+
+            if (result == 0) 
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Message = "Item could not be added (no changes made).";
+            }
+
+            newItem.Id = showcaseItem.Id;
+            response.Data = newItem;
+        }
+        catch (Exception ex)
+        {
+            response = new BaseResponse
+            {
+                Status = ResponseStatus.Fail,
+                Message = $"An error occurred while adding the item: {ex.Message}"
+            };
+        }
+
+        return response;
     }
 
-    public async Task DeleteItem(ShowcaseItem itemToDelete)
+    public async Task<BaseResponse> DeleteItem(ShowcaseItemDTO itemToDelete)
     {
-        using var context = _factory.CreateDbContext();
-        context.ShowcaseItems.Remove(itemToDelete);
-        await context.SaveChangesAsync();
-    }
+        var response = new BaseResponse
+        {
+            Status = ResponseStatus.Success,
+            Message = "Project deleted successfully"
+        };
 
-    public async Task UpdateItem(ShowcaseItem itemToUpdate)
-    {
-        using var context = _factory.CreateDbContext();
-        context.ShowcaseItems.Update(itemToUpdate);
-        await context.SaveChangesAsync();
+        try
+        {
+            using var context = _factory.CreateDbContext();
+            var item = new ShowcaseItem { Id = itemToDelete.Id };
+            context.ShowcaseItems.Remove(item);
+
+            var result = await context.SaveChangesAsync();
+            if (result == 0) 
+            {
+                response.Status = ResponseStatus.Fail;
+                response.Message = "Project could not be deleted (not found or no changes).";
+            }
+        }
+        catch (Exception ex)
+        {
+            response = new BaseResponse
+            {
+                Status = ResponseStatus.Fail, 
+                Message = $"An error occurred while deleting the project: {ex.Message}"
+            };
+        }
+
+        return response;
     }
 
 }

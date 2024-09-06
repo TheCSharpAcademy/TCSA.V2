@@ -107,8 +107,7 @@ else
 }
 
 @code {
-    [SupplyParameterFromForm]
-    public SubmitProjectForm Model { get; set; }
+    [SupplyParameterFromForm] public SubmitProjectForm Model { get; set; }
 
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }

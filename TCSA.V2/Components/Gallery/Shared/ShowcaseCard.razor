@@ -1,56 +1,50 @@
 ﻿@using TCSA.V2.Models
 @using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Models.DTO
 
-<div class="card m-5 " style="width:600px">
-    <div class="text-center mt-3">
-        @((MarkupString)Item.Link)
-
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">@Item.UserName @Item.UserLastName</h5>
-        <p class="card-text">Area: @Item.AreaName</p>
-        <p class="card-text">Project: @Item.ProjectName</p>
-    </div>
-
-    <AuthorizeView>
-        @if (isUserOwner)
-        {
-            <div class="card-footer">
-                <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
-            </div>
-        }
-    </AuthorizeView>
-    <AuthorizeView Roles="Admin">
-        <div class="card-footer">
-            <button type="button" class="btn btn-outline-secondary" style="color:rebeccapurple;border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
-            <button type="button" class="btn" style="color:orange;border:none" @onclick="@HandleGoldenStatusChange">
-                @if (!Item.GoldenProject)
-                {
-                    <EmptyStarSvg />
-                }
-                else
-                {
-                    <FilledStarSvg />
-                }
-            </button>
+<div class="col-sm-3 rounded-3">
+    <div class="card m-1">
+        <div class="video-paragraph d-flex justify-content-center embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="100%" height="auto" src="@Item.VideoUrl" allowfullscreen></iframe>
         </div>
-    </AuthorizeView>
+        <div class="card-body">
+            <div class="showcaseitem-metadata d-flex justify-content-between w-100">
+                <p class="card-text showcaseitem-project">@Item.ProjectName</p>
+                <p class="card-text showcaseitem-area">@Item.Area</p>
+            </div>
+            <div class="showcaseitem-metadata d-flex w-100">
+                <p class="card-text showcaseitem-username">@Item.Username</p>
+            </div>
+            <div class="d-flex showcasecard-buttons">
+                <AuthorizeView>
+                    @if (isUserOwner)
+                    {
+                        <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                    }
+                </AuthorizeView>
+                <a target="_blank" class="showcaseitem-github-button" href=@Item.GithubUrl>
+                    <GithubSVGForCard />
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 <div class="modal fade" id="DeleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Delete warning</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body">
-                <p>This will delete selected video. Are you sure?</p>
+                <div class="row">
+                    <div class="col">
+                        <p>Are you sure?</p>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" style="color:rebeccapurple;border:none" @onclick="@HandleDelete" data-bs-dismiss="modal">Confirm delete</button>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success btn-academy" @onclick="@HandleDelete" data-bs-dismiss="modal">Confirm delete</button>
+                </div>
             </div>
         </div>
     </div>
@@ -58,13 +52,13 @@
 
 @code {
     [Parameter]
-    public ShowcaseItem Item { get; set; }
+    public ShowcaseItemDTO Item { get; set; }
     [Parameter]
     public string? CurrentUserId { get; set; }
     [Parameter]
-    public EventCallback<ShowcaseItem> OnDelete { get; set; }
+    public EventCallback<ShowcaseItemDTO> OnDelete { get; set; }
     [Parameter]
-    public EventCallback<ShowcaseItem> OnGoldenChange { get; set; }
+    public EventCallback<ShowcaseItemDTO> OnGoldenChange { get; set; }
 
     private bool isUserOwner = false;
 
@@ -78,14 +72,41 @@
     {
         await OnDelete.InvokeAsync(Item);
     }
+}
 
-    private async Task HandleGoldenStatusChange()
-    {
-        Item.GoldenProject = !Item.GoldenProject;
-        OnGoldenChange.InvokeAsync(Item);
+<style>
+    .showcaseitem-username {
+        font-weight: 600;
     }
 
+    .showcaseitem-project {
+        font-weight: 600;
+        color: #1C236D
+    }
 
+    .showcaseitem-area {
+        font-size: 16px;
+        margin-top: 2px;
+    }
 
+    .showcaseitem-metadata {
+        margin-bottom: -10px;
+    }
 
-}
+    .showcaseitem-github-button {
+        margin-top: 15px;
+    }
+
+    .showcaseitem-delete-button {
+        margin-left: -12px;
+        margin-top: 10px;
+    }
+
+    .showcaseitem-delete {
+        margin-top: 15px;
+    }
+
+    .showcasecard-buttons {
+        margin-top: 5px;
+    }
+</style>

@@ -127,7 +127,7 @@ internal static class BlazorProjectsHelper
                 Area = Area.Blazor,
                 ExperiencePoints = 50,
                 Difficulty = Difficulty.Beginner,
-                RepositoryLink = "",
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Blazor.FoodJournal",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph
@@ -170,7 +170,7 @@ internal static class BlazorProjectsHelper
                 Area = Area.Blazor,
                 ExperiencePoints = 100,
                 Difficulty = Difficulty.Beginner,
-                RepositoryLink = "",
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.Blazor.Sports",
                 Introduction = new List<Paragraph>
                 {
                     new Paragraph

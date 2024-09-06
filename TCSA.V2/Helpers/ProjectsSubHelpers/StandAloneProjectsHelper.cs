@@ -172,6 +172,7 @@ internal static class StandAloneProjectsHelper
                     "Check out this <a target='_blank' href='https://www.youtube.com/watch?v=m8Icp_Cid5o'>Systems Design For Beginners Tutorial</a> to have an idea of the thought processes when creating a large application. And <a target='_blank' href='https://www.youtube.com/watch?v=JvDmJybANCQ'>Mocking Diagrams with Excalidraw</a> for a cool diagram-designing tool.",
                     "We usually recommend you don't work in more than one project at a time. Since this is a comprehensive undertaking, you can work on it in parallel with the rest of the curriculum. This will be specially useful when you get stuck, as you can jump between projects to get some fresh air 😊 "
                 },
+                RepositoryLink = "https://github.com/TheCSharpAcademy/CodeReviews.FlagshipProject"
             },
 
              new Project

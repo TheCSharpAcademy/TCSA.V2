@@ -70,8 +70,7 @@
             {
                 foreach (var item in ItemsToShow)
                 {
-                    var currentItem = item;
-                    <ShowcaseCard Item="@currentItem"
+                    <ShowcaseCard Item="@item"
                                   CurrentUserId="@CurrentUserId"
                                   OnDelete=@(() => HandleDelete(item))/>
                 }

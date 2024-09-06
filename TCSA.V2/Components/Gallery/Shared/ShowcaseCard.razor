@@ -19,7 +19,7 @@
                 <AuthorizeView>
                     @if (isUserOwner)
                     {
-                        <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal"><DeleteSvg /></button>
+                        <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal-@Item.Id"><DeleteSvg /></button>
                     }
                 </AuthorizeView>
                 <a target="_blank" class="showcaseitem-github-button" href=@Item.GithubUrl>
@@ -30,13 +30,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="DeleteModal" tabindex="-1">
+<div class="modal fade" id="DeleteModal-@Item.Id" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
-                        <p>Are you sure?</p>
+                        <p>Are you sure you want to delete @Item.ProjectName?</p>
                     </div>
                 </div>
             </div>
@@ -57,15 +57,12 @@
     public string? CurrentUserId { get; set; }
     [Parameter]
     public EventCallback<ShowcaseItemDTO> OnDelete { get; set; }
-    [Parameter]
-    public EventCallback<ShowcaseItemDTO> OnGoldenChange { get; set; }
 
     private bool isUserOwner = false;
 
     protected override async Task OnInitializedAsync()
     {
-        if (Item.ApplicationUserId == CurrentUserId)
-            isUserOwner = true;
+        isUserOwner = Item.ApplicationUserId == CurrentUserId;
     }
 
     private async Task HandleDelete()
@@ -73,6 +70,7 @@
         await OnDelete.InvokeAsync(Item);
     }
 }
+
 
 <style>
     .showcaseitem-username {

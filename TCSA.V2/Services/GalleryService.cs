@@ -101,8 +101,8 @@ public class GalleryService : IGalleryService
         try
         {
             using var context = _factory.CreateDbContext();
-            var item = new ShowcaseItem { Id = itemToDelete.Id };
-            context.ShowcaseItems.Remove(item);
+            var showcaseItem = await context.ShowcaseItems.FirstOrDefaultAsync(x => x.Id == itemToDelete.Id);
+            context.ShowcaseItems.Remove(showcaseItem);
 
             var result = await context.SaveChangesAsync();
             if (result == 0) 

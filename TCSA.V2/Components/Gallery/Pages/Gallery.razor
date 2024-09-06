@@ -63,8 +63,10 @@
             </div>
         }
     </div>
-    @if (!isFormOpen)
+    @if (!isFormOpen && PaginatedList != null)
     {
+        <BlazorBootstrap.Pagination TotalPages="@PaginatedList.TotalPages"                                       ActivePageNumber="@PageNumber"
+                                    PageChanged="@OnPageChangedAsync" />
         <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
             @if (ItemsToShow.Any())
             {
@@ -123,6 +125,7 @@
     private IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
+    private PaginatedList<ShowcaseItemDTO> PaginatedList { get; set; }
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
     private List<int> CompletedProjectIds { get; set; } = new();
@@ -139,6 +142,7 @@
     private string ResultMessage;
     private bool ResultCardStatus;
     private bool IsResultCardShowing = false;
+    private int PageNumber = 1;
 
     protected async override Task OnInitializedAsync()
     {
@@ -159,7 +163,8 @@
 
         Projects = ProjectHelper.GetProjectInfos().AsQueryable();
 
-        ItemsToShow = await _galleryService.GetItems();
+        PaginatedList = await _galleryService.GetItems(PageNumber);
+        ItemsToShow = PaginatedList.Items;
         ItemsToShowCache = ItemsToShow;
 
         isLoading = false;
@@ -260,5 +265,13 @@
         IsResultCardShowing = true;
 
         isFormOpen = false;
+    }
+
+    private async Task OnPageChangedAsync(int newPageNumber)
+    {
+        PageNumber = newPageNumber;
+        PaginatedList = await _galleryService.GetItems(PageNumber);
+        ItemsToShow = PaginatedList.Items;
+        ItemsToShowCache = ItemsToShow;
     }
 }

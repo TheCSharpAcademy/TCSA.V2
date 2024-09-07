@@ -6,7 +6,7 @@ public class Article
 {
     public int Id { get; set; }
     public string Title { get; set; }
-    public string Slug { get; set; }  
+    public string Slug { get; set; }
     public string Description { get; set; }
     public string IconUrl { get; set; }
     public string BannerUrl { get; set; }
@@ -24,6 +24,7 @@ public class Block
 {
     public string? Title { get; set; }
     public string? ImgUrl { get; set; }
+    public string? BookImgUrl { get; set; }
     public List<Paragraph> Paragraphs { get; set; }
 }
 

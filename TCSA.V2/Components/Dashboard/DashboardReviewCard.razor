@@ -15,7 +15,7 @@
             @ExperiencePoints
         </div>
     </div>
-    <div class="col-md-3 col-2 d-flex align-items-center justify-content-center">
+    <div class="col-md-2 col-2 d-flex align-items-center justify-content-center">
         <div class="row text-center">
             <div class="col-12 view-btn">
                 <a target="_blank" href=@GithubUrl>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-2 d-flex align-items-center justify-content-start">
+    <div class="col-md-4 col-2 d-flex align-items-center justify-content-center">
         @if (Status != "is-assigned")
         {
             <div class="row text-center">
@@ -58,6 +58,14 @@
                         </a>
                 }
                 </div>
+                <div class="col-6 view-btn">
+                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnReleaseCallBack">
+                        <TakeSVG />
+                        <div class="col-12 dashboard-review-action-text">
+                            Release
+                        </div>
+                    </a>
+                </div>
             </div>
         }
     </div>
@@ -73,6 +81,7 @@
     [Parameter] public int ProjectId { get; set; }
     [Parameter] public string ProjectSlug { get; set; }
     [Parameter] public EventCallback OnAssignCallBack { get; set; }
+    [Parameter] public EventCallback OnReleaseCallBack { get; set; }
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
     [Parameter] public MarkupString DurationOpen { get; set; }
     public string Href { get; set; }

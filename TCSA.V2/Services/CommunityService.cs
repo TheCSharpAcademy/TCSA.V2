@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Linq;
 using TCSA.V2.Data;
 using TCSA.V2.Models;
 
@@ -31,7 +30,7 @@ public class CommunityService : ICommunityService
         _logger = logger;
     }
 
-    public async Task<Dictionary<int,string>> GetIssuesTitles(List<int> projectIds)
+    public async Task<Dictionary<int, string>> GetIssuesTitles(List<int> projectIds)
     {
         try
         {
@@ -92,8 +91,8 @@ public class CommunityService : ICommunityService
             IssueType.Bugfix => "icons8-insect-64.png",
             IssueType.Feature => "icons8-feature-64.png",
             IssueType.Infrastructure => "icons8-infrastructure-55.png"
-        };    
-            
+        };
+
         try
         {
             using (var context = _factory.CreateDbContext())

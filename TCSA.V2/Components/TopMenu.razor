@@ -19,8 +19,8 @@
         </button>
         <div class="collapse navbar-collapse @(IsNavbarShown ? "show" : "")" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-@*                 <li class="nav-item text-start">
-                    <a class="nav-link" href="Admin/Create">Create</a>
+                @*                 <li class="nav-item text-start">
+                <a class="nav-link" href="Admin/Create">Create</a>
                 </li> *@
                 <AuthorizeView Roles="Admin">
                     <a class="nav-link" href="/admin">Admin</a>
@@ -60,6 +60,9 @@
                 <li class="nav-item text-start">
                     <a class="nav-link" href="/leaderboard">Leaderboard</a>
                 </li>
+
+
+
                 <li class="nav-item text-start dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Study Areas
@@ -126,8 +129,15 @@
                         <li class="nav-item text-start">
                             <a class="nav-link" href="article/52/code-reviews">Code Reviews</a>
                         </li>
+                        <li class="nav-item text-start">
+                            <a class="nav-link" href="article/100/books">Books</a>
+                        </li>
                     </ul>
                 </li>
+
+             @*    <li class="nav-item text-start">
+                    <a class="nav-link" href="/gallery/@isLightMode">Gallery</a>
+                </li> *@
 
                 <li class="nav-item text-start">
                     <a class="nav-link" target="_blank" href="https://www.instagram.com/pablo.aguirre.dev/">
@@ -154,11 +164,11 @@
             <button class="btn switchButton" type="button" @onclick="SwitchModeA">
                 @if (isLightMode)
                 {
-                    <img class="m0" src="./img/Switch/light.png" width="40" height="16"/>
+                    <img class="m0" src="./img/Switch/light.png" width="40" height="16" />
                 }
                 else
                 {
-                    <img class="m0" src="./img/Switch/dark.png" width="40" height="16"/>
+                    <img class="m0" src="./img/Switch/dark.png" width="40" height="16" />
                 }
             </button>
         </div>
@@ -256,7 +266,7 @@
     }
 
     .right-side {
-        margin-left: 300px;
+        margin-left: 250px;
     }
 
     .nav-link {
@@ -284,7 +294,7 @@
     }
 
     .switchButton {
-        border:none;
-        padding:0;
+        border: none;
+        padding: 0;
     }
 </style>

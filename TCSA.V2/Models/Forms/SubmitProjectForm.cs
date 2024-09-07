@@ -16,7 +16,7 @@ public class GitHubUrlAttribute : ValidationAttribute
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        var noValidationProjects = new int[] {22, 23, 75, 47, 48, 49, 50, 86};
+        var noValidationProjects = new int[] { 22, 23, 75, 47, 48, 49, 50, 86 };
 
         var project = (SubmitProjectForm)validationContext.ObjectInstance;
 

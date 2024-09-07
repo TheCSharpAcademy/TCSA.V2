@@ -1,0 +1,264 @@
+﻿@page "/gallery/{IsLightMode:bool}"
+@rendermode InteractiveServer
+@using TCSA.V2.Components.Gallery.Shared
+@using TCSA.V2.Components.UI
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.DTO
+@using TCSA.V2.Models.Responses
+@using TCSA.V2.Services
+@using System.Security.Claims;
+@using System.Linq;
+
+<div class="container container-gallery mt-5 pt-3">
+    @if (IsResultCardShowing)
+    {
+        <CloseButtonSVG OnClickCallback="@DismissResultCard" />
+        <ResultCard Message="@ResultMessage"
+                    IsSuccess="@ResultCardStatus" />
+    }
+    
+    <div class="row b-1">
+        <div class="col">
+            @if(User != null && User.DashboardProjects.Any(x => x.IsCompleted))
+            {
+                <AuthorizeView>
+                    <button class="btn btn-success d-md-inline-block btn-academy"
+                            @onclick="ToggleAddForm"
+                            type="button">
+                        @(isFormOpen ? "Back to Gallery" : "Add Project")
+                    </button>
+                </AuthorizeView>
+            }
+        </div>
+    </div>
+    <div class="row">
+        @if (!isFormOpen)
+        {
+            <div class="col-sm-3">
+                <CategoryList OnClickCallback="@GetAreaItems"
+                              SelectText="Filter By Area"
+                              Areas="@Areas"
+                              IsLightMode="@IsLightMode" />
+            </div>
+            @if (ProjectSelections.Any())
+            {
+                <div class="col-sm-3">
+                    <select shadow rounded class="form-select" @onchange="HandleProjectSelection">
+                        <option selected>Filter By Project</option>
+                        @foreach (var project in ProjectSelections)
+                        {
+                            var currentProject = project;
+                            <option value="@project.Id">@project.Area - @project.Title</option>
+                        }
+                    </select>
+                </div>
+            }
+            <div class="col-sm-3">
+                <div class="col">
+                    <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="Search by Username" aria-label="Search" />
+                </div>
+            </div>
+        }
+    </div>
+    @if (!isFormOpen)
+    {
+        <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
+            @if (ItemsToShow.Any())
+            {
+                foreach (var item in ItemsToShow)
+                {
+                    <ShowcaseCard Item="@item"
+                                  CurrentUserId="@CurrentUserId"
+                                  OnDelete=@(() => HandleDelete(item))/>
+                }
+            }
+            else
+            {
+                if (isLoading)
+                {
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                }
+                else
+                {
+                    <h2>No content...</h2>
+                }
+            }
+        </div>
+    }
+    <AuthorizeView>
+        @if (User is not null && isFormOpen)
+        {
+            <div class="d-flex row flex-wrap">
+                <ShowcaseItemForm CurrentUser="User"
+                                  Areas="@Areas"
+                                  Projects="@Projects.Where(x => CompletedProjectsNotShowcased.Contains(x.Id))"
+                                  IsLightMode=@IsLightMode
+                                  OnAddNewItem="HandleAddNewItem"/>
+
+            </div>
+        }
+    </AuthorizeView>
+</div>
+
+@code {
+    [Parameter] public bool IsLightMode { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private IUserService UserService { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+    [Inject] private IGalleryService _galleryService { get; set; }
+
+    private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
+    private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
+    private List<string> Areas { get; set; }
+
+    private ApplicationUser User;
+    private string UserId;
+
+    private IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
+    private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
+    private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
+    private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
+    private List<int> CompletedProjectIds { get; set; } = new();
+    private List<int> ShowCaseProjectIds { get; set; } = new();
+    private List<int> CompletedProjectsNotShowcased { get; set; } = new();
+
+    private bool isLoading = true;
+    private string CurrentUserId = "none";
+    private string loadingContainer = "container text-center";
+    private string videoContainer = "d-flex justify-content-center flex-wrap mt-5";
+    private string searchText = string.Empty;
+    private object Search = new() { };
+    private bool isFormOpen;
+    private string ResultMessage;
+    private bool ResultCardStatus;
+    private bool IsResultCardShowing = false;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Areas = EnumAreas.Except(ProjectlessAreas).ToList();
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        User = await UserService.GetUserById(UserId);
+
+        if (User is not null)
+        {
+            CurrentUserId = User.Id;
+            CompletedProjectIds = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
+            ShowCaseProjectIds = ItemsToShow.Where(x => x.ApplicationUserId == UserId).Select(x => x.ProjectId).ToList();
+            CompletedProjectsNotShowcased = CompletedProjectIds.Except(ShowCaseProjectIds).ToList();
+        }
+
+        Projects = ProjectHelper.GetProjectInfos().AsQueryable();
+
+        ItemsToShow = await _galleryService.GetItems();
+        ItemsToShowCache = ItemsToShow;
+
+        isLoading = false;
+    }
+
+    private void GetAreaItems(string area)
+    {
+        ItemsToShow = ItemsToShowCache;
+        if (area == "All")
+        {
+            ProjectSelections = [];
+            ItemsToShow = ItemsToShow;
+        }
+        else
+        {
+            var areaEnum = Enum.Parse<Area>(area);
+            ProjectSelections = Projects.Where(project => project.Area == areaEnum).ToList();
+            ItemsToShow = ItemsToShow.Where(project => project.Area == areaEnum).ToList();
+        }
+    }
+
+    private void FilterItemsByProject(ShowcaseProjectInfo project)
+    {
+        ItemsToShow = ItemsToShowCache;
+        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
+    }
+
+    private async Task ApplySearchFilter(ChangeEventArgs e)
+    {
+        searchText = e.Value?.ToString();
+
+        if (string.IsNullOrEmpty(searchText))
+        {
+            ItemsToShow = ItemsToShowCache;
+            ProjectSelections = [];
+            return;
+        }
+        ItemsToShow = ItemsToShow
+        .Where(i => i.Username.Contains(searchText))
+        .ToList();
+    }
+
+    private void ToggleAddForm() => isFormOpen = !isFormOpen;
+
+    private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
+    {
+        var result = await _galleryService.DeleteItem(itemToDelete);
+
+        if (result.Status == Models.Responses.ResponseStatus.Success)
+        {
+            ResultMessage = "Item deleted successfully.";
+            ResultCardStatus = true;
+            ItemsToShow.Remove(itemToDelete);
+            CompletedProjectsNotShowcased.Add(itemToDelete.ProjectId);
+        }
+        else
+        {
+            ResultMessage = "Failed to delete the item.";
+            ResultCardStatus = false;
+        }
+        IsResultCardShowing = true;
+    }
+
+    private void HandleProjectSelection(ChangeEventArgs e)
+    {
+        int selectedProject = int.Parse(e.Value.ToString());
+        ItemsToShow = ItemsToShowCache;
+        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
+    }
+
+    private void DismissResultCard() => IsResultCardShowing = false;
+
+    private async Task HandleAddNewItem(BaseResponse response)
+    {
+        if (response.Status == ResponseStatus.Success)
+        {
+            ResultMessage = "Project added successfully!";
+            ResultCardStatus = true; 
+
+            if (response.Data is ShowcaseItemDTO newItem)
+            {
+                newItem.ProjectName = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Title;
+                newItem.Area = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Area;
+                newItem.Username = string.IsNullOrEmpty(User.FirstName)
+                ? User.UserName
+                : $"{User.FirstName} {User.LastName}";
+
+                ItemsToShow.Add(newItem);
+                CompletedProjectsNotShowcased.Remove(newItem.ProjectId);
+            }
+        }
+        else
+        {
+            ResultMessage = $"Failed to add project: {response.Message}";
+            ResultCardStatus = false; 
+        }
+
+        IsResultCardShowing = true;
+
+        isFormOpen = false;
+    }
+}

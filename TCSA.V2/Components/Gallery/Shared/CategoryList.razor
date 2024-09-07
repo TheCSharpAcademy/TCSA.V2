@@ -1,0 +1,48 @@
+﻿@using TCSA.V2.Data
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Models.DTO
+@using TCSA.V2.Services
+@using System.Security.Claims
+@using System;
+@using System.Linq;
+
+<select shadow rounded class="form-select" @onchange="HandleSelectionChange">
+    <option value="" disabled selected>@SelectText</option>
+    @foreach (var area in CategoryListAreas)
+    {
+        <option value="@area">@area</option>
+    }
+</select>
+
+@code {
+    [Parameter] public EventCallback<string> OnClickCallback { get; set; }
+    [Parameter] public List<string> Areas { get; set; }
+    [Parameter] public bool IsLightMode { get; set; }
+    [Parameter] public string SelectText { get; set; }
+
+    private List<string> CategoryListAreas { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        CategoryListAreas = Areas.ToList();
+        CategoryListAreas.Add("All");
+    }
+
+    private async Task HandleSelectionChange(ChangeEventArgs e)
+    {
+        var selectedArea = e.Value?.ToString();
+        if (!string.IsNullOrEmpty(selectedArea))
+        {
+            await HandleClick(selectedArea);
+        }
+    }
+
+    private async Task HandleClick(string area)
+    {
+        if (OnClickCallback.HasDelegate)
+        {
+            await OnClickCallback.InvokeAsync(area);
+        }
+    }
+}

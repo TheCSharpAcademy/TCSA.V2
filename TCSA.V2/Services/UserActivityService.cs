@@ -76,7 +76,7 @@ public class UserActivityService : IUserActivityService
     {
         var thisWeek = DateTimeOffset.Now.AddDays(-3);
 
-        try 
+        try
         {
             using (var context = _factory.CreateDbContext())
             {
@@ -115,7 +115,7 @@ public class UserActivityService : IUserActivityService
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Error in {nameof(GetTodaysActivityCount)}");
-            return (0,0,0);
+            return (0, 0, 0);
         }
     }
 }

@@ -3,7 +3,7 @@ namespace TCSA.V2.Models.LanguageModels;
 public class RussianHeadings : ILanguageHeadings
 {
     public string Introduction => "Введение";
-    
+
     public string Requirements => "Требования";
 
     public string Learn => "Чему вы научитесь";

@@ -1,0 +1,110 @@
+﻿@using TCSA.V2.Models
+@using TCSA.V2.Components.UI.SVGs
+@using TCSA.V2.Models.DTO
+
+<div class="col-sm-3 rounded-3">
+    <div class="card m-1">
+        <div class="video-paragraph d-flex justify-content-center embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="100%" height="auto" src="@Item.VideoUrl" allowfullscreen></iframe>
+        </div>
+        <div class="card-body">
+            <div class="showcaseitem-metadata d-flex justify-content-between w-100">
+                <p class="card-text showcaseitem-project">@Item.ProjectName</p>
+                <p class="card-text showcaseitem-area">@Item.Area</p>
+            </div>
+            <div class="showcaseitem-metadata d-flex w-100">
+                <p class="card-text showcaseitem-username">@Item.Username</p>
+            </div>
+            <div class="d-flex showcasecard-buttons">
+                <AuthorizeView>
+                    @if (isUserOwner)
+                    {
+                        <button type="button" class="btn btn-outline-secondary showcaseitem-delete-button" style="border:none" data-bs-toggle="modal" data-bs-target="#DeleteModal-@Item.Id"><DeleteSvg /></button>
+                    }
+                </AuthorizeView>
+                <a target="_blank" class="showcaseitem-github-button" href=@Item.GithubUrl>
+                    <GithubSVGForCard />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteModal-@Item.Id" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <p>Are you sure you want to delete @Item.ProjectName?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success btn-academy" @onclick="@HandleDelete" data-bs-dismiss="modal">Confirm delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ShowcaseItemDTO Item { get; set; }
+    [Parameter]
+    public string? CurrentUserId { get; set; }
+    [Parameter]
+    public EventCallback<ShowcaseItemDTO> OnDelete { get; set; }
+
+    private bool isUserOwner = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isUserOwner = Item.ApplicationUserId == CurrentUserId;
+    }
+
+    private async Task HandleDelete()
+    {
+        await OnDelete.InvokeAsync(Item);
+    }
+}
+
+
+<style>
+    .showcaseitem-username {
+        font-weight: 600;
+    }
+
+    .showcaseitem-project {
+        font-weight: 600;
+        color: #1C236D
+    }
+
+    .showcaseitem-area {
+        font-size: 16px;
+        margin-top: 2px;
+    }
+
+    .showcaseitem-metadata {
+        margin-bottom: -10px;
+    }
+
+    .showcaseitem-github-button {
+        margin-top: 15px;
+    }
+
+    .showcaseitem-delete-button {
+        margin-left: -12px;
+        margin-top: 10px;
+    }
+
+    .showcaseitem-delete {
+        margin-top: 15px;
+    }
+
+    .showcasecard-buttons {
+        margin-top: 5px;
+    }
+</style>

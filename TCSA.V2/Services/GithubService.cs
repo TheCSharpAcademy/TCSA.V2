@@ -22,7 +22,7 @@ public sealed class MyWebhookEventProcessor : WebhookEventProcessor
     }
 
 
-    protected override async Task ProcessIssuesWebhookAsync(WebhookHeaders headers, IssuesEvent issueEvent,  IssuesAction issuesAction)
+    protected override async Task ProcessIssuesWebhookAsync(WebhookHeaders headers, IssuesEvent issueEvent, IssuesAction issuesAction)
     {
         if (issuesAction != IssuesAction.Opened)
         {
@@ -40,7 +40,7 @@ public sealed class MyWebhookEventProcessor : WebhookEventProcessor
 
         var splitTitle = issueEvent.Issue.Title.Split('/');
 
-        IssueType type = splitTitle[0] switch 
+        IssueType type = splitTitle[0] switch
         {
             "bugfix" => IssueType.Bugfix,
             "feature" => IssueType.Feature,

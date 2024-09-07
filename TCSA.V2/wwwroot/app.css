@@ -22,6 +22,7 @@
 }
 
 .dark-theme {
+
     --background-color: #191B19;
     --disabled-background-color: #4b4b4b;
     --card-background-color: #272525;
@@ -42,6 +43,18 @@
     --primary-light-color: #8789C0;
     --card-primary-color: #8789C0;
     --card-button-primary-color: #8789C0;
+    --dropdown-color: gray-300;
+    --dropdown-bg: gray-800;
+    --dropdown-border-color: #{$dropdown-dark-border-color};
+    --dropdown-box-shadow: #{$dropdown-dark-box-shadow};
+    --dropdown-link-color: #{$dropdown-dark-link-color};
+    --dropdown-link-hover-color: #{$dropdown-dark-link-hover-color};
+    --dropdown-divider-bg: #{$dropdown-dark-divider-bg};
+    --dropdown-link-hover-bg: #{$dropdown-dark-link-hover-bg};
+    --dropdown-link-active-color: #{$dropdown-dark-link-active-color};
+    --dropdown-link-active-bg: #{$dropdown-dark-link-active-bg};
+    --dropdown-link-disabled-color: #{$dropdown-dark-link-disabled-color};
+    --dropdown-header-color: #{$dropdown-dark-header-color};
 }
 
 html,
@@ -150,7 +163,35 @@ h1:focus {
     font-weight: 600;
 }
 
+.btn-academy {
+    background-color: #1C236D;
+}
+
+    .btn-academy:hover {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:active {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:visited {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:focus {
+        background-color: #1C236D;
+    }
+
+    .btn-academy:disabled {
+        background-color: #1C236D;
+    }
+
 @media (max-width: 992px) {
+    .container-gallery {
+        padding-top: 100px !important;
+    }
+
     .public-leaderboard-table {
         margin-top: 50px !important;
         margin-left: -20px;

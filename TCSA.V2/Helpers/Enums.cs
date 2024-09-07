@@ -22,6 +22,13 @@ public class Enums
         Polish
     }
 
+    public enum DashboardState
+    {
+        Area,
+        Pending,
+        Completed
+    }
+
     public enum ProjectStatus
     {
         Pending,

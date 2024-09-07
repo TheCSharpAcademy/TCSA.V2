@@ -7,5 +7,5 @@ public class IndexAreaInfo
     public string TitleImgUrl { get; set; }
     public string Id { get; set; }
 
-    public List<Project> Projects { get; set; } 
+    public List<Project> Projects { get; set; }
 }

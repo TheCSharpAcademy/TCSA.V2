@@ -12,6 +12,7 @@ public interface IPeerReviewService
     Task MarkCodeReviewAsCompleted(string reviewerId, int dashboardProjectId, string userId);
     Task<List<DashboardProject>> GetProjectsForPeerReview(string reviewerId);
     Task AssignUserToCodeReview(string userId, int id);
+    Task ReleaseUserFromCodeReview(string userId, int id);
     string GetRevieweeName(string revieweeId);
     Task<ApplicationUser> GetUserForPeerReview(string reviewerId);
     Task<List<CodeReviewDetail>> GetCodeReviewDetails(string userId);
@@ -98,11 +99,11 @@ public class PeerReviewService : IPeerReviewService
             {
                 var level = context.Users.FirstOrDefault(x => x.Id == reviewerId).Level;
 
-                if (level < Level.Yellow) 
-                { 
-                    return new List<DashboardProject> { }; 
+                if (level < Level.Yellow)
+                {
+                    return new List<DashboardProject> { };
                 }
-                else if( level > Level.Yellow)
+                else if (level > Level.Yellow)
                 {
                     beginnerProjects.AddRange(new List<int> { 14, 15, 16, 17 });
                 }
@@ -191,6 +192,23 @@ public class PeerReviewService : IPeerReviewService
                 DashboardProjectId = id
             });
 
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task ReleaseUserFromCodeReview(string userId, int id)
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            var userReview = await context.UserReviews
+                .FirstOrDefaultAsync(x => x.AppUserId == userId && x.DashboardProjectId == id);
+
+            if (userReview is null)
+            {
+                return;
+            }
+
+            context.UserReviews.Remove(userReview);
             await context.SaveChangesAsync();
         }
     }

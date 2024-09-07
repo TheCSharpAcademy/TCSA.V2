@@ -14,6 +14,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public virtual DbSet<Challenge> Challenges { get; set; }
     public virtual DbSet<UserChallenge> UserChallenges { get; set; }
     public virtual DbSet<DailyStreak> DailyStreaks { get; set; }
+    public virtual DbSet<ShowcaseItem> ShowcaseItems { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,13 +53,23 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasForeignKey(uc => uc.UserId);
 
         modelBuilder.Entity<DailyStreak>()
-                .HasKey(ds => ds.AppUserId);
+            .HasKey(ds => ds.AppUserId);
 
         modelBuilder.Entity<DailyStreak>()
             .HasOne(ds => ds.User)
             .WithOne(u => u.DailyStreak)
             .HasForeignKey<DailyStreak>(ds => ds.AppUserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ShowcaseItem>()
+            .HasOne(si => si.ApplicationUser)
+            .WithMany(au => au.ShowcaseItems) 
+            .HasForeignKey(si => si.AppUserId);
+
+        modelBuilder.Entity<ShowcaseItem>()
+            .HasOne(si => si.DashboardProject)
+            .WithOne()
+            .HasForeignKey<ShowcaseItem>(si => si.DashboardProjectId);
 
         //modelBuilder.Entity<Challenge>().HasData(
         //    new Challenge

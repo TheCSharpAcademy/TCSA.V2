@@ -84,11 +84,11 @@ public class RoadmapService : IRoadmapService
             level = Level.Purple;
         }
 
-         if (level == Level.Purple
-         && userIssues >= 4
-         && userReviews >= 7
-         && userProjects.Count >= 26
-         && RoadmapHelper.AuthRequirements.All(project => userProjects.Contains(project)))
+        if (level == Level.Purple
+        && userIssues >= 4
+        && userReviews >= 7
+        && userProjects.Count >= 26
+        && RoadmapHelper.AuthRequirements.All(project => userProjects.Contains(project)))
         {
             level = Level.Brown;
         }

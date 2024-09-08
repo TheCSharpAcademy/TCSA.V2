@@ -42,14 +42,11 @@
 
 @code {
     [SupplyParameterFromForm] public SubmitShowCaseItemForm Model { get; set; } = new();
-    [Inject] private IGalleryService _galleryService { get; set; }
     [Parameter] public EventCallback<BaseResponse> OnAddNewItem { get; set; } = new();
     [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
-    [Parameter] public List<string> Areas { get; set; } = new();
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     [Parameter] public bool IsLightMode { get; set; } = false;
-
-    private readonly List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
+    [Inject] private IGalleryService GalleryService { get; set; }
 
     private bool IsSubmitDisabled { get; set; } = true; 
     private string ValidationMessage { get; set; }
@@ -65,7 +62,7 @@
                 GithubUrl = Model.GithubUrl
             };
 
-        var response = await _galleryService.AddItem(newItem);
+        var response = await GalleryService.AddItem(newItem);
 
         await OnAddNewItem.InvokeAsync(response);
     }

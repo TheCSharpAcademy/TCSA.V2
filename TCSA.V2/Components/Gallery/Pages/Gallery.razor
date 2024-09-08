@@ -13,7 +13,7 @@
 @using System.Linq;
 
 <div class="container container-gallery mt-5 pt-3">
-    @if (IsResultCardShowing)
+    @if (!string.IsNullOrEmpty(ResultMessage))
     {
         <CloseButtonSVG OnClickCallback="@DismissResultCard" />
         <ResultCard Message="@ResultMessage"
@@ -82,7 +82,7 @@
                 if (isLoading)
                 {
                     <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="visually-hidden">@LoadingMessage</span>
                     </div>
                 }
                 else
@@ -97,7 +97,6 @@
         {
             <div class="d-flex row flex-wrap">
                 <ShowcaseItemForm CurrentUser="User"
-                                  Areas="@Areas"
                                   Projects="@Projects.Where(x => CompletedProjectsNotShowcased.Contains(x.Id))"
                                   IsLightMode=@IsLightMode
                                   OnAddNewItem="HandleAddNewItem"/>
@@ -113,7 +112,7 @@
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
-    [Inject] private IGalleryService _galleryService { get; set; }
+    [Inject] private IGalleryService GalleryService { get; set; }
 
     private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
@@ -128,7 +127,6 @@
     private PaginatedList<ShowcaseItemDTO> PaginatedList { get; set; }
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
     private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
-    private List<int> CompletedProjectIds { get; set; } = new();
     private List<int> ShowCaseProjectIds { get; set; } = new();
     private List<int> CompletedProjectsNotShowcased { get; set; } = new();
 
@@ -140,8 +138,8 @@
     private object Search = new() { };
     private bool isFormOpen;
     private string ResultMessage;
+    private string LoadingMessage = "Loading...";
     private bool ResultCardStatus;
-    private bool IsResultCardShowing = false;
     private int PageNumber = 1;
 
     protected async override Task OnInitializedAsync()
@@ -151,23 +149,30 @@
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-        User = await UserService.GetUserById(UserId);
+
+        //Projects = ProjectHelper.GetProjectInfos().AsQueryable();
+
+        await GetLists();
+
+        isLoading = false;
+    }
+
+    private async Task GetLists()
+    {
+        User = await UserService.GetUserByIdWithShowcaseItems(UserId);
 
         if (User is not null)
         {
             CurrentUserId = User.Id;
-            CompletedProjectIds = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
-            ShowCaseProjectIds = ItemsToShow.Where(x => x.ApplicationUserId == UserId).Select(x => x.ProjectId).ToList();
-            CompletedProjectsNotShowcased = CompletedProjectIds.Except(ShowCaseProjectIds).ToList();
+
+            CompletedProjectsNotShowcased = User.DashboardProjects
+            .Where(dp => dp.IsCompleted && !User.ShowcaseItems.Any(si => si.DashboardProjectId == dp.Id))
+                .Select(dp => dp.ProjectId)
+                .ToList();
         }
-
-        Projects = ProjectHelper.GetProjectInfos().AsQueryable();
-
-        PaginatedList = await _galleryService.GetItems(PageNumber);
+        PaginatedList = await GalleryService.GetItems(PageNumber);
         ItemsToShow = PaginatedList.Items;
         ItemsToShowCache = ItemsToShow;
-
-        isLoading = false;
     }
 
     private void GetAreaItems(string area)
@@ -211,21 +216,20 @@
 
     private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
-        var result = await _galleryService.DeleteItem(itemToDelete);
+        var result = await GalleryService.DeleteItem(itemToDelete);
 
         if (result.Status == Models.Responses.ResponseStatus.Success)
         {
-            ResultMessage = "Item deleted successfully.";
+            ResultMessage = "Item deleted successfully ";
             ResultCardStatus = true;
-            ItemsToShow.Remove(itemToDelete);
-            CompletedProjectsNotShowcased.Add(itemToDelete.ProjectId);
+            await GetLists();
         }
         else
         {
             ResultMessage = "Failed to delete the item.";
             ResultCardStatus = false;
         }
-        IsResultCardShowing = true;
+
     }
 
     private void HandleProjectSelection(ChangeEventArgs e)
@@ -235,26 +239,16 @@
         ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
     }
 
-    private void DismissResultCard() => IsResultCardShowing = false;
+    private void DismissResultCard() => ResultMessage = null;
 
     private async Task HandleAddNewItem(BaseResponse response)
     {
         if (response.Status == ResponseStatus.Success)
         {
             ResultMessage = "Project added successfully!";
-            ResultCardStatus = true; 
+            ResultCardStatus = true;
 
-            if (response.Data is ShowcaseItemDTO newItem)
-            {
-                newItem.ProjectName = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Title;
-                newItem.Area = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Area;
-                newItem.Username = string.IsNullOrEmpty(User.FirstName)
-                ? User.UserName
-                : $"{User.FirstName} {User.LastName}";
-
-                ItemsToShow.Add(newItem);
-                CompletedProjectsNotShowcased.Remove(newItem.ProjectId);
-            }
+            await GetLists();
         }
         else
         {
@@ -262,15 +256,13 @@
             ResultCardStatus = false; 
         }
 
-        IsResultCardShowing = true;
-
         isFormOpen = false;
     }
 
     private async Task OnPageChangedAsync(int newPageNumber)
     {
         PageNumber = newPageNumber;
-        PaginatedList = await _galleryService.GetItems(PageNumber);
+        PaginatedList = await GalleryService.GetItems(PageNumber);
         ItemsToShow = PaginatedList.Items;
         ItemsToShowCache = ItemsToShow;
     }

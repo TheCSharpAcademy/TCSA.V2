@@ -20,6 +20,7 @@ public interface IUserService
     Task<ApplicationUser> GetDetailedUserById(string id);
     Task<int> GetCurrentXPs(string userId);
     Task DismissBeltNotification(string id);
+    Task<ApplicationUser> GetUserByIdWithShowcaseItems(string id);
 }
 
 public class UserService : IUserService
@@ -111,6 +112,25 @@ public class UserService : IUserService
             {
                 return await context.AspNetUsers
                 .Include(x => x.DashboardProjects)
+                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUserById)}");
+            return null;
+        }
+    }
+
+    public async Task<ApplicationUser> GetUserByIdWithShowcaseItems(string id)
+    {
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                return await context.AspNetUsers
+                .Include(x => x.DashboardProjects)
+                .Include(x => x.ShowcaseItems)
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
             }
         }

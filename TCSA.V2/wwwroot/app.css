@@ -187,6 +187,26 @@ h1:focus {
         background-color: #1C236D;
     }
 
+.page-link {
+    color: #1C236D !important;
+    background-color: #fff;
+}
+
+.custom-pagination {
+    color: #1C236D !important;
+    background-color: #fff;
+}
+
+    .custom-pagination .page-link:hover {
+        background-color: lightgray; 
+    }
+
+.custom-pagination .page-item.active .page-link {
+    color: #fff !important;
+    background-color: #1C236D; 
+    border-color: #28a745; 
+}
+
 @media (max-width: 992px) {
     .container-gallery {
         padding-top: 100px !important;

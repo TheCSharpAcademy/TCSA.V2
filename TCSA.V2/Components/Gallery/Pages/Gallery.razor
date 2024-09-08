@@ -33,7 +33,7 @@
                     IsSuccess="@ResultCardStatus" />
     }
     
-    <div class="row b-1">
+    <div class="row mb-2">
         <div class="col">
             @if(User != null && User.DashboardProjects.Any(x => x.IsCompleted))
             {
@@ -47,9 +47,17 @@
             }
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-2">
         @if (!IsFormOpen)
         {
+            @if(PaginatedList != null && PaginatedList.TotalPages > 1)
+            {
+                <div class="col-sm-3">
+                    <BlazorBootstrap.Pagination TotalPages="@PaginatedList.TotalPages" ActivePageNumber="@PageNumber"
+                                                PageChanged="@OnPageChangedAsync"
+                                                Class="custom-pagination" />
+                </div>
+            }
             <div class="col-sm-3">
                 <CategoryList OnClickCallback="@GetAreaItems"
                               SelectText="Filter By Area"
@@ -69,17 +77,10 @@
                     </select>
                 </div>
             }
-           @*  <div class="col-sm-3">
-                <div class="col">
-                    <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="Search by Username" aria-label="Search" />
-                </div>
-            </div> *@
         }
     </div>
     @if (!IsFormOpen && PaginatedList != null)
     {
-        <BlazorBootstrap.Pagination TotalPages="@PaginatedList.TotalPages"                                       ActivePageNumber="@PageNumber"
-                                    PageChanged="@OnPageChangedAsync" />
         <div class="row @(!ItemsToShow.Any() ? LoadingContainer : VideoContainer)">
             @if (ItemsToShow.Any())
             {
@@ -108,7 +109,7 @@
     <AuthorizeView>
         @if (User is not null && IsFormOpen)
         {
-            <div class="d-flex row flex-wrap">
+            <div class="d-flex row flex-wrap mb-2">
                 <ShowcaseItemForm CurrentUser="User"
                                   Projects="@Projects.Where(x => CompletedProjectsNotShowcased.Contains(x.Id))"
                                   IsLightMode=@IsLightMode
@@ -144,7 +145,6 @@
     private List<int> ShowCaseProjectIds { get; set; } = new();
     private List<int> CompletedProjectsNotShowcased { get; set; } = new();
 
-    private object Search = new() { };
     private bool IsLoading = true;
     private bool IsFormOpen;
     private bool ResultCardStatus;
@@ -152,7 +152,6 @@
     private string CurrentUserId = "none";
     private string LoadingContainer = "container text-center";
     private string VideoContainer = "d-flex justify-content-center flex-wrap mt-5";
-    private string SearchText = string.Empty;
     private string ResultMessage;
     private string LoadingMessage = "Loading...";
     private int PageNumber = 1;
@@ -211,28 +210,18 @@
         await GetLists();
     }
 
-    private void FilterItemsByProject(ShowcaseProjectInfo project)
+    private async Task HandleProjectSelection(ChangeEventArgs e)
     {
-        ItemsToShow = ItemsToShowCache;
-        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
+        int selectedProject = int.Parse(e.Value.ToString());
+        var project = ProjectSelections.FirstOrDefault(x => x.Id == selectedProject);
+        ProjectSelections = new List<ShowcaseProjectInfo>
+        {
+            project
+        };
+
+        PageNumber = 1;
+        await GetLists();
     }
-
-    // private async Task ApplySearchFilter(ChangeEventArgs e)
-    // {
-    //     SearchText = e.Value?.ToString();
-
-    //     if (string.IsNullOrEmpty(SearchText))
-    //     {
-    //         ItemsToShow = ItemsToShowCache;
-    //         ProjectSelections = [];
-    //         return;
-    //     }
-    //     ItemsToShow = ItemsToShow
-    //     .Where(i => i.Username.Contains(SearchText))
-    //     .ToList();
-    // }
-
-    private void ToggleAddForm() => IsFormOpen = !IsFormOpen;
 
     private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
@@ -253,16 +242,6 @@
         }
 
     }
-
-    private void HandleProjectSelection(ChangeEventArgs e)
-    {
-        int selectedProject = int.Parse(e.Value.ToString());
-        ItemsToShow = ItemsToShowCache;
-        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
-    }
-
-    private void DismissResultCard() => ResultMessage = null;
-
     private async Task HandleAddNewItem(BaseResponse response)
     {
         if (response.Status == ResponseStatus.Success)
@@ -289,4 +268,8 @@
         ItemsToShow = PaginatedList.Items;
         ItemsToShowCache = ItemsToShow;
     }
+
+    private void ToggleAddForm() => IsFormOpen = !IsFormOpen;
+
+    private void DismissResultCard() => ResultMessage = null;
 }

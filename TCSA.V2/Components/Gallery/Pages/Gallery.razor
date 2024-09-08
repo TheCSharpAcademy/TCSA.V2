@@ -242,6 +242,7 @@
         }
 
     }
+
     private async Task HandleAddNewItem(BaseResponse response)
     {
         if (response.Status == ResponseStatus.Success)
@@ -269,7 +270,11 @@
         ItemsToShowCache = ItemsToShow;
     }
 
-    private void ToggleAddForm() => IsFormOpen = !IsFormOpen;
+    private void ToggleAddForm()
+    {
+        IsFormOpen = !IsFormOpen;
+        ResultMessage = "";
+    }
 
     private void DismissResultCard() => ResultMessage = null;
 }

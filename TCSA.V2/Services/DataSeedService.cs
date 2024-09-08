@@ -9,6 +9,7 @@ namespace TCSA.V2.Services;
 public interface IDataSeedService
 {
     Task SeedData(DataSeedForm form);
+    Task SeedShowCaseItems();
 }
 
 public class DataSeedService : IDataSeedService
@@ -18,6 +19,77 @@ public class DataSeedService : IDataSeedService
     public DataSeedService(IDbContextFactory<ApplicationDbContext> factory)
     {
         _factory = factory;
+    }
+
+    public async Task SeedShowCaseItems()
+    {
+        var itemsToAdd = new List<ShowcaseItem>
+        {
+            new ShowcaseItem
+            {
+                AppUserId = "7ea42821-a487-4985-a7ab-cde7630ff885",
+                DashboardProjectId = 8531,
+                VideoUrl = "https://www.youtube.com/watch?v=fQ9RFR1KTbY",
+                GithubUrl = "https://github.com/TheCSharpAcademy",
+                DateCreated = DateTime.Now,
+            },
+            new ShowcaseItem
+            { 
+                AppUserId = "7ea42821-a487-4985-a7ab-cde7630ff885",
+                DashboardProjectId = 10857,
+                VideoUrl = "https://www.youtube.com/watch?v=fQ9RFR1KTbY",
+                GithubUrl = "https://github.com/TheCSharpAcademy",
+                DateCreated = DateTime.Now,
+            },
+            new ShowcaseItem
+            {
+                AppUserId = "7ea42821-a487-4985-a7ab-cde7630ff885",
+                DashboardProjectId = 10977,
+                VideoUrl = "https://www.youtube.com/watch?v=fQ9RFR1KTbY",
+                GithubUrl = "https://github.com/TheCSharpAcademy",
+                DateCreated = DateTime.Now,
+            },
+            new ShowcaseItem
+            {
+                AppUserId = "7ea42821-a487-4985-a7ab-cde7630ff885",
+                DashboardProjectId = 11019,
+                VideoUrl = "https://www.youtube.com/watch?v=fQ9RFR1KTbY",
+                GithubUrl = "https://github.com/TheCSharpAcademy",
+                DateCreated = DateTime.Now,
+            },
+            new ShowcaseItem
+            {
+                AppUserId = "7ea42821-a487-4985-a7ab-cde7630ff885",
+                DashboardProjectId = 11052,
+                VideoUrl = "https://www.youtube.com/watch?v=fQ9RFR1KTbY",
+                GithubUrl = "https://github.com/TheCSharpAcademy",
+                DateCreated = DateTime.Now,
+            },
+            new ShowcaseItem
+            {
+                AppUserId = "7ea42821-a487-4985-a7ab-cde7630ff885",
+                DashboardProjectId = 11198,
+                VideoUrl = "https://www.youtube.com/watch?v=fQ9RFR1KTbY",
+                GithubUrl = "https://github.com/TheCSharpAcademy",
+                DateCreated = DateTime.Now,
+            }
+        };
+
+        using (var context = _factory.CreateDbContext())
+        {
+            try
+            {
+                var allItems = await context.ShowcaseItems.ToListAsync();
+                context.ShowcaseItems.RemoveRange(allItems);
+                await context.ShowcaseItems.AddRangeAsync(itemsToAdd);
+         
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 
     public async Task SeedData(DataSeedForm form)

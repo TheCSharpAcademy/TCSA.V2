@@ -13,6 +13,19 @@
 @using System.Linq;
 
 <div class="container container-gallery mt-5 pt-3">
+    <div class="row">
+        <div class="col">
+            @if (IsAdmin)
+            {
+                <button class="btn btn-warning d-md-inline-block btn-admin"
+                        @onclick="SeedData"
+                        type="button">
+                    Seed Data
+                </button>
+            }
+        </div>
+    </div>
+
     @if (!string.IsNullOrEmpty(ResultMessage))
     {
         <CloseButtonSVG OnClickCallback="@DismissResultCard" />
@@ -28,14 +41,14 @@
                     <button class="btn btn-success d-md-inline-block btn-academy"
                             @onclick="ToggleAddForm"
                             type="button">
-                        @(isFormOpen ? "Back to Gallery" : "Add Project")
+                        @(IsFormOpen ? "Back to Gallery" : "Add Project")
                     </button>
                 </AuthorizeView>
             }
         </div>
     </div>
     <div class="row">
-        @if (!isFormOpen)
+        @if (!IsFormOpen)
         {
             <div class="col-sm-3">
                 <CategoryList OnClickCallback="@GetAreaItems"
@@ -56,18 +69,18 @@
                     </select>
                 </div>
             }
-            <div class="col-sm-3">
+           @*  <div class="col-sm-3">
                 <div class="col">
                     <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="Search by Username" aria-label="Search" />
                 </div>
-            </div>
+            </div> *@
         }
     </div>
-    @if (!isFormOpen && PaginatedList != null)
+    @if (!IsFormOpen && PaginatedList != null)
     {
         <BlazorBootstrap.Pagination TotalPages="@PaginatedList.TotalPages"                                       ActivePageNumber="@PageNumber"
                                     PageChanged="@OnPageChangedAsync" />
-        <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
+        <div class="row @(!ItemsToShow.Any() ? LoadingContainer : VideoContainer)">
             @if (ItemsToShow.Any())
             {
                 foreach (var item in ItemsToShow)
@@ -79,7 +92,7 @@
             }
             else
             {
-                if (isLoading)
+                if (IsLoading)
                 {
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">@LoadingMessage</span>
@@ -93,7 +106,7 @@
         </div>
     }
     <AuthorizeView>
-        @if (User is not null && isFormOpen)
+        @if (User is not null && IsFormOpen)
         {
             <div class="d-flex row flex-wrap">
                 <ShowcaseItemForm CurrentUser="User"
@@ -113,6 +126,7 @@
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
     [Inject] private IGalleryService GalleryService { get; set; }
+    [Inject] private IDataSeedService DataSeedService { get; set; }
 
     private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
@@ -130,16 +144,17 @@
     private List<int> ShowCaseProjectIds { get; set; } = new();
     private List<int> CompletedProjectsNotShowcased { get; set; } = new();
 
-    private bool isLoading = true;
-    private string CurrentUserId = "none";
-    private string loadingContainer = "container text-center";
-    private string videoContainer = "d-flex justify-content-center flex-wrap mt-5";
-    private string searchText = string.Empty;
     private object Search = new() { };
-    private bool isFormOpen;
+    private bool IsLoading = true;
+    private bool IsFormOpen;
+    private bool ResultCardStatus;
+    private bool IsAdmin;
+    private string CurrentUserId = "none";
+    private string LoadingContainer = "container text-center";
+    private string VideoContainer = "d-flex justify-content-center flex-wrap mt-5";
+    private string SearchText = string.Empty;
     private string ResultMessage;
     private string LoadingMessage = "Loading...";
-    private bool ResultCardStatus;
     private int PageNumber = 1;
 
     protected async override Task OnInitializedAsync()
@@ -149,12 +164,17 @@
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //Projects = ProjectHelper.GetProjectInfos().AsQueryable();
+        IsAdmin = claims.FindFirstValue(ClaimTypes.Role) == "Admin";
+        Projects = ProjectHelper.GetProjectInfos();
 
         await GetLists();
 
-        isLoading = false;
+        IsLoading = false;
+    }
+
+    private async Task SeedData()
+    {
+        await DataSeedService.SeedShowCaseItems();
     }
 
     private async Task GetLists()
@@ -170,25 +190,25 @@
                 .Select(dp => dp.ProjectId)
                 .ToList();
         }
-        PaginatedList = await GalleryService.GetItems(PageNumber);
+        PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());
         ItemsToShow = PaginatedList.Items;
         ItemsToShowCache = ItemsToShow;
     }
 
-    private void GetAreaItems(string area)
+    private async Task GetAreaItems(string area)
     {
-        ItemsToShow = ItemsToShowCache;
         if (area == "All")
         {
+            PageNumber = 1;
             ProjectSelections = [];
-            ItemsToShow = ItemsToShow;
         }
         else
         {
             var areaEnum = Enum.Parse<Area>(area);
             ProjectSelections = Projects.Where(project => project.Area == areaEnum).ToList();
-            ItemsToShow = ItemsToShow.Where(project => project.Area == areaEnum).ToList();
         }
+
+        await GetLists();
     }
 
     private void FilterItemsByProject(ShowcaseProjectInfo project)
@@ -197,22 +217,22 @@
         ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
     }
 
-    private async Task ApplySearchFilter(ChangeEventArgs e)
-    {
-        searchText = e.Value?.ToString();
+    // private async Task ApplySearchFilter(ChangeEventArgs e)
+    // {
+    //     SearchText = e.Value?.ToString();
 
-        if (string.IsNullOrEmpty(searchText))
-        {
-            ItemsToShow = ItemsToShowCache;
-            ProjectSelections = [];
-            return;
-        }
-        ItemsToShow = ItemsToShow
-        .Where(i => i.Username.Contains(searchText))
-        .ToList();
-    }
+    //     if (string.IsNullOrEmpty(SearchText))
+    //     {
+    //         ItemsToShow = ItemsToShowCache;
+    //         ProjectSelections = [];
+    //         return;
+    //     }
+    //     ItemsToShow = ItemsToShow
+    //     .Where(i => i.Username.Contains(SearchText))
+    //     .ToList();
+    // }
 
-    private void ToggleAddForm() => isFormOpen = !isFormOpen;
+    private void ToggleAddForm() => IsFormOpen = !IsFormOpen;
 
     private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
@@ -222,6 +242,8 @@
         {
             ResultMessage = "Item deleted successfully ";
             ResultCardStatus = true;
+            PageNumber = 1;
+            ProjectSelections = [];
             await GetLists();
         }
         else
@@ -247,7 +269,8 @@
         {
             ResultMessage = "Project added successfully!";
             ResultCardStatus = true;
-
+            PageNumber = 1;
+            ProjectSelections = [];
             await GetLists();
         }
         else
@@ -256,13 +279,13 @@
             ResultCardStatus = false; 
         }
 
-        isFormOpen = false;
+        IsFormOpen = false;
     }
 
     private async Task OnPageChangedAsync(int newPageNumber)
     {
         PageNumber = newPageNumber;
-        PaginatedList = await GalleryService.GetItems(PageNumber);
+        PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());
         ItemsToShow = PaginatedList.Items;
         ItemsToShowCache = ItemsToShow;
     }

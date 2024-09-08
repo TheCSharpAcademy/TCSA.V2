@@ -9,7 +9,7 @@ namespace TCSA.V2.Services;
 
 public interface IGalleryService
 {
-    Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber);
+    Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber, List<int> projectIds);
     Task<BaseResponse> AddItem(ShowcaseItemDTO newItem);
     Task<BaseResponse> DeleteItem(ShowcaseItemDTO itemToDelete);
 }
@@ -25,7 +25,7 @@ public class GalleryService : IGalleryService
         _logger = logger;
     }
 
-    public async Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber)
+    public async Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber, List<int> projectIds)
     {
         using var context = _factory.CreateDbContext();
         try
@@ -33,14 +33,19 @@ public class GalleryService : IGalleryService
             var query = context.ShowcaseItems
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.DashboardProject)
-                .AsNoTracking()
-                .OrderByDescending(i => i.DateCreated);
+                .AsNoTracking();
 
-            // Get total count of items
-            var totalItems = await query.CountAsync();
+            if (projectIds.Any())
+            {
+                query = query.Where(i => projectIds.Contains(i.DashboardProject.ProjectId));
+                pageNumber = 1; 
+            }
 
-            // Fetch only the items for the current page
-            var items = await query
+            var orderedQuery = query.OrderByDescending(i => i.DateCreated);
+
+            var totalItems = await orderedQuery.CountAsync();
+
+            var items = await orderedQuery
                 .Skip((pageNumber - 1) * 5)
                 .Take(5)
                 .ToListAsync();
@@ -55,6 +60,9 @@ public class GalleryService : IGalleryService
             return null;
         }
     }
+
+
+
 
 
     public async Task<BaseResponse> AddItem(ShowcaseItemDTO newItem)

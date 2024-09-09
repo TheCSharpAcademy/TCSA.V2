@@ -24,38 +24,35 @@
         <InputText id="githubUrl" class="form-control w-50" @bind-Value="Model.GithubUrl" />
         <label for="githubUrl">Github Url</label>
     </div>
-    <button class="btn btn-success btn-academy mt-1" type="submit">Submit</button>
-@* 
-    @if (IsSubmitting)
+    @if (!IsSubmitting)
     {
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <button class="btn btn-success btn-academy mt-1" type="submit">Submit</button>
+    } else
+    {
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
         </div>
     }
-    else
-    {
-        <button class="btn btn-outline-secondary mt-1" type="submit">Update GitHubUrl</button>
-    } *@
 
 </EditForm>
 
 
 @code {
     [SupplyParameterFromForm] public SubmitShowCaseItemForm Model { get; set; } = new();
-    [Inject] private IGalleryService _galleryService { get; set; }
     [Parameter] public EventCallback<BaseResponse> OnAddNewItem { get; set; } = new();
     [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
-    [Parameter] public List<string> Areas { get; set; } = new();
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     [Parameter] public bool IsLightMode { get; set; } = false;
-
-    private readonly List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
+    [Inject] private IGalleryService GalleryService { get; set; }
 
     private bool IsSubmitDisabled { get; set; } = true; 
     private string ValidationMessage { get; set; }
+    private bool IsSubmitting { get; set; } = false;
 
     private async Task SubmitProject()
     {
+        IsSubmitting = true;
+
         var newItem = new ShowcaseItemDTO
             {
                 ApplicationUserId = CurrentUser.Id,
@@ -65,7 +62,8 @@
                 GithubUrl = Model.GithubUrl
             };
 
-        var response = await _galleryService.AddItem(newItem);
+
+        var response = await GalleryService.AddItem(newItem);
 
         await OnAddNewItem.InvokeAsync(response);
     }

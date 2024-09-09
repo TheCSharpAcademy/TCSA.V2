@@ -13,14 +13,27 @@
 @using System.Linq;
 
 <div class="container container-gallery mt-5 pt-3">
-    @if (IsResultCardShowing)
+    <div class="row">
+        <div class="col">
+            @if (IsAdmin)
+            {
+                <button class="btn btn-warning d-md-inline-block btn-admin"
+                        @onclick="SeedData"
+                        type="button">
+                    Seed Data
+                </button>
+            }
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ResultMessage))
     {
         <CloseButtonSVG OnClickCallback="@DismissResultCard" />
         <ResultCard Message="@ResultMessage"
                     IsSuccess="@ResultCardStatus" />
     }
     
-    <div class="row b-1">
+    <div class="row mb-2">
         <div class="col">
             @if(User != null && User.DashboardProjects.Any(x => x.IsCompleted))
             {
@@ -28,15 +41,23 @@
                     <button class="btn btn-success d-md-inline-block btn-academy"
                             @onclick="ToggleAddForm"
                             type="button">
-                        @(isFormOpen ? "Back to Gallery" : "Add Project")
+                        @(IsFormOpen ? "Back to Gallery" : "Add Project")
                     </button>
                 </AuthorizeView>
             }
         </div>
     </div>
-    <div class="row">
-        @if (!isFormOpen)
+    <div class="row mb-2">
+        @if (!IsFormOpen)
         {
+            @if(PaginatedList != null && PaginatedList.TotalPages > 1)
+            {
+                <div class="col-sm-3">
+                    <BlazorBootstrap.Pagination TotalPages="@PaginatedList.TotalPages" ActivePageNumber="@PageNumber"
+                                                PageChanged="@OnPageChangedAsync"
+                                                Class="custom-pagination" />
+                </div>
+            }
             <div class="col-sm-3">
                 <CategoryList OnClickCallback="@GetAreaItems"
                               SelectText="Filter By Area"
@@ -56,46 +77,41 @@
                     </select>
                 </div>
             }
-            <div class="col-sm-3">
-                <div class="col">
-                    <input type="text" class="form-control" @oninput="ApplySearchFilter" placeholder="Search by Username" aria-label="Search" />
-                </div>
-            </div>
         }
     </div>
-    @if (!isFormOpen)
+    @if (!IsFormOpen && PaginatedList != null)
     {
-        <div class="row @(!ItemsToShow.Any() ? loadingContainer : videoContainer)">
-            @if (ItemsToShow.Any())
-            {
-                foreach (var item in ItemsToShow)
+        if (IsLoading)
+        {
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        } 
+        else
+        {
+            <div class="row @(!ItemsToShow.Any() ? LoadingContainer : VideoContainer)">
+                @if (ItemsToShow.Any())
                 {
-                    <ShowcaseCard Item="@item"
-                                  CurrentUserId="@CurrentUserId"
-                                  OnDelete=@(() => HandleDelete(item))/>
-                }
-            }
-            else
-            {
-                if (isLoading)
-                {
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+                    foreach (var item in ItemsToShow)
+                    {
+                        <ShowcaseCard Item="@item"
+                                      CurrentUserId="@CurrentUserId"
+                                      IsUserOwner=@(item.ApplicationUserId == CurrentUserId)
+                                      OnDelete=@(() => HandleDelete(item)) />
+                    }
                 }
                 else
                 {
                     <h2>No content...</h2>
                 }
-            }
-        </div>
+            </div>
+        }
     }
     <AuthorizeView>
-        @if (User is not null && isFormOpen)
+        @if (User is not null && IsFormOpen)
         {
-            <div class="d-flex row flex-wrap">
+            <div class="d-flex row flex-wrap mb-2">
                 <ShowcaseItemForm CurrentUser="User"
-                                  Areas="@Areas"
                                   Projects="@Projects.Where(x => CompletedProjectsNotShowcased.Contains(x.Id))"
                                   IsLightMode=@IsLightMode
                                   OnAddNewItem="HandleAddNewItem"/>
@@ -111,7 +127,8 @@
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IUserService UserService { get; set; }
     [Inject] private IProjectService ProjectService { get; set; }
-    [Inject] private IGalleryService _galleryService { get; set; }
+    [Inject] private IGalleryService GalleryService { get; set; }
+    [Inject] private IDataSeedService DataSeedService { get; set; }
 
     private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
@@ -123,22 +140,21 @@
     private IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     private IEnumerable<ShowcaseProjectInfo> ProjectSelections { get; set; } = [];
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
+    private PaginatedList<ShowcaseItemDTO> PaginatedList { get; set; }
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
-    private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
-    private List<int> CompletedProjectIds { get; set; } = new();
     private List<int> ShowCaseProjectIds { get; set; } = new();
     private List<int> CompletedProjectsNotShowcased { get; set; } = new();
 
-    private bool isLoading = true;
-    private string CurrentUserId = "none";
-    private string loadingContainer = "container text-center";
-    private string videoContainer = "d-flex justify-content-center flex-wrap mt-5";
-    private string searchText = string.Empty;
-    private object Search = new() { };
-    private bool isFormOpen;
-    private string ResultMessage;
+    private bool IsLoading = true;
+    private bool IsFormOpen;
     private bool ResultCardStatus;
-    private bool IsResultCardShowing = false;
+    private bool IsAdmin;
+    private string CurrentUserId = "none";
+    private string LoadingContainer = "container text-center";
+    private string VideoContainer = "d-flex justify-content-center flex-wrap mt-5";
+    private string ResultMessage;
+    private string LoadingMessage = "Loading...";
+    private int PageNumber = 1;
 
     protected async override Task OnInitializedAsync()
     {
@@ -147,109 +163,97 @@
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
         var claims = AuthSate.User;
         UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-        User = await UserService.GetUserById(UserId);
+        IsAdmin = claims.FindFirstValue(ClaimTypes.Role) == "Admin";
+        Projects = ProjectHelper.GetProjectInfos();
+
+        await GetLists();
+
+        IsLoading = false;
+    }
+
+    private async Task SeedData()
+    {
+        await DataSeedService.SeedShowCaseItems();
+    }
+
+    private async Task GetLists()
+    {
+        User = await UserService.GetUserByIdWithShowcaseItems(UserId);
 
         if (User is not null)
         {
             CurrentUserId = User.Id;
-            CompletedProjectIds = User.DashboardProjects.Where(x => x.IsCompleted).Select(x => x.ProjectId).ToList();
-            ShowCaseProjectIds = ItemsToShow.Where(x => x.ApplicationUserId == UserId).Select(x => x.ProjectId).ToList();
-            CompletedProjectsNotShowcased = CompletedProjectIds.Except(ShowCaseProjectIds).ToList();
+
+            CompletedProjectsNotShowcased = User.DashboardProjects
+            .Where(dp => dp.IsCompleted && !User.ShowcaseItems.Any(si => si.DashboardProjectId == dp.Id))
+                .Select(dp => dp.ProjectId)
+                .ToList();
         }
-
-        Projects = ProjectHelper.GetProjectInfos().AsQueryable();
-
-        ItemsToShow = await _galleryService.GetItems();
-        ItemsToShowCache = ItemsToShow;
-
-        isLoading = false;
+        PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());
+        ItemsToShow = PaginatedList.Items;
     }
 
-    private void GetAreaItems(string area)
+    private async Task GetAreaItems(string area)
     {
-        ItemsToShow = ItemsToShowCache;
         if (area == "All")
         {
+            PageNumber = 1;
             ProjectSelections = [];
-            ItemsToShow = ItemsToShow;
         }
         else
         {
             var areaEnum = Enum.Parse<Area>(area);
             ProjectSelections = Projects.Where(project => project.Area == areaEnum).ToList();
-            ItemsToShow = ItemsToShow.Where(project => project.Area == areaEnum).ToList();
         }
+
+        await GetLists();
     }
 
-    private void FilterItemsByProject(ShowcaseProjectInfo project)
+    private async Task HandleProjectSelection(ChangeEventArgs e)
     {
-        ItemsToShow = ItemsToShowCache;
-        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == project.Id).ToList();
-    }
-
-    private async Task ApplySearchFilter(ChangeEventArgs e)
-    {
-        searchText = e.Value?.ToString();
-
-        if (string.IsNullOrEmpty(searchText))
+        int selectedProject = int.Parse(e.Value.ToString());
+        var project = ProjectSelections.FirstOrDefault(x => x.Id == selectedProject);
+        ProjectSelections = new List<ShowcaseProjectInfo>
         {
-            ItemsToShow = ItemsToShowCache;
-            ProjectSelections = [];
-            return;
-        }
-        ItemsToShow = ItemsToShow
-        .Where(i => i.Username.Contains(searchText))
-        .ToList();
-    }
+            project
+        };
 
-    private void ToggleAddForm() => isFormOpen = !isFormOpen;
+        PageNumber = 1;
+        await GetLists();
+    }
 
     private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
-        var result = await _galleryService.DeleteItem(itemToDelete);
+        IsLoading = true;
+        var result = await GalleryService.DeleteItem(itemToDelete);
 
         if (result.Status == Models.Responses.ResponseStatus.Success)
         {
-            ResultMessage = "Item deleted successfully.";
+            ResultMessage = "Item deleted successfully ";
             ResultCardStatus = true;
-            ItemsToShow.Remove(itemToDelete);
-            CompletedProjectsNotShowcased.Add(itemToDelete.ProjectId);
+            PageNumber = 1;
+            ProjectSelections = [];
+            await GetLists();
         }
         else
         {
             ResultMessage = "Failed to delete the item.";
             ResultCardStatus = false;
         }
-        IsResultCardShowing = true;
+        IsLoading = false;
     }
-
-    private void HandleProjectSelection(ChangeEventArgs e)
-    {
-        int selectedProject = int.Parse(e.Value.ToString());
-        ItemsToShow = ItemsToShowCache;
-        ItemsToShow = ItemsToShow.Where(i => i.ProjectId == selectedProject).ToList();
-    }
-
-    private void DismissResultCard() => IsResultCardShowing = false;
 
     private async Task HandleAddNewItem(BaseResponse response)
     {
+        IsLoading = true;
+        LoadingMessage = "Adding project...";
         if (response.Status == ResponseStatus.Success)
         {
             ResultMessage = "Project added successfully!";
-            ResultCardStatus = true; 
-
-            if (response.Data is ShowcaseItemDTO newItem)
-            {
-                newItem.ProjectName = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Title;
-                newItem.Area = Projects.FirstOrDefault(p => p.Id == newItem.ProjectId).Area;
-                newItem.Username = string.IsNullOrEmpty(User.FirstName)
-                ? User.UserName
-                : $"{User.FirstName} {User.LastName}";
-
-                ItemsToShow.Add(newItem);
-                CompletedProjectsNotShowcased.Remove(newItem.ProjectId);
-            }
+            ResultCardStatus = true;
+            PageNumber = 1;
+            ProjectSelections = [];
+            await GetLists();
         }
         else
         {
@@ -257,8 +261,23 @@
             ResultCardStatus = false; 
         }
 
-        IsResultCardShowing = true;
-
-        isFormOpen = false;
+        IsLoading = false;
+        LoadingMessage = "";
+        IsFormOpen = false;
     }
+
+    private async Task OnPageChangedAsync(int newPageNumber)
+    {
+        PageNumber = newPageNumber;
+        PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());
+        ItemsToShow = PaginatedList.Items;
+    }
+
+    private void ToggleAddForm()
+    {
+        IsFormOpen = !IsFormOpen;
+        ResultMessage = "";
+    }
+
+    private void DismissResultCard() => ResultMessage = null;
 }

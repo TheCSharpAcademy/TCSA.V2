@@ -52,6 +52,8 @@ builder.Services.AddScoped<IGalleryService, GalleryService>();
 builder.Services.AddScoped<HeartBeat>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<WebhookEventProcessor, MyWebhookEventProcessor>();
+builder.Services.AddBlazorBootstrap();
+
 
 builder.Services.AddAuthentication(options =>
     {

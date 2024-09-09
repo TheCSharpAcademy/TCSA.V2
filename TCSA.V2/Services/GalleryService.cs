@@ -9,7 +9,7 @@ namespace TCSA.V2.Services;
 
 public interface IGalleryService
 {
-    Task<List<ShowcaseItemDTO>> GetItems();
+    Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber, List<int> projectIds);
     Task<BaseResponse> AddItem(ShowcaseItemDTO newItem);
     Task<BaseResponse> DeleteItem(ShowcaseItemDTO itemToDelete);
 }
@@ -25,27 +25,45 @@ public class GalleryService : IGalleryService
         _logger = logger;
     }
 
-    public async Task<List<ShowcaseItemDTO>> GetItems()
+    public async Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber, List<int> projectIds)
     {
         using var context = _factory.CreateDbContext();
         try
         {
-            var items = await context.ShowcaseItems
+            var query = context.ShowcaseItems
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.DashboardProject)
-                .AsNoTracking()
-                .OrderByDescending(i => i.DateCreated)
+                .AsNoTracking();
+
+            if (projectIds.Any())
+            {
+                query = query.Where(i => projectIds.Contains(i.DashboardProject.ProjectId));
+                pageNumber = 1; 
+            }
+
+            var orderedQuery = query.OrderByDescending(i => i.DateCreated);
+
+            var totalItems = await orderedQuery.CountAsync();
+
+            var items = await orderedQuery
+                .Skip((pageNumber - 1) * 5)
+                .Take(5)
                 .ToListAsync();
 
-            return items.Select(x => GalleryHelpers.ConvertToDTO(x)).ToList();
+            var itemDTOs = items.Select(x => GalleryHelpers.ConvertToDTO(x)).ToList();
+
+            return new PaginatedList<ShowcaseItemDTO>(itemDTOs, totalItems, pageNumber);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
             return null;
         }
-
     }
+
+
+
+
 
     public async Task<BaseResponse> AddItem(ShowcaseItemDTO newItem)
     {
@@ -122,5 +140,4 @@ public class GalleryService : IGalleryService
 
         return response;
     }
-
 }

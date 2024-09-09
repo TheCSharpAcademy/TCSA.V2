@@ -81,30 +81,31 @@
     </div>
     @if (!IsFormOpen && PaginatedList != null)
     {
-        <div class="row @(!ItemsToShow.Any() ? LoadingContainer : VideoContainer)">
-            @if (ItemsToShow.Any())
-            {
-                foreach (var item in ItemsToShow)
+        if (IsLoading)
+        {
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        } 
+        else
+        {
+            <div class="row @(!ItemsToShow.Any() ? LoadingContainer : VideoContainer)">
+                @if (ItemsToShow.Any())
                 {
-                    <ShowcaseCard Item="@item"
-                                  CurrentUserId="@CurrentUserId"
-                                  OnDelete=@(() => HandleDelete(item))/>
-                }
-            }
-            else
-            {
-                if (IsLoading)
-                {
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">@LoadingMessage</span>
-                    </div>
+                    foreach (var item in ItemsToShow)
+                    {
+                        <ShowcaseCard Item="@item"
+                                      CurrentUserId="@CurrentUserId"
+                                      IsUserOwner=@(item.ApplicationUserId == CurrentUserId)
+                                      OnDelete=@(() => HandleDelete(item)) />
+                    }
                 }
                 else
                 {
                     <h2>No content...</h2>
                 }
-            }
-        </div>
+            </div>
+        }
     }
     <AuthorizeView>
         @if (User is not null && IsFormOpen)
@@ -141,7 +142,6 @@
     private IEnumerable<ShowcaseItem> AllItems { get; set; } = [];
     private PaginatedList<ShowcaseItemDTO> PaginatedList { get; set; }
     private List<ShowcaseItemDTO> ItemsToShow { get; set; } = [];
-    private List<ShowcaseItemDTO> ItemsToShowCache { get; set; } = [];
     private List<int> ShowCaseProjectIds { get; set; } = new();
     private List<int> CompletedProjectsNotShowcased { get; set; } = new();
 
@@ -191,7 +191,6 @@
         }
         PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());
         ItemsToShow = PaginatedList.Items;
-        ItemsToShowCache = ItemsToShow;
     }
 
     private async Task GetAreaItems(string area)
@@ -225,6 +224,7 @@
 
     private async Task HandleDelete(ShowcaseItemDTO itemToDelete)
     {
+        IsLoading = true;
         var result = await GalleryService.DeleteItem(itemToDelete);
 
         if (result.Status == Models.Responses.ResponseStatus.Success)
@@ -240,11 +240,13 @@
             ResultMessage = "Failed to delete the item.";
             ResultCardStatus = false;
         }
-
+        IsLoading = false;
     }
 
     private async Task HandleAddNewItem(BaseResponse response)
     {
+        IsLoading = true;
+        LoadingMessage = "Adding project...";
         if (response.Status == ResponseStatus.Success)
         {
             ResultMessage = "Project added successfully!";
@@ -259,6 +261,8 @@
             ResultCardStatus = false; 
         }
 
+        IsLoading = false;
+        LoadingMessage = "";
         IsFormOpen = false;
     }
 
@@ -267,7 +271,6 @@
         PageNumber = newPageNumber;
         PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());
         ItemsToShow = PaginatedList.Items;
-        ItemsToShowCache = ItemsToShow;
     }
 
     private void ToggleAddForm()

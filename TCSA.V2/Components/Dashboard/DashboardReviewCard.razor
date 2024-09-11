@@ -44,28 +44,31 @@
         else
         {
             <div class="row text-center">
-                <div class="col-12 view-btn">
-                  @if(Loading){
-                        <div class="col-12 dashboard-review-action-approve">
-                            <Loader />
-                        </div>
-                  }else{
+                @if (Loading)
+                {
+                    <div class="col-12 dashboard-review-action-approve">
+                        <Loader />
+                    </div>
+                }
+                else
+                {
+                    <div class="col-6 view-btn">
                         <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsCompleteCallBack">
                             <ApproveSVG />
                             <div class="col-12 dashboard-review-action-approve">
                                 Approve
                             </div>
                         </a>
+                    </div>
+                    <div class="col-6 view-btn">
+                        <a target="_blank" href="" @onclick:preventDefault @onclick="OnReleaseCallBack">
+                            <TakeSVG />
+                            <div class="col-12 dashboard-review-action-text">
+                                Release
+                            </div>
+                        </a>
+                    </div>
                 }
-                </div>
-                <div class="col-6 view-btn">
-                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnReleaseCallBack">
-                        <TakeSVG />
-                        <div class="col-12 dashboard-review-action-text">
-                            Release
-                        </div>
-                    </a>
-                </div>
             </div>
         }
     </div>

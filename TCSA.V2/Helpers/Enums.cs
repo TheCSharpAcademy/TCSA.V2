@@ -28,4 +28,11 @@ public class Enums
         Pending,
         Completed
     }
+
+    public enum ProjectStatus
+    {
+        Pending,
+        Completed,
+        None
+    }
 }

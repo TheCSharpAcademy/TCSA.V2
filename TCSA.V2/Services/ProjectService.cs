@@ -103,7 +103,11 @@ public class ProjectService : IProjectService
             using (var context = _factory.CreateDbContext())
             {
                 var result = await context.DashboardProjects
-                    .AnyAsync(x => x.ProjectId == projectId && x.AppUserId == userId);
+                    .AnyAsync(
+                        x => x.IsCompleted 
+                        && x.ProjectId == projectId 
+                        && x.AppUserId == userId
+                    );
 
                 _logger.LogInformation($"{nameof(IsProjectCompleted)} executed correctly");
 
@@ -125,7 +129,7 @@ public class ProjectService : IProjectService
             {
                 var result = await context.DashboardProjects
                     .AnyAsync(
-                        x => x.IsPendingReview == true 
+                        x => x.IsPendingReview
                         && x.ProjectId == projectId
                         && x.AppUserId == userId
                     );

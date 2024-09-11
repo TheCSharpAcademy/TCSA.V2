@@ -47,16 +47,14 @@ else
         <p> No user has completed this project</p>
     }
 
-    @if (IsCompleted)
+    @if (Status == ProjectStatus.Completed)
     {
         <div class="card card-completed">
             <div class="card-body">
                 @Project.LanguageHeadings.RoadmapStepCompleted
             </div>
         </div>
-    }
-
-    @if (IsPendingReview)
+    } else if (Status == ProjectStatus.Pending)
     {
         <div class="card card-pending">
             <div class="card-body">
@@ -411,6 +409,7 @@ else
     private int NumberOfUserCompletedProjects{get; set;} = 0;
     private bool IsLoggedIn;
     private bool IsPendingReview { get; set; } = false;
+    private ProjectStatus Status { get; set; } = ProjectStatus.None;
     private bool IsCompleted { get; set; } = false;
     private bool codeWarsNotFoundShowing = false;
     private bool ShowBanner = false;
@@ -453,6 +452,9 @@ else
 
         NumberOfUserCompletedProjects = await ProjectService.GetCompletedProjectsbyProjectId(ProjectId);
         IsCompleted = await ProjectService.IsProjectCompleted(UserId, ProjectId);
+        IsPendingReview = await ProjectService.IsProjectPendingReview(UserId, ProjectId);
+        Status = IsCompleted ? ProjectStatus.Completed : IsPendingReview ? ProjectStatus.Pending : ProjectStatus.None;
+
 
 
         if (!IsCompleted && Project.Area == Area.SQL)

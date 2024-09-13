@@ -104,7 +104,7 @@ public class PeerReviewService : IPeerReviewService
 
                 context.Users
                     .Where(x => x.Id == reviewerId)
-                    .ExecuteUpdate(y => y.SetProperty(u => u.ReviewdProjects, reviewer.ReviewdProjects + 1));
+                    .ExecuteUpdate(y => y.SetProperty(u => u.ReviewedProjects, reviewer.ReviewedProjects + 1));
 
                 await context.SaveChangesAsync();
             }

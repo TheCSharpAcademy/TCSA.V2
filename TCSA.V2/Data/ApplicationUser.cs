@@ -24,7 +24,7 @@ public class ApplicationUser : IdentityUser
     public string? LinkedInUrl { get; set; }
     public string? GithubUsername { get; set; }
     public string? DisplayName { get; set; }
-    public int ReviewdProjects {  get; set; }
+    public int ReviewedProjects {  get; set; }
     public virtual ICollection<UserChallenge> UserChallenges { get; set; }
     public virtual ICollection<ShowcaseItem> ShowcaseItems { get; set; }
     public virtual DailyStreak DailyStreak { get; set; }

@@ -96,7 +96,7 @@ public class LeaderboardService : ILeaderboardService
 
                         context.Users
                            .Where(x => x.Id == user.Id)
-                           .ExecuteUpdate(y => y.SetProperty(u => u.ReviewdProjects, reviewedProjects.Count));
+                           .ExecuteUpdate(y => y.SetProperty(u => u.ReviewedProjects, reviewedProjects.Count));
 
                         await context.SaveChangesAsync();
                     }
@@ -114,13 +114,16 @@ public class LeaderboardService : ILeaderboardService
                     result.Add(userForLeaderboard);
                 }
 
-                result = result.OrderByDescending(x => x.TotalXp).ToList();
+                result = result
+                    .OrderByDescending(x => x.TotalXp)
+                    .Take(50)
+                    .ToList();
+
                 foreach (var user in result)
                 {
                     user.Ranking = index;
                     index++;
                 }
-
                 return result;
             }
         }

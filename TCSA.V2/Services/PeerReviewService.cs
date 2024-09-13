@@ -88,6 +88,8 @@ public class PeerReviewService : IPeerReviewService
 
                         reviewer.ReviewExperiencePoints = reviewer.ReviewExperiencePoints + reviewAcademyProject.ExperiencePoints;
                     }
+                    //If reviewer has no experience points set, that means the reviewedProjects column is also not set yet.
+                    reviewer.ReviewedProjects = reviewedProjects.Count;
                 }
 
                 context.Users

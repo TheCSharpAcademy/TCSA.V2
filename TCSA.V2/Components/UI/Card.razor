@@ -1,16 +1,16 @@
 ﻿@using static TCSA.V2.Helpers.Enums
 <div class="card-slot col-lg-3 col-md-6">
-    <div class="card card-index shadow rounded-lg text-center" style="width: 18rem;">
+    <div class="card card-index shadow rounded-lg text-center tw-flex tw-flex-col tw-items-center tw-justify-center" style="width: 18rem;">
         @if (Type != CardType.Card && IsReleased)
         {
             <a href="@Href" class="stretched-link">
-                <img class="card-img-top" src="img/Cards/@IconUrl" alt="Card image cap">
+                <img class="card-img-top tw-w-[96px]" src="img/Cards/@IconUrl" alt="Card image cap">
             </a>
         }
         else
         {
             <div>
-                <img class="card-img-top" src="img/Cards/@IconUrl" alt="Card image cap">
+                <img class="card-img-top tw-w-[96px]" src="img/Cards/@IconUrl" alt="Card image cap">
             </div>
         }
 

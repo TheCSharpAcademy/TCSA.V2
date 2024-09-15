@@ -27,4 +27,8 @@
 	<PackageReference Include="Blazor.Bootstrap" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\tailwind\tailwind.css" />
+  </ItemGroup>
+
 </Project>

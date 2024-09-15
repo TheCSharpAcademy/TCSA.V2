@@ -36,7 +36,7 @@ else
 
 
 
-<div class="container project-container w-50">
+<div class="container project-container w-50 tw-flex tw-flex-col tw-gap-4">
     @if (NumberOfUserCompletedProjects > 0)
     {
         <p class="completed-users">@NumberOfUserCompletedProjects users have completed this project</p>
@@ -83,10 +83,10 @@ else
     {
         <div class="row pb-5 mb-3 p-sm-2 intro-block">
             <div class="col">
-                <h1 class="article-section-title">@Project.LanguageHeadings.Introduction</h1>
+                <h1 class="article-section-title tw-mb-2">@Project.LanguageHeadings.Introduction</h1>
                 @foreach (var paragraph in Project.Introduction)
                 {
-                    <p>@((MarkupString)(@paragraph.Body))</p>
+                    <p class="tw-mb-4">@((MarkupString)(@paragraph.Body))</p>
                 }
             </div>
         </div>
@@ -101,26 +101,25 @@ else
                 </div>
             </div>
             <div class=col-lg-10>
-
                 <div class="col d-flex justify-content-center">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Requirements</h1>
                 </div>
 
                 @if (!String.IsNullOrEmpty(Project.RequirementsIntro))
                 {
-                    <p><p>@((MarkupString)(Project.RequirementsIntro))</p></p>
+                    <p>@((MarkupString)(Project.RequirementsIntro))</p>
                 }
 
                 @if (Project.Requirements != null)
                 {
-                    <ul class="list-group  list-group-flush">
+                    <ul class="list-group list-group-flush">
                         @foreach (var requirement in Project.Requirements)
                         {
-                            <li class="list-group-item">
-                                <svg class="bi" width="24" height="24" fill="green">
+                            <li class="list-group-item tw-flex tw-gap-2">
+                                <svg class="bi tw-w-[24px] tw-h-[24px] tw-shrink-0" fill="green">
                                     <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-square" />
                                 </svg>
-                                @((MarkupString)(requirement))
+                                <p>@((MarkupString)(requirement))</p>
                             </li>
                         }
                     </ul>
@@ -174,11 +173,11 @@ else
                 {
                     <p>@((MarkupString)(Project.ResourcesIntro))</p>
                 }
-                <ul class="list-group  list-group-flush">
+                <ul class="list-group list-group-flush tw-my-2">
                     @foreach (var resource in Project.Resources)
                     {
-                        <li class="list-group-item">
-                            <svg class="bi" width="24" height="24" fill="blue">
+                        <li class="list-group-item tw-flex tw-gap-2">
+                            <svg class="bi tw-w-[24px] tw-h-[24px] tw-shrink-0" fill="blue">
                                 <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#link-45deg" />
                             </svg>
                             @((MarkupString)(resource))
@@ -205,14 +204,14 @@ else
                 <div class="d-flex justify-content-center">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Tips</h1>
                 </div>
-                <ul class="list-group  list-group-flush">
+                <ul class="list-group list-group-flush">
                     @foreach (var tip in Project.Tips)
                     {
-                        <li class="list-group-item">
-                            <svg class="bi" width="24" height="24" fill="orange">
+                        <li class="list-group-item tw-flex tw-gap-2">
+                            <svg class="bi tw-w-[24px] tw-h-[24px] tw-shrink-0" fill="orange">
                                 <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#lightbulb-fill" />
                             </svg>
-                            @((MarkupString)(tip))
+                            <p>@((MarkupString)(tip))</p>
                         </li>
                     }
                 </ul>
@@ -235,11 +234,11 @@ else
                 <ul class="list-group  list-group-flush">
                     @foreach (var challenge in Project.Challenges)
                     {
-                        <li class="list-group-item">
-                            <svg class="bi" width="24" height="24" fill="red">
+                        <li class="list-group-item tw-flex tw-gap-2">
+                            <svg class="bi tw-w-[24px] tw-h-[24px] tw-shrink-0" fill="red">
                                 <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#check-circle" />
                             </svg>
-                            @((MarkupString)(challenge))
+                        <p>@((MarkupString)(challenge))</p>
                         </li>
                     }
                 </ul>
@@ -262,7 +261,7 @@ else
                     </div>
                 <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
                     <div class="d-flex justify-content-center">
-                        <h1 class="article-section-title">@block.Title</h1>
+                        <h1 class="article-section-title tw-mb-2">@block.Title</h1>
                     </div>
 
                     @foreach (var paragraph in block.Paragraphs)
@@ -283,7 +282,7 @@ else
 
                         if (!String.IsNullOrEmpty(paragraph.Body))
                         {
-                            <p>@((MarkupString) (paragraph.Body))</p>
+                            <p class="tw-mb-4">@((MarkupString) (paragraph.Body))</p>
                         }
                     }
                 </div>
@@ -359,10 +358,10 @@ else
                         <ul class="list-group  list-group-flush">
                             @foreach (var challenge in Project.CodeWarsChallenges)
                             {
-                                <li class="list-group-item">
+                                <li class="list-group-item tw-flex tw-gap-2">
                                     @if (!challenge.IsCompleted)
                                     {
-                                        <svg class="bi" width="24" height="24">
+                                        <svg class="bi tw-w-[24px] tw-h-[24px] tw-shrink-0">
                                             <use xlink:href="/bootstrap-icons/bootstrap-icons.svg#app" />
                                         </svg>
                                         <span class="ps-2">@challenge.Name</span>

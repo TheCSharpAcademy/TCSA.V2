@@ -43,7 +43,7 @@
             }
             <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
                 <div class="d-flex justify-content-center">
-                    <h1 class="article-section-title">@block.Title</h1>
+                    <h1 class="article-section-title tw-mb-2">@block.Title</h1>
                 </div>
 
                 @foreach (var paragraph in block.Paragraphs)
@@ -64,7 +64,7 @@
 
                     if (!String.IsNullOrEmpty(paragraph.Body))
                     {
-                        <p>@((MarkupString)(paragraph.Body))</p>
+                        <p class="tw-mb-4">@((MarkupString)(paragraph.Body))</p>
                     }
                 }
             </div>

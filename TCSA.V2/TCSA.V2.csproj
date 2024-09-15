@@ -30,5 +30,10 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\tailwind\tailwind.css" />
   </ItemGroup>
+  
+  <Target Name="PostPublish" AfterTargets="ComputeFilesToPublish">
+    <Exec Command="npm install" />
+    <Exec Command="npx tailwind build ./wwwroot/tailwind/tailwind.css -o ./wwwroot/tailwind.css" />
+  </Target>
 
 </Project>

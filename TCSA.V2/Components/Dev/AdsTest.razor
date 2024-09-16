@@ -1,0 +1,39 @@
+﻿@page "/adstest"
+
+<div class="mt-5 pt-5">
+    <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+           poster="https://sample-videos.com/img/Sample-jpg-image-50kb.jpg">
+        <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
+" type="video/mp4" />
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">
+                supports HTML5 video
+            </a>
+        </p>
+    </video>
+
+    <!-- Ad Container -->
+    <!-- Ad Unit -->
+    <div id='div-gpt-ad-1726479800272-0' style='min-width: 1024px; min-height: 768px;'>
+        <script>
+            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1726479800272-0'); });
+        </script>
+    </div>
+</div>
+
+@code {
+    [Inject] IJSRuntime JS { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Call the JavaScript function from site.js to initialize Video.js
+            await JS.InvokeVoidAsync("initializeVideo");
+
+            // Load and display Google AdSense ad after first render
+            await JS.InvokeVoidAsync("loadGoogleAd");
+        }
+    }
+}

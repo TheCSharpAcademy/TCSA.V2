@@ -11,9 +11,20 @@
     <link id="theme-css" rel="stylesheet" href="app.css" />
     <link rel="icon" type="image/png" href="/img/logo.png" />
     <HeadOutlet @rendermode="@RenderModeForPage"/>
+    <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
             crossorigin="anonymous"></script>
     <title>@StringConstants.PageTitle</title>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script>
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/23203265227/adunit1pabs', [1024, 768], 'div-gpt-ad-1726479800272-0').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
 </head>
 
 <body>
@@ -23,6 +34,7 @@
         crossorigin="anonymous"></script>
     <script src="_framework/blazor.web.js"></script>
     <script src="js/themeSwitcher.js"></script>
+    <script src="js/site.js"></script>
 
 </body>
 

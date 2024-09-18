@@ -117,6 +117,7 @@ internal static class AuthProjectsHelper
                     "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-7.0'>Role-based authorization in ASP.NET Core</a>",
                     "<a target='blank' href='https://learn.microsoft.com/en-us/aspnet/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity'>Account confirmation and password recovery with ASP.NET Identity</a>",
                      "<a target='blank' href='https://code-maze.com/aspnetcore-send-email/'>How to Send an Email in ASP.NET Core</a>",
+                     "<a target='_blank' href='https://github.com/ChangemakerStudios/Papercut-SMTP'>Papercut - Use it for local Email SMTP testing</a>"
                 }
              },
              new Project

@@ -241,6 +241,7 @@ internal static class AzureProjectsHelper
                       "<a href='https://www.youtube.com/watch?v=m8Icp_Cid5o' target='_blank'>Systems Design For Beginners</a>",
                       "<a href='https://www.youtube.com/watch?v=JvDmJybANCQ' target='_blank'>Creating diagrams with Excalidraw</a>",
                       "<a href='https://learn.microsoft.com/en-us/azure/cosmos-db/introduction?wt.mc_id=MVP_364708' target='_blank'>Welcome to Azure Cosmos DB</a>",
+                      "<a target='_blank' href='https://github.com/ChangemakerStudios/Papercut-SMTP'>Papercut - Use it for local Email SMTP testing</a>"
                 },
                 Tips = new List<string>
                 {

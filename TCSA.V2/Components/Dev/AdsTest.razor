@@ -1,7 +1,7 @@
 ﻿@page "/adstest"
 
 <div class="mt-5 pt-5">
-    <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+@*     <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
            poster="https://sample-videos.com/img/Sample-jpg-image-50kb.jpg">
         <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
 " type="video/mp4" />
@@ -12,7 +12,7 @@
             </a>
         </p>
     </video>
-
+ *@
     <!-- Ad Container -->
     <!-- Ad Unit -->
     <div id='div-gpt-ad-1726479800272-0' style='min-width: 1024px; min-height: 768px;'>
@@ -27,12 +27,9 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        Console.WriteLine("Test");
         if (firstRender)
         {
-            // Call the JavaScript function from site.js to initialize Video.js
-            await JS.InvokeVoidAsync("initializeVideo");
-
-            // Load and display Google AdSense ad after first render
             await JS.InvokeVoidAsync("loadGoogleAd");
         }
     }

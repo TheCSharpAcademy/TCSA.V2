@@ -1,14 +1,6 @@
-function initializeVideo() {
-    videojs('my-video', {}, function () {
-        console.log('Video.js player initialized');
-    });
-}
-
-// Load and initialize GPT for ad
-function loadGoogleAd() {
+function loadGoogleAd(projectId) {
     window.googletag = window.googletag || { cmd: [] };
 
-    // Load GPT library
     (function () {
         var gads = document.createElement('script');
         gads.async = true;
@@ -17,11 +9,12 @@ function loadGoogleAd() {
         node.parentNode.insertBefore(gads, node);
     })();
 
-    // Define ad unit and display it
     googletag.cmd.push(function () {
-        googletag.defineSlot('/23203265227/adunit1pabs', [1024, 768], 'div-gpt-ad-1726479800272-0')
+        const adId = `div-gpt-ad-${projectId}`;
+        googletag.defineSlot('/23203265227/proj-reqs-728-90', [970, 90], adId)
             .addService(googletag.pubads());
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
+        googletag.display(adId);
     });
 }

@@ -32,7 +32,6 @@
         <ResultCard Message="@ResultMessage"
                     IsSuccess="@ResultCardStatus" />
     }
-    
     <div class="row mb-2">
         <div class="col">
             @if(User != null && User.DashboardProjects.Any(x => x.IsCompleted))
@@ -47,7 +46,7 @@
             }
         </div>
     </div>
-    <div class="row mb-2">
+    <div class="row">
         @if (!IsFormOpen)
         {
             @if(PaginatedList != null && PaginatedList.TotalPages > 1)
@@ -58,6 +57,11 @@
                                                 Class="custom-pagination" />
                 </div>
             }
+        }
+    </div>
+    <div class="row">
+        @if (!IsFormOpen)
+        {
             <div class="col-sm-3">
                 <CategoryList OnClickCallback="@GetAreaItems"
                               SelectText="Filter By Area"
@@ -107,6 +111,7 @@
             </div>
         }
     }
+
     <AuthorizeView>
         @if (User is not null && IsFormOpen)
         {
@@ -119,6 +124,23 @@
             </div>
         }
     </AuthorizeView>
+
+    <div class="row mt-5">
+        <div class="col text-center">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
+                    crossorigin="anonymous"></script>
+            <!-- tcsa-adsense-gallery -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4831088216810061"
+                 data-ad-slot="3472697020"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
 </div>
 
 @code {
@@ -130,7 +152,8 @@
     [Inject] private IGalleryService GalleryService { get; set; }
     [Inject] private IDataSeedService DataSeedService { get; set; }
 
-    private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "Open Source", "HowItWorks", "StartHere", "SQL" };
+    private List<string> ProjectlessAreas = new List<string> { "StandAlone", "FullStack", "StartApplying", "OpenSource", "HowItWorks", "StartHere", "SQL", "Azure" };
+    private List<int> NonApplicableProjects = new List<int> { 75, 22, 23, 76, 77, 78, 47, 48, 49, 100000, 86 };
     private List<string> EnumAreas = Enum.GetNames(typeof(Area)).ToList();
     private List<string> Areas { get; set; }
 
@@ -151,7 +174,7 @@
     private bool IsAdmin;
     private string CurrentUserId = "none";
     private string LoadingContainer = "container text-center";
-    private string VideoContainer = "d-flex justify-content-center flex-wrap mt-5";
+    private string VideoContainer = "d-flex justify-content-center flex-wrap mt-2";
     private string ResultMessage;
     private string LoadingMessage = "Loading...";
     private int PageNumber = 1;
@@ -185,8 +208,9 @@
             CurrentUserId = User.Id;
 
             CompletedProjectsNotShowcased = User.DashboardProjects
-            .Where(dp => dp.IsCompleted && !User.ShowcaseItems.Any(si => si.DashboardProjectId == dp.Id))
+                .Where(dp => dp.IsCompleted && !User.ShowcaseItems.Any(si => si.DashboardProjectId == dp.Id))
                 .Select(dp => dp.ProjectId)
+                .Except(NonApplicableProjects)
                 .ToList();
         }
         PaginatedList = await GalleryService.GetItems(PageNumber, ProjectSelections.Select(x => x.Id).ToList());

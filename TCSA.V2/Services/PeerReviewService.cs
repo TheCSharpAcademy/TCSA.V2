@@ -45,6 +45,10 @@ public class PeerReviewService : IPeerReviewService
                    .Select(x => x.ExperiencePoints)
                    .FirstOrDefault();
 
+                var reviewedProjects = await context.UserActivity
+                    .Where(x => x.AppUserId.ToString() == reviewerId && x.ActivityType == ActivityType.CodeReviewCompleted)
+                    .ToListAsync();
+                    
                 var dashboardProject = await context.DashboardProjects.FirstOrDefaultAsync(x => x.Id == dashboardProjectId);
 
                 var academyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == dashboardProject.ProjectId);
@@ -71,6 +75,23 @@ public class PeerReviewService : IPeerReviewService
                     ActivityType = ActivityType.CodeReviewCompleted
                 });
 
+                var reviewer = await context.Users
+                    .Where(x => x.Id == reviewerId).FirstAsync();
+
+                if ((reviewer != null && reviewedProjects != null) && (reviewer.ReviewExperiencePoints == 0 && reviewedProjects.Count > 0))
+                {
+                    //This has to be retroactive, so if some user has reviews but no points, it will calculate them first.
+                    //This is the same as the leaderboard calculation, but just in case the leaderboard calculation is never done and some user escapes the check, we make sure that the points are set here.
+                    foreach (AppUserActivity review in reviewedProjects)
+                    {
+                        var reviewAcademyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == review.ProjectId);
+
+                        reviewer.ReviewExperiencePoints = reviewer.ReviewExperiencePoints + reviewAcademyProject.ExperiencePoints;
+                    }
+                    //If reviewer has no experience points set, that means the reviewedProjects column is also not set yet.
+                    reviewer.ReviewedProjects = reviewedProjects.Count;
+                }
+
                 context.Users
                     .Where(x => x.Id == dashboardProject.AppUserId)
                     .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentRevieweePoints));
@@ -78,6 +99,14 @@ public class PeerReviewService : IPeerReviewService
                 context.Users
                     .Where(x => x.Id == reviewerId)
                     .ExecuteUpdate(y => y.SetProperty(u => u.ExperiencePoints, academyProject.ExperiencePoints + currentReviewerPoints));
+
+                context.Users
+                    .Where(x => x.Id == reviewerId)
+                    .ExecuteUpdate(y => y.SetProperty(u => u.ReviewExperiencePoints, academyProject.ExperiencePoints + reviewer.ReviewExperiencePoints));
+
+                context.Users
+                    .Where(x => x.Id == reviewerId)
+                    .ExecuteUpdate(y => y.SetProperty(u => u.ReviewedProjects, reviewer.ReviewedProjects + 1));
 
                 await context.SaveChangesAsync();
             }

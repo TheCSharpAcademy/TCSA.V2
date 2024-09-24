@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using TCSA.V2.Data;
 using TCSA.V2.Helpers;
+using TCSA.V2.Models;
 using TCSA.V2.Models.DTOs;
 
 namespace TCSA.V2.Services;
@@ -11,6 +12,7 @@ public interface ILeaderboardService
 {
     Task<int> GetUserRanking(string userId);
     Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard(int pageNumber);
+    Task<List<AppUserForReviewLeaderboard>> GetUserForReviewLeaderboard();
     Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard();
 }
 public class LeaderboardService : ILeaderboardService
@@ -55,6 +57,80 @@ public class LeaderboardService : ILeaderboardService
         {
             _logger.LogError(ex, $"Error in {nameof(GetUserRanking)}");
             return 0;
+        }
+    }
+
+    public async Task<List<AppUserForReviewLeaderboard>> GetUserForReviewLeaderboard()
+    {
+        var users = new List<ApplicationUser>();
+        var result = new List<AppUserForReviewLeaderboard>();
+        var index = 1;
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                users = await context.Users
+                .ToListAsync();
+
+                foreach (ApplicationUser user in users)
+                {
+                    var reviewedProjects = await context.UserActivity
+                    .Where(x => x.AppUserId.ToString() == user.Id && x.ActivityType == ActivityType.CodeReviewCompleted)
+                    .ToListAsync();
+
+                    if (user.ReviewExperiencePoints == 0 && reviewedProjects.Count > 0)
+                    {
+                        //This has to be retroactive, so if some user has reviews but no points, it will calculate them first.
+                        //The biggest load would be the first time doing this, and subsequent queries to the leaderboard will be fast.
+                        foreach (AppUserActivity review in reviewedProjects)
+                        {
+                            var reviewAcademyProject = ProjectHelper.GetProjects().FirstOrDefault(x => x.Id == review.ProjectId);
+
+                            user.ReviewExperiencePoints = user.ReviewExperiencePoints + reviewAcademyProject.ExperiencePoints;
+                        }
+
+                            context.Users
+                           .Where(x => x.Id == user.Id)
+                           .ExecuteUpdate(y => y.SetProperty(u => u.ReviewExperiencePoints, user.ExperiencePoints));
+
+                        context.Users
+                           .Where(x => x.Id == user.Id)
+                           .ExecuteUpdate(y => y.SetProperty(u => u.ReviewedProjects, reviewedProjects.Count));
+
+                        await context.SaveChangesAsync();
+                    }
+
+                    var userForLeaderboard = new AppUserForReviewLeaderboard
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        DisplayName = user.DisplayName,
+                        TotalXp = user.ReviewExperiencePoints,
+                        ReviewsNumber = reviewedProjects.Count,
+                    };
+
+                    result.Add(userForLeaderboard);
+                }
+
+                result = result
+                    .OrderByDescending(x => x.TotalXp)
+                    .Take(50)
+                    .ToList();
+
+                foreach (var user in result)
+                {
+                    user.Ranking = index;
+                    index++;
+                }
+                return result;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUsersForLeaderboard)}");
+            return null;
         }
     }
 

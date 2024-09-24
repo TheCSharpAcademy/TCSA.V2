@@ -13,6 +13,7 @@ public class ApplicationUser : IdentityUser
     public List<CommunityIssue>? Issues { get; set; }
     public Level Level { get; set; }
     public int ExperiencePoints { get; set; }
+    public int ReviewExperiencePoints { get; set; }
     public DateTimeOffset CreatedDate { get; set; }
     public string Country { get; set; }
     public bool HasPendingBeltNotification { get; set; }
@@ -23,6 +24,7 @@ public class ApplicationUser : IdentityUser
     public string? LinkedInUrl { get; set; }
     public string? GithubUsername { get; set; }
     public string? DisplayName { get; set; }
+    public int ReviewedProjects {  get; set; }
     public virtual ICollection<UserChallenge> UserChallenges { get; set; }
     public virtual ICollection<ShowcaseItem> ShowcaseItems { get; set; }
     public virtual DailyStreak DailyStreak { get; set; }

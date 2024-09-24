@@ -16,8 +16,7 @@
     @if (users != null && !isLoading)
     {
         <nav aria-label="Page navigation example">
-            <btn class="btn btn-primary w-100 mb-3" @onclick="Filter2024">Click to See @(is2024 ? "all time" : "2024") Leaderboard</btn>
-            <btn class="btn btn-primary w-100 mb-3" @onclick="FilterReviews">Click to See @(isReviews ? "all time" : "reviews") Leaderboard</btn>
+            <btn class="btn btn-primary w-100 mb-3" @onclick="FilterReviews">Click to See @(isReviews ? "All Time" : "Reviews") Leaderboard</btn>
 
             @if (!is2024 && Ranking > 50)
             {
@@ -176,17 +175,16 @@
         var claims = AuthSate.User;
         userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (is2024)
+        if (isReviews) 
         {
-            await Filter2024();
+            await FilterReviews();
         }
-        else
+        else 
         {
             Ranking = await LeaderboardService.GetUserRanking(userId);
 
             CurrentPage = Ranking / 50;
             await LoadPagination(CurrentPage);
-            await FilterReviews();
         }
     }
 
@@ -217,28 +215,6 @@
             await LoadPagination(CurrentPage);
         }
 
-    }
-
-    protected async Task Filter2024()
-    {
-        if (!is2024)
-        {
-            is2024 = true;
-            isReviews = false;
-            isLoading = true;
-
-            var incomingUsers = await LeaderboardService.GetUsersForLeaderboard();
-
-            users = incomingUsers.ToList();
-
-            isLoading = false;
-        }
-        else
-        {
-            is2024 = false;
-            isReviews = false;
-            await LoadPagination(CurrentPage);
-        }
     }
 }
 

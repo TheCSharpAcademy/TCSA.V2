@@ -326,3 +326,15 @@ h1:focus {
         margin-top: 100px;
     }
 }
+@media (max-width: 1350px) {
+    .col-md-lg-custom {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+@media (min-width:1350px) and (max-width:1550px){
+    .card-container {
+        height: 8rem !important;
+        
+    }
+}

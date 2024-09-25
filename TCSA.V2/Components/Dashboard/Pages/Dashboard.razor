@@ -89,7 +89,7 @@
             {
                 @foreach (var project in DashboardHelper.GetPendingProjects(Projects, PendingProjects))
                 {
-                    <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-lg-6 col-md-12 col-md-lg-custom col-sm-12 ">
                         <DashboardProjectCard Project="project" Status="pending-review" />
                     </div>
                 }
@@ -432,4 +432,10 @@
         color: white;
         margin-bottom: 5px;
     }
+
+    .col-md-lg-custom {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+  
 </style>

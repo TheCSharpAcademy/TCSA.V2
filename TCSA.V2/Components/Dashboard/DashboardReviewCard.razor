@@ -46,7 +46,7 @@
             <div class="row text-center">
                 @if (Loading)
                 {
-                    <div class="col-12 dashboard-review-action-approve">
+                    <div class="col-12 dashboard-review-action-text">
                         <Loader />
                     </div>
                 }
@@ -55,7 +55,7 @@
                     <div class="col-6 view-btn">
                         <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsCompleteCallBack">
                             <ApproveSVG />
-                            <div class="col-12 dashboard-review-action-approve">
+                            <div class="col-12 dashboard-review-action-text">
                                 Approve
                             </div>
                         </a>
@@ -108,14 +108,6 @@
 <style>
     .dashboard-review-action-text {
         color: var(--text-highlight-color);
-    }
-
-    .dashboard-review-action-approve {
-        color: green;
-    }
-
-    .dashboard-review-action-take {
-        color: red;
     }
 
     .is-assigned {

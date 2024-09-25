@@ -860,7 +860,8 @@ public class ConsoleProjectsHelper
                     "<a target='_blank' href='https://www.c-sharpcorner.com/blogs/send-email-using-gmail-smtp'>Send An Email Using Gmail SMTP and C#</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=oMM0yzyi4Do'>Agility Pack Tutorial</a>",
                     "<a target='_blank' href='https://www.youtube.com/watch?v=wbBuB7-BaXw'>Another Agility Pack Tutorial</a>",
-                    "<a target='_blank' href='https://www.basketball-reference.com/boxscores/'>Basketball Reference</a>"
+                    "<a target='_blank' href='https://www.basketball-reference.com/boxscores/'>Basketball Reference</a>",
+                    "<a target='_blank' href='https://github.com/ChangemakerStudios/Papercut-SMTP'>Papercut - Use it for local Email SMTP testing</a>"
                 },
                 ResourcesConclusion = "There are many other Youtube videos and blog articles about scrapping and sending an e-mail with C#. Google is your best friend! 🙂",
                 Tips = new List<string>

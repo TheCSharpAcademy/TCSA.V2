@@ -19,9 +19,6 @@
         </button>
         <div class="collapse navbar-collapse @(IsNavbarShown ? "show" : "")" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @*                 <li class="nav-item text-start">
-                <a class="nav-link" href="Admin/Create">Create</a>
-                </li> *@
                 <AuthorizeView Roles="Admin">
                     <a class="nav-link" href="/admin">Admin</a>
                 </AuthorizeView>
@@ -61,7 +58,9 @@
                     <a class="nav-link" href="/leaderboard">Leaderboard</a>
                 </li>
 
-
+                <li class="nav-item text-start">
+                    <a class="nav-link" href="/gallery/@isLightMode">Gallery</a>
+                </li>
 
                 <li class="nav-item text-start dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -134,10 +133,6 @@
                         </li>
                     </ul>
                 </li>
-
-             @*    <li class="nav-item text-start">
-                    <a class="nav-link" href="/gallery/@isLightMode">Gallery</a>
-                </li> *@
 
                 <li class="nav-item text-start">
                     <a class="nav-link" target="_blank" href="https://www.instagram.com/pablo.aguirre.dev/">

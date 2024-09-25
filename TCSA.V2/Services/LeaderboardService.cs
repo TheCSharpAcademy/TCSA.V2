@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using TCSA.V2.Data;
 using TCSA.V2.Helpers;
+using TCSA.V2.Models;
 using TCSA.V2.Models.DTOs;
 
 namespace TCSA.V2.Services;
@@ -11,7 +12,8 @@ public interface ILeaderboardService
 {
     Task<int> GetUserRanking(string userId);
     Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard(int pageNumber);
-    Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard();
+    Task<List<AppUserForReviewLeaderboard>> GetUserForReviewLeaderboard();
+    Task PopulateReview();
 }
 public class LeaderboardService : ILeaderboardService
 {
@@ -22,6 +24,52 @@ public class LeaderboardService : ILeaderboardService
     {
         _factory = factory;
         _logger = logger;
+    }
+
+    public async Task PopulateReview()
+    {
+        using (var context = _factory.CreateDbContext())
+        {
+            var users = await context.AspNetUsers
+     .Where(x => x.CodeReviewProjects.Any()) // Filter users with projects
+     .ToListAsync();
+
+            var projects = ProjectHelper.GetProjects();
+            var invalidprojectIds = new List<int>();
+
+            foreach (var u in users)
+            {
+                var user = await context.AspNetUsers
+                    .Include(x => x.CodeReviewProjects)
+                    .FirstOrDefaultAsync(x => x.Id == u.Id);
+
+                var projectIds = user.CodeReviewProjects.Select(x => x.DashboardProjectId).ToList();   
+
+                foreach (var project in user.CodeReviewProjects)
+                {
+                    var dbProjects = context.DashboardProjects.Where(x => projectIds.Contains(x.Id) && x.IsCompleted).ToList();
+
+                    var dbprj = dbProjects.FirstOrDefault(x => x.Id == project.DashboardProjectId);
+
+                    if (dbprj == null)
+                    {
+                        invalidprojectIds.Add(project.DashboardProjectId);
+                    }
+                    else
+                    {
+                        var projectId = dbprj.ProjectId;
+                        user.ReviewExperiencePoints += projects.First(x => x.Id == projectId).ExperiencePoints;
+                    }
+                }
+            
+            }
+
+            await context.SaveChangesAsync();
+
+            
+            Console.WriteLine("Done");
+
+        }
     }
 
     public async Task<int> GetUserRanking(string userId)
@@ -55,6 +103,56 @@ public class LeaderboardService : ILeaderboardService
         {
             _logger.LogError(ex, $"Error in {nameof(GetUserRanking)}");
             return 0;
+        }
+    }
+
+    public async Task<List<AppUserForReviewLeaderboard>> GetUserForReviewLeaderboard()
+    {
+        var users = new List<ApplicationUser>();
+        var result = new List<AppUserForReviewLeaderboard>();
+        var index = 1;
+
+        try
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                users = await context.Users
+                .Include(x => x.CodeReviewProjects)
+                .Where(x => x.ReviewExperiencePoints > 0)
+                .ToListAsync();
+
+                foreach (ApplicationUser user in users)
+                {
+                    var userForLeaderboard = new AppUserForReviewLeaderboard
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        DisplayName = user.DisplayName,
+                        TotalXp = user.ReviewExperiencePoints,
+                        ReviewsNumber = user.CodeReviewProjects.Count()
+                    };
+
+                    result.Add(userForLeaderboard);
+                }
+
+                result = result
+                    .OrderByDescending(x => x.TotalXp)
+                    .Take(50)
+                    .ToList();
+
+                foreach (var user in result)
+                {
+                    user.Ranking = index;
+                    index++;
+                }
+                return result;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error in {nameof(GetUsersForLeaderboard)}");
+            return null;
         }
     }
 
@@ -103,87 +201,6 @@ public class LeaderboardService : ILeaderboardService
             userForLeaderboard.LinkedInUrl = user.LinkedInUrl ?? string.Empty;
 
             result.Add(userForLeaderboard);
-        }
-
-        return result;
-    }
-
-    public async Task<List<AppUserForLeaderboard>> GetUsersForLeaderboard()
-    {
-        var queryYear = new DateTime(2024, 1, 1);
-        var users = new List<ApplicationUser>();
-        var result = new List<AppUserForLeaderboard>();
-        var index = 0;
-
-        var projects = ProjectHelper.GetProjects();
-        var articles = ArticleHelper.GetArticles();
-
-        try
-        {
-            using (var context = _factory.CreateDbContext())
-            {
-                users = context.Users
-                    .Where(x => x.DashboardProjects.Any(x => x.DateSubmitted > queryYear))
-                    .Include(x => x.DashboardProjects.Where(x => x.DateSubmitted > queryYear && x.IsCompleted))
-                    .Include(x => x.CodeReviewProjects)
-                    .Include(x => x.Issues)
-                    .ToList();
-
-                foreach (var user in users)
-                {
-                    var ids = user.DashboardProjects?
-                      .Select(x => x.ProjectId)
-                      .ToList();
-
-                    var issues = user.Issues;
-
-                    user.ExperiencePoints = 0;
-
-                    foreach (int id in ids)
-                    {
-                        Console.WriteLine($"User: {user.Id}, Project: {id}");
-
-                        if (projects.Any(x => x.Id == id))
-                        {
-                            user.ExperiencePoints = projects.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
-                        }
-                        else if (articles.Any(x => x.Id == id))
-                        {
-                            user.ExperiencePoints = articles.Single(x => x.Id == id).ExperiencePoints + user.ExperiencePoints;
-                        }
-                        else
-                        {
-                            user.ExperiencePoints = issues.Single(x => x.ProjectId == id).ExperiencePoints + user.ExperiencePoints;
-                        }
-                    }
-                }
-            }
-
-            foreach (var user in users.OrderByDescending(x => x.ExperiencePoints))
-            {
-                index++;
-                var userForLeaderboard = new AppUserForLeaderboard
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Country = user.Country,
-                    Level = user.Level,
-                    DisplayName = user.DisplayName,
-                    ExperiencePoints = user.ExperiencePoints,
-                    Ranking = index
-                };
-
-                userForLeaderboard.GithubUsername = user.GithubUsername ?? string.Empty;
-                userForLeaderboard.LinkedInUrl = user.LinkedInUrl ?? string.Empty;
-
-                result.Add(userForLeaderboard);
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error in {nameof(GetUsersForLeaderboard)}");
-            return null;
         }
 
         return result;

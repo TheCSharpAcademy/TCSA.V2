@@ -7,7 +7,8 @@
             <img src="img/Cards/@Project.IconUrl" width="60" alt="...">
         </div>
         <div class="col-6 title-wrapper">
-            <p class="card-title-dashboard-project mt-3">@Project.Title</p>
+            <p class="card-title-dashboard-project mt-3 text-truncate" title="@Project.Title">@Project.Title</p>
+
         </div>
         <div class="col-2 text-center">
             @if (Status == "completed")
@@ -72,7 +73,7 @@
     }
 
     .card-container{
-        height:7rem;
+        height:6rem;
         overflow:hidden;
     }
 

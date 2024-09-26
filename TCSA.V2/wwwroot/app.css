@@ -332,9 +332,4 @@ h1:focus {
         max-width: 100% !important;
     }
 }
-@media (min-width:1350px) and (max-width:1550px){
-    .card-container {
-        height: 8rem !important;
-        
-    }
-}
+

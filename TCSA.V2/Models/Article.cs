@@ -18,6 +18,7 @@ public class Article
     public Level Level { get; set; }
     public bool IsClosed { get; set; }
     public string NextSlug { get; set; }
+    public string CardImgUrl { get; set; }  
 }
 
 public class Block

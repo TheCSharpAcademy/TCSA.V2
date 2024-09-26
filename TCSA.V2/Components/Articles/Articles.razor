@@ -1,0 +1,23 @@
+﻿@page "/articles"
+@using TCSA.V2.Components.UI
+@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+
+<div class="container">
+    <div class="row pt-5">
+        @foreach (var article in ArticlesList)
+        {
+            <ArticleCard Article ="article"/>
+        }
+    </div>
+</div>
+
+@code {
+    private List<Article> ArticlesList { get; set; } = new();
+    private List<int> NoDisplayIds { get; set; } = new() { 1, 2, 3, 4, 51, 100 };
+
+    protected async override Task OnInitializedAsync()
+    {
+        ArticlesList = ArticleHelper.GetArticles().Where(x => !NoDisplayIds.Contains(x.Id) ).ToList();
+    }
+}

@@ -21,7 +21,7 @@
                 <StatusMessage Message="@errorMessage" />
                 <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
                     <DataAnnotationsValidator />
-                    <h2>Use a local account to log in</h2>
+                    <h2 class="tw-text-2xl tw-mb-4">Use a local account to log in</h2>
                     <ValidationSummary class="text-danger" role="alert" />
                     <div class="form-floating mb-3">
                         <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -58,7 +58,7 @@
         </div>
         <div class="col-md-6 d-flex justify-content-center">
             <section>
-                <h3>Or Login With Github</h3>
+                <h3 class="tw-text-2xl tw-mb-4">Or Login With Github</h3>
                 <form class="form-horizontal" action="Account/PerformExternalLogin" method="post">
                     <div class="d-flex justify-content-center">
                         <AntiforgeryToken />

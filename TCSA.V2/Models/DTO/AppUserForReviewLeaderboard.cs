@@ -8,4 +8,5 @@
         public int? TotalXp { get; set; }
         public int ReviewsNumber { get; set; }
         public int Ranking { get; set; }
+        public string Country { get; set; }
     }

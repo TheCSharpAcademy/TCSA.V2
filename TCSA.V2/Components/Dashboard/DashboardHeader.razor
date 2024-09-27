@@ -1,32 +1,22 @@
 ﻿@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 <div class="row horizontal-card dashboard-header d-flex align-items-center shadow rounded-sm">
-    <div class="col-10">
-        <div class="belt-label-wrap">
-            <div class="belt-label">
-                <img src=@FlagUrl width="50" class="rounded flag" alt="...">
-            </div>
-            <div class="belt-label">
-                <p class="user-name">@DisplayName</p>
-            </div>
+    <div class="col-10 tw-flex tw-flex-col tw-gap-6">
+        <div class="belt-label !tw-flex tw-items-center tw-gap-2">
+            <img src="@FlagUrl" width="50" class="rounded flag" alt="">
+            <p class="user-name">@DisplayName</p>
         </div>
-
-        <div class="belt-label-wrap belt-label-wrap-bottom">
-            <div class="belt-label">
-                <img src=@BeltImgUrl width="25" class="img-belt-header" alt="...">
-            </div>
-            <div class="belt-label">
-                <p class="user-level-text">
-                    @(Level) Belt,
-                    <span class="ranking">@LeaderboardHelper.GetRanking(Ranking),</span>
-                    <span class="experience-points">
-                        <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
-                        @ExperiencePoints
-                    </span>
-                </p>
-            </div>
+        <div class="belt-label-wrap belt-label-wrap-bottom tw-flex tw-items-center tw-gap-2">
+            <img src="@BeltImgUrl" width="25" class="img-belt-header" alt="...">
+            <p class="user-level-text tw-flex tw-items-center tw-gap-1">
+                @(Level) Belt,
+                <span class="ranking">@LeaderboardHelper.GetRanking(Ranking),</span>
+                <span class="experience-points tw-flex tw-items-center tw-gap-2">
+                    <img src="img/experience.png" width="25" class="img-xp-header" alt="..."/>
+                    @ExperiencePoints
+                </span>
+            </p>
         </div>
-
     </div>
 </div>
 

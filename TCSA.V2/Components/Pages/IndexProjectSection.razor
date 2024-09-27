@@ -19,7 +19,7 @@
         }
         <p id=@AnchorName class="lead @(@Id.Equals("jobs-area") ? "start-applying" : "")">@Description</p>
     </div>
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center tw-mt-4">
         @foreach (var project in Projects)
         {
             <Card Type=CardType.Project Id=@project.Id Title=@project.Title Description=@project.Description

@@ -1,15 +1,15 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Models
 
-<div class="m-1 row horizontal-card shadow rounded-sm d-flex align-items-center @Status">
-    <div class="row g-0 horizontal-card-desktop-project">
+<div class="row horizontal-card shadow rounded-sm tw-p-4 m-1 @Status">
+    <div class="row g-0 horizontal-card-desktop-project !tw-flex tw-items-center tw-justify-center ">
         <div class="col-2">
             <img src="img/Cards/@Project.IconUrl" width="60" alt="...">
         </div>
         <div class="col-4 title-wrapper">
-            <p class="card-title-dashboard-project mt-3">@Project.Title</p>
+            <p class="card-title-dashboard-project">@Project.Title</p>
         </div>
-        <div class="col-3 text-center">
+        <div class="col-3 text-center tw-flex tw-flex-col tw-items-center">
             @if (Status == "completed")
             {
                 <CheckCircleSVG />
@@ -22,7 +22,7 @@
         </div>
 
 
-        <div class="col-3">
+        <div class="col-3 tw-flex tw-flex-col tw-items-center">
             <div class="row text-center">
                 <div class="col-12 view-btn">
                     <a target="_blank" href=@GetUrl()>
@@ -49,10 +49,6 @@
 }
 
 <style>
-    .horizontal-card-desktop-project {
-        padding: 15px 0 0 10px !important;
-    }
-
     .card-title-dashboard-project {
         font-size: 20px;
         font-family: Roboto, sans-serif;

@@ -29,14 +29,14 @@
                         if (task.Slug != null)
                         {
                             <a href="@(task.IsProject ? $"project/{task.Id}/{task.Slug}" : task.IsArticle ? $"article/{task.Id}/{task.Slug}" : "#")">
-                                <img class="roadmap-image m-1 rounded-circle @(task.IsCompleted ? "task-completed border border-3 border-success opacity-50" : "")"
+                                <img class="roadmap-image m-1 rounded-circle @(task.IsCompleted ? "task-completed border border-3 border-success opacity-50" : "") tw-inline"
                                      src="img/Cards/@task.IconUrl" width="50"
                                      title="@(task.IsCompleted ? $"{task.Name} - Completed" : task.Name)" />
                             </a>
                         }
                         else
                         {
-                            <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50")"
+                            <img class="roadmap-image m-1 rounded-circle @(!task.IsCompleted ? "" : "task-completed border border-3 border-success opacity-50") tw-inline"
                                  src='img/Cards/@task.IconUrl' width='50'
                                  title=@(!task.IsCompleted ? task.Name : $"{task.Name} - Completed") />
                         }

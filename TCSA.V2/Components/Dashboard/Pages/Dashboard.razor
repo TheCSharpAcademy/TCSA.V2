@@ -54,7 +54,7 @@
                          DisplayName=@User.DisplayName />
         
         <div class="my-3 w-100 d-flex align-items-center justify-content-start gap-2">
-            <ToggleCompletedButton OnToggle="ToggleCompletedArea" Name="Completed Area" Active=IsCompletedAreaClicked />
+            <ToggleCompletedButton OnToggle="ToggleCompletedArea" Name="Completed Area" Active="false" />
             <ToggleCompletedButton OnToggle="TogglePendingProjects" Name="Pending Projects" Active=!IsPendingProjectButtonClicked />
             <ToggleCompletedButton OnToggle="ToggleCompletedProjects" Name="Completed Projects" Active=!IsCompletedProjectButtonClicked />
         </div>
@@ -121,7 +121,6 @@
     private bool ShowBeltNotification = false;
     private Enums.DashboardState State = Enums.DashboardState.Area;
     private int Ranking;
-    private bool IsCompletedAreaClicked = false;
     private bool IsPendingProjectButtonClicked = false;
     private bool IsCompletedProjectButtonClicked = false;
     private List<DashboardAreaInfo> Areas = new();
@@ -288,7 +287,7 @@
         {
             CardName = "Flagship Project",
             ImgUrl = "flagship.png",
-            Projects = Projects.Where(x => x.Area == Area.GraduationProject),
+            Projects = Projects.Where(x => x.Area == Area.GraduationProject).Take(1),
             Description = GetNotCompletedMessage(Area.GraduationProject, null),
             IsCompleted = DashboardHelper.CheckIfAreaIsCompleted(Projects, Articles, CompletedProjects, Area.GraduationProject, null)
         });
@@ -330,6 +329,10 @@
                     completedProjects += 1;
                 }
             }
+        } else if (area == Area.GraduationProject)
+        {
+            count = 1;
+            ids = Projects.Where(x => x.Area == Area.GraduationProject).Select(x => x.Id).ToList();
         }
         else
         {
@@ -383,7 +386,6 @@
     public void ToggleCompletedArea()
     {
         State = Enums.DashboardState.Area;
-        IsCompletedAreaClicked = !IsCompletedAreaClicked;
         foreach (var area in Areas.Where(area => area.IsCompleted))
         {
             area.IsHidden = !area.IsHidden;

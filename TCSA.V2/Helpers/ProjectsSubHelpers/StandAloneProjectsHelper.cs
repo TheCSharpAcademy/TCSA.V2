@@ -44,7 +44,7 @@ internal static class StandAloneProjectsHelper
                 },
                 Requirements = new List<string>
                 {
-                    @"You need to complete FreeCodeCamp's<a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
+                    @"You need to complete FreeCodeCamp's <a target='blank' href='https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/'> Foundational C# With Microsoft</a> certification",
                     @$"Upon completion, you need to submit the link to your project on the <a target='blank' href='/dashboard/submit-project'> project submission page</a>. Choose the certification from the project's dropdown menu and fill the textbox with the link to your certificate. If you encounter any problems, contact us <a target='_blank' href='mailto:thecsharpacademy@gmail.com'>via email</a>, along with the username/email you use to log into the academy."
                 },
                 Tips = new List<string>

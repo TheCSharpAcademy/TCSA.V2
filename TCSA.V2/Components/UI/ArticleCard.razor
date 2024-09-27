@@ -1,0 +1,77 @@
+﻿@using System.Text.RegularExpressions
+@using TCSA.V2.Models
+
+<div class="col-sm-3 mt-1 mb-4">
+     <a href="/article/@Article.Id/@Article.Slug" class="card-link">
+        <div class="card shadow">
+            <img class="card-img-top" src="/img/CardImages/@Article.CardImgUrl" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title text-truncate article-card-title" title="@Article.Title">
+                    @Article.Title
+                </h4>
+                <p class="card-text description-text">@((MarkupString)GetDescription())</p>
+            </div>
+        </div>
+     </a>
+</div>
+
+
+@code {
+    [Parameter] public Article Article { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        GetDescription();
+    }
+
+    private string GetDescription()
+    {
+        if (Article.Id == 5)
+        {
+            return StripHtmlTags(Article.Blocks[1].Paragraphs[0].Body);
+        } else
+        {
+            return StripHtmlTags(Article.Blocks[0].Paragraphs[0].Body);
+        }
+    }
+
+    private string StripHtmlTags(string input)
+    {
+        return Regex.Replace(input, "<.*?>", string.Empty);
+    }
+}
+
+
+<style>
+    .article-card-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .btn-article-card {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .description-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 4; /* Limits the text to 5 lines */
+        max-height: calc(1.2em * 5); /* Adjust the max-height to accommodate 5 lines */
+    }
+
+    a.card-link {
+        text-decoration: none;
+        color: inherit; /* Keeps text color the same */
+    }
+
+        a.card-link:hover .card {
+            transform: scale(1.02); /* Slightly enlarges the card on hover for visual feedback */
+            transition: transform 0.2s ease;
+        }
+</style>

@@ -69,7 +69,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<ShowcaseItem>()
             .HasOne(si => si.DashboardProject)
             .WithOne()
-            .HasForeignKey<ShowcaseItem>(si => si.DashboardProjectId);
+            .HasForeignKey<ShowcaseItem>(si => si.DashboardProjectId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         //modelBuilder.Entity<Challenge>().HasData(
         //    new Challenge

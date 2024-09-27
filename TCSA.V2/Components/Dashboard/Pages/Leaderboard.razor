@@ -40,38 +40,6 @@
         {
             <p>*The 2024 leaderboard only takes in consideration projects submitted in 2024</p>
         }
-
-        <table class="table leaderboard-table mt-sm-5">
-            <thead>
-                <tr>
-                    <th scope="col">Pos</th>
-                    <th scope="col">XP</th>
-                    <th scope="col">Name</th>
-                    <th scope="col" class="country-header">Country</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in users)
-                {
-                    <tr class="my-row @(user.Id == userId ? "is-user" : "")">
-                        <th class="leaderboard-cell index-cell" scope="row">@user.Ranking</th>
-                        <td class="leaderboard-cell">
-                            <div class="belt-label-wrap tw-flex tw-items-center tw-gap-2">
-                                <div class="belt-label">
-                                    <img src="img/experience.png" width="30" alt="...">
-                                </div>
-                                <div class="belt-label">
-                                    <p>@user.ExperiencePoints</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="leaderboard-cell">
-                            <div class="name-cell">
-                                <div class="name-cell-name">@(user.DisplayName ??= $"{user.FirstName} {user.LastName}")</div>
-                                <div class="name-cell-level">
-                                    <div class="belt-name-wrap tw-flex tw-items-center tw-gap-1">
-                                        <div class="belt-label">
-                                            <img class="dashboard-belt" src="img/belts/@($"{user.Level}-belt.png")" width="20" alt="...">
                                           
         if (!isReviews)
         {
@@ -90,12 +58,12 @@
                         <tr class="my-row @(user.Id == userId ? "is-user" : "")">
                             <th class="leaderboard-cell index-cell" scope="row">@user.Ranking</th>
                             <td class="leaderboard-cell">
-                                <div class="belt-label-wrap d-flex align-items-center">
+                                <div class="belt-label-wrap tw-flex tw-items-center tw-gap-2">
                                     <div class="belt-label">
                                         <img class="img-xp-leaderboard" src="img/experience.png" width="30" alt="...">
                                     </div>
                                     <div class="belt-label">
-                                        <p class="leaderboard-xp">@user.ExperiencePoints</p>
+                                        <p>@user.ExperiencePoints</p>
                                     </div>
                                 </div>
                             </td>
@@ -103,7 +71,7 @@
                                 <div class="name-cell">
                                     <div class="name-cell-name">@(user.DisplayName ??= $"{user.FirstName} {user.LastName}")</div>
                                     <div class="name-cell-level">
-                                        <div class="belt-name-wrap">
+                                        <div class="belt-name-wrap tw-flex tw-items-center tw-gap-2">
                                             <div class="belt-label">
                                                 <img class="dashboard-belt" src="img/belts/@($"{user.Level}-belt.png")" width="20" alt="...">
                                             </div>
@@ -117,12 +85,12 @@
                             <td class="leaderboard-cell country-cell">
                                 @if (!string.IsNullOrEmpty(user.Country))
                                 {
-                                    <div class="row belt-label-wrap d-flex align-items-center">
+                                    <div class="belt-label-wrap tw-flex tw-items-center">
                                         <div class="col-3 belt-label d-flex align-items-center">
                                             <img class="dashboard-flag" src="@FlagHelper.GetFlag(user.Country)" width="30" alt="...">                                      
                                         </div>
                                         <div class="col-9 belt-label d-sm-none d-md-inline d-flex align-items-center">
-                                            <p class="leaderboard-country">@user.Country</p>
+                                            <p>@user.Country</p>
                                         </div>
                                     </div>
                                 }
@@ -152,22 +120,24 @@
                                 <div class="name-cell">
                                     <div class="name-cell-name">@(user.DisplayName ??= $"{user.FirstName} {user.LastName}")</div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
                         <td class="leaderboard-cell country-cell">
                             @if (!string.IsNullOrEmpty(user.Country))
                             {
                                 <div class="belt-label-wrap tw-flex tw-items-center">
                                     <div class="col-3 belt-label">
-                                        <img class="dashboard-flag" src="@FlagHelper.GetFlag(user.Country)" width="30" alt="...">
+                                        <img class="dashboard-flag" src="@FlagHelper.GetFlag(user.Country)" width="30" alt="..." />
                                     </div>
                                     <div class="col-9 belt-label d-sm-none d-md-inline">
                                         <p>@user.Country</p>
+                                    </div>
+                                </div>
+                            }
                             </td>
                             <td class="leaderboard-cell">
                                 <div class="belt-label-wrap d-flex align-items-center">
                                     <div class="belt-label">
-                                        <p class="leaderboard-xp">@user.TotalXp</p>
+                                        <p>@user.TotalXp</p>
                                     </div>
                                 </div>
                             </td>
@@ -344,14 +314,5 @@
 
     .is-user .belt-label, .is-user p {
         color: var(--text-dark-color);
-    }
-
-    .leaderboard-country {
-        margin-top: 15px;
-    }
-
-    .leaderboard-xp {
-        margin-top: 15px;
-        margin-left: 10px; 
     }
 </style>

@@ -208,6 +208,9 @@ h1:focus {
 }
 
 @media (max-width: 992px) {
+    .container-articles {
+        padding-top: 100px !important;
+    }
     .container-gallery {
         padding-top: 100px !important;
     }

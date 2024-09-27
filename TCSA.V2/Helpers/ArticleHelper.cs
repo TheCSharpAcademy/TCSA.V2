@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+
 using TCSA.V2.Data;
 using TCSA.V2.Models;
 
@@ -1212,6 +1213,10 @@ But I'll be surprised if you get to the end of this list and you don't have a jo
 <code>git add . <br>
 git commit -m ""type your message here""<br>
 git push</code>"
+                            },
+                             new Paragraph
+                            {
+                                Body = @"<b>IMPORTANT</b>: If you're moving a previously created project into our fork, and it was already a git repository, <b>make sure you remove the .git folder from your project's folder</b>, or it will be picked up as a submodule and we won't be able to review it. Keep in mind the .git folder is hidden by default, so you need to set your file explorer to see hidden files."
                             }
                         }
                     },
@@ -1285,12 +1290,23 @@ git push</code>"
                     },
                     new Block
                     {
-                        Title = "7. Rework your project",
+                        Title = "7. Submit in the Dashboard",
                         Paragraphs = new List<Paragraph>
                         {
                             new Paragraph
                             {
-                                Body = "Once you change your project based on the comments, all you need to do is repeat step 4 (stage, commit, push) and the pull request will be updated. You don’t need to submit another Pull request. Once your project is accepted, go to the Academy's repository where you'll see your project included."
+                                Body = "Git pull requests aren't yet integrated to our dashboard. Because of this you'll have to <a href='https://www.thecsharpacademy.com/dashboard/submit-project' target='_blank'>submit your project into our platform here.</a> Choose the correct project from the dropdown and paste the link to your Pull Request."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "8. Rework your project",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "If your project is missing any requirements, you'll receive feedback with changes requested. Once you change your project based on the comments, all you need to do is repeat step 4 (stage, commit, push) and the pull request will be updated. You don’t need to submit another Pull request. Once your project is accepted, go to the Academy's repository where you'll see your project included."
                             },
                             new Paragraph
                             {
@@ -1907,6 +1923,543 @@ git push</code>"
                             }
                         }
                     }
+                }
+            },
+            new Article
+            {
+                Id = 30000,
+                Title = "Legacy: A Little Bit about Me",
+                IconUrl = "",
+                Slug="legacy-a-little-bit-about-me",
+                BannerUrl = "",
+                CardImgUrl = "blog1.png",
+                Description = "",
+                Area = Area.Blog,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "My name is Pablo de Souza, I’m 37 years old and I consider myself  very lucky. I was born to a middle-class family in Brazil with enough health, resources and education to live a comfortable life. Even though I lived life on my terms, having a lot of fun and never having any major problems, I feel like at this point there’s something missing. I could write many paragraphs of self-psychoanalysis to try and find the reasons for my current restlessness, but I just feel I have the capacity to tailor the rest of my existence on earth in a better way than I’ve done so far. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I have a reasonably well-paid dance teacher job. I love what I do and my annual income puts me amongst the top 2% better paid people on earth. No, that doesn’t mean I’m rich. You don’t need to earn a lot in a first world country to be top 1%. But I can’t see myself as a dance teacher at 50. I definitely want to keep dancing, but I don’t want to rely on my body to earn a living in an industry that values youthfulness and fitness. Hence the need for a career change."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Five years ago I migrated to Australia and I’m about a year away from getting a permanent visa, which would allow me the right to study affordably in this beautiful country. The perspective of going back to university made me think deeply about my possibilities and I had my mind set in the health industry (my father is a doctor, my mother a nurse and I have a degree in Sports Science) . The problem is that working in healthcare means I’m stuck geographically in 99% of the jobs and I can’t stand the idea of not doing a bunch of traveling before I go to the grave."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Search engines algorithms must have picked up what I needed and presented me with ads for computer programming schools. I did some reading about it and found it appealing. Especially the possibility of self-teaching. Being a doctor or a nurse requires knowledge and qualifications you can only get with formal education. The fact that I could sit all day in front of a computer and learn all I need by myself was very attractive. I envisioned the good old American style self-made man story starting to materialize. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "However, down deep I know that the person I need to become to get there doesn’t exist yet. But that person is very attractive to me. I want to become that guy. Driven, focused, curious, disciplined and organized. I think these characteristics summon what I need to be to achieve the goal of becoming a programmer. Right now If I had to give scores from 0 to 5 to myself in each of those attributes I’d say I’m very curious (5), but I’m lacking all of the rest: not disciplined enough (2), not driven enough (2), not focused enough (2), and dismally disorganized (probably a zero)."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Search engines algorithms must have picked up what I needed and presented me with ads for computer programming schools. I did some reading about it and found it appealing. Especially the possibility of self-teaching. Being a doctor or a nurse requires knowledge and qualifications you can only get with formal education. The fact that I could sit all day in front of a computer and learn all I need by myself was very attractive. I envisioned the good old American style self-made man story starting to materialize. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "That’s why I’m calling this blog <b>Shut up and Code</b>. I’ve read, researched and talked a lot about the subject since I made the decision to learn to code a couple of months ago, but I haven’t spent many hours actually coding. I do value reads that will improve me as a human and give me the big picture of the programming world, but the fact is that I have to make up for starting late and <b>put in the hours</b>. I have to attack this aggressively or <b>I will fail</b>. This is, by miles, beyond anything I’ve ever accomplished in life and the person I currently am doesn’t stand a chance."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Right now this blog is for me only. I do want it to tell a successful story of a 37-year-old that against all odds was able to better himself and change careers and hopefully inspire and help people in the future. But at this stage I want to use this space to clarify my ideas, keep me centered, focused and, above all, maintain discipline. I’ve started many blogs and failed to be consistent every single time. This has to change. <b>Now</b>. I’m running out of time. The grave is growing closer."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "2024 Commentary",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Right now this blog is for me only. I do want it to tell a successful story of a 37-year-old that against all odds was able to better himself and change careers and hopefully inspire and help people in the future. But at this stage I want to use this space to clarify my ideas, keep me centered, focused and, above all, maintain discipline. I’ve started many blogs and failed to be consistent every single time. This has to change. <b>Now</b>. I’m running out of time. The grave is growing closer."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Also, I’m not sure I’ve mentioned this in other posts, but at the time I started writing this blog, I read a fantastic book for folks trying to teach themselves anything: The Art Of Learning, by Josh Waitzkin."
+                            }, 
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "blog/art-of-learning.jpg"
+                            },
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Not only he was a chess grand-master, but a pushing-hands (competitive tai-chi) champion. The story of how he migrated from one to the other is absolutely fascinating. It was a key factor in my journey to become a developer. Even if you don’t get the book, you need to check this guy out. <a href='https://open.spotify.com/episode/7nOZbb1S6nIJpvEOx94qlc?si=tuvWPVpkS3q6zhR3FJELpg' target='_blank'>Here’s the podcast where I first learned about him</a>"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "2029 Commentary",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I'm leaving this paragraph as a placeholder. I hope I’m a senior dev. I hope I’m not unemployed. 😂"
+                            }
+                        }
+                    },
+                }
+            },
+            new Article
+            {
+                Id = 30001,
+                Title = "Why The Hell Am I Creating a Blog Again?",
+                IconUrl = "",
+                Slug="why-the-hell-am-i-creating-a-blog",
+                BannerUrl = "",
+                CardImgUrl = "blog2.png",
+                Description = "",
+                Area = Area.Blog,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Because I love writing! It’s just what the world bloody needs, right? 😒Another wanky blog. I’ve had a few blogs before, mostly dedicated to football (aka soccer). The latest one documented my attempt to become a software developer. I loved that blog. I’ll try to bring some of those old posts back to life. But what matters is that I’m back to it. I miss it so much!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "There won’t be any writing goals. I’ll write when I feel like it, brainstorming-style, with very little editing. You’re likely to find typos everywhere. Please feel free to let me know so it doesn’t look like I’m (totally) illiterate."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I have a vague idea of what I want to write about: Dev things. My intention is to write content that will be useful not only for beginners, but for those who have been learning for a while and still haven’t broken into the industry, and for those who are trying what I’m trying: to become a senior dev."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In the day and age of Chat GPT, where a lot of the written stuff feel AI-heavy, I pledge to make this blog HUMAN. Authentic. With as little filters as possible. I hope you enjoy."
+                            }
+                        }
+                    }
+                }
+            },
+            new Article
+            {
+                Id = 30002,
+                Title = "How Can I Possibly do All of These Things?",
+                IconUrl = "",
+                Slug="how-can-i-possibly-do-all-of-these-things",
+                BannerUrl = "",
+                CardImgUrl = "blog3.png",
+                Description = "",
+                Area = Area.Blog,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This Monday I’m adding extra weight to my already heavy schedule by starting my second semester at university. If I tell you I have started a blog, an Instagram and a Threads account you’ll have a solid case for taking me to a sanatorium. Besides having a demanding full-time software developer job, these are some of my other current activities: Gym almost every day, sometimes twice; running The C# Academy; <a href='https://thecsharpschool.getlearnworlds.com/subscription/the-c-academy-membership' target='_blank'>creating content for my paid courses</a>; teaching dance once a week; studying at least 1h a day, currently focusing on <a href='https://amzn.to/4dImzTe' target='_blank'>Git</a> and <a href='https://amzn.to/3YK6ZCf' target='_blank'>IOT</a>. Oh and trying to <a href='https://amzn.to/4ckS98x' target='_blank'>learn several languages at the same time</a> (what a fool 😆). And that’s just the tip of my iceberg to-do list. All of that while, of course, spending time with my beautiful wife so she doesn’t divorce me."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I consider myself <a href='https://amzn.to/3X2fzLr' target='_blank'>an essentialist</a>. I don’t own a lot of things, I don’t spend time scrolling on my phone and never watch TV (except for the world cup, of course, as a good Brazilian). Some of the things that give me the most pleasure are <a href='https://amzn.to/3X0CVkC' target='_blank'>saying NO</a> to requests for my time and throwing unused stuff in the bin. So why more? It might sound contradictory but I deemed these new activities important for my future and calculated that it’s possible to achieve them as long as I have good systems in place. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The next few months will be a test of my organization and discipline. I have a plan. Now I have to f-ing follow it. The general headquarters of my organization will be <a href='https://calendar.google.com/calendar/u/0/r' target='_blank'>Google Calendar</a>. I think it’s a great tool for having a big picture of one’s schedule. It’s great that I can combine it with <a href='https://play.google.com/store/apps/details?id=com.google.android.apps.tasks&hl=en&gl=US&pli=1' target='_blank'>Google Tasks</a> and drag and drop tasks onto my calendar. <a href='https://amzn.to/4cn6NvP' target='_blank'>I use the Getting Things Done method</a> by the great David Allen. It’s an absolute game changer. To summarize, the idea is to dump every possible thing that’s in your mind into lists organized by topics and priority. When I first tried it, it felt like removing one ton off my back. I no longer had to worry about forgotten tasks that weren’t registered anywhere. Obviously the things I had to do hadn’t disappeared, but they were now accounted for, part of a system. Thank you David, I get much more done because of you."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I also use good old Excel and <a href='https://productiveapp.io/' target='_blank'>Productive</a>, a gorgeous habit tracker to log my activities. I have a spreadsheet for logging hours in key activities and another for a “Discipline Log”, where I keep track of the habits I want to avoid or do more frequently. These logs are my first activity every day. I wake up tick the activities of the previous day. I find that the end of the day when I’m tired is way harder."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "To keep track of my health, I use Fitbit. I have a <a href='https://amzn.to/3N3mKgy' target='_blank'>Charge 5</a> and not only it monitors my sleep and heart rate, but its app has an excellent Food Tracker where I keep track of everything I eat most days. I’m not too hard on myself when I can’t track my food intake since sometimes it’s hard to find out what exactly is in your food, especially when eating out."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I know what some of you are thinking. You have two or three kids, a full time job, care for your elderly parents and still study at night. Yes, I totally appreciate that. I had these examples at home too. Mom and dad were absolute hustlers. I concede I have it easier than most. Someone on a minimum wage in Australia is in the top 3% highest income <b>on the planet</b>. No joke. <a href='https://www.washingtonpost.com/graphics/2018/business/global-income-calculator/' target='_blank'>Look it up</a> – by the way, small rant: if you’re in a first world country complaining about life, just shush 😒. Ok, rant over – But it’s my obligation to do as much as I can with these privileges."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Speaking of which, time to bloody get back to work. The short-term goal? To succeed in keeping all my metrics moving in the right direction for the duration of this study semester. I’ll post the result in four months, if I’m still alive."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Wish me good luck, I’ll need it."
+                            }
+                        }
+                    }
+                }
+            },
+            new Article
+            {
+                Id = 30003,
+                Title = "The Best Book About Self-Discipline I’ve Ever Read",
+                IconUrl = "",
+                Slug="legacy-a-little-bit-about-me",
+                BannerUrl = "",
+                CardImgUrl = "blog4.png",
+                Description = "",
+                Area = Area.Blog,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Last week a friend recommended a fantastic book: <a href='https://amzn.to/438w0r0' target='_blank'>365 Days With Self-Discipline: 365 Life-Altering Thoughts on Self-Control, Mental Resilience, and Success</a>. I find self-control a fascinating topic and I had a spare Audible credit so after finishing my previous book I quickly grabbed it. I’m absolutely hooked. To the point of considering it my new bible."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The book is organized in chapters with one aspect of self-discipline per day for 365 days. Each chapter starts with a quote and expands on the quote’s ideas. My first reaction to the book’s narration by John Gagnepain – check out the sample below – was being unimpressed. I initially thought it was  somewhat monotone and nonchalant. A bit “corporate”. After having recently listened to the high-energy narrations of <a href='https://amzn.to/4drFHoH' target='_blank'>Rework by Jason Fried</a> and <a href='https://amzn.to/46KC1vD' target='_blank'>Gary Varneychuk's Crush It</a>, the opening minutes made me think I was in for 10 hours of boredom 🥱."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "But the unemotional narration style adds a touch of humor and drives the point home better than if it was narrated by a more cheerful voice. <i>“When you start exercising, expect to be ridiculed by your friends, whose only exercise is with the remote control all evening while watching their favorite show”</i>, read dispassionately, made me laugh out loud."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "My strategy for this book is to listen to a few chapters every day, especially at critical times when my will-power tends to be lower. The post-lunch food fatigue for example often leads to high levels of fruit-consumption or Instagram-flicking. It’s been working so far. I feel more equipped to deal with self-sabotaging thoughts. I’ve read many self-disciple books before but none were as effective in changing my mindset. It teams up really with <a href='https://amzn.to/3WLNqXr' target='_blank'>Atomic Habits</a>, which has the best anecdotes and <a href='https://amzn.to/3PdWPnW' target='_blank'>Tiny Habits</a>, the most actionable."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I trust that this approach is better than a traditional binge-read with little reflection and practice. As the book itself says, bad habits were formed throughout many years, sometimes decades. Reading a book in a week is unlikely to shake things up. Only painstaking reconditioning will do the job."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "My Bad Habits",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Like everyone else, I could come up with a big list of destructive habits but as I advocate to students and mentees, tackling too many objectives at the same time more often than not leads to frustration. My priority right now is to confront my relationship with food. Although I eat healthier than most and I’m somewhat fit, I struggle with spells of chocolate-fueled debauchery and funnily enough, mind-boggling levels of fruit consumption. Fruit is hard to avoid because it’s easy to justify. It’s rich in nutrients, not processed and has no added sugar. I was brought up on it so it’s deeply wired into my brain. Right now I average four or five daily pieces, generally bananas and apples after having started my day with a bunch of berries. And that’s because I’ve improved <b>a lot</b>. And I still have bouts where I’ll eat twice as much."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Working from home, it’s very easy to go downstairs to make another cup of coffee or grab another bite of whatever I can find in the fridge/pantry. My mind inevitably goes there when I’m facing a hard programming problem. That means I’m eating for reasons that have nothing to do with hunger. "
+                            },
+                            new Paragraph
+                            {
+                                Body = "The game plan to tame this lion will be two fold: tracking the amount of pieces of fruit I eat and limit its intake to have it only as a dessert, not a meal by itself, unless I’m quickly grabbing a banana before the gym. <i>“What we can measure we can improve”</i>."
+                            },
+                            new Paragraph
+                            {
+                                Body = "How about you? What is one bad habit you’d like to tackle? And how do you plan to do it?"
+                            },
+
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Follow-up",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "A quick follow-up <a href='article/30002/how-can-i-possibly-do-all-of-these-things' target='_blank'>from the previous post</a>. Although I painted myself into a corner with too many commitments, I think I did a decent job at prioritizing this week. I was disciplined enough to say no to the temptation of jumping around amongst several tasks and dedicated 27 hours to building the new website for The C# Academy in the last 10 days. What’s driving this surge is the fact that this is a finite project. Getting it out of the way will allow me to go back to spending more time in the ongoing task of creating amazing educational content. I hope to have the new version out within a week 💪🏻."
+                            }
+                        }
+                    },
+                }
+            },
+            new Article
+            {
+                Id = 30004,
+                Title = "Three Years as a Software Engineer (Part 1)",
+                IconUrl = "",
+                Slug="three-years-as-a-software-engineer-part1",
+                BannerUrl = "",
+                CardImgUrl = "blog5.png",
+                Description = "",
+                Area = Area.Blog,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The 6th of July was the third anniversary of my professional career as a software developer. This is the first of a series of posts with reflections on these three years. In this initial post I’ll talk about some of the circumstances that allowed me to get into the industry in the first place."
+                            }
+                        }
+                    },
+                    new Block
+                    {   
+                        Title = "Luck Counts",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "First I have to acknowledge my luck. If I had started my journey only a few months later I’d probably be looking for jobs right in the middle of the big depression in the job market. It’s hard to know if I would have made it at all. I like to think of myself a resilient “achieve it or die trying” kind of guy but I can’t say for sure I wouldn’t have quit after years of being rejected. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I’m also lucky to have started my career in two companies that have an amazing culture. I’ll be forever grateful to my first manager for providing such a supportive environment for juniors. As one would expect from a starter, I made several mistakes, asked stupid questions and behaved awkwardly, but everyone around me was very understanding and I was never treated poorly. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The same is true for my current company. We’re in a small team where I needed to step up in responsibility looking after large chunks of our product. Again, several mistakes, some affecting the users directly. But my seniors were always supported and trusted my ability to learn from them."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This can also be said about geographical circumstances. I probably wouldn’t have gotten a job even during the hiring frenzy had I lived in Europe or in most states in the US. The scarcity of programmers in Australia made my life much easier. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "The Pandemic",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "And how about the timing? The pandemic was a hard time for most of us. It created a lot of anxiety, political division, unemployment, hardship. I was secretly having a great time (don’t tell anyone). I had all the time in the world to dedicate to coding. And oh boy did I use it! Besides, I was single, so I was able to sit down and learn for 8+ hours day after day. This period certainly sped um the process of getting my first job."
+                            }
+                        }
+                    },
+                     new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "But I think the biggest stroke of luck was the one that actually led me to start coding in the first place. It was just before the pandemic. For whatever reason I started looking for remote jobs. I didn’t even have an Australian permanent visa yet but all of the sudden the idea of a profession that would allow me to work remotely became more appealing. "
+                            }
+                        }
+                    },
+                      new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I remember looking at professions such as personal assistant and Language Teacher. I think I even created a Portuguese teacher profile somewhere. I think I’d have been good a it. However these saturated professions that wouldn’t give me the financial freedom I desired. Then Google’s algorithm must have heard me and starting presenting me with coding courses. I jumped onto the CodeAcademy and was hooked within minutes. Although now I don’t really like the idea of learning to code in the browser, I have to say that again I’m lucky that their web development course is organized in byte-size chapters. That structure made me keep going even when I didn’t know exactly what I was doing."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Good Samaritan",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Then I remember talking to a salsa student of mine and he said I should learn a back-end language. Specifically Java, which he worked with as a senior. I did study it for a couple of months before finally settling for C#, since another student was willing to give me a hand. "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "This friend was a key player in my initial journey. We met up several times so he could help me when I was stuck. The pair programming sessions we had were crucial. I could see how he thinks about code when he was talking to himself through a problem. I think this is one of the most neglected aspects of learning to code. You’ll learn more sitting for one hour with an experienced engineer than in dozens of hours watching tutorials by yourself."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "So What?",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "With all this self-indulgent talk about how lucky I am, if you can’t get into the industry right now you must be thinking: “Ok mate, you’re lucky, I get it. Good for you.” And you’re right. It’s ok to get angry, anxious, upset. But it’s important to put yourself into the context of the job market right now. If you don’t love coding, it might be time to look into doing something else. But if you do, keep working hard and when the circumstances improve, you’ll be ahead of the curve to get that coveted job!"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "I was lucky one day, but my fortune might turn tomorrow and I can get fired. I think about this possibility a lot. And regardless of how tough the job market is, I’d spend every waking moment living and breathing code until I got back into the market. If there’s one thing I can control is the amount of work I put into it. When luck hits you with an opportunity, you have to be ready."
+                            }
+                        }
+                    },
+                     new Block
+                    {
+                        Title = "Outliers",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "On this topic, <a href='https://amzn.to/3YMPCkb' target='_blank'>I highly recommend the book Outliers</a>, by Martin Meadows. It talks about the importance of one’s environment to their relative success. The example in the book that resonates the most with me is Bill Gates. The set of circumstances that allowed him to achieve greatness is enlightening. As an example, he went to one of the first schools to give students unlimited access to a computer. So he amassed his thousands of hours of programming practice before almost everyone else on the planet! Is he extremely intelligent? Did he work hard? Yes and yes. Would he have impacted the world the way he did if he didn’t go to that school? It’s highly unlikely. "
+                            }
+                        }
+                    },
                 }
             }
         };

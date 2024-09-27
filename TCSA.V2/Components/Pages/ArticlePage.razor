@@ -94,49 +94,52 @@
         blockIndex++;
     }
 
-    @if (IsLoggedIn)
+    @if (Article.Area != Area.Blog)
     {
-        @if (!IsCompleted)
+        @if (IsLoggedIn)
         {
-            <p>If you're following the roadmap, mark this article as read before moving to the next.</p>
-            <div class="user-buttons">
-                @if (IsLoading)
-                {
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
+            @if (!IsCompleted)
+            {
+                <p>If you're following the roadmap, mark this article as read before moving to the next.</p>
+                <div class="user-buttons">
+                    @if (IsLoading)
+                    {
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <button class="btn btn-outline-secondary" type="button" @onclick="MarkAsRead" disabled="@IsLoading">Mark As Read</button>
+                    }
+                </div>
+                <br />
+                <p class="projects-worth">This article is worth @Article.ExperiencePoints XPs </p>
+            }
+            else
+            {
+                <div class="card card-completed">
+                    <div class="card-body">
+                        You have completed this roadmap step.
                     </div>
-                }
-                else
-                {
-                    <button class="btn btn-outline-secondary" type="button" @onclick="MarkAsRead" disabled="@IsLoading">Mark As Read</button>
-                }
-            </div>
-            <br />
-            <p class="projects-worth">This article is worth @Article.ExperiencePoints XPs </p>
+                </div>
+            }
         }
         else
         {
-            <div class="card card-completed">
+            <div class="card">
                 <div class="card-body">
-                    You have completed this roadmap step.
+                    Log in to mark this article as read and save your progress.
                 </div>
             </div>
         }
-    }
-    else
-    {
-        <div class="card">
-            <div class="card-body">
-                Log in to mark this article as read and save your progress.
-            </div>
-        </div>
-    }
 
-    @if (!string.IsNullOrEmpty(@Article.NextSlug))
-    {
-        <div class="w-100 d-flex align-items-center justify-content-center mt-2">
-            <NextButton Href="@Article.NextSlug"/>
-        </div>
+        @if (!string.IsNullOrEmpty(@Article.NextSlug))
+        {
+            <div class="w-100 d-flex align-items-center justify-content-center mt-2">
+                <NextButton Href="@Article.NextSlug" />
+            </div>
+        }
     }
 
 </div>

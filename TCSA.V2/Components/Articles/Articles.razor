@@ -1,9 +1,25 @@
-﻿@page "/articles"
+﻿@page "/articles/{articleType?}"
 @using TCSA.V2.Components.UI
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 
-<div class="container">
+<div class="container container-articles">
+    <div class="row">
+        <div class="col text-center">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
+                    crossorigin="anonymous"></script>
+            <!-- tcsa-adsense-articles-gallery -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4831088216810061"
+                 data-ad-slot="3120046060"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
     <div class="row pt-5">
         @foreach (var article in ArticlesList)
         {
@@ -13,11 +29,22 @@
 </div>
 
 @code {
+    [Parameter] public string articleType { get; set; }
+
     private List<Article> ArticlesList { get; set; } = new();
     private List<int> NoDisplayIds { get; set; } = new() { 1, 2, 3, 4, 51, 100 };
 
     protected async override Task OnInitializedAsync()
     {
-        ArticlesList = ArticleHelper.GetArticles().Where(x => !NoDisplayIds.Contains(x.Id) ).ToList();
+        ArticlesList = ArticleHelper.GetArticles().Where(x => !NoDisplayIds.Contains(x.Id)).ToList();
+
+        @if (articleType == "blog")
+        {
+            ArticlesList = ArticlesList.Where(x => x.Area == Area.Blog).ToList();
+        } 
+        else
+        {
+            ArticlesList = ArticlesList.Where(x => x.Area != Area.Blog).ToList();
+        }
     }
 }

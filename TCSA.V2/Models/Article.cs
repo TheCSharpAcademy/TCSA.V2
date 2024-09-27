@@ -57,6 +57,7 @@ public enum Area
     SQL,
     Auth,
     GraduationProject,
-    FreestyleProject
+    FreestyleProject,
+    Blog
 }
 

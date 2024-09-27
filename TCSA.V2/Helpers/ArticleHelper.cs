@@ -2461,6 +2461,96 @@ git push</code>"
                         }
                     },
                 }
+            },
+            new Article
+            {
+                Id = 30005,
+                Title = "Separation of Concerns in C#: Best Practices and Code Examples",
+                IconUrl = "",
+                Slug="separation-of-concerns-csharp",
+                BannerUrl = "",
+                CardImgUrl = "separation-of-concerns.png",
+                Description = "",
+                ExperiencePoints = 1,
+                Area = Area.Principles,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Separation of concerns (SoC) is a fundamental software design principle aimed at dividing a program into distinct sections, each responsible for a specific functionality. The goal is to reduce complexity by organizing code in such a way that each section or \"concern\" only handles one aspect of the application. This leads to easier maintenance, greater flexibility, and improved readability of the code. SoC makes it easier to locate and modify parts of a program when specific changes are needed.."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In C#, the SoC principle can be implemented through various programming constructs like classes, methods, and interfaces. A classic example of this is the Model-View-Controller (MVC) pattern, commonly used in web applications. In this architecture, the \"Model\" handles data and business logic, the \"View\" manages the user interface, and the \"Controller\" acts as an intermediary between the model and the view. By separating these concerns, changes to the UI (View) won't affect the business logic (Model) or how data is controlled (Controller)."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Let's have a look at an example of an order processing service:"
+                            },
+                            new Paragraph
+                            {
+                                IsCode = true,
+                                Body = "public class OrderService\r\n{\r\n    public void ProcessOrder(Order order)\r\n    {\r\n        // Validate the order\r\n        if (order.Items.Count == 0)\r\n        {\r\n            throw new Exception(\"Order must have at least one item.\");\r\n        }\r\n\r\n        // Calculate tax\r\n        decimal tax = order.TotalAmount * 0.08m;\r\n        order.TotalAmount += tax;\r\n\r\n        // Send order confirmation email\r\n        string customerEmail = order.CustomerEmail;\r\n        string message = $\"Dear {order.CustomerName}, your order has been processed. Total: {order.TotalAmount}\";\r\n        SendEmail(customerEmail, message);\r\n\r\n        // Log the order processing\r\n        Console.WriteLine($\"Order for {order.CustomerName} processed with total {order.TotalAmount}\");\r\n    }\r\n\r\n    private void SendEmail(string email, string message)\r\n    {\r\n        // Simulated email sending logic\r\n        Console.WriteLine($\"Email sent to {email}: {message}\");\r\n    }\r\n}"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In this example, the ProcessOrder method is doing too many things: It validates the order. It calculates taxes. It sends an email. It logs the result. Let's see how this code code could be refactored: "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                IsCode = true,
+                                Body = "public class OrderService\r\n{\r\n    public void ProcessOrder(Order order)\r\n    {\r\n        ValidateOrder(order);              // Validate the order\r\n        CalculateTax(order);               // Calculate and add tax\r\n        SendOrderConfirmationEmail(order); // Send confirmation email\r\n        LogOrderProcessing(order);         // Log the order processing\r\n    }\r\n\r\n    private void ValidateOrder(Order order)\r\n    {\r\n        if (order.Items.Count == 0)\r\n        {\r\n            throw new Exception(\"Order must have at least one item.\");\r\n        }\r\n    }\r\n\r\n    private void CalculateTax(Order order)\r\n    {\r\n        decimal tax = order.TotalAmount * 0.08m; // Assume 8% tax\r\n        order.TotalAmount += tax;\r\n    }\r\n\r\n    private void SendOrderConfirmationEmail(Order order)\r\n    {\r\n        string customerEmail = order.CustomerEmail;\r\n        string message = $\"Dear {order.CustomerName}, your order has been processed. Total: {order.TotalAmount}\";\r\n        SendEmail(customerEmail, message);\r\n    }\r\n\r\n    private void SendEmail(string email, string message)\r\n    {\r\n        // Simulated email sending logic\r\n        Console.WriteLine($\"Email sent to {email}: {message}\");\r\n    }\r\n\r\n    private void LogOrderProcessing(Order order)\r\n    {\r\n        Console.WriteLine($\"Order for {order.CustomerName} processed with total {order.TotalAmount}\");\r\n    }\r\n}"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Key Points to Consider",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<b>Grouping Methods by Concern</b>: If you find multiple methods that are related to a particular aspect of your system, such as validation, tax calculation, or logging, it might be a sign that they should be grouped together. When this happens, creating a dedicated class makes sense. This not only makes the code cleaner but also aligns with the **single responsibility principle** (each class should have only one reason to change)."
+                            },
+                            new Paragraph
+                            {
+                                Body = "<b>The Rule-of-Thumb</b>: The idea that if you have more than two methods related to the same concern, you should consider creating a separate class, is a useful heuristic. It helps in keeping your classes small and focused, leading to better modularity. For example, if you have methods like ValidateOrder and ValidateCustomer, it makes sense to extract them into a ValidationService class."
+                            },
+                            new Paragraph
+                            {
+                                Body = "<b>Not Always Clear-Cut</b>: Deciding when to split methods into separate classes isn't always straightforward. You need to balance concerns like simplicity, reusability, and future scalability. Over-abstracting too early can lead to unnecessary complexity, while under-abstracting can make the code harder to manage as the application grows."
+                            }
+                        }
+                    }
+                }
             }
         };
     }

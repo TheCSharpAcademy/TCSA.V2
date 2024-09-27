@@ -1,5 +1,6 @@
 ﻿@page "/article/{ArticleId:int}/{ArticleSlug}"
 @rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
 
 @using System.Security.Claims;
 @using TCSA.V2.Components.UI
@@ -64,8 +65,8 @@
                 </div>
             }
             <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
-                <div class="d-flex justify-content-center">
-                    <h1 class="article-section-title">@block.Title</h1>
+                <div class="d-flex">
+                    <h2 class="article-section-title">@block.Title</h2>
                 </div>
 
                 @foreach (var paragraph in block.Paragraphs)
@@ -84,9 +85,16 @@
                         </div>
                     }
 
-                    if (!String.IsNullOrEmpty(paragraph.Body))
+                    if (paragraph.IsCode)
                     {
-                        <p>@((MarkupString)(paragraph.Body))</p>
+                        <pre><code class="language-csharp">@((MarkupString)paragraph.Body)</code></pre>
+                    } 
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(paragraph.Body))
+                        {
+                            <p>@((MarkupString)(paragraph.Body))</p>
+                        }
                     }
                 }
             </div>
@@ -141,7 +149,6 @@
             </div>
         }
     }
-
 </div>
 
 @code {
@@ -167,6 +174,15 @@
     protected async override Task OnInitializedAsync()
     {
         await OnParametersSetAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Call the JS function to highlight the code after rendering
+            await JSRuntime.InvokeVoidAsync("highlightCode");
+        }
     }
 
     protected async override Task OnParametersSetAsync()

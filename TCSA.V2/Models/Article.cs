@@ -33,6 +33,7 @@ public class Paragraph
 {
     public bool IsPicture { get; set; } = false;
     public bool IsVideo { get; set; } = false;
+    public bool IsCode { get; set; } = false;
     public string? PictureUrl { get; set; }
     public string? VideoUrl { get; set; }
     public string? Body { get; set; }
@@ -58,6 +59,7 @@ public enum Area
     Auth,
     GraduationProject,
     FreestyleProject,
-    Blog
+    Blog, 
+    Principles
 }
 

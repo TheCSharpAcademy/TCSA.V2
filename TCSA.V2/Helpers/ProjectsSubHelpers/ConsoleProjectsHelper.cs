@@ -420,7 +420,7 @@ public class ConsoleProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="In the first app we also didn’t have requirements for coding organization. This time you’ll have to use <a href='article/30005/separation-of-concerns-csharp'>separation of concerns</a>, one of the most important principles in modern programming. This is where you’ll start applying concepts of Object Oriented Programming. You’ll also need to use a “Model”  or “Entity”, to to represent the data you are dealing with. In this case, your coding sessions. So let’s get started!"
+                        Body="In the first app we also didn’t have requirements for coding organization. This time you’ll have to use <a href='article/30005/separation-of-concerns-csharp' target='_blank'>Separation of Concerns</a>, one of the most important principles in modern programming. This is where you’ll start applying concepts of Object Oriented Programming. You’ll also need to use a “Model”  or “Entity”, to to represent the data you are dealing with. In this case, your coding sessions. So let’s get started!"
                     }
                 },
                 Requirements = new List<string>
@@ -821,7 +821,7 @@ public class ConsoleProjectsHelper
                 },
                 Challenges = new List<string>
                 {
-                    "To illustrate the separation provided by the repository pattern, create a different branch of your project where you'll replace Entity Framework by Dapper or ADO.NET in your repository. You'll notice that you won't need to touch your controller.",
+                    "To illustrate the <a href='article/30005/separation-of-concerns-csharp' target='_blank'>Separation of Concerns</a> by the repository pattern, create a different branch of your project where you'll replace Entity Framework by Dapper or ADO.NET in your repository. You'll notice that you won't need to touch your controller.",
                     "Create an application with two types of exercises (ex. weights and cardio), using EF for one and Raw SQL for the other"
                 }
             },
@@ -1398,7 +1398,7 @@ public class ConsoleProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="In de eerste applicatie hadden we geen vereisten over de organisatie van onze code. Deze keer echter, ga je moeten gebruik maken van <a href='https://en.wikipedia.org/wiki/Separation_of_concerns'>separation of concerns</a>, één van de meest belangrijke principes in modern programmeren. Vanaf nu gaan we de concepten van Object Georiënteerd Programmeren toe passen. Je zal ook gebruik moeten maken van een 'Model' of 'Entity', om de data die je moet verwerken weer te geven. In dit geval je, codeer sessies. Laten we starten!"
+                        Body="In de eerste applicatie hadden we geen vereisten over de organisatie van onze code. Deze keer echter, ga je moeten gebruik maken van <a href='article/30005/separation-of-concerns-csharp' target='_blank'>Separation of Concerns</a>, één van de meest belangrijke principes in modern programmeren. Vanaf nu gaan we de concepten van Object Georiënteerd Programmeren toe passen. Je zal ook gebruik moeten maken van een 'Model' of 'Entity', om de data die je moet verwerken weer te geven. In dit geval je, codeer sessies. Laten we starten!"
                     }
                 },
                 Requirements = new List<string>

@@ -79,7 +79,7 @@ internal static class MauiProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="The objective of our second MAUI project is to get acquainted with the MVVM (Model-View-ViewModel) design pattern. The main purpose of MVVM is separation of concerns. With MVVM we will end up with smaller classes with less code. Using this pattern or not is a matter of personal style, but it’s widely adopted in enterprise because of the complexity of the domain. A large code base without separation of concerns in mind quickly turns into spaghetti: code that is less maintainable and testable. Smaller classes and methods with clear responsibility mean they’re easier to test. "
+                        Body="The objective of our second MAUI project is to get acquainted with the MVVM (Model-View-ViewModel) design pattern. The main purpose of MVVM is <a href='article/30005/separation-of-concerns-csharp' target='_blank'>Separation of Concerns</a>. With MVVM we will end up with smaller classes with less code. Using this pattern or not is a matter of personal style, but it’s widely adopted in enterprise because of the complexity of the domain. A large code base without separation of concerns in mind quickly turns into spaghetti: code that is less maintainable and testable. Smaller classes and methods with clear responsibility mean they’re easier to test. "
                     },
                      new Paragraph
                     {

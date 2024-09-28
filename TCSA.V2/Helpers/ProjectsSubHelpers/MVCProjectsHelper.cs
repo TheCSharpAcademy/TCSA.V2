@@ -112,7 +112,7 @@ internal static class MVCProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="For this initial tutorial we’ll be using the official documentation. Its MVC tutorial does a very good job at explaining the basic concepts. There will be a bit of hand-holding at first. You’ll be using .NET’s “scaffolding” <b><i><u>(Scaffolding in ASP.NET Core is a technique used to generate code at design time to support a number of common application scenarios when working with Entity Framework Core)</u></i></b>, which is necessary given the slight complexity of the project, but if you pay attention to each line of code, by the end of this project you’ll have a good grasp of MVC basics."
+                        Body="For this initial tutorial we’ll be using the official documentation. Its MVC tutorial does a very good job at explaining the basic concepts. There will be a bit of hand-holding at first. You’ll be using .NET’s “scaffolding” <b>(Scaffolding in ASP.NET Core is a technique used to generate code at design time to support a number of common application scenarios when working with Entity Framework Core)</b>, which is necessary given the slight complexity of the project, but if you pay attention to each line of code, by the end of this project you’ll have a good grasp of MVC basics."
                     }
                 },
                 Requirements = new List<string>

@@ -66,14 +66,14 @@
             }
             <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
                 <div class="d-flex">
-                    <h2 class="article-section-title">@block.Title</h2>
+                    <h1 class="article-section-title">@block.Title</h1>
                 </div>
 
                 @foreach (var paragraph in block.Paragraphs)
                 {
                     if (paragraph.IsPicture)
                     {
-                        <div class="d-flex justify-content-center photo-paragraph">
+                        <div class="d-flex justify-content-center photo-paragraph mt-1 mb-1">
                             <img src="img/@paragraph.PictureUrl" class="img-fluid" />
                         </div>
                     }
@@ -93,6 +93,7 @@
                     {
                         if (!String.IsNullOrEmpty(paragraph.Body))
                         {
+                            <br>
                             <p>@((MarkupString)(paragraph.Body))</p>
                         }
                     }

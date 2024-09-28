@@ -37,11 +37,11 @@ internal static class StartApplyingProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="<b><i><u>You want to stand out</u></i></b>. It’s a highly competitive world out there. The fight to get through the tech industry job without any experience is tough. So you want to stack the deck in your favour by doing all you can to stand out. Your portfolio will convey an image of you. It will show that you care, that you’re organised, that you have a plan for your learning. It will show your design skills. Either you want it or not, you have a brand, everyone does. And a portfolio will make your brand stronger."
+                        Body="<b>You want to stand out</b>. It’s a highly competitive world out there. The fight to get through the tech industry job without any experience is tough. So you want to stack the deck in your favour by doing all you can to stand out. Your portfolio will convey an image of you. It will show that you care, that you’re organised, that you have a plan for your learning. It will show your design skills. Either you want it or not, you have a brand, everyone does. And a portfolio will make your brand stronger."
                     },
                      new Paragraph
                     {
-                        Body="<b><i><u>It pushes you</u></i></b>. I’d even go as far as saying that you should build a portfolio before building any projects. That’s because it sets your vision. The vision of a full portfolio in a year time prevents you from procrastinating. It makes you get out of bed to code and put in the work. It keeps bugging you in the back of your mind: “<i>My portfolio is empty, I have to keep going</i>”. "
+                        Body="<b>It pushes you</b>. I’d even go as far as saying that you should build a portfolio before building any projects. That’s because it sets your vision. The vision of a full portfolio in a year time prevents you from procrastinating. It makes you get out of bed to code and put in the work. It keeps bugging you in the back of your mind: “<i>My portfolio is empty, I have to keep going</i>”. "
                     },
                      new Paragraph
                      {
@@ -49,7 +49,7 @@ internal static class StartApplyingProjectsHelper
                      },
                      new Paragraph
                      {
-                         Body = "<b><i><u>It's a project in itself</u></i></b>: Building a portfolio is … <b>PART OF YOUR PORTFOLIO</b>! It will be part of your practice as a developer. You’ll have to choose a model, design it, look after the front-end details, put yourself in the viewer’s shoes, think of what to have in it, it’s great practice all-around."
+                         Body = "<b>It's a project in itself</b>: Building a portfolio is … <b>PART OF YOUR PORTFOLIO</b>! It will be part of your practice as a developer. You’ll have to choose a model, design it, look after the front-end details, put yourself in the viewer’s shoes, think of what to have in it, it’s great practice all-around."
                      },
                      new Paragraph
                      {

@@ -294,6 +294,10 @@ h1:focus {
 }
 
 @media (min-width: 992px) {
+    .article-section-title {
+        font-size: 30px !important;
+    }
+
     .modal-content {
         background-color: var(--modal-background-color);
         margin: 15% auto;

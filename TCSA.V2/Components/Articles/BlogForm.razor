@@ -1,0 +1,74 @@
+﻿@using TCSA.V2.Helpers
+@using TCSA.V2.Models
+@using TCSA.V2.Data
+@using TCSA.V2.Models.DTO
+@using TCSA.V2.Models.Forms
+@using TCSA.V2.Models.Responses
+@using TCSA.V2.Services
+
+<EditForm Model="@Model" OnValidSubmit="() => SubmitProject(false)" FormName="SubmitBlog">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-floating mt-1">
+        <InputText id="title" class="form-control w-50" @bind-Value="Model.Title" />
+        <label for="title">Title</label>
+    </div>
+    <div class="form-floating mt-1">
+        <InputText id="description" class="form-control w-50" @bind-Value="Model.Description" />
+        <label for="description">Description</label>
+    </div>
+    <div class="form-floating mt-1">
+        <InputText id="imgurl" class="form-control w-50" @bind-Value="Model.ImgUrl" />
+        <label for="description">Image Url</label>
+    </div>
+    <div class="form-floating mt-1">
+        <InputTextArea id="body" class="form-control w-50" @bind-Value="Model.Body" />
+        <label for="body">Content</label>
+    </div>
+
+    @if (!IsSubmitting)
+    {
+        <button class="btn btn-success btn-academy mt-1" type="submit">Submit</button>
+        <button class="btn btn-secondary btn-academy mt-1" type="button" @onclick="() => SubmitProject(true)">Save as Draft</button>
+    }
+    else
+    {
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+    }
+</EditForm>
+
+
+@code {
+    [SupplyParameterFromForm] public SubmitBlog Model { get; set; } = new();
+    [Parameter] public EventCallback<BaseResponse> OnAddNewItem { get; set; } = new();
+    [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
+    [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
+    [Inject] private IBlogService BlogService { get; set; }
+
+    private bool IsSubmitDisabled { get; set; } = true; 
+    private string ValidationMessage { get; set; }
+    private bool IsSubmitting { get; set; } = false;
+
+    private async Task SubmitProject(bool isDraft)
+    {
+        IsSubmitting = true;
+
+        var newItem = new Blog
+            {
+                AppUserId = CurrentUser.Id,
+                Title = Model.Title,
+                Description = Model.Description,
+                Content = Model.Body,
+                CardImgUrl = Model.ImgUrl,
+                IsPublished = !isDraft,
+                PublishedDate = new DateTimeOffset()
+            };
+
+        var response = await BlogService.AddOrUpdateBlog(newItem);
+
+        await OnAddNewItem.InvokeAsync(response);
+    }
+}

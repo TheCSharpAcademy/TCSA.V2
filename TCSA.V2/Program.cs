@@ -49,6 +49,7 @@ builder.Services.AddScoped<IRoadmapService, RoadmapService>();
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IGalleryService, GalleryService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<HeartBeat>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<WebhookEventProcessor, MyWebhookEventProcessor>();

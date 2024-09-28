@@ -89,7 +89,6 @@ else
         </div>
     }
 
-     <div id=@($"div-gpt-ad-{Project.Id}") class="project-req-ad mb-3 pb-3" style="min-width: 970px; min-height: 90px;"></div>
     <div class="row mt-3 mb-3">
         <div class="col">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
@@ -111,7 +110,7 @@ else
                 </div>
             </div>
             <div class=col-lg-10>
-                <div class="col d-flex justify-content-center">
+                <div class="col d-flex mb-2">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Requirements</h1>
                 </div>
 
@@ -152,8 +151,8 @@ else
                 </div>
             </div>
             <div class="col-lg-10 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <h1 class="article-section-title">@Project.LanguageHeadings.Learn</h1>
+                <div class="d-flex mb-2">
+                    <h2 class="article-section-title">@Project.LanguageHeadings.Learn</h2>
                 </div>
                 <p>@((MarkupString)(Project.LearningIntro))</p>
                 <ol class="list-group  list-group-numbered list-group-flush">
@@ -176,7 +175,7 @@ else
                 </div>
             </div>
             <div class="col-sm-12 col-lg-10">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex mb-2">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Resources</h1>
                 </div>
                 @if (!String.IsNullOrEmpty(Project.ResourcesIntro))
@@ -211,7 +210,7 @@ else
                 </div>
             </div>
             <div class="col-lg-10 col-sm-12">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex mb-2">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Tips</h1>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -245,13 +244,13 @@ else
     @if (Project.Challenges != null)
     {
         <div class="row pb-5">
-             <div class="col-lg-2 d-flex align-items-center justify-content-center">
+            <div class="col-lg-2 d-flex align-items-center">
                 <div class="d-none d-sm-block">
                     <img src="img/icons8-product-512.png" width="70" alt="" class="align-middle">
                 </div>
             </div>
             <div class=col-lg-10>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex mb-2">
                     <h1 class="article-section-title">@Project.LanguageHeadings.Challenges</h1>
                 </div>
                 <ul class="list-group  list-group-flush">
@@ -283,7 +282,7 @@ else
                         </div>
                     </div>
                 <div class="@(!String.IsNullOrEmpty(block.ImgUrl) ? "col-lg-10" : "col")">
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex mb-2">
                         <h1 class="article-section-title tw-mb-2">@block.Title</h1>
                     </div>
 
@@ -344,7 +343,7 @@ else
                 </div>
             </div>
             <div class=col-lg-10>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex mb-2">
                     <h1 class="article-section-title">@Project.LanguageHeadings.ReviewRepository</h1>
                 </div>
                 <p>

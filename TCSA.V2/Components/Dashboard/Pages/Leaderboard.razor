@@ -35,11 +35,6 @@
                 }
             }
         </nav>
-
-        @if (is2024)
-        {
-            <p>*The 2024 leaderboard only takes in consideration projects submitted in 2024</p>
-        }
                                           
         if (!isReviews)
         {
@@ -100,13 +95,15 @@
                 </tbody>
             </table>
 
-        } else if (reviewUsers != null && isReviews)
+        } 
+        else if (reviewUsers != null && isReviews)
         {
             <table class="table leaderboard-table mt-sm-5">
                 <thead>
                     <tr>
                         <th scope="col">Pos</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Country</th>
                         <th scope="col">Total XP</th>
                         <th scope="col">Total Reviews</th>
                     </tr>
@@ -121,7 +118,7 @@
                                     <div class="name-cell-name">@(user.DisplayName ??= $"{user.FirstName} {user.LastName}")</div>
                                 </div>
                             </td>
-                        <td class="leaderboard-cell country-cell">
+                            <td class="leaderboard-cell country-cell">
                             @if (!string.IsNullOrEmpty(user.Country))
                             {
                                 <div class="belt-label-wrap tw-flex tw-items-center">

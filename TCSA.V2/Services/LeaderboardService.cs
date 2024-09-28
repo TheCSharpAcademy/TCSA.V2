@@ -128,6 +128,7 @@ public class LeaderboardService : ILeaderboardService
                         Id = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
+                        Country = user.Country,
                         DisplayName = user.DisplayName,
                         TotalXp = user.ReviewExperiencePoints,
                         ReviewsNumber = user.CodeReviewProjects.Count()

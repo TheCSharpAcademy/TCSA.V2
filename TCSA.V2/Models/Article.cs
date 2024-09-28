@@ -13,12 +13,13 @@ public class Article
     public string BannerV2 { get; set; }
     public Area Area { get; set; }
     public List<Block> Blocks { get; set; }
-    public DateTime ReleaseDate { get; set; }
+    public DateTime ReleaseDate { get; set; } // TODO move this to project
     public int ExperiencePoints { get; set; }
     public Level Level { get; set; }
     public bool IsClosed { get; set; }
     public string NextSlug { get; set; }
-    public string CardImgUrl { get; set; }  
+    public string CardImgUrl { get; set; }
+    public string Author { get; set; }
 }
 
 public class Block

@@ -61,10 +61,6 @@ public class GalleryService : IGalleryService
         }
     }
 
-
-
-
-
     public async Task<BaseResponse> AddItem(ShowcaseItemDTO newItem)
     {
         var response = new BaseResponse

@@ -15,6 +15,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public virtual DbSet<UserChallenge> UserChallenges { get; set; }
     public virtual DbSet<DailyStreak> DailyStreaks { get; set; }
     public virtual DbSet<ShowcaseItem> ShowcaseItems { get; set; }
+    public virtual DbSet<Blog> Blogs { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -63,7 +64,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
         modelBuilder.Entity<ShowcaseItem>()
             .HasOne(si => si.ApplicationUser)
-            .WithMany(au => au.ShowcaseItems) 
+            .WithMany(au => au.ShowcaseItems)
+            .HasForeignKey(si => si.AppUserId);
+
+        modelBuilder.Entity<Blog>()
+            .HasOne(si => si.ApplicationUser)
+            .WithMany(au => au.Blogs)
             .HasForeignKey(si => si.AppUserId);
 
         modelBuilder.Entity<ShowcaseItem>()

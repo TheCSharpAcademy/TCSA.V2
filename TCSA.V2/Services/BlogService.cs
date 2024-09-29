@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TCSA.V2.Data;
+using TCSA.V2.Helpers;
 using TCSA.V2.Models;
 using TCSA.V2.Models.Responses;
 
@@ -8,10 +9,10 @@ namespace TCSA.V2.Services;
 public interface IBlogService
 {
     Task<ApplicationUser> GetUserByIdWithBlogs(string id);
-    Task<BaseResponse> GetBlogs();
+    Task<BaseResponse<List<Article>>> GetBlogs(string? userId);
     Task<BaseResponse> AddOrUpdateBlog(Blog blog);
     Task<BaseResponse> DeleteBlog(int blogId);
-    Task<BaseResponse> GetBlog(int blogId);
+    Task<BaseResponse<Article>> GetBlog(int blogId);
 }
 
 public class BlogService : IBlogService
@@ -41,24 +42,29 @@ public class BlogService : IBlogService
         }
     }
 
-    public async Task<BaseResponse> GetBlogs()
+    public async Task<BaseResponse<List<Article>>> GetBlogs(string? userId = null)
     {
-        var response = new BaseResponse();
+        var response = new BaseResponse<List<Article>>();
 
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var blogs = await context.Blogs.ToListAsync();
+                var blogs = await context.Blogs
+               .Include(x => x.ApplicationUser)
+               .Where(b => userId == null ? true : b.AppUserId == userId)
+               .ToListAsync();
 
                 var articles = blogs.Select(x => new Article()
                 {
+                    Slug = BlogHelper.GetSlug(x.Title),
                     CardImgUrl = x.CardImgUrl,
+                    Blocks = new List<Block> { new Block { Paragraphs = new List<Paragraph> { new Paragraph { Body = x.Content } } } },
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
                     Author = x.ApplicationUser.DisplayName ?? x.ApplicationUser.GithubUsername ?? $"{x.ApplicationUser.FirstName} {x.ApplicationUser.LastName}"
-                });
+                }).ToList();
 
                 response.Status = ResponseStatus.Success;
                 response.Data = articles;
@@ -151,26 +157,27 @@ public class BlogService : IBlogService
         return response;
     }
 
-    public async Task<BaseResponse> GetBlog(int blogId) 
+    public async Task<BaseResponse<Article>> GetBlog(int blogId) 
     { 
-        var response = new BaseResponse();
+        var response = new BaseResponse<Article>();
 
         try
         {
             using (var context = _factory.CreateDbContext())
             {
-                var blog = await context.Blogs.FindAsync(blogId);
+                var blog = await context.Blogs
+                    .Include(x => x.ApplicationUser)
+                    .FirstOrDefaultAsync(x => x.Id == x.Id);
+
                 if (blog == null)
                 {
                     response.Status = ResponseStatus.Fail;
                     response.Message = "Blog not found.";
-                    return response;
                 }
 
-                //var article = BlogHelper.Convert(blog);
-
+                var fuckingArticle = ArticleHelper.GetArticles().FirstOrDefault(x => x.Id == 9);
                 response.Status = ResponseStatus.Success;
-                response.Data = blog;
+                response.Data = fuckingArticle;
             }
         }
         catch (Exception ex)

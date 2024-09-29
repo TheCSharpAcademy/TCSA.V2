@@ -23,8 +23,19 @@
         <label for="description">Image Url</label>
     </div>
     <div class="form-floating mt-1">
-        <InputTextArea id="body" class="form-control w-50" @bind-Value="Model.Body" />
-        <label for="body">Content</label>
+        <RadzenHtmlEditor @bind-Value="Model.Body" style="height: 500px;" UploadUrl="upload/image">
+            <RadzenHtmlEditorUndo />
+            <RadzenHtmlEditorRedo />
+            <RadzenHtmlEditorSeparator />
+            <RadzenHtmlEditorBold />
+            <RadzenHtmlEditorItalic />
+            <RadzenHtmlEditorUnderline />
+            <RadzenHtmlEditorStrikeThrough />
+            <RadzenHtmlEditorSeparator />
+            <RadzenHtmlEditorColor />
+            <RadzenHtmlEditorBackground />
+            <RadzenHtmlEditorRemoveFormat />
+        </RadzenHtmlEditor>
     </div>
 
     @if (!IsSubmitting)

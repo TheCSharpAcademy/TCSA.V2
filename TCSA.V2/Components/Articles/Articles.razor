@@ -36,6 +36,11 @@
                             type="button">
                         @(IsFormOpen ? "Back to Blogs" : "Add Blog")
                     </button>
+                    <button class="btn btn-success d-md-inline-block btn-academy"
+                            @onclick="ManageMyBlogs"
+                            type="button">
+                        @(IsFormOpen ? "Back to Blogs" : "Manage My Blogs")
+                    </button>
                 </AuthorizeView>
             </div>
         </div>
@@ -46,7 +51,8 @@
         <div class="row pt-5">
             @foreach (var article in ArticlesList)
             {
-                <ArticleCard Article="article" />
+                <ArticleCard Article="article"
+                    Type="@articleType"/>
             }
         </div>
     }
@@ -65,6 +71,7 @@
 
 @code {
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private IBlogService BlogService { get; set; }
     [Parameter] public string articleType { get; set; }
 
@@ -94,8 +101,14 @@
         } 
         else if (articleType == "student-blog")
         {
-            var response = await BlogService.GetBlogs();
+            var response = await BlogService.GetBlogs(null);
+            ArticlesList = response.Data;
         } 
+        else if (articleType =="my-blog")
+        {
+            var response = await BlogService.GetBlogs(UserId);
+            ArticlesList = response.Data;
+        }
         else
         {
             ArticlesList = ArticlesList.Where(x => x.Area != Area.Blog).ToList();
@@ -126,5 +139,10 @@
         IsLoading = false;
         LoadingMessage = "";
         IsFormOpen = false;
+    }
+
+    private async Task ManageMyBlogs()
+    {
+        NavigationManager.NavigateTo("/articles/my-blog");
     }
 }

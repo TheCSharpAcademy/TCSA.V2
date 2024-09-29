@@ -10,7 +10,7 @@ namespace TCSA.V2.Services;
 public interface IGalleryService
 {
     Task<PaginatedList<ShowcaseItemDTO>> GetItems(int pageNumber, List<int> projectIds);
-    Task<BaseResponse> AddItem(ShowcaseItemDTO newItem);
+    Task<BaseResponse<ShowcaseItemDTO>> AddItem(ShowcaseItemDTO newItem);
     Task<BaseResponse> DeleteItem(ShowcaseItemDTO itemToDelete);
 }
 
@@ -61,9 +61,9 @@ public class GalleryService : IGalleryService
         }
     }
 
-    public async Task<BaseResponse> AddItem(ShowcaseItemDTO newItem)
+    public async Task<BaseResponse<ShowcaseItemDTO>> AddItem(ShowcaseItemDTO newItem)
     {
-        var response = new BaseResponse
+        var response = new BaseResponse<ShowcaseItemDTO>
         {
             Status = ResponseStatus.Success,
             Message = "Item added successfully"
@@ -94,7 +94,7 @@ public class GalleryService : IGalleryService
         }
         catch (Exception ex)
         {
-            response = new BaseResponse
+            response = new BaseResponse<ShowcaseItemDTO>
             {
                 Status = ResponseStatus.Fail,
                 Message = $"An error occurred while adding the item: {ex.Message}"

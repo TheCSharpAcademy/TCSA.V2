@@ -39,7 +39,7 @@
 
 @code {
     [SupplyParameterFromForm] public SubmitShowCaseItemForm Model { get; set; } = new();
-    [Parameter] public EventCallback<BaseResponse> OnAddNewItem { get; set; } = new();
+    [Parameter] public EventCallback<BaseResponse<ShowcaseItemDTO>> OnAddNewItem { get; set; } = new();
     [Parameter] public ApplicationUser CurrentUser { get; set; } = new();
     [Parameter] public IEnumerable<ShowcaseProjectInfo> Projects { get; set; }
     [Parameter] public bool IsLightMode { get; set; } = false;

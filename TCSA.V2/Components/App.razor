@@ -30,6 +30,7 @@
         };
     </script>
 
+    <RadzenTheme Theme="material" @rendermode="@RenderModeForPage" />
     <HeadOutlet @rendermode="@RenderModeForPage" />
 </head>
 
@@ -41,7 +42,7 @@
     <script src="_framework/blazor.web.js"></script>
     <script src="js/themeSwitcher.js"></script>
     <script src="js/site.js"></script>
-
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
 </body>
 
 </html>

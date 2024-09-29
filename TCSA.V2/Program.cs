@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Octokit.Webhooks;
 using Octokit.Webhooks.AspNetCore;
+using Radzen;
 using Serilog;
 using TCSA.V2.Components;
 using TCSA.V2.Components.Account;
@@ -54,6 +55,7 @@ builder.Services.AddScoped<HeartBeat>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<WebhookEventProcessor, MyWebhookEventProcessor>();
 builder.Services.AddBlazorBootstrap();
+builder.Services.AddRadzenComponents();
 
 
 builder.Services.AddAuthentication(options =>

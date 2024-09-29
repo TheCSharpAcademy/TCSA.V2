@@ -267,7 +267,7 @@
         IsLoading = false;
     }
 
-    private async Task HandleAddNewItem(BaseResponse response)
+    private async Task HandleAddNewItem(BaseResponse<ShowcaseItemDTO> response)
     {
         IsLoading = true;
         LoadingMessage = "Adding project...";

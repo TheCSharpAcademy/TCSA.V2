@@ -1,0 +1,26 @@
+﻿@page "/blog/{ArticleId:int}/{ArticleSlug}"
+@using TCSA.V2.Models
+@using TCSA.V2.Services
+@rendermode InteractiveServer
+
+@if(Article!=null)
+{
+    @foreach (var par in Article.Blocks[0].Paragraphs)
+    {
+        <p>@par.Body</p>
+    }
+}
+
+@code {
+    [Inject] private IBlogService BlogService { get; set; }
+
+    private Article Article { get; set; }
+    [Parameter] public int ArticleId { get; set; }
+    [Parameter] public string ArticleSlug { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var response = await BlogService.GetBlog(ArticleId);
+        Article = response.Data;
+    }
+}

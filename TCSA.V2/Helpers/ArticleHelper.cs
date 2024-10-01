@@ -2581,7 +2581,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "Let's have a look at some code extracted from our Math Game project.In this snipped we implements two separate methods for a division game and a multiplication game. Both methods contain nearly identical logic, leading to code duplication."
+                                Body = "Let's have a look at some code extracted from our Math Game project.In this snippet we implement two separate methods for a subtraction and a multiplication game. Both methods contain nearly identical logic, leading to code duplication."
                             }
                         }
                     },

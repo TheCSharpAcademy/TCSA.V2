@@ -1,0 +1,74 @@
+﻿@page "/course/{courseId:int}/article/{articleId:int}"
+@inherits LayoutComponentBase
+@layout TCSA.V2.Components.Layout.MainLayout
+@using TCSA.V2.Models;
+@using TCSA.V2.Helpers;
+
+<div class="dashboard-layout-wrapper row vh-100">
+    <!-- Left Sidebar: Articles Menu -->
+    <div class="col-lg-2 d-lg-block col-sm-12 d-sm-none">
+        <ul class="article-menu space-y-2 mt-5">
+            @if (Course != null && Course.Articles.Any())
+            {
+                @foreach (var article in Course.Articles)
+                {
+                    <li class="article-item">
+                        <a href="/course/@CourseId/article/@article.Id"
+                           class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 hover:text-blue-600 transition-all duration-200 ease-in-out
+                           @(article.Id == ArticleId ? "bg-blue-500 text-white font-semibold" : "")">
+                            @article.Title
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                <p class="text-gray-600">Loading articles...</p>
+            }
+        </ul>
+    </div>
+
+    <!-- Main Content: Article Body -->
+    <div class="col-lg-8 col-sm-12">
+        @if (Article != null)
+        {
+            <h1 class="text-2xl font-bold mb-4">@Article.Title</h1>
+            <p class="text-gray-700 mb-6">@Article.Description</p>
+            <!-- You can further display the article content here -->
+        }
+        else
+        {
+            <p class="text-gray-600">Loading article...</p>
+        }
+    </div>
+
+    <!-- Right Sidebar: Ads -->
+    <div class="col-lg-2 d-lg-block d-sm-none">
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int CourseId { get; set; }
+    [Parameter] public int ArticleId { get; set; }
+
+    private Course Course { get; set; }
+    private Article Article { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Course = CourseHelper.GetCourses().FirstOrDefault(x => x.Id == CourseId);
+
+        if (Course != null)
+        {
+            Article = Course.Articles.FirstOrDefault(a => a.Id == ArticleId);
+        }
+    }
+}

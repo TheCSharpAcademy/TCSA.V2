@@ -64,12 +64,10 @@
 
     protected async override Task OnInitializedAsync()
     {
-        // Load the course and the selected article
         Course = CourseHelper.GetCourses().FirstOrDefault(x => x.Id == CourseId);
 
         if (Course != null)
         {
-            // Find the article based on ArticleId
             Article = Course.Articles.FirstOrDefault(a => a.Id == ArticleId);
         }
     }

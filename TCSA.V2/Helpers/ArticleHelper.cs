@@ -2551,6 +2551,98 @@ git push</code>"
                         }
                     }
                 }
+            },
+            new Article
+            {
+                Id = 30006,
+                Title = "Understanding the DRY Principle in C# Programming",
+                IconUrl = "",
+                Slug="dry-principle-csharp",
+                BannerUrl = "",
+                CardImgUrl = "dry.png",
+                Description = "",
+                ExperiencePoints = 1,
+                Area = Area.Principles,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<b>The Don't Repeat Yourself (DRY)</b> principle is a fundamental programming concept aimed at reducing redundancy in code. It emphasizes that every piece of knowledge must have a single, unambiguous representation within a system. When applied effectively, this principle not only improves code readability but also makes it easier to maintain and extend."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Let's have a look at some code extracted from our Math Game project.In this snipped we implements two separate methods for a division game and a multiplication game. Both methods contain nearly identical logic, leading to code duplication."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                IsCode = true,
+                                Body = "internal void SubtractionGame(string message)\r\n\t\t{\r\n\t\t\tConsole.Clear();\r\n\t\t\tConsole.WriteLine(message);\r\n\t\t\tvar random = new Random();\r\n\t\t\tint firstNumber;\r\n\t\t\tint secondNumber;\r\n\t\t\tvar score = 0;\r\n\r\n\t\t\tfor (int i = 0; i < 5; i++)\r\n\t\t\t{\r\n\t\t\t\tfirstNumber = random.Next(1, 9);\r\n\t\t\t\tsecondNumber = random.Next(1, 9);\r\n\t\t\t\tConsole.WriteLine($\"{firstNumber} - {secondNumber}\");\r\n\t\t\t\tvar result = Console.ReadLine();\r\n\t\t\t\tresult = Helpers.ValidateResult(result);\r\n\r\n\t\t\t\tif (int.Parse(result) == firstNumber - secondNumber)\r\n\t\t\t\t{\r\n\t\t\t\t\tConsole.WriteLine(\"Your answer was correct! Type any key for the next question!\");\r\n\t\t\t\t\tscore++;\r\n\t\t\t\t}\r\n\t\t\t\telse\r\n\t\t\t\t{\r\n\t\t\t\t\tConsole.WriteLine(\"Your answer wasn't correct! Type any key for the next question!\");\r\n\t\t\t\t}\r\n\r\n\t\t\t\tif (i == 4) Console.WriteLine($\"Game over! You score is {score}\");\r\n\t\t\t}\r\n\t\t\tHelpers.AddToHistory(score, Models.Game.GameType.Subtraction);\r\n\t\t}\r\n\r\ninternal void MultiplicationGame(string message)\r\n{\r\n    Console.Clear();\r\n    Console.WriteLine(message);\r\n    var random = new Random();\r\n    int firstNumber;\r\n    int secondNumber;\r\n    var score = 0;\r\n\r\n    for (int i = 0; i < 5; i++)\r\n    {\r\n        firstNumber = random.Next(1, 9);\r\n        secondNumber = random.Next(1, 9);\r\n        Console.WriteLine($\"{firstNumber} * {secondNumber}\");\r\n        var result = Console.ReadLine();\r\n        result = Helpers.ValidateResult(result);\r\n        if (int.Parse(result) == firstNumber * secondNumber)\r\n        {\r\n            Console.WriteLine(\"Your answer was correct! Type any key for the next question!\");\r\n            score++;\r\n        }\r\n        else\r\n        {\r\n            Console.WriteLine(\"Your answer wasn't correct! Type any key for the next question!\");\r\n        }\r\n\r\n        if (i == 4) Console.WriteLine($\"Game over! You score is {score}\");\r\n    }\r\n    Helpers.AddToHistory(score, Models.Game.GameType.Multiplication);\r\n}\r\n"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The above implementation has an excessive amount of repetition. It's begging for some refactoring. Both methods share similar logic for clearing the console, displaying messages, and validating user input. This duplication not only makes the code harder to read but also complicates maintenance. If the logic for displaying questions or calculating scores needs to change, updates would have to be made in multiple places, increasing the likelihood of errors."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "By refactoring the code using the DRY principle, we can create a single method that handles the common logic for all arithmetic operations. Here’s how the improved code looks: "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                IsCode = true,
+                                Body = "public enum MathOperation\r\n{\r\n    Addition,\r\n    Subtraction,\r\n    Multiplication,\r\n    Division\r\n}\r\n\r\ninternal void MathGame(string message, MathOperation operation, int scoreIncrement, Func<int[]> getNumbers, Models.Game.GameType gameType)\r\n{\r\n    Console.Clear();\r\n    Console.WriteLine(message);\r\n    var score = 0;\r\n\r\n    for (int i = 0; i < 5; i++)\r\n    {\r\n        var numbers = getNumbers();\r\n        var firstNumber = numbers[0];\r\n        var secondNumber = numbers[1];\r\n\r\n        string operatorSymbol = operation switch\r\n        {\r\n            MathOperation.Addition => \"+\",\r\n            MathOperation.Subtraction => \"-\",\r\n            MathOperation.Multiplication => \"*\",\r\n            MathOperation.Division => \"/\",\r\n            _ => throw new ArgumentException(\"Invalid operation\")\r\n        };\r\n\r\n        Console.WriteLine($\"{firstNumber} {operatorSymbol} {secondNumber}\");\r\n        var result = Console.ReadLine();\r\n        result = Helpers.ValidateResult(result);\r\n\r\n        int correctAnswer = operation switch\r\n        {\r\n            MathOperation.Addition => firstNumber + secondNumber,\r\n            MathOperation.Subtraction => firstNumber - secondNumber,\r\n            MathOperation.Multiplication => firstNumber * secondNumber,\r\n            MathOperation.Division => firstNumber / secondNumber,\r\n            _ => throw new ArgumentException(\"Invalid operation\")\r\n        };\r\n\r\n        if (int.Parse(result) == correctAnswer)\r\n        {\r\n            Console.WriteLine(\"Your answer was correct! Type any key for the next question!\");\r\n            score += scoreIncrement;\r\n        }\r\n        else\r\n        {\r\n            Console.WriteLine(\"Your answer wasn't correct! Type any key for the next question!\");\r\n        }\r\n\r\n        if (i == 4) Console.WriteLine($\"Game over! Your score is {score}\");\r\n    }\r\n    Helpers.AddToHistory(score, gameType);\r\n}\r\n\r\n"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Key Points to Consider",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In this refactored version, the MathGame method encapsulates the shared logic for playing the game, including user prompts, input validation, and score tracking. Whatever code precedes the game simply calls MathGame with the appropriate parameters. This approach significantly reduces code duplication and enhances maintainability. If a change is needed, it can be made in one place, simplifying the update process and minimizing potential bugs."
+                            },
+                            new Paragraph
+                            {
+                                Body ="With time and experience you'll develop an eye for opportunities to decrease redundancy in your code. The refactored example illustrates how a common logic can be abstracted into a single method, enabling various operations to share the same functionality while retaining clarity and flexibility. Embracing the DRY principle leads to better software design and ultimately improves the overall development experience.\r\n\r\n"
+                            }
+                        }
+                    }
+                }
             }
         };
     }

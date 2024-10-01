@@ -1,20 +1,74 @@
-﻿@inherits LayoutComponentBase
-
+﻿@page "/course/{courseId:int}/article/{articleId:int}"
+@inherits LayoutComponentBase
 @layout TCSA.V2.Components.Layout.MainLayout
+@using TCSA.V2.Models;
+@using TCSA.V2.Helpers;
 
 <div class="dashboard-layout-wrapper row vh-100">
     <div class="col-lg-2 d-lg-block col-sm-12 d-sm-none">
-        <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>
+        @if (Course != null && Course.Articles.Any())
+        {
+            @foreach (var article in Course.Articles)
+            {
+                <li class="article-item">
+                    <a href="/course/@CourseId/article/@article.Id" class="@(article.Id == ArticleId ? "active" : "")">
+                        @article.Title
+                    </a>
+                </li>
+                <li class="article-item">
+                    <a href="/course/@CourseId/article/@article.Id" class="@(article.Id == ArticleId ? "active" : "")">
+                        @article.Title
+                    </a>
+                </li>
+                <li class="article-item">
+                    <a href="/course/@CourseId/article/@article.Id" class="@(article.Id == ArticleId ? "active" : "")">
+                        @article.Title
+                    </a>
+                </li>
+                <li class="article-item">
+                    <a href="/course/@CourseId/article/@article.Id" class="@(article.Id == ArticleId ? "active" : "")">
+                        @article.Title
+                    </a>
+                </li>
+            }
+        }
+        else
+        {
+            <p>Loading articles...</p>
+        }
     </div>
     <div class="col-lg-8 col-sm-12">
-        @Body
+        @if (Article != null)
+        {
+            <h1>@Article.Title</h1>
+            <p>@Article.Description</p>
+        }
+        else
+        {
+            <p>Loading article...</p>
+        }
     </div>
     <div class="col-lg-2 d-lg-block d-sm-none">
-        <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>            <p>Course Layout</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
+        <p>Ad will be here</p>
     </div>
 </div>
 
-
 @code {
+    [Parameter] public int CourseId { get; set; }
+    [Parameter] public int ArticleId { get; set; }
 
+    private Course Course { get; set; }
+    private Article Article { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        Course = CourseHelper.GetCourses().First(x => x.Id == CourseId);
+        Article = Course.Articles[ArticleId - 1];
+    }
 }

@@ -6,4 +6,5 @@ public class Course
     public string Title { get; set; }
     public string Description { get; set; }
     public List<Article> Articles { get; set; }
+    public string CourseUrl { get; set; }
 }

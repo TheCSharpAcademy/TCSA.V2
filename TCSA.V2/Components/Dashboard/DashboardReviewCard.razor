@@ -1,76 +1,80 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
 @using Components.Dashboard.Shared
-<div class="row horizontal-card-review tw-flex tw-items-center shadow rounded @Status">
-    <div class="col-2">
-        <img src="img/cards/@IconUrl" width="60" alt="...">
-    </div>
-    <div class="col-md-4 col-6 tw-flex tw-flex-col tw-gap-1 tw-mt-2">
-        <a href=@Href target="_blank">
-            <p class="card-title-dashboard-review">@Title</p>
-        </a>
-        <p class="project-card-text">@Name</p>
-        <p class="project-card-submitted-duration">@DurationOpen</p>
-        <div class="experience-points-reviews d-flex align-items-center">
-            <img src="img/experience.png" width="25" class="img-xp-header" alt="..." />
+@using Octokit.Webhooks.Models
+
+<div class="horizontal-card-review tw-flex tw-items-center tw-justify-between shadow rounded @Status">
+    <div class="tw-flex tw-items-center tw-gap-2 tw-flex-1">
+        <div class="col-2">
+            <img src="img/cards/@IconUrl" width="60" alt="...">
+        </div>
+        <div class="col-md-4 col-6 tw-flex tw-flex-col tw-gap-4">
+            <a href=@Href target="_blank">
+                <p class="card-title-dashboard-review">@Title</p>
+            </a>
+            <p class="project-card-text">@Name</p>
+            <p class="project-card-submitted-duration">@DurationOpen ago</p>
+        </div>
+        <div class="tw-flex tw-items-center tw-font-bold tw-gap-1 md:tw-text-xl tw-justify-center tw-w-full">
+            <img src="img/experience.png" width="25" class="tw-flex-shrink-0 md:tw-w-[40px]" alt="..."/>
             @ExperiencePoints
         </div>
     </div>
-    <div class="col-md-2 col-2 d-flex align-items-center justify-content-center">
-        <div class="row text-center">
-            <div class="col-12 view-btn">
-                <a target="_blank" href=@GithubUrl>
-                    <ViewProjectSVG />
-                    <div class="col-12 dashboard-review-action-text">
-                        View PR
-                    </div>
-                </a>
+    <div class="tw-flex tw-items-center tw-gap-2 tw-flex-1 tw-justify-end">
+        <div class="tw-flex tw-items-center tw-gap-6">
+            <div class="tw-flex tw-items-center tw-justify-center tw-gap-2">
+                <div class="view-btn">
+                    <a target="_blank" href=@GithubUrl class="tw-flex tw-flex-col tw-items-center tw-gap-1">
+                        <ViewProjectSVG/>
+                        <div class="dashboard-review-action-text">
+                            View PR
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-2 d-flex align-items-center justify-content-center">
-        @if (Status != "is-assigned")
-        {
+            @if (Status != "is-assigned")
+            {
             <div class="row text-center">
                 <div class="col-12 view-btn">
-                    <a target="_blank" href="" @onclick:preventDefault @onclick=AssignTask>
-                        <TakeSVG />
+                    <a target="_blank" href="" @onclick:preventDefault @onclick=AssignTask class="tw-flex tw-flex-col tw-items-center tw-gap-1">
+                        <TakeSVG/>
                         <div class="col-12 dashboard-review-action-text">
                             Take
                         </div>
                     </a>
                 </div>
             </div>
-        }
-        else
-        {
+            }
+            else
+            {
             <div class="row text-center">
                 @if (Loading)
                 {
-                    <div class="col-12 dashboard-review-action-text">
-                        <Loader />
-                    </div>
+                <div class="col-12 dashboard-review-action-text">
+                    <Loader/>
+                </div>
                 }
                 else
                 {
-                    <div class="col-6 view-btn">
-                        <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsCompleteCallBack">
-                            <ApproveSVG />
-                            <div class="col-12 dashboard-review-action-text">
-                                Approve
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 view-btn">
-                        <a target="_blank" href="" @onclick:preventDefault @onclick="OnReleaseCallBack">
-                            <TakeSVG />
-                            <div class="col-12 dashboard-review-action-text">
-                                Release
-                            </div>
-                        </a>
-                    </div>
+                <div class="col-6 view-btn">
+                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsCompleteCallBack">
+                        <ApproveSVG/>
+                        <div class="col-12 dashboard-review-action-text">
+                            Approve
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 view-btn">
+                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnReleaseCallBack">
+                        <TakeSVG/>
+                        <div class="col-12 dashboard-review-action-text">
+                            Release
+                        </div>
+                    </a>
+                </div>
                 }
             </div>
-        }
+            }
+        </div>
     </div>
 </div>
 

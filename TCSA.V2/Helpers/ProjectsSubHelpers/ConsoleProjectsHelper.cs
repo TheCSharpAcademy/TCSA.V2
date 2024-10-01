@@ -74,7 +74,7 @@ public class ConsoleProjectsHelper
                     "Try to implement levels of difficulty.",
                     "Add a timer to track how long the user takes to finish the game.",
                     "Create a 'Random Game' option where the players will be presented with questions from random operations",
-                    "To follow the <a href='https://devinduct.com/blogpost/57/software-design-principles-the-dry-don-t-repeat-yourself-principle' target='_blank'>DRY Principle</a>, try using just one method for all games. Additionally, double check your project and try to find opportunities to achieve the same functionality with less code, avoiding repetition when possible."
+                    "To follow the <a href='/articles/30006/dry-principle-csharp' target='_blank'>DRY Principle</a>, try using just one method for all games. Additionally, double check your project and try to find opportunities to achieve the same functionality with less code, avoiding repetition when possible."
                 },
                 Blocks = new List<Block>
                 {
@@ -268,6 +268,7 @@ public class ConsoleProjectsHelper
                     "The users should be able to insert, delete, update and view their logged habit.",
                     "You should handle all possible errors so that the application never crashes.",
                     "You can only interact with the database using ADO.NET. You can’t use mappers such as Entity Framework or Dapper.",
+                    "Follow the <a href='/articles/30006/dry-principle-csharp' target='_blank'>DRY Principle</a>, and avoid code repetition.",
                     "Your project needs to contain a Read Me file where you'll explain how your app works. Here's a nice example:"
                 },
                 RequirementsConclusion = "<a href='https://github.com/thags/ConsoleTimeLogger'>Github project with an example of a tidy Read Me file.</a><br>Don't panic! I'll help! 😁",
@@ -434,7 +435,8 @@ public class ConsoleProjectsHelper
                     "The user shouldn't input the duration of the session. It should be calculated based on the Start and End times, in a separate \"CalculateDuration\" method.",
                     "The user should be able to input the start and end times manually.",
                     "You need to use Dapper ORM for the data access instead of ADO.NET. (This requirement was included in Feb/2024)",
-                    "When reading from the database, you can't use an anonymous object, you have to read your table into a List of Coding Sessions."
+                    "When reading from the database, you can't use an anonymous object, you have to read your table into a List of Coding Sessions.",
+                    "Follow the <a href='/articles/30006/dry-principle-csharp' target='_blank'>DRY Principle</a>, and avoid code repetition."
                 },
                 Resources = new List<string>
                 {
@@ -623,7 +625,7 @@ public class ConsoleProjectsHelper
                 {
                     new Paragraph
                     {
-                        Body="Often times developers work with third-party data. A very common way of accessing external vendor’s data is to make requests to their APIs (Application Programming Interface). Once we have access to their data, we can process in our application to suit our needs. Another common scenario is when an organisation has multiple independent applications that communicate amongst themselves. <a href='https://en.wikipedia.org/wiki/Microservices'>The so called microservices</a>."
+                        Body="Software developers frequently build systems that rely on third-party data. A common method for accessing this data is by making requests to external vendors' APIs (Application Programming Interfaces). Once the data is retrieved, it can be processed and integrated into the application to meet specific requirements. Another typical scenario involves organizations with multiple independent applications that need to communicate with each other, <a href='https://en.wikipedia.org/wiki/Microservices'>often using a technique known as microservices</a>."
                     },
                     new Paragraph
                     {

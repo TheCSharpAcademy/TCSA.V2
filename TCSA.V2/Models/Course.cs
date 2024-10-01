@@ -7,4 +7,5 @@ public class Course
     public string Description { get; set; }
     public List<Article> Articles { get; set; }
     public string CourseUrl { get; set; }
+    public string ImgUrl { get; set; }
 }

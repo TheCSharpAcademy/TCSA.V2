@@ -91,11 +91,31 @@
         @if (articleType == "blog")
         {
             ArticlesList = ArticlesList.Where(x => x.Area == Area.Blog).ToList();
-        } 
+        }
         else if (articleType == "student-blog")
         {
             var response = await BlogService.GetBlogs();
-        } 
+        }
+        else if (articleType == "courses")
+        {
+            var courses = CourseHelper.GetCourses();
+            ArticlesList = courses.Select(x => new Article()
+                {
+                    Title = x.Title,
+                    Description = x.Description,
+                    CardImgUrl = x.ImgUrl,
+                    Blocks = new List<Block>
+                    {
+                        new Block
+                        {
+                            Paragraphs = new List<Paragraph>
+                            {
+                                new Paragraph { Body = x.Description }
+                            }
+                        }
+                    }
+                }).ToList(); ;
+        }
         else
         {
             ArticlesList = ArticlesList.Where(x => x.Area != Area.Blog).ToList();

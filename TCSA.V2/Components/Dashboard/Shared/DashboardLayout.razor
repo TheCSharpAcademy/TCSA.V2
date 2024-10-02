@@ -6,13 +6,40 @@
     <DashboardNavMenuMobile />
 </div>
 <div class="dashboard-layout-wrapper row vh-100">
-    <div class="col-lg-2 d-lg-block col-sm-12 d-sm-none">
+    <div class="col-lg-2 fixed-column fixed-left d-lg-block col-sm-12 d-sm-none">
         <DashboardNavMenu />
     </div>
-    <div class="col-lg-8 col-sm-12">
+    <div class="col-lg-8 scrollable-body col-sm-12">
         @Body
     </div>
-    <div class="col-lg-2 d-lg-block d-sm-none">
+    <div class="col-lg-2 fixed-column fixed-right d-lg-block d-sm-none">
         <DashboardExtrasMenu />
     </div>
 </div>
+
+<style>
+    .fixed-column {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 16.6667%; /* 2 out of 12 columns */
+        height: 100vh;
+        overflow-y: auto; /* Enable scrolling within the fixed column */
+    }
+
+    .fixed-left {
+        left: 0;
+    }
+
+    .fixed-right {
+        right: 0;
+    }
+
+    .scrollable-body {
+        margin-left: 16.6667%;
+        margin-right: 16.6667%;
+        overflow-y: auto;
+        height: 100vh;
+    }
+
+</style>

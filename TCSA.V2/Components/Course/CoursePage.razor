@@ -1,7 +1,4 @@
-﻿@page "/course"
-@using TCSA.V2.Models
-
-@layout CourseLayout
+﻿@using TCSA.V2.Models
 
 <div class="container mx-auto px-4">
     @foreach (var block in Article.Blocks)
@@ -23,4 +20,8 @@
 
 @code {
     [Parameter] public Article Article { get; set; }
+
+    protected void OnParametersSetAsync() {
+        Console.WriteLine(Article.Title);
+    }
 }

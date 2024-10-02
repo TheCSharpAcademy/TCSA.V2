@@ -9,15 +9,15 @@
 @inject IJSRuntime JS
 
 <nav class="top-menu navbar navbar-expand-lg shadow fixed-top">
-    <div class="container container-nav text-end">
-        <a class="navbar-brand" href="#">
+    <div class="container container-nav text-end tw-flex tw-items-center">
+        <a class="navbar-brand tw-flex-shrink-0" href="#">
             <img width="50" src="img/logo.png" />
         </a>
         <button @onclick="ToggleNavbar" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <img width="50" src="https://css-tricks.com/wp-content/uploads/2012/10/threelines.png" />
         </button>
         <div class="collapse navbar-collapse @(IsNavbarShown ? "show" : "")" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="tw-flex tw-items-center">
                 <AuthorizeView Roles="Admin">
                     <a class="nav-link" href="/admin">Admin</a>
                 </AuthorizeView>
@@ -32,20 +32,20 @@
                     </NotAuthorized>
                     <Authorized>
                         <li class="nav-item text-start">
-                            <a text-start class="nav-link" href="/Dashboard">Dashboard</a>
+                            <a text-start class="nav-link tw-p-1" href="/Dashboard">Dashboard</a>
                         </li>
-                        <li class="nav-item text-start">
+                        <li class="nav-item text-start tw-flex-shrink-0">
                             <form method="post" action="Account/Logout">
                                 <AntiforgeryToken />
                                 <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                                <button type="submit" class="logout nav-link btn btn-link">Log out</button>
+                                <button type="submit" class="logout nav-link btn btn-link tw-p-2">Log out</button>
                             </form>
                         </li>
                     </Authorized>
                 </AuthorizeView>
             </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 right-side tw-items-center">
-                <li class="nav-item text-start">
+            <ul class="navbar-nav mb-2 mb-lg-0 md:tw-ml-[80px] lg:tw-ml-[250px] tw-items-center">
+                <li class="nav-item text-start tw-flex-shrink-0">
                     <a class="nav-link blink" target="_blank" href="https://thecsharpschool.getlearnworlds.com/subscription/the-c-academy-membership">VIP Membership</a>
                 </li>
                 <li class="nav-item text-start">
@@ -118,29 +118,29 @@
                     </ul>
                 </li>
 
-                <li class="nav-item text-start">
+                <li class="nav-item tw-flex-shrink-0">
                     <a class="nav-link" target="_blank" href="https://www.instagram.com/pablo.aguirre.dev/">
                         <InstagramSVG />
                     </a>
                 </li>
-                <li class="nav-item text-start">
+                <li class="nav-item tw-flex-shrink-0">
                     <a class="nav-link" target="_blank" href="https://www.youtube.com/channel/UCUb14APzNlpUcDElcCEw5OA">
                         <YoutubeSVG />
                     </a>
                 </li>
 
-                <li class="nav-item text-start">
+                <li class="nav-item tw-flex-shrink-0">
                     <a class="nav-link" target="_blank" href="@LinkProviderOptions.Value.DiscordLink">
                         <DiscordSVG />
                     </a>
                 </li>
-                <li class="nav-item text-start">
+                <li class="nav-item tw-flex-shrink-0">
                     <a class="nav-link" target="_blank" href="https://www.linkedin.com/school/thecsharpacademy/">
                         <LinkedinSVG />
                     </a>
                 </li>
             </ul>
-            <button class="btn switchButton" type="button" @onclick="SwitchModeA">
+            <button class="btn switchButton tw-flex-shrink-0" type="button" @onclick="SwitchModeA">
                 @if (isLightMode)
                 {
                     <img class="m0" src="./img/Switch/light.png" width="40" height="16" />
@@ -242,10 +242,6 @@
 <style>
     .top-menu {
         background-color: var(--background-color);
-    }
-
-    .right-side {
-        margin-left: 250px;
     }
 
     .nav-link {

@@ -3,7 +3,14 @@ module.exports = {
   prefix: "tw-",
   content: ["**/*.{html,cshtml,razor,razor.cs}"],
   theme: {
-    extend: {},
+    screens: {
+      "xs": "144px",
+      "sm": "768px",
+      "md": "992px",
+      "lg": "1400px"
+    },
+    extend: {
+    },
   },
   plugins: [],
 }

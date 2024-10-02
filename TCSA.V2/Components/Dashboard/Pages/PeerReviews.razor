@@ -1,23 +1,21 @@
 ﻿@page "/dashboard/peer-reviews"
-@layout DashboardLayout
-@rendermode InteractiveServer
-
-@using Microsoft.AspNetCore.Identity;
-@using System.Security.Claims;
+@using System.Security.Claims
 @using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Services
-@using TCSA.V2.Components.UI
+@layout DashboardLayout
+@rendermode InteractiveServer
 
 <PageTitle>@StringConstants.PageTitle - Peer Reviews</PageTitle>
 
 <div class="mt-md-5 pt-md-3">
     @if (userAssigned)
     {
-        <CloseButtonSVG OnClickCallback="@DismissUserAssigned" />
+        <CloseButtonSVG OnClickCallback="@DismissUserAssigned"/>
         <div class="card card-success">
             <div class="card-body card-body-success">
                 You have been assigned to the issue. Don't forget to assign yourself to the issue on Github as well if you haven't yet. <a class="article-link" href="article/57/review-guidelines" target="_blank">Please read this article</a> for a comprehensive code review tutorial.
@@ -27,7 +25,7 @@
 
     @if (userReleased)
     {
-        <CloseButtonSVG OnClickCallback="@DismissUserReleased" />
+        <CloseButtonSVG OnClickCallback="@DismissUserReleased"/>
         <div class="card card-success">
             <div class="card-body card-body-success">
                 You have been released from the issue. Don't forget to clear your assignment from the issue on Github as well if you haven't yet.
@@ -37,17 +35,17 @@
 
     @if (projectCompleted)
     {
-        <CloseButtonSVG OnClickCallback="@DismissProjectCompleted" />
-        <ResultCard IsSuccess=@projectCompleted Message="The project was successfully marked as complete." />
+        <CloseButtonSVG OnClickCallback="@DismissProjectCompleted"/>
+        <ResultCard IsSuccess=@projectCompleted Message="The project was successfully marked as complete."/>
     }
 
     @if (availableProjects != null)
     {
-        <div class="row">
+        <div class="tw-flex tw-flex-col">
             @foreach (var project in availableProjects)
             {
-                <div class="col-md-6">
-                    <DashboardReviewCard Status="@(@CheckIfAssigned(project.Id) ? "is-assigned" : "")"
+                <div class="tw-w-full">
+                    <DashboardReviewCard Status="@(CheckIfAssigned(project.Id) ? "is-assigned" : "")"
                                          Title=@GetProject(project.ProjectId).Title
                                          Name=@GetName(project.AppUserId)
                                          IconUrl=@GetProject(project.ProjectId).IconUrl
@@ -58,11 +56,11 @@
                                          OnAssignCallBack="@(() => AssignMyself(project.Id))"
                                          OnReleaseCallBack="@(() => ReleaseMyself(project.Id))"
                                          OnMarkAsCompleteCallBack="@(() => MarkAsComplete(project.Id, project.AppUserId))"
-                                         DurationOpen="@((MarkupString)DateTimeHelper.GetTimeSpan((DateTimeOffset)project.DateSubmitted, DateTime.UtcNow))" />
+                                         DurationOpen="@((MarkupString)DateTimeHelper.GetTimeSpan(project.DateSubmitted, DateTime.UtcNow))"/>
                 </div>
             }
         </div>
-    } 
+    }
     @if (availableProjects == null || availableProjects.Count == 0)
     {
         <h3 class="text-center">
@@ -87,9 +85,9 @@
     private ApplicationUser User;
 
     private string userId = "";
-    private bool userAssigned = false;
-    private bool userReleased = false;
-    private bool projectCompleted = false;
+    private bool userAssigned;
+    private bool userReleased;
+    private bool projectCompleted;
 
     protected override async Task OnInitializedAsync()
     {
@@ -156,9 +154,21 @@
         return User?.CodeReviewProjects?.Any(x => x.DashboardProjectId == id) ?? false;
     }
 
-    private void DismissUserAssigned() => userAssigned = false;
-    private void DismissUserReleased() => userReleased = false;
-    private void DismissProjectCompleted() => projectCompleted = false;
+    private void DismissUserAssigned()
+    {
+        userAssigned = false;
+    }
+
+    private void DismissUserReleased()
+    {
+        userReleased = false;
+    }
+
+    private void DismissProjectCompleted()
+    {
+        projectCompleted = false;
+    }
+
 }
 
 <style>

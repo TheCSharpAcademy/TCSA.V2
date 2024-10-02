@@ -613,6 +613,22 @@ a {
   width: 96px;
 }
 
+.tw-w-full {
+  width: 100%;
+}
+
+.tw-w-\[50px\] {
+  width: 50px;
+}
+
+.tw-flex-1 {
+  flex: 1 1 0%;
+}
+
+.tw-flex-shrink-0 {
+  flex-shrink: 0;
+}
+
 .tw-shrink-0 {
   flex-shrink: 0;
 }
@@ -625,8 +641,16 @@ a {
   align-items: center;
 }
 
+.tw-justify-end {
+  justify-content: flex-end;
+}
+
 .tw-justify-center {
   justify-content: center;
+}
+
+.tw-justify-between {
+  justify-content: space-between;
 }
 
 .tw-gap-1 {
@@ -649,6 +673,18 @@ a {
   gap: 1.5rem;
 }
 
+.tw-whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.tw-p-1 {
+  padding: 0.25rem;
+}
+
+.tw-p-2 {
+  padding: 0.5rem;
+}
+
 .tw-p-4 {
   padding: 1rem;
 }
@@ -656,4 +692,47 @@ a {
 .tw-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.tw-font-bold {
+  font-weight: 700;
+}
+
+@media (min-width: 992px) {
+  .md\:tw-ml-\[80px\] {
+    margin-left: 80px;
+  }
+
+  .md\:tw-w-\[40px\] {
+    width: 40px;
+  }
+
+  .md\:tw-text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .lg\:tw-ml-\[250px\] {
+    margin-left: 250px;
+  }
+
+  .lg\:tw-w-\[50px\] {
+    width: 50px;
+  }
+
+  .lg\:tw-w-\[40px\] {
+    width: 40px;
+  }
+
+  .lg\:tw-text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .lg\:tw-text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
 }

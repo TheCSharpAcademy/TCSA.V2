@@ -20,6 +20,7 @@ public class Article
     public string NextSlug { get; set; }
     public string CardImgUrl { get; set; }
     public string Author { get; set; }
+    public string? Url { get; set; }
 }
 
 public class Block
@@ -61,6 +62,7 @@ public enum Area
     GraduationProject,
     FreestyleProject,
     Blog, 
-    Principles
+    Principles, 
+    Course
 }
 

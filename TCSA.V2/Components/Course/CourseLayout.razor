@@ -7,13 +7,13 @@
 <div class="dashboard-layout-wrapper row vh-100">
     <!-- Left Sidebar: Articles Menu -->
     <div class="col-lg-2 d-lg-block col-sm-12 d-sm-none">
-        <ul class="article-menu space-y-2 mt-5">
+        <ul class="article-menu space-y-2 mt-9">
             @if (Course != null && Course.Articles.Any())
             {
                 @foreach (var article in Course.Articles)
                 {
                     <li class="article-item">
-                        <a href="/course/@CourseId/article/@article.Id"
+                        <a href="" @onclick="() => NavigateToArticle(article.Id)"
                            class="block px-4 py-2 rounded-lg text-gray-800 hover:bg-gray-100 hover:text-blue-600 transition-all duration-200 ease-in-out
                            @(article.Id == ArticleId ? "bg-blue-500 text-white font-semibold" : "")">
                             @article.Title
@@ -58,6 +58,7 @@
 @code {
     [Parameter] public int CourseId { get; set; }
     [Parameter] public int ArticleId { get; set; }
+    [Inject] NavigationManager NavigationManager { get; set; }
 
     private Course Course { get; set; }
     private Article Article { get; set; }
@@ -70,5 +71,11 @@
         {
             Article = Course.Articles.FirstOrDefault(a => a.Id == ArticleId);
         }
+    }
+
+    private void NavigateToArticle(int articleId)
+    {
+        // Refresh the page by navigating to the new URL
+        NavigationManager.NavigateTo($"/course/{CourseId}/article/{articleId}", forceLoad: true);
     }
 }

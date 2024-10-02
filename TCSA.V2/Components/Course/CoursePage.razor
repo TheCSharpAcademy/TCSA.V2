@@ -1,9 +1,26 @@
 ﻿@page "/course"
+@using TCSA.V2.Models
 
 @layout CourseLayout
 
-<p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p><p>Course Page</p>
+<div class="container mx-auto px-4">
+    @foreach (var block in Article.Blocks)
+    {
+        if (!string.IsNullOrEmpty(@block.Title))
+        {
+            <h2>@block.Title</h2>
+        }
+
+        @foreach (var paragraph in block.Paragraphs)
+        {
+            if (!string.IsNullOrEmpty(paragraph.Body))
+            {
+                <p>@paragraph.Body</p>
+            }
+        }
+    }
+</div>
 
 @code {
-
+    [Parameter] public Article Article { get; set; }
 }

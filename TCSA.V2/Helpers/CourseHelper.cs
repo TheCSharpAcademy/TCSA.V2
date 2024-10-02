@@ -12,14 +12,14 @@ public class CourseHelper
             new Course
             {
                 Id = 1,
-                Title = "Introduction to C# Programming",
-                Description = "A comprehensive introduction to C#, covering basics to advanced topics.",
+                Title = "Introduction to Object Oriented Programming",
+                Description = "Learn the most used programming paradigm in web development!",
                 Articles = new List<Article>
                 {
                     new Article
                     {
                         Id = 1,
-                        Title = "Getting Started with C#",
+                        Title = "Introduction",
                         Slug = "getting-started-with-csharp",
                         Description = "Learn the fundamentals of C# programming language.",
                         IconUrl = "/images/csharp-icon.png",
@@ -37,12 +37,15 @@ public class CourseHelper
                         {
                             new Block
                             {
-                                Title = "Introduction to C#",
-                                ImgUrl = "/images/intro-csharp.png",
+                                Title = "Introduction",
                                 Paragraphs = new List<Paragraph>
                                 {
-                                    new Paragraph { Body = "C# is a modern, object-oriented programming language developed by Microsoft." },
-                                    new Paragraph { IsCode = true, Body = "Console.WriteLine(\"Hello World!\");" }
+                                    new Paragraph { Body = "Welcome to the world of Object-Oriented Programming (OOP) in C#! Your programming life will never been the same. In this chapter, we'll explore what OOP is, why it's important, and how it makes your code more organized, readable, and maintainable. By the end of this course you'll be more confident in your coding skills and more prepared to tackle any software development project." },
+                                    new Paragraph { Body = "Imagine you have two workshops. One is clean and tidy, with tools neatly arranged on shelves, labeled drawers for screws and nails, and a well-organized space where you can quickly find what you need. The other is chaotic, with tools scattered across the floor, screws mixed with nails in random boxes, and materials piled up in no particular order." },
+                                    new Paragraph { Body = "Which workshop would you prefer to work in? The tidy one allows you to be more productive—you can easily locate your tools, everything has its place, and the space just makes sense. The messy workshop, on the other hand, slows you down. You waste time searching for what you need, and the chaos makes it harder to complete your projects efficiently." },
+                                    new Paragraph { IsPicture = true, PictureUrl = "workshops.png"},
+                                    new Paragraph { Body = "In OOP, you break down a complex problem into smaller, manageable parts. Each part is a \"tool\" that can be reused, improved, or replaced without affecting the entire program. With OOP, your projects become more scalable and easier to debug because you can pinpoint issues more quickly." },
+                                    new Paragraph { Body = "In the chapters ahead, you'll learn how to use OOP principles in C# to create well-organized, clean, and efficient code. Just like in the tidy workshop, everything will have its place, making it easier for you to build and maintain your projects." }
                                 }
                             }
                         }
@@ -50,101 +53,33 @@ public class CourseHelper
                     new Article
                     {
                         Id = 2,
-                        Title = "Variables and Data Types",
-                        Slug = "variables-and-data-types",
-                        Description = "Understand variables, data types, and how to use them in C#.",
-                        IconUrl = "/images/variables-icon.png",
-                        BannerUrl = "/images/variables-banner.png",
-                        BannerV2 = "/images/variables-banner-v2.png",
-                        Area = Area.Console,
-                        ReleaseDate = new DateTime(2024, 2, 1),
-                        ExperiencePoints = 150,
+                        Title = "About this course",
+                        Slug = "getting-started-with-csharp",
+                        Description = "About this Cou",
+                        IconUrl = "/images/csharp-icon.png",
+                        BannerUrl = "/images/csharp-banner.png",
+                        BannerV2 = "/images/csharp-banner-v2.png",
+                        Area = Area.StartHere,
+                        ReleaseDate = new DateTime(2024, 1, 15),
+                        ExperiencePoints = 100,
                         Level = Level.White,
                         IsClosed = false,
-                        NextSlug = "control-structures",
-                        CardImgUrl = "/images/variables-card.png",
-                        Author = "Jane Smith",
+                        NextSlug = "variables-and-data-types",
+                        CardImgUrl = "/images/csharp-card.png",
+                        Author = "John Doe",
                         Blocks = new List<Block>
                         {
                             new Block
                             {
-                                Title = "Understanding Variables",
-                                ImgUrl = "/images/variables-block.png",
+                                Title = "Introduction",
                                 Paragraphs = new List<Paragraph>
                                 {
-                                    new Paragraph { Body = "Variables are used to store data in your programs. Each variable has a specific data type." },
-                                    new Paragraph { IsCode = true, Body = "int age = 30;\nstring name = \"John\";" }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            new Course
-            {
-                Id = 2,
-                Title = "Building Web Apps with Blazor",
-                Description = "Learn how to build interactive web applications using Blazor.",
-                Articles = new List<Article>
-                {
-                    new Article
-                    {
-                        Id = 1,
-                        Title = "Introduction to Blazor",
-                        Slug = "introduction-to-blazor",
-                        Description = "Get started with Blazor and understand its core concepts.",
-                        IconUrl = "/images/blazor-icon.png",
-                        BannerUrl = "/images/blazor-banner.png",
-                        BannerV2 = "/images/blazor-banner-v2.png",
-                        Area = Area.Blazor,
-                        ReleaseDate = new DateTime(2024, 3, 10),
-                        ExperiencePoints = 200,
-                        Level = Level.White,
-                        IsClosed = false,
-                        NextSlug = "building-components",
-                        CardImgUrl = "/images/blazor-card.png",
-                        Author = "Sarah Connor",
-                        Blocks = new List<Block>
-                        {
-                            new Block
-                            {
-                                Title = "What is Blazor?",
-                                ImgUrl = "/images/intro-blazor.png",
-                                Paragraphs = new List<Paragraph>
-                                {
-                                    new Paragraph { Body = "Blazor is a framework for building interactive web UIs with C#." },
-                                    new Paragraph { IsPicture = true, PictureUrl = "/images/blazor-example.png" }
-                                }
-                            }
-                        }
-                    },
-                    new Article
-                    {
-                        Id = 2,
-                        Title = "Building Components",
-                        Slug = "building-components",
-                        Description = "Learn how to build reusable components in Blazor.",
-                        IconUrl = "/images/components-icon.png",
-                        BannerUrl = "/images/components-banner.png",
-                        BannerV2 = "/images/components-banner-v2.png",
-                        Area = Area.Blazor,
-                        ReleaseDate = new DateTime(2024, 4, 5),
-                        ExperiencePoints = 250,
-                        Level = Level.White,
-                        IsClosed = false,
-                        NextSlug = "state-management",
-                        CardImgUrl = "/images/components-card.png",
-                        Author = "Kyle Reese",
-                        Blocks = new List<Block>
-                        {
-                            new Block
-                            {
-                                Title = "Creating Your First Component",
-                                ImgUrl = "/images/component-block.png",
-                                Paragraphs = new List<Paragraph>
-                                {
-                                    new Paragraph { Body = "In Blazor, components are the basic building blocks of the UI." },
-                                    new Paragraph { IsCode = true, Body = "<Component>\n    @code {\n        public string Message = \"Hello from Blazor!\";\n    }\n</Component>" }
+                                    new Paragraph { Body = "Welcome to the world of Object-Oriented Programming (OOP) in C#! Your programming life will never been the same. In this chapter, we'll explore what OOP is, why it's important, and how it makes your code more organized, readable, and maintainable. By the end of this course you'll be more confident in your coding skills and more prepared to tackle any software development project." },
+                                    new Paragraph { Body = "Imagine you have two workshops. One is clean and tidy, with tools neatly arranged on shelves, labeled drawers for screws and nails, and a well-organized space where you can quickly find what you need. The other is chaotic, with tools scattered across the floor, screws mixed with nails in random boxes, and materials piled up in no particular order." },
+                                    new Paragraph { Body = "Which workshop would you prefer to work in? The tidy one allows you to be more productive—you can easily locate your tools, everything has its place, and the space just makes sense. The messy workshop, on the other hand, slows you down. You waste time searching for what you need, and the chaos makes it harder to complete your projects efficiently." },
+                                    new Paragraph { IsPicture = true, PictureUrl = "workshops.png"},
+                                    new Paragraph { Body = "In OOP, you break down a complex problem into smaller, manageable parts. Each part is a \"tool\" that can be reused, improved, or replaced without affecting the entire program. With OOP, your projects become more scalable and easier to debug because you can pinpoint issues more quickly." },
+                                    new Paragraph { Body = "In the chapters ahead, you'll learn how to use OOP principles in C# to create well-organized, clean, and efficient code. Just like in the tidy workshop, everything will have its place, making it easier for you to build and maintain your projects." }
                                 }
                             }
                         }

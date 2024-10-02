@@ -113,7 +113,9 @@
                                 new Paragraph { Body = x.Description }
                             }
                         }
-                    }
+                    },
+                    Url = $"course/{x.Id}/article/1", 
+                    Area = Area.Course
                 }).ToList(); ;
         }
         else

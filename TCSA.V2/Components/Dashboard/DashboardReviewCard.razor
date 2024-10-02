@@ -12,17 +12,18 @@
                 <p class="card-title-dashboard-review">@Title</p>
             </a>
             <p class="project-card-text">@Name</p>
-            <p class="project-card-submitted-duration">@DurationOpen ago</p>
+            <p class="project-card-submitted-duration xs:tw-hidden md:tw-block">@DurationOpen ago</p>
         </div>
-        <div class="tw-flex tw-items-center tw-font-bold tw-gap-1 md:tw-text-xl tw-justify-center tw-w-full">
-            <img src="img/experience.png" width="25" class="tw-flex-shrink-0 md:tw-w-[40px]" alt="..."/>
+        <div class="tw-flex tw-items-center tw-font-bold tw-gap-1 md:tw-text-lg tw-justify-center tw-w-full">
+            <span class="xs:tw-hidden md:tw-block">Reward: </span>
+            <img src="img/experience.png" width="25" class="tw-flex-shrink-0 md:tw-w-[30px]" alt="..."/>
             @ExperiencePoints
         </div>
     </div>
     <div class="tw-flex tw-items-center tw-gap-2 tw-flex-1 tw-justify-end">
-        <div class="tw-flex tw-items-center tw-gap-6">
+        <div class="tw-flex tw-items-center">
             <div class="tw-flex tw-items-center tw-justify-center tw-gap-2">
-                <div class="view-btn">
+                <div class="tw-px-6">
                     <a target="_blank" href=@GithubUrl class="tw-flex tw-flex-col tw-items-center tw-gap-1">
                         <ViewProjectSVG/>
                         <div class="dashboard-review-action-text">
@@ -123,7 +124,7 @@
     }
 
     .horizontal-card-review {
-        padding: 10px;
+        padding: 10px 40px;
         border-radius: 15px;
         margin: 5px 0 !important;
         transition: all 200ms ease-in-out;

@@ -13,10 +13,8 @@
 
 <div class="mt-5 pt-3">
     @if (profile != null)
-
     {
         @if (!UpdateSubmitted)
-
         {
             <EditForm Model="@profile" OnValidSubmit="Submit">
                 <DataAnnotationsValidator />
@@ -76,7 +74,6 @@
                     <InputSelect shadow rounded @bind-Value="profile.Country" class="form-select select-country">
                         <option selected>Select Country</option>
                         @foreach (var country in countries.OrderBy(x => x))
-
                         {
                             <option value="@country">@country</option>
                         }
@@ -85,22 +82,17 @@
                 </div>
                 <button disabled=@IsWaiting class="btn btn-success submit-code-review-btn me-2" type="submit">Submit</button>
                 @if (IsEditing)
-
                 {
                     <button class="btn btn-primary submit-code-review-btn" type="button" @onclick="@OnClickCallback">Cancel
                         Editing</button>
                 }
-
                 else
-
                 {
                     <button class="btn btn-primary submit-code-review-btn" type="button" @onclick="@Edit">Edit</button>
                 }
             </EditForm>
         }
-
         else
-
         {
             <div class="horizontal-card card-success">
                 <div class="card-body card-body-success">
@@ -113,93 +105,48 @@
 @code {
     [Parameter] public EventCallback OnClickCallback { get; set; }
 
-
-
     [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
-
     [Inject] private NavigationManager NavigationManager { get; set; }
 
-
-
     [Inject] private IUserService UserService { get; set; }
-
     [Inject] private ICountriesService CountriesService { get; set; }
-
     [Inject] private IProjectService ProjectService { get; set; }
-
-
-
 
 
     private AppUserForProfile profile { get; set; }
 
-
-
     private bool IsEditing { get; set; } = false;
-
     private bool UpdateSubmitted { get; set; } = false;
-
     private bool IsWaiting { get; set; } = false;
-
     private string ResultMessage { get; set; }
-
     private List<string> countries = new();
 
-
-
     protected override async Task OnInitializedAsync()
-
     {
-
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
-
-
         if (!AuthSate.User.Identity.IsAuthenticated)
-
         {
-
             NavigationManager.NavigateTo("Account/Login");
-
         }
-
-
 
         countries = await CountriesService.GetCountries();
 
-
-
         var claims = AuthSate.User;
-
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
-
-
         profile = await UserService.GetProfile(userId);
-
-
-
+        
     }
-
-
 
     private async Task Submit()
-
     {
-
         IsWaiting = true;
-
         var response = await UserService.UpdateProfile(profile);
-
         IsWaiting = false;
-
         UpdateSubmitted = true;
-
         ResultMessage = response.Message;
-
     }
-
-
 
     private async Task Edit() => IsEditing = !IsEditing;
 }

@@ -1,18 +1,18 @@
 ﻿@using TCSA.V2.Models
 
-<div class="container mx-auto px-4">
+<div class="container mt-5 pt-5">
     @foreach (var block in Article.Blocks)
     {
         if (!string.IsNullOrEmpty(@block.Title))
         {
-            <h2>@block.Title</h2>
+            <h1>@block.Title</h1>
         }
 
         @foreach (var paragraph in block.Paragraphs)
         {
             if (!string.IsNullOrEmpty(paragraph.Body))
             {
-                <p>@paragraph.Body</p>
+                <p class="mt-2">@((MarkupString)paragraph.Body)</p>
             }
         }
     }

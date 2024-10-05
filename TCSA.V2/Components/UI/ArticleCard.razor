@@ -21,7 +21,7 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        Article.Url = Article.Area != Area.Course ? $"/article/{Article.Id}/Article.Slug" : Article.Url;
+        Article.Url = Article.Area != Area.Course ? $"/article/{Article.Id}/{Article.Slug}" : Article.Url;
         GetDescription();
     }
 
@@ -36,12 +36,8 @@
         }
     }
 
-    private string StripHtmlTags(string input)
-    {
-        return Regex.Replace(input, "<.*?>", string.Empty);
-    }
+    private string StripHtmlTags(string input) => string.IsNullOrEmpty(input) ? "" : Regex.Replace(input, "<.*?>", string.Empty);
 }
-
 
 <style>
     .article-card-title {

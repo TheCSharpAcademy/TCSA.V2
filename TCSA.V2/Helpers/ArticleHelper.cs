@@ -2663,19 +2663,28 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "When I started learning .NET/C# I got lost pretty quickly on the notorious word-salad Microsoft produced since 2002, when .NET was first released. .NET, .NET Framework, .NET Core, ASP.NET Core, ASP.NET. It's a lot. But is it really?"
+                                Body = "When I started learning .NET/C# I got lost pretty quickly in the notorious word salad Microsoft produced since 2002 when .NET was first released. .NET Framework, .NET Core, ASP.NET Core, ASP.NET. It's a lot. But is it really?"
                             },
                             new Paragraph
                             {
-                                Body = "Let's summarize the whole thing in one paragraph in case your attention spam isn't long enough to read an article for 10 minutes (I don't blame you, smart phones did it to all of us):"
+                                Body = "Let's summarize the whole thing in one paragraph in case your attention spam isn't long enough to read an article for 10 minutes (I don't blame you, smart phones did it to all of us):<br><br>"
                             },
                             new Paragraph
                             {
-                                Body = ".NET Framework, released in 2002, is an ecosystem for the creation of software applications on Windows. .NET Core, released in 2016 is the cross-platform evolution of the .NET Framework. ASP.NET, also released in 2002, was part of the .NET framework used to build web applications. ASP.NET Core is the evolution of ASP.NET, released with .NET Core in 2016. In 2020, .NET 5 was released, which meant that developers didn't have to choose between Core and Framework. Now it's all .NET (currently .NET 9). "
+                                IsPicture = true,
+                                PictureUrl = "dotnet-diagram.jpg"
                             },
                             new Paragraph
                             {
-                                Body = "Read this paragraph a few times and that's it, your life will be easier when you come across these titles from now on. The conclusion from what we've just learned is that if you're working with .NET Framework or ASP.NET you're working with the old stuff. That doesn't mean they are not important or that they have disappeared. It also doesn't mean that you can't build amazing apps with them. On the contrary. Many companies are still using those. "
+                                Body = "<b>.NET Framework</b>, released in 2002, is an ecosystem for the creation of software applications <b>on Windows</b>. <b>.NET Core</b>, released in 2016 is the cross-platform evolution of the .NET Framework. <b>ASP.NET</b>, also released in 2002, was part of the .NET framework used to <b>build web applications</b>. <b>ASP.NET Core</b> is the evolution of ASP.NET, released with .NET Core in 2016. In 2020, <b>.NET 5</b> was released, which meant that developers didn't have to choose between Core and Framework. Now it's all <b>.NET</b> (currently .NET 9). "
+                            },
+                            new Paragraph
+                            {
+                                Body = "Read this paragraph a few times and that's it, your life will be easier when you come across these titles from now on. The conclusion: If you're working with .NET Framework or ASP.NET you're working with the old stuff. That doesn't mean they are not important or that they have disappeared. It also doesn't mean that you can't build amazing apps with them. On the contrary. Many companies are still using those. "
+                            },
+                            new Paragraph
+                            {
+                                Body = "It's also important to mention <b>Xamarin</b>, a mobile app development platform that integrates deeply with .NET and C#, enabling you to native UI elements for each platform, so your apps feel truly native. Microsoft is transitioning Xamarin to a new, more streamlined framework called <b>.NET MAUI</b> (Multi-platform App UI). .NET MAUI is essentially the evolution of Xamarin and allows you to build not just mobile apps but also desktop applications for Windows and macOS, using the same codebase."
                             },
                             new Paragraph
                             {
@@ -2691,7 +2700,7 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "Introduced by Microsoft in the early 2000s, the .NET Framework is a comprehensive development platform designed primarily for building and running applications on Windows. It provides a consistent object-oriented programming environment, whether object code is stored and executed locally or executed remotely."
+                                Body = "Introduced by Microsoft in the early 2000s, the <b>.NET Framework</b> is a comprehensive development platform designed primarily for <b>building and running applications on Windows</b>. It provides a consistent <b>object-oriented programming environment</b>, whether object code is stored and executed locally or executed remotely."
                             },
                             new Paragraph
                             {
@@ -2706,15 +2715,11 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "ASP.NET is a server-side web application framework developed as part of the .NET Framework. It was introduced to enable developers to build dynamic websites, web applications, and web services."
+                                Body = "ASP.NET is a <b>server-side web application framework</b> developed as part of the .NET Framework. It was introduced to enable developers to build dynamic websites, web applications, and web services."
                             },
                             new Paragraph
                             {
-                                Body = "ASP.NET introduced Web Forms, which offered an event-driven development model for building user interfaces. Later, ASP.NET MVC was introduced to provide a clear separation of concerns. ASP.NET also introduced Web API, which facilitates the creation of RESTful services, and Razor Pages, which simplifies the syntax for server-side HTML generation."
-                            },
-                            new Paragraph
-                            {
-                                Body = "Over time, ASP.NET evolved significantly, introducing models like MVC to address the limitations of Web Forms. This provided developers with more flexibility and control over the architecture of their applications."
+                                Body = "ASP.NET introduced Web Forms, which offered an event-driven development model for building user interfaces. Later, <b>ASP.NET MVC</b> was introduced to provide a clear separation of concerns. ASP.NET also introduced <b>Web API</b>, which facilitates the creation of RESTful services, and <b>Razor Pages</b>, which simplifies the syntax for server-side HTML generation."
                             }
                         }
                     },
@@ -2725,11 +2730,11 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "In 2016, Microsoft introduced .NET Core as a cross-platform, open-source successor to the .NET Framework. This was a significant upgrade in performance, and support for multiple operating systems, including Windows, macOS, and Linux."
+                                Body = "In 2016, Microsoft introduced .NET Core as a cross-platform, open-source <b>successor to the .NET Framework</b>. This was a significant upgrade in performance, and support for multiple operating systems, including Windows, macOS, and Linux."
                             },
                             new Paragraph
                             {
-                                Body = ".NET Core is cross-platform, enabling developers to build and run applications on various operating systems. It is also open source, encouraging community contributions and fostering a transparent development process. .NET Core's modular architecture allows for lightweight and flexible deployments, with each application specifying the dependencies it requires through NuGet packages. "
+                                Body = ".NET Core is <b>cross-platform</b>, enabling developers to build and run applications on various operating systems. It is also <b>open source</b>, encouraging community contributions and fostering a transparent development process. .NET Core's modular architecture allows for <b>lightweight and flexible deployments</b>, with each application specifying the dependencies it requires through <b>NuGet packages</b>. "
                             },
                             new Paragraph
                             {
@@ -2744,15 +2749,11 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "ASP.NET Core, released alongside .NET Core in 2016, is a redesigned version of ASP.NET optimized for modern, cross-platform development. It merges the best features of ASP.NET MVC and ASP.NET Web API into a unified framework"
+                                Body = "ASP.NET Core, released alongside .NET Core in 2016, is a <b>redesigned version of ASP.NET</b> optimized for modern, cross-platform development. It merges the best features of ASP.NET MVC and ASP.NET Web API into a unified framework. In 2018, <b>Blazor</b> was introduced as another solution for building web apps."
                             },
                             new Paragraph
                             {
-                                Body = "ASP.NET Core runs seamlessly on Windows, macOS, and Linux. It features a unified programming model that combines MVC and Web API, supports dependency injection, and is built with performance in mind. Its lightweight, modular architecture contributes to its superior performance compared to its predecessor. Additionally, ASP.NET Core is designed for cloud-optimized development, making it well-suited for building microservices and deploying containerized applications."
-                            },
-                            new Paragraph
-                            {
-                                Body = "The improvements in performance, dependency injection, and modularity make ASP.NET Core a preferred choice for modern web application development, especially in cloud environments."
+                                Body = "ASP.NET Core runs seamlessly on Windows, macOS, and Linux. It features a unified programming model that combines MVC and Web API, supports <b>dependency injection</b>, and is built with performance in mind. ASP.NET Core is designed for <b>cloud-optimized development</b>, making it well-suited for building <b>microservices</b> and deploying <b>containerized applications</b>."
                             }
                         }
                     },
@@ -2763,11 +2764,30 @@ git push</code>"
                         {
                             new Paragraph
                             {
-                                Body = "In 2020, Microsoft released .NET , marking a significant milestone in the evolution of the .NET ecosystem. This version represented the unification of two previously separate development frameworks: .NET Framework (primarily for Windows) and .NET Core (cross-platform and open-source)."
+                                Body = "In 2020, Microsoft released .NET 5, marking a significant milestone in the evolution of the .NET ecosystem. This version represented the <b>unification</b> of two .NET Framework and .NET Core. Before .NET 5, <b>developers had to choose</b> between the Windows-only .NET Framework, with its long history and wide compatibility, and the newer, lightweight, cross-platform .NET Core. Each framework had its own advantages, but this division caused fragmentation, requiring developers to pick a platform depending on their target environment. The release of .NET 5 eliminated this split by providing a <b>single platform</b> for all operating systems (Windows, Linux, and macOS), whether for web, desktop, mobile, cloud, or IoT."
+                            },
+                             new Paragraph
+                            {
+                                Body = "<b>Now here's the catch</b>. Even though the framework now is called simply .NET, ASP.NET Core retains the \"Core\" in the name. This is to differentiate it from the old ASP.NET. Hence the most up-to-date courses will have names such as ASP.NET Core Web API, ASP.NET Core MVC, ASP.NET Core Identity, and so on."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Which one should you learn?",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The answer depends on two questions: <b>What do you want to build</b> and <b>what does your company use?</b> If you want to learn game development or build desktop/mobile apps, you probably don't need to learn the web side of things (ASP.NET Core)."
                             },
                             new Paragraph
                             {
-                                Body = "Before .NET 5, developers had to choose between the Windows-only .NET Framework, with its long history and wide compatibility, and the newer, lightweight, cross-platform .NET Core. Each framework had its own advantages, but this division caused fragmentation, requiring developers to pick a platform depending on their target environment. The release of .NET 5 sought to eliminate this split by providing a **single platform** for developing applications across all operating systems (Windows, Linux, and macOS), whether for web, desktop, mobile, cloud, or IoT."
+                                Body = "Additionally, if you are just getting started, we recommend learning the most up-to-date version: .NET. At the time of this article, .NET 9. It's significantly different from .NET Framework, but relatively similar to previous versions of .NET (down to .NET 5)."
+                            },
+                            new Paragraph
+                            {
+                                Body = "That leaves one final question. When do you learn .NET Framework (the old stuff)?. <b>When you need it</b>! I'll use myself as an example. Before getting my first job I hadn't touched .NET Framework, only the newer .NET (at that time, .NET 5). Since my company had a big part of their product in .NET Framework (4.5 if I remember well). So I purchased a few online courses and caught up with the differences at home after work, until I was comfortable with my company's code. That's the only situation where I see it's necessary to learn .NET Framework."
                             }
                         }
                     },

@@ -502,6 +502,10 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
+                                Body = "From now on, you're going to start installing pieces of software. Some of the names you'll encounter might be confusing. We suggest reading this quick article on <a href='article/30007/difference-net-core-asp-net' target='_blank'>the Difference Between .NET, .NET Core ASP.NET</a> before proceeding. "
+                            },
+                            new Paragraph
+                            {
                                 Body = "Now there’s a bit of preparation to do. But don’t worry, if you have a decent internet connection and a minimally functioning computer, you’ll start writing code in a few hours. You do need space in your machine. If you install the .NET environment and run out of space, your experience will be painful. In that case, free some space up, upgrade your hard drive or invest in a new computer."
                             }
                         }

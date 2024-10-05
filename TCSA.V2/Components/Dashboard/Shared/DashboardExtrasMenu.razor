@@ -4,8 +4,7 @@
 @using TCSA.V2.Services
 @inject NavigationManager NavigationManager
 
-
-<div class="nav-scrollable dashboard-menu pt-5 h-100">
+<div class="nav-scrollable dashboard-menu pt-5 mb-5 h-100">
     <nav class="flex-column">
         <div class="dashboard-menu pt-5 text-center h-100">
             <div class="row dashboard-side-card rounded">
@@ -24,6 +23,18 @@
                     @AvailableIssues
                 </div>
             </div>
+        @*     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
+                    crossorigin="anonymous"></script>
+            <!-- tcsa-dashboard-square -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4831088216810061"
+                 data-ad-slot="5111994013"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script> *@
         </div>
     </nav>
 </div>
@@ -79,5 +90,10 @@
     .dashboard-side-card-number {
         font-size: 60px;
         font-weight: 600;
+    }
+
+    .nav-scrollable {
+        overflow-x: hidden;
+        overflow-y: hidden !important;
     }
 </style>

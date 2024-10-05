@@ -51,7 +51,7 @@
                          FlagUrl=@FlagHelper.GetFlag(User.Country)
                          ExperiencePoints=@User.ExperiencePoints
                          Ranking=@Ranking
-                         DisplayName=@User.DisplayName />
+                         DisplayName=@(User.DisplayName ?? User.FirstName ?? User.Email) />
         
         <div class="my-3 w-100 d-flex align-items-center justify-content-start gap-2">
             <ToggleCompletedButton OnToggle="ToggleCompletedArea" Name="Completed Area" Active="false" />

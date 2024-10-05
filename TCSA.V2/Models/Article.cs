@@ -21,6 +21,7 @@ public class Article
     public string CardImgUrl { get; set; }
     public string Author { get; set; }
     public string? Url { get; set; }
+    public int? CourseDisplayId {  get; set; }
 }
 
 public class Block

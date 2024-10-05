@@ -617,10 +617,6 @@ a {
   width: 100%;
 }
 
-.tw-w-\[50px\] {
-  width: 50px;
-}
-
 .tw-flex-1 {
   flex: 1 1 0%;
 }
@@ -716,23 +712,5 @@ a {
 @media (min-width: 1400px) {
   .lg\:tw-ml-\[250px\] {
     margin-left: 250px;
-  }
-
-  .lg\:tw-w-\[50px\] {
-    width: 50px;
-  }
-
-  .lg\:tw-w-\[40px\] {
-    width: 40px;
-  }
-
-  .lg\:tw-text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .lg\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
   }
 }

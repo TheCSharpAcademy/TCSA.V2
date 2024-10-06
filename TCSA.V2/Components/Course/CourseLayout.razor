@@ -4,9 +4,9 @@
 @using TCSA.V2.Helpers;
 
 <div class="dashboard-layout-wrapper row vh-100">
-    <!-- Left Sidebar: Articles Menu -->
+    <div class="col-lg-1"></div>
     <div class="col-lg-2 d-lg-block col-sm-12 mt-5 pt-5 d-sm-none">
-        <ul class="article-menu space-y-2">
+        <ul class="article-menu mt-2 space-y-2">
             @if (Course != null && Course.Articles.Any())
             {
                 @foreach(var article in Course.Articles)
@@ -27,8 +27,7 @@
         </ul>
     </div>
 
-    <!-- Main Content: Article Body -->
-    <div class="col-lg-8 col-sm-12">
+    <div class="col-lg-6 col-sm-12">
         @if (Article != null)
         {
             <CoursePage 
@@ -40,17 +39,21 @@
         }
     </div>
 
-    <!-- Right Sidebar: Ads -->
-    <div class="col-lg-2 d-lg-block d-sm-none">
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
-        <p>Ad will be here</p>
+    <div class="col-lg-2 d-lg-block d-sm-none pt-5 mt-5">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
+                crossorigin="anonymous"></script>
+        <!-- tcsa-course-side -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-4831088216810061"
+             data-ad-slot="1533509954"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
+    <div class="col-lg-1"></div>
 </div>
 
 @code {
@@ -73,7 +76,6 @@
 
     private void NavigateToArticle(int articleId)
     {
-        // Refresh the page by navigating to the new URL
         NavigationManager.NavigateTo($"/course/{CourseId}/article/{articleId}", forceLoad: true);
     }
 }

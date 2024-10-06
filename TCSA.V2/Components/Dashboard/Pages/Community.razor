@@ -197,17 +197,18 @@
         if (!AuthSate.User.Identity.IsAuthenticated)
         {
             NavigationManager.NavigateTo("Account/Login");
+        } else
+        {
+            var claims = AuthSate.User;
+            userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+            user = await UserService.GetUserById(userId);
+            userProjects = await ProjectService.GetDetailedProjectsById(userId);
+
+            issuesToShow = await CommunityService.GetAvailableIssuesForCommunityPage(userId);
+
+            PointOfSale = projects.Single(x => x.Id == 54);
+            AcademyV2 = projects.Single(x => x.Id == 87);
         }
-
-        var claims = AuthSate.User;
-        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-        user = await UserService.GetUserById(userId);
-        userProjects = await ProjectService.GetDetailedProjectsById(userId);
-
-        issuesToShow = await CommunityService.GetAvailableIssuesForCommunityPage(userId);
-
-        PointOfSale = projects.Single(x => x.Id == 54);
-        AcademyV2 = projects.Single(x => x.Id == 87);
     }
 
     private async Task AssignMyself(CommunityIssue issue)

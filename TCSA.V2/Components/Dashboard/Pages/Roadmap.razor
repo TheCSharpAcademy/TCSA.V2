@@ -142,45 +142,49 @@ else
         {
             NavigationManager.NavigateTo("Account/Login");
         }
+        else
+        {
+            projects = ProjectHelper.GetProjects();
+            articles = ArticleHelper.GetArticles();
+            flagshipProject = projects.Single(x => x.Id == 139);
 
-        projects = ProjectHelper.GetProjects();
-        articles = ArticleHelper.GetArticles();
-        flagshipProject = projects.Single(x => x.Id == 139);
+            var claims = AuthSate.User;
+            var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        var claims = AuthSate.User;
-        var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserLevel = await UserService.GetUserLevel(userId);
 
-        UserLevel = await UserService.GetUserLevel(userId);
+            completedProjects = await ProjectService.GetCompletedProjectsById(userId);
 
-        completedProjects = await ProjectService.GetCompletedProjectsById(userId);
+            var codeReviews = await PeerReviewService.GetCodeReviewDetails(userId);
+            reviewsCount = codeReviews.Where(x => x.IsCompleted).Count();
 
-        var codeReviews = await PeerReviewService.GetCodeReviewDetails(userId);
-        reviewsCount = codeReviews.Where(x => x.IsCompleted).Count();
+            issuesCount = await CommunityService.GetCompletedIssuesCount(userId);
 
-        issuesCount = await CommunityService.GetCompletedIssuesCount(userId);
+            mvcProjects = projects.Where(x => x.Area == Area.MVC).Select(x => x.Id).ToList();
+            blazorProjects = projects.Where(x => x.Area == Area.Blazor).Select(x => x.Id).ToList();
+            angularProjects = projects.Where(x => x.Area == Area.Angular).Select(x => x.Id).ToList();
+            reactProjects = projects.Where(x => x.Area == Area.React).Select(x => x.Id).ToList();
+            mauiProjects = projects.Where(x => x.Area == Area.MAUI).Select(x => x.Id).ToList();
 
-        mvcProjects = projects.Where(x => x.Area == Area.MVC).Select(x => x.Id).ToList();
-        blazorProjects = projects.Where(x => x.Area == Area.Blazor).Select(x => x.Id).ToList();
-        angularProjects = projects.Where(x => x.Area == Area.Angular).Select(x => x.Id).ToList();
-        reactProjects = projects.Where(x => x.Area == Area.React).Select(x => x.Id).ToList();
-        mauiProjects = projects.Where(x => x.Area == Area.MAUI).Select(x => x.Id).ToList();
+            GetGreenBeltTasks();
+            GetOliveGreenBeltTasks();
+            GetYellowBeltTasks();
+            GetOrangeBeltTasks();
+            GetRedBeltTasks();
+            GetPurpleBeltTasks();
+            GetBrownBeltTasks();
+            GetGreyBeltTasks();
+            GetBlueBeltTasks();
+            GetBlackBeltTasks();
 
-        GetGreenBeltTasks();
-        GetOliveGreenBeltTasks();
-        GetYellowBeltTasks();
-        GetOrangeBeltTasks();
-        GetRedBeltTasks();
-        GetPurpleBeltTasks();
-        GetBrownBeltTasks();
-        GetGreyBeltTasks();
-        GetBlueBeltTasks();
-        GetBlackBeltTasks();
-
-        missingReqs.AddRange(new List<string>
+            missingReqs.AddRange(new List<string>
         {
             $"Complete these to move up to {(Level)((int)(UserLevel) + 1)}"
         });
 
+        }
+
+        
         isLoading = false;
     }
 

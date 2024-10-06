@@ -96,16 +96,17 @@
         if (!AuthSate.User.Identity.IsAuthenticated)
         {
             NavigationManager.NavigateTo("Account/Login");
+        } else
+        {
+            projects = ProjectHelper.GetProjects();
+
+            var claims = AuthSate.User;
+            userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            User = await PeerReviewService.GetUserForPeerReview(userId);
+
+            availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
         }
-
-        projects = ProjectHelper.GetProjects();
-
-        var claims = AuthSate.User;
-        userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        User = await PeerReviewService.GetUserForPeerReview(userId);
-
-        availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
     }
 
     private Project GetProject(int id)

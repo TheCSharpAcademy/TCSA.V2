@@ -99,11 +99,6 @@
     {
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
-        if (!AuthSate.User.Identity.IsAuthenticated)
-        {
-            NavigationManager.NavigateTo("Account/Login");
-        }
-
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
 

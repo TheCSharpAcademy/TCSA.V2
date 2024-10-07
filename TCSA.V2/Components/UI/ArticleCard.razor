@@ -2,7 +2,7 @@
 @using TCSA.V2.Models
 
 <div class="col-sm-3 mt-1 mb-4">
-     <a href="/article/@Article.Id/@Article.Slug" class="card-link">
+     <a href=@Article.Url class="card-link">
         <div class="card shadow">
             <img class="card-img-top" src="/img/CardImages/@Article.CardImgUrl" alt="Card image cap">
             <div class="card-body">
@@ -21,6 +21,7 @@
 
     protected async override Task OnParametersSetAsync()
     {
+        Article.Url = Article.Area != Area.Course ? $"/article/{Article.Id}/{Article.Slug}" : Article.Url;
         GetDescription();
     }
 
@@ -35,12 +36,8 @@
         }
     }
 
-    private string StripHtmlTags(string input)
-    {
-        return Regex.Replace(input, "<.*?>", string.Empty);
-    }
+    private string StripHtmlTags(string input) => string.IsNullOrEmpty(input) ? "" : Regex.Replace(input, "<.*?>", string.Empty);
 }
-
 
 <style>
     .article-card-title {

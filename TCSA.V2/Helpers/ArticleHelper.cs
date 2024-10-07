@@ -502,6 +502,10 @@ public static class ArticleHelper
                             },
                             new Paragraph
                             {
+                                Body = "From now on, you're going to start installing pieces of software. Some of the names you'll encounter might be confusing. We suggest reading this quick article on <a href='article/30007/difference-net-core-asp-net' target='_blank'>the Difference Between .NET, .NET Core ASP.NET</a> before proceeding. "
+                            },
+                            new Paragraph
+                            {
                                 Body = "Now there’s a bit of preparation to do. But don’t worry, if you have a decent internet connection and a minimally functioning computer, you’ll start writing code in a few hours. You do need space in your machine. If you install the .NET environment and run out of space, your experience will be painful. In that case, free some space up, upgrade your hard drive or invest in a new computer."
                             }
                         }
@@ -2551,7 +2555,248 @@ git push</code>"
                         }
                     }
                 }
-            }
+            },
+            new Article
+            {
+                Id = 30006,
+                Title = "Understanding the DRY Principle in C# Programming",
+                IconUrl = "",
+                Slug="dry-principle-csharp",
+                BannerUrl = "",
+                CardImgUrl = "dry.png",
+                Description = "",
+                ExperiencePoints = 1,
+                Area = Area.Principles,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "<b>The Don't Repeat Yourself (DRY)</b> principle is a fundamental programming concept aimed at reducing redundancy in code. It emphasizes that every piece of knowledge must have a single, unambiguous representation within a system. When applied effectively, this principle not only improves code readability but also makes it easier to maintain and extend."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Let's have a look at some code extracted from our Math Game project.In this snippet we implement two separate methods for a subtraction and a multiplication game. Both methods contain nearly identical logic, leading to code duplication."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                IsCode = true,
+                                Body = "internal void SubtractionGame(string message)\r\n\t\t{\r\n\t\t\tConsole.Clear();\r\n\t\t\tConsole.WriteLine(message);\r\n\t\t\tvar random = new Random();\r\n\t\t\tint firstNumber;\r\n\t\t\tint secondNumber;\r\n\t\t\tvar score = 0;\r\n\r\n\t\t\tfor (int i = 0; i < 5; i++)\r\n\t\t\t{\r\n\t\t\t\tfirstNumber = random.Next(1, 9);\r\n\t\t\t\tsecondNumber = random.Next(1, 9);\r\n\t\t\t\tConsole.WriteLine($\"{firstNumber} - {secondNumber}\");\r\n\t\t\t\tvar result = Console.ReadLine();\r\n\t\t\t\tresult = Helpers.ValidateResult(result);\r\n\r\n\t\t\t\tif (int.Parse(result) == firstNumber - secondNumber)\r\n\t\t\t\t{\r\n\t\t\t\t\tConsole.WriteLine(\"Your answer was correct! Type any key for the next question!\");\r\n\t\t\t\t\tscore++;\r\n\t\t\t\t}\r\n\t\t\t\telse\r\n\t\t\t\t{\r\n\t\t\t\t\tConsole.WriteLine(\"Your answer wasn't correct! Type any key for the next question!\");\r\n\t\t\t\t}\r\n\r\n\t\t\t\tif (i == 4) Console.WriteLine($\"Game over! You score is {score}\");\r\n\t\t\t}\r\n\t\t\tHelpers.AddToHistory(score, Models.Game.GameType.Subtraction);\r\n\t\t}\r\n\r\ninternal void MultiplicationGame(string message)\r\n{\r\n    Console.Clear();\r\n    Console.WriteLine(message);\r\n    var random = new Random();\r\n    int firstNumber;\r\n    int secondNumber;\r\n    var score = 0;\r\n\r\n    for (int i = 0; i < 5; i++)\r\n    {\r\n        firstNumber = random.Next(1, 9);\r\n        secondNumber = random.Next(1, 9);\r\n        Console.WriteLine($\"{firstNumber} * {secondNumber}\");\r\n        var result = Console.ReadLine();\r\n        result = Helpers.ValidateResult(result);\r\n        if (int.Parse(result) == firstNumber * secondNumber)\r\n        {\r\n            Console.WriteLine(\"Your answer was correct! Type any key for the next question!\");\r\n            score++;\r\n        }\r\n        else\r\n        {\r\n            Console.WriteLine(\"Your answer wasn't correct! Type any key for the next question!\");\r\n        }\r\n\r\n        if (i == 4) Console.WriteLine($\"Game over! You score is {score}\");\r\n    }\r\n    Helpers.AddToHistory(score, Models.Game.GameType.Multiplication);\r\n}\r\n"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The above implementation has an excessive amount of repetition. It's begging for some refactoring. Both methods share similar logic for clearing the console, displaying messages, and validating user input. This duplication not only makes the code harder to read but also complicates maintenance. If the logic for displaying questions or calculating scores needs to change, updates would have to be made in multiple places, increasing the likelihood of errors."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "By refactoring the code using the DRY principle, we can create a single method that handles the common logic for all arithmetic operations. Here’s how the improved code looks: "
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                IsCode = true,
+                                Body = "public enum MathOperation\r\n{\r\n    Addition,\r\n    Subtraction,\r\n    Multiplication,\r\n    Division\r\n}\r\n\r\ninternal void MathGame(string message, MathOperation operation, int scoreIncrement, Func<int[]> getNumbers, Models.Game.GameType gameType)\r\n{\r\n    Console.Clear();\r\n    Console.WriteLine(message);\r\n    var score = 0;\r\n\r\n    for (int i = 0; i < 5; i++)\r\n    {\r\n        var numbers = getNumbers();\r\n        var firstNumber = numbers[0];\r\n        var secondNumber = numbers[1];\r\n\r\n        string operatorSymbol = operation switch\r\n        {\r\n            MathOperation.Addition => \"+\",\r\n            MathOperation.Subtraction => \"-\",\r\n            MathOperation.Multiplication => \"*\",\r\n            MathOperation.Division => \"/\",\r\n            _ => throw new ArgumentException(\"Invalid operation\")\r\n        };\r\n\r\n        Console.WriteLine($\"{firstNumber} {operatorSymbol} {secondNumber}\");\r\n        var result = Console.ReadLine();\r\n        result = Helpers.ValidateResult(result);\r\n\r\n        int correctAnswer = operation switch\r\n        {\r\n            MathOperation.Addition => firstNumber + secondNumber,\r\n            MathOperation.Subtraction => firstNumber - secondNumber,\r\n            MathOperation.Multiplication => firstNumber * secondNumber,\r\n            MathOperation.Division => firstNumber / secondNumber,\r\n            _ => throw new ArgumentException(\"Invalid operation\")\r\n        };\r\n\r\n        if (int.Parse(result) == correctAnswer)\r\n        {\r\n            Console.WriteLine(\"Your answer was correct! Type any key for the next question!\");\r\n            score += scoreIncrement;\r\n        }\r\n        else\r\n        {\r\n            Console.WriteLine(\"Your answer wasn't correct! Type any key for the next question!\");\r\n        }\r\n\r\n        if (i == 4) Console.WriteLine($\"Game over! Your score is {score}\");\r\n    }\r\n    Helpers.AddToHistory(score, gameType);\r\n}\r\n\r\n"
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Key Points to Consider",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In this refactored version, the MathGame method encapsulates the shared logic for playing the game, including user prompts, input validation, and score tracking. Whatever code precedes the game simply calls MathGame with the appropriate parameters. This approach significantly reduces code duplication and enhances maintainability. If a change is needed, it can be made in one place, simplifying the update process and minimizing potential bugs."
+                            },
+                            new Paragraph
+                            {
+                                Body ="With time and experience you'll develop an eye for opportunities to decrease redundancy in your code. The refactored example illustrates how a common logic can be abstracted into a single method, enabling various operations to share the same functionality while retaining clarity and flexibility. Embracing the DRY principle leads to better software design and ultimately improves the overall development experience.\r\n\r\n"
+                            }
+                        }
+                    }
+                }
+            },
+            new Article
+            {
+                Id = 30007,
+                Title = "What's the Difference Between .NET, .NET Core ASP.NET, etc?",
+                IconUrl = "",
+                Slug="difference-net-core-asp-net",
+                BannerUrl = "",
+                CardImgUrl = "net-core-difference.png",
+                Description = "",
+                ExperiencePoints = 1,
+                Area = Area.Principles,
+                Blocks = new List<Block>
+                {
+                    new Block
+                    {
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "When I started learning .NET/C# I got lost pretty quickly in the notorious word salad Microsoft produced since 2002 when .NET was first released. .NET Framework, .NET Core, ASP.NET Core, ASP.NET. It's a lot. But is it really?"
+                            },
+                            new Paragraph
+                            {
+                                Body = "Let's summarize the whole thing in one paragraph in case your attention spam isn't long enough to read an article for 10 minutes (I don't blame you, smart phones did it to all of us):<br><br>"
+                            },
+                            new Paragraph
+                            {
+                                IsPicture = true,
+                                PictureUrl = "dotnet-diagram.jpg"
+                            },
+                            new Paragraph
+                            {
+                                Body = "<b>.NET Framework</b>, released in 2002, is an ecosystem for the creation of software applications <b>on Windows</b>. <b>.NET Core</b>, released in 2016 is the cross-platform evolution of the .NET Framework. <b>ASP.NET</b>, also released in 2002, was part of the .NET framework used to <b>build web applications</b>. <b>ASP.NET Core</b> is the evolution of ASP.NET, released with .NET Core in 2016. In 2020, <b>.NET 5</b> was released, which meant that developers didn't have to choose between Core and Framework. Now it's all <b>.NET</b> (currently .NET 9). "
+                            },
+                            new Paragraph
+                            {
+                                Body = "Read this paragraph a few times and that's it, your life will be easier when you come across these titles from now on. The conclusion: If you're working with .NET Framework or ASP.NET you're working with the old stuff. That doesn't mean they are not important or that they have disappeared. It also doesn't mean that you can't build amazing apps with them. On the contrary. Many companies are still using those. "
+                            },
+                            new Paragraph
+                            {
+                                Body = "It's also important to mention <b>Xamarin</b>, a mobile app development platform that integrates deeply with .NET and C#, enabling you to native UI elements for each platform, so your apps feel truly native. Microsoft is transitioning Xamarin to a new, more streamlined framework called <b>.NET MAUI</b> (Multi-platform App UI). .NET MAUI is essentially the evolution of Xamarin and allows you to build not just mobile apps but also desktop applications for Windows and macOS, using the same codebase."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Now let's take a deeper dive: "
+                            },
+
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "The .NET Framework",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "Introduced by Microsoft in the early 2000s, the <b>.NET Framework</b> is a comprehensive development platform designed primarily for <b>building and running applications on Windows</b>. It provides a consistent <b>object-oriented programming environment</b>, whether object code is stored and executed locally or executed remotely."
+                            },
+                            new Paragraph
+                            {
+                                Body = "The platform is Windows-only, and supports multiple languages including C#, VB.NET, and F#. Its runtime, the Common Language Runtime (CLR), manages the execution of .NET programs, and it comes with an extensive Class Library offering a wide range of functionalities. It supports development models like Windows Forms, Windows Presentation Foundation (WPF), and ASP.NET for web applications."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "ASP.NET",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "ASP.NET is a <b>server-side web application framework</b> developed as part of the .NET Framework. It was introduced to enable developers to build dynamic websites, web applications, and web services."
+                            },
+                            new Paragraph
+                            {
+                                Body = "ASP.NET introduced Web Forms, which offered an event-driven development model for building user interfaces. Later, <b>ASP.NET MVC</b> was introduced to provide a clear separation of concerns. ASP.NET also introduced <b>Web API</b>, which facilitates the creation of RESTful services, and <b>Razor Pages</b>, which simplifies the syntax for server-side HTML generation."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = ".NET Core",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In 2016, Microsoft introduced .NET Core as a cross-platform, open-source <b>successor to the .NET Framework</b>. This was a significant upgrade in performance, and support for multiple operating systems, including Windows, macOS, and Linux."
+                            },
+                            new Paragraph
+                            {
+                                Body = ".NET Core is <b>cross-platform</b>, enabling developers to build and run applications on various operating systems. It is also <b>open source</b>, encouraging community contributions and fostering a transparent development process. .NET Core's modular architecture allows for <b>lightweight and flexible deployments</b>, with each application specifying the dependencies it requires through <b>NuGet packages</b>. "
+                            },
+                            new Paragraph
+                            {
+                                Body = "The flexibility to run on multiple operating systems, coupled with its superior performance and modular deployment model, makes the migration from .NET Core a powerful alternative to the Windows-centric .NET Framework."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "ASP.NET Core",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "ASP.NET Core, released alongside .NET Core in 2016, is a <b>redesigned version of ASP.NET</b> optimized for modern, cross-platform development. It merges the best features of ASP.NET MVC and ASP.NET Web API into a unified framework. In 2018, <b>Blazor</b> was introduced as another solution for building web apps."
+                            },
+                            new Paragraph
+                            {
+                                Body = "ASP.NET Core runs seamlessly on Windows, macOS, and Linux. It features a unified programming model that combines MVC and Web API, supports <b>dependency injection</b>, and is built with performance in mind. ASP.NET Core is designed for <b>cloud-optimized development</b>, making it well-suited for building <b>microservices</b> and deploying <b>containerized applications</b>."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = ".NET 5",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "In 2020, Microsoft released .NET 5, marking a significant milestone in the evolution of the .NET ecosystem. This version represented the <b>unification</b> of two .NET Framework and .NET Core. Before .NET 5, <b>developers had to choose</b> between the Windows-only .NET Framework, with its long history and wide compatibility, and the newer, lightweight, cross-platform .NET Core. Each framework had its own advantages, but this division caused fragmentation, requiring developers to pick a platform depending on their target environment. The release of .NET 5 eliminated this split by providing a <b>single platform</b> for all operating systems (Windows, Linux, and macOS), whether for web, desktop, mobile, cloud, or IoT."
+                            },
+                             new Paragraph
+                            {
+                                Body = "<b>Now here's the catch</b>. Even though the framework now is called simply .NET, ASP.NET Core retains the \"Core\" in the name. This is to differentiate it from the old ASP.NET. Hence the most up-to-date courses will have names such as ASP.NET Core Web API, ASP.NET Core MVC, ASP.NET Core Identity, and so on."
+                            }
+                        }
+                    },
+                    new Block
+                    {
+                        Title = "Which one should you learn?",
+                        Paragraphs = new List<Paragraph>
+                        {
+                            new Paragraph
+                            {
+                                Body = "The answer depends on two questions: <b>What do you want to build</b> and <b>what does your company use?</b> If you want to learn game development or build desktop/mobile apps, you probably don't need to learn the web side of things (ASP.NET Core)."
+                            },
+                            new Paragraph
+                            {
+                                Body = "Additionally, if you are just getting started, we recommend learning the most up-to-date version: .NET. At the time of this article, .NET 9. It's significantly different from .NET Framework, but relatively similar to previous versions of .NET (down to .NET 5)."
+                            },
+                            new Paragraph
+                            {
+                                Body = "That leaves one final question. When do you learn .NET Framework (the old stuff)?. <b>When you need it</b>! I'll use myself as an example. Before getting my first job I hadn't touched .NET Framework, only the newer .NET (at that time, .NET 5). Since my company had a big part of their product in .NET Framework (4.5 if I remember well). So I purchased a few online courses and caught up with the differences at home after work, until I was comfortable with my company's code. That's the only situation where I see it's necessary to learn .NET Framework."
+                            }
+                        }
+                    },
+                }
+            },
         };
     }
 }

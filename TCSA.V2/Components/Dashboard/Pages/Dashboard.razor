@@ -1,4 +1,5 @@
 ﻿@page "/dashboard"
+@using Microsoft.AspNetCore.Authorization
 @using TCSA.V2.Components.Dashboard.Shared
 @using TCSA.V2.Components.UI
 @using TCSA.V2.Components.UI.SVGs
@@ -7,6 +8,7 @@
 @using TCSA.V2.Models
 @using TCSA.V2.Services
 @using System.Security.Claims;
+@attribute [AllowAnonymous]
 
 @layout DashboardLayout
 @rendermode InteractiveServer
@@ -14,7 +16,7 @@
 <PageTitle>@StringConstants.PageTitle - Dashboard</PageTitle>
 
 <div class="pt-lg-5 mt-lg-2">
-    @if (User != null)
+    @if (IsLoggedIn && User != null)
     {
         @if (ShowBeltNotification)
         {
@@ -51,7 +53,7 @@
                          FlagUrl=@FlagHelper.GetFlag(User.Country)
                          ExperiencePoints=@User.ExperiencePoints
                          Ranking=@Ranking
-                         DisplayName=@User.DisplayName />
+                         DisplayName=@(User.DisplayName ?? User.FirstName ?? User.Email) />
         
         <div class="my-3 w-100 d-flex align-items-center justify-content-start gap-2">
             <ToggleCompletedButton OnToggle="ToggleCompletedArea" Name="Completed Area" Active="false" />
@@ -104,6 +106,14 @@
             }
         </div>
     }
+    else
+    {
+        <div class="row mt-5 pt-5">
+            <div class="col">
+                <p>You Need to be logged in to view this page.</p>
+            </div>
+        </div>
+    }
 </div>
 
 @code {
@@ -118,6 +128,7 @@
     private string UserId;
     private bool AlumniComplete = false;
     private bool IsLoading = false;
+    private bool IsLoggedIn = false;
     private bool ShowBeltNotification = false;
     private Enums.DashboardState State = Enums.DashboardState.Area;
     private int Ranking;
@@ -138,9 +149,13 @@
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
-        if (!AuthSate.User.Identity.IsAuthenticated)
+        if (AuthSate.User.Identity.IsAuthenticated)
         {
-            NavigationManager.NavigateTo("Account/Login");
+            IsLoggedIn = true;
+        }
+        else
+        {
+            return;
         }
 
         var claims = AuthSate.User;
@@ -293,8 +308,6 @@
         });
 
         AlumniComplete = CompletedProjects != null && CompletedProjects.Contains(86);
-
-
     }
 
     private string GetNotCompletedMessage(Area? area, Difficulty? difficulty)

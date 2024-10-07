@@ -33,7 +33,7 @@
     }
     @foreach (var block in Article.Blocks)
     {
-        @if (blockIndex == 2)
+        @if (blockIndex == 1)
         {
             <div class="row mt-3 mb-3">
                 <div class="col">
@@ -45,6 +45,24 @@
                          data-ad-format="fluid"
                          data-ad-client="ca-pub-4831088216810061"
                          data-ad-slot="5921700737"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        }
+        @if (blockIndex == 4)
+        {
+            <div class="row mt-3 mb-3">
+                <div class="col">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
+                            crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block; text-align:center;"
+                         data-ad-layout="in-article"
+                         data-ad-format="fluid"
+                         data-ad-client="ca-pub-4831088216810061"
+                         data-ad-slot="9815857489"></ins>
                     <script>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
@@ -110,7 +128,7 @@
             @if (!IsCompleted)
             {
                 <p>If you're following the roadmap, mark this article as read before moving to the next.</p>
-                <div class="user-buttons">
+                <div class="user-buttons mt-3">
                     @if (IsLoading)
                     {
                         <div class="spinner-border text-primary" role="status">

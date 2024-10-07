@@ -4,8 +4,7 @@
 @using TCSA.V2.Services
 @inject NavigationManager NavigationManager
 
-
-<div class="nav-scrollable dashboard-menu pt-5 h-100">
+<div class="dashboard-menu pt-3 mb-5 h-100">
     <nav class="flex-column">
         <div class="dashboard-menu pt-5 text-center h-100">
             <div class="row dashboard-side-card rounded">
@@ -16,12 +15,28 @@
                     @AvailableReviews
                 </div>
             </div>
-            <div class="row dashboard-side-card rounded">
+@*             <div class="row dashboard-side-card rounded">
                 <div class="col-12 dashboard-side-card-text">
                     Community Project Issues Available
                 </div>
                 <div class="col-12 dashboard-side-card-number">
                     @AvailableIssues
+                </div>
+            </div> *@
+            <div class="row justify-content-center">
+                <div class="google-ad-container">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
+                            crossorigin="anonymous"></script>
+
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-4831088216810061"
+                         data-ad-slot="5111994013"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
             </div>
         </div>
@@ -41,11 +56,6 @@
     protected override async Task OnInitializedAsync()
     {
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
-
-        if (!AuthSate.User.Identity.IsAuthenticated)
-        {
-            NavigationManager.NavigateTo("Account/Login");
-        }
 
         var claims = AuthSate.User;
         var userId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -77,7 +87,13 @@
     }
 
     .dashboard-side-card-number {
-        font-size: 60px;
+        font-size: 30px;
         font-weight: 600;
+    }
+
+    .google-ad-container {
+        min-width: 250px;
+        min-height: 250px;
+        overflow: hidden;
     }
 </style>

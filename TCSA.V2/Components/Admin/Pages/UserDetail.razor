@@ -190,6 +190,8 @@
                                 <th scope="row">@((MarkupString)GetTitle(dp.ProjectId))</th>
                                 <td>@dp.DateSubmitted</td>
                                 <td>@GetStatus(dp)</td>
+                                <td>@GetStatus(dp)</td>
+                                <button class="btn btn-outline-secondary" type="btn" @onclick="(() => DeleteFromDashboard(dp.Id))">Delete</button>
                             </tr>
                         }
                     </table>
@@ -302,6 +304,11 @@
         }
 
         return "";
+    }
+
+    private async Task DeleteFromDashboard(int id)
+    {
+        await AdminService.DeleteFromDashboard(id);
     }
 
     private async Task MarkProjectAsComplete()

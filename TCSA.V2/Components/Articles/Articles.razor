@@ -1,7 +1,12 @@
 ﻿@page "/articles/{articleType?}"
+@rendermode InteractiveServer
+@using System.Security.Claims
 @using TCSA.V2.Components.UI
+@using TCSA.V2.Data
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
+@using TCSA.V2.Models.Responses
+@using TCSA.V2.Services
 
 <div class="container container-articles">
     <div class="row">
@@ -20,31 +25,128 @@
             </script>
         </div>
     </div>
-    <div class="row pt-5">
-        @foreach (var article in ArticlesList)
+
+    @if(articleType=="blog")
+    {
+        <div class="row mb-2">
+            <div class="col">
+                <AuthorizeView>
+                    <button class="btn btn-success d-md-inline-block btn-academy"
+                            @onclick="ToggleAddForm"
+                            type="button">
+                        @(IsFormOpen ? "Back to Blogs" : "Add Blog")
+                    </button>
+                </AuthorizeView>
+            </div>
+        </div>
+    }
+
+    @if(!IsFormOpen)
+    {
+        <div class="row pt-5">
+            @foreach (var article in ArticlesList)
+            {
+                <ArticleCard Article="article" />
+            }
+        </div>
+    }
+
+     <AuthorizeView>
+        @if (IsFormOpen)
         {
-            <ArticleCard Article ="article"/>
+            <div class="d-flex row flex-wrap mb-2">
+                <BlogForm CurrentUser="User"
+                                  OnAddNewItem="HandleAddNewItem"/>
+
+            </div>
         }
-    </div>
+    </AuthorizeView>
 </div>
 
 @code {
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IBlogService BlogService { get; set; }
     [Parameter] public string articleType { get; set; }
 
     private List<Article> ArticlesList { get; set; } = new();
     private List<int> NoDisplayIds { get; set; } = new() { 1, 2, 3, 4, 51, 100 };
 
+    private ApplicationUser User;
+    private string UserId;
+    private string ResultMessage;
+    private string LoadingMessage = "Loading...";
+    private bool IsLoading = true;
+    private bool IsFormOpen;
+    private bool ResultCardStatus;
+
     protected async override Task OnInitializedAsync()
     {
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+        var claims = AuthSate.User;
+        UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        User = await BlogService.GetUserByIdWithBlogs(UserId);
+
         ArticlesList = ArticleHelper.GetArticles().Where(x => !NoDisplayIds.Contains(x.Id)).ToList();
 
         @if (articleType == "blog")
         {
             ArticlesList = ArticlesList.Where(x => x.Area == Area.Blog).ToList();
-        } 
+        }
+        else if (articleType == "student-blog")
+        {
+            var response = await BlogService.GetBlogs();
+        }
+        else if (articleType == "courses")
+        {
+            var courses = CourseHelper.GetCourses();
+            ArticlesList = courses.Select(x => new Article()
+                {
+                    Title = x.Title,
+                    Description = x.Description,
+                    CardImgUrl = x.ImgUrl,
+                    Blocks = new List<Block>
+                    {
+                        new Block
+                        {
+                            Paragraphs = new List<Paragraph>
+                            {
+                                new Paragraph { Body = x.Description }
+                            }
+                        }
+                    },
+                    Url = $"course/{x.Id}/article/1", 
+                    Area = Area.Course
+                }).ToList(); ;
+        }
         else
         {
             ArticlesList = ArticlesList.Where(x => x.Area != Area.Blog).ToList();
         }
+    }
+
+    private void ToggleAddForm()
+    {
+        IsFormOpen = !IsFormOpen;
+        ResultMessage = "";
+    }
+
+    private async Task HandleAddNewItem(BaseResponse response)
+    {
+        IsLoading = true;
+        LoadingMessage = "Adding blog...";
+        if (response.Status == ResponseStatus.Success)
+        {
+            ResultMessage = "Blog added successfully!";
+            ResultCardStatus = true;
+        }
+        else
+        {
+            ResultMessage = $"Failed to add blog: {response.Message}";
+            ResultCardStatus = false;
+        }
+
+        IsLoading = false;
+        LoadingMessage = "";
+        IsFormOpen = false;
     }
 }

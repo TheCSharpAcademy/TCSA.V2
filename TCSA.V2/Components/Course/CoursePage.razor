@@ -1,0 +1,58 @@
+﻿@using TCSA.V2.Models
+@inject IJSRuntime JSRuntime
+
+<div class="container mt-5 pt-5">
+    @foreach (var block in Article.Blocks)
+    {
+        if (!string.IsNullOrEmpty(@block.Title))
+        {
+            <p class="course-block-title">@block.Title</p>
+        }
+
+        @foreach (var paragraph in block.Paragraphs)
+        {
+            <div class="mt-3">
+                @if (paragraph.IsCode)
+                {
+                    <pre><code class="language-csharp">@((MarkupString)paragraph.Body)</code></pre>
+                }
+                else if (paragraph.IsPicture)
+                {
+                    <div class="d-flex justify-content-center photo-paragraph mt-1 mb-1">
+                        <img src="img/courseimages/@paragraph.PictureUrl" class="img-fluid" />
+                    </div>
+                }
+                else
+                {
+                    <p class="mt-2">@((MarkupString)paragraph.Body)</p>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter] public Article Article { get; set; }
+
+    protected void OnParametersSetAsync()
+    {
+        Console.WriteLine(Article.Title);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Call the JS function to highlight the code after rendering
+            await JSRuntime.InvokeVoidAsync("highlightCode");
+        }
+    }
+}
+
+<style>
+    .course-block-title {
+        padding-top: 20px;
+        font-size: 22px;
+        font-weight: 600;
+    }
+</style>

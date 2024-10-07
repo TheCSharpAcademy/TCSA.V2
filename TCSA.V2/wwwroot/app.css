@@ -294,6 +294,10 @@ h1:focus {
 }
 
 @media (min-width: 992px) {
+    .fixed-column {
+        overflow-y: hidden !important;
+    }
+
     .article-section-title {
         font-size: 30px !important;
     }

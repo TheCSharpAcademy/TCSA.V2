@@ -589,6 +589,10 @@ a {
   margin-top: 1rem;
 }
 
+.tw-block {
+  display: block;
+}
+
 .tw-inline {
   display: inline;
 }
@@ -599,6 +603,10 @@ a {
 
 .tw-flex {
   display: flex;
+}
+
+.tw-hidden {
+  display: none;
 }
 
 .tw-h-\[24px\] {
@@ -685,6 +693,11 @@ a {
   padding: 1rem;
 }
 
+.tw-px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .tw-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -694,17 +707,42 @@ a {
   font-weight: 700;
 }
 
+@media (min-width: 144px) {
+  .xs\:tw-hidden {
+    display: none;
+  }
+
+  @media not all and (min-width: 992px) {
+    .xs\:max-md\:tw-hidden {
+      display: none;
+    }
+  }
+}
+
 @media (min-width: 992px) {
   .md\:tw-ml-\[80px\] {
     margin-left: 80px;
+  }
+
+  .md\:tw-block {
+    display: block;
   }
 
   .md\:tw-w-\[40px\] {
     width: 40px;
   }
 
+  .md\:tw-w-\[30px\] {
+    width: 30px;
+  }
+
   .md\:tw-text-xl {
     font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:tw-text-lg {
+    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 }

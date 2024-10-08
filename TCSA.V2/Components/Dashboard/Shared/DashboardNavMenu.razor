@@ -1,62 +1,57 @@
 ﻿@using TCSA.V2.Components.UI.SVGs
-@implements IDisposable
-
-@inject NavigationManager NavigationManager
-
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
 <div class="dashboard-menu pt-5 h-100" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
+            <a class="nav-link" @onclick="NavigateToDashboard" title="Main">
                 <span class="bi bi-plus-square-fill-nav-menu tw-flex-shrink-0"></span><span class="ms-2">Main</span>
-            </NavLink>
+            </a>
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/submit-project">
+            <a class="nav-link" @onclick="NavigateToSubmitProject" title="Submit Project">
                 <SubmitProjectSVG /> <span class="ms-2 tw-whitespace-nowrap">Submit Project</span>
-            </NavLink>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/roadmap">
+            <a class="nav-link" @onclick="NavigateToRoadmap" title="Roadmap">
                 <MapSVG /> <span class="ms-2">Roadmap</span>
-            </NavLink>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/leaderboard">
+            <a class="nav-link" @onclick="NavigateToLeaderboard" title="Leaderboard">
                 <TrophySVG /> <span class="ms-2">Leaderboard</span>
-            </NavLink>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/activity">
-                <ActivitySVG /> <span class="ms-2">Activity </span>
-            </NavLink>
+            <a class="nav-link" @onclick="NavigateToActivity" title="Activity">
+                <ActivitySVG /> <span class="ms-2">Activity</span>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/profile">
+            <a class="nav-link" @onclick="NavigateToProfile" title="Profile">
                 <ProfileSVG /> <span class="ms-2">Profile</span>
-            </NavLink>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/peer-reviews">
+            <a class="nav-link" @onclick="NavigateToPeerReviews" title="Peer Reviews">
                 <PeerReviewsSVG /> <span class="ms-2 tw-whitespace-nowrap">Peer Reviews</span>
-            </NavLink>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/community">
+            <a class="nav-link" @onclick="NavigateToCommunity" title="Community">
                 <CommunitySVG /> <span class="ms-2">Community</span>
-            </NavLink>
+            </a>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/challenges">
+            <a class="nav-link" @onclick="NavigateToChallenges" title="Challenges">
                 <PuzzleSVG /> <span class="ms-2">Challenges</span>
-            </NavLink>
+            </a>
         </div>
     </nav>
 </div>
 
 @code {
+    [Inject] NavigationManager NavigationManager { get; set; }
     private string? currentUrl;
 
     protected override void OnInitialized()
@@ -70,6 +65,16 @@
         currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
         StateHasChanged();
     }
+
+    private void NavigateToDashboard() => NavigationManager.NavigateTo("dashboard", true);
+    private void NavigateToSubmitProject() => NavigationManager.NavigateTo("dashboard/submit-project", true);
+    private void NavigateToRoadmap() => NavigationManager.NavigateTo("dashboard/roadmap", true);
+    private void NavigateToLeaderboard() => NavigationManager.NavigateTo("dashboard/leaderboard", true);
+    private void NavigateToActivity() => NavigationManager.NavigateTo("dashboard/activity", true);
+    private void NavigateToProfile() => NavigationManager.NavigateTo("dashboard/profile", true);
+    private void NavigateToPeerReviews() => NavigationManager.NavigateTo("dashboard/peer-reviews", true);
+    private void NavigateToCommunity() => NavigationManager.NavigateTo("dashboard/community", true);
+    private void NavigateToChallenges() => NavigationManager.NavigateTo("dashboard/challenges", true);
 
     public void Dispose()
     {

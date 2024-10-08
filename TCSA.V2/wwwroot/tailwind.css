@@ -605,10 +605,6 @@ a {
   display: flex;
 }
 
-.tw-hidden {
-  display: none;
-}
-
 .tw-h-\[24px\] {
   height: 24px;
 }
@@ -711,12 +707,6 @@ a {
   .xs\:tw-hidden {
     display: none;
   }
-
-  @media not all and (min-width: 992px) {
-    .xs\:max-md\:tw-hidden {
-      display: none;
-    }
-  }
 }
 
 @media (min-width: 992px) {
@@ -728,17 +718,8 @@ a {
     display: block;
   }
 
-  .md\:tw-w-\[40px\] {
-    width: 40px;
-  }
-
   .md\:tw-w-\[30px\] {
     width: 30px;
-  }
-
-  .md\:tw-text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
   }
 
   .md\:tw-text-lg {

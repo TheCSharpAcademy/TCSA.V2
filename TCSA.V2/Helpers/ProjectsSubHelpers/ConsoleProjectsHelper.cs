@@ -421,7 +421,7 @@ public class ConsoleProjectsHelper
                     },
                     new Paragraph
                     {
-                        Body="In the first app we also didn’t have requirements for coding organization. This time you’ll have to use <a href='article/30005/separation-of-concerns-csharp' target='_blank'>Separation of Concerns</a>, one of the most important principles in modern programming. This is where you’ll start applying concepts of Object Oriented Programming. You’ll also need to use a “Model”  or “Entity”, to to represent the data you are dealing with. In this case, your coding sessions. So let’s get started!"
+                        Body="In the first app we also didn’t have requirements for coding organization. This time you’ll have to use <a href='article/30005/separation-of-concerns-csharp' target='_blank'>Separation of Concerns</a>, one of the most important principles in modern programming. We recommend you go through our <a href='course/1/article/1/500000/false' target='_blank'>Object Oriented Programming Crash Course</a> prior to completing this project so you're better equipped to make your code more organized."
                     }
                 },
                 Requirements = new List<string>

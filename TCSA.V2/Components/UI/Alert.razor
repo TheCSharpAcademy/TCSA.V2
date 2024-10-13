@@ -1,0 +1,31 @@
+﻿@using static TCSA.V2.Helpers.Enums
+
+@if (ChildContent != null)
+{
+    <div class="alert @GetAlertClass(AlertType)" role="alert">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public AlertType AlertType { get; set; } = AlertType.Primary;
+
+    private string GetAlertClass(AlertType alertType)
+    {
+        return alertType switch
+        {
+            AlertType.Primary => "alert-primary",
+            AlertType.Secondary => "alert-secondary",
+            AlertType.Success => "alert-success",
+            AlertType.Danger => "alert-danger",
+            AlertType.Warning => "alert-warning",
+            AlertType.Info => "alert-info",
+            AlertType.Light => "alert-light",
+            AlertType.Dark => "alert-dark",
+            AlertType.TCSA => "alert-tcsa",
+            _ => "alert-primary"
+        };
+    }
+}
+

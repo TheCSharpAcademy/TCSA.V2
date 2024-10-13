@@ -8,7 +8,7 @@
                 IconUrl=@IconUrl
                 Description=@Description
                 OnClickCallback="@ToggleSteps"
-                HasButton=@(CardName == "LinkedIn" ? false : true) />
+                HasButton=@(HasButton ??= true) />
 
 @if (Projects != null && Steps)
 {
@@ -25,6 +25,7 @@
 
 @code {
     [Parameter] public bool IsComplete { get; set; }
+    [Parameter] public bool? HasButton { get; set; }
     [Parameter] public string CardName { get; set; }
     [Parameter] public string IconUrl { get; set; }
     [Parameter] public string Description { get; set; }

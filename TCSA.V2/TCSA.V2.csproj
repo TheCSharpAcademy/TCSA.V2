@@ -30,6 +30,12 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\tailwind\tailwind.css" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Components\UI\Alert.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
   
   <Target Name="PostPublish" AfterTargets="ComputeFilesToPublish">
     <Exec Command="npm install" />

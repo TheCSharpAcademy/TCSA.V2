@@ -164,6 +164,7 @@ h1:focus {
 }
 
 .btn-academy {
+    color: white;
     background-color: #1C236D;
 }
 
@@ -211,6 +212,11 @@ h1:focus {
     background-color: green;
     color: white;
     margin-bottom: 5px;
+}
+
+.alert-tcsa {
+    background-color: #1C236D;
+    color: #fff;
 }
 
 @media (max-width: 992px) {

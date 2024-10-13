@@ -678,7 +678,7 @@ public static class ArticleHelper
                         {
                             new Paragraph
                             {
-                                Body = "After the certification, the next step in the roadmap is <a target='blank' href='https://thecsharpacademy.com/project/53/math-game'>the Math Game</a>. You might even start the project in parallel with the certification, if you find it boring. We've had feedback from a few students in that regard. People have different learning styles and going through the sections might be difficult for some. If that's the case, start the project right away!"
+                                Body = "After the certification, you can optionally take our <a target='blank' href='https://thecsharpacademy.com/course/1/article/0/500025/false'>Object Oriented Programming Crash Course</a>, if you still lack the confidence to start your first project. If not you can always take it later in your journey. The next step in the roadmap is <a target='blank' href='https://thecsharpacademy.com/project/53/math-game'>the Math Game</a>. You might even start the project in parallel with the certification, if you find it boring. We've had feedback from a few students in that regard. People have different learning styles and going through the sections might be difficult for some. If that's the case, start the project right away!"
                             },
                             new Paragraph
                             {
@@ -704,7 +704,6 @@ public static class ArticleHelper
                             }
                         }
                     },
-
                     new Block
                     {
                         Title = "Creating Your Library",

@@ -65,13 +65,21 @@
         <div class="row">
             @if (!AlumniComplete)
             {
-                <div class="col-12 mb-1 mt-1">
+                <div class="col-12 m-1 pe-4 mt-1">
                 <DashboardAreaCard CardName="LinkedIn"
                                    IconUrl="icons8-student-512.png"
+                                   HasButton="false"
                                    Description="<a target='_blank' href='project/86/linkedin'>Mark yourself as a student of The C# Academy on LinkedIn</a> and get 20XPs" />
                 </div>
 
             }
+
+            <div class="col-12 m-1 pe-4 mt-1">
+                <DashboardAreaCard CardName="Intro to Object Oriented Programming"
+                    HasButton="false"
+                                   IconUrl="icons8-architecture-64.png"
+                                   Description="<a target='_blank' href='course/1/article/1/500000/false'>Check out our brand new crash course!</a> and get 20XPs" />
+            </div>
 
             @if(State == Enums.DashboardState.Area)
             {
@@ -87,7 +95,8 @@
                                            CompleteProjects="@CompletedProjects" />
                     </div>
                 }
-            }else if(State == Enums.DashboardState.Pending)
+            }
+            else if(State == Enums.DashboardState.Pending)
             {
                 @foreach (var project in DashboardHelper.GetPendingProjects(Projects, PendingProjects))
                 {
@@ -95,7 +104,8 @@
                         <DashboardProjectCard Project="project" Status="pending-review" />
                     </div>
                 }
-            }else if(State == Enums.DashboardState.Completed)
+            }
+            else if(State == Enums.DashboardState.Completed)
             {
                 @foreach (var project in DashboardHelper.GetCompletedProjects(Projects, CompletedProjects))
                 {

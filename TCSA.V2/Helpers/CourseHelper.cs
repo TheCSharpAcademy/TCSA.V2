@@ -30,7 +30,7 @@ public class CourseHelper
                             {
                                 Paragraphs = new List<Paragraph>
                                 {
-                                    new Paragraph { Body = "It's a pleasure to teach you Object Oriented Programming! Not only it's a beautiful approach to software development, but it's especially nice in C#. You'll have a great time while learning powerful concepts in the context of a project!" },
+                                    new Paragraph { Body = "It's a pleasure to teach you Object Oriented Programming! Not only it's an elegant approach to software development, but it's especially nice in C#. You'll have a great time while learning powerful concepts in the context of a project!" },
                                 }
                             },
                             new Block
@@ -50,7 +50,9 @@ public class CourseHelper
                                 {
                                     new Paragraph { Body = "<b>Study each chapter carefully</b>: Make quick notes with important observations and remaining doubts. Don't rush through things. Make sure you understand what each key word does. Ask follow-up questions from Chat GPT. Use it as an assistant. Its biggest strength is the ability to explain concepts in different ways in a conversational style." },
                                     new Paragraph {
-                                       Body = "<b>Make Notes</b>: Using your preferred note-taking system, write down what you took from each chapter. What do you understand better? What topic is still not clear? Reflecting upon what you've learned is one of the best ways to retain knowledge." }
+                                       Body = "<b>Make Notes</b>: Using your preferred note-taking system, write down what you took from each chapter. What do you understand better? What topic is still not clear? Reflecting upon what you've learned is one of the best ways to retain knowledge." },
+                                    new Paragraph {
+                                       Body = "<b>Review the Code</b>: At the end of each practical chapter you'll find a <b>View Code</b> button, where you can see all of the project's code up to that point in the course. If you run into issues, compare your code to ours before asking for help. It could be a typo or somethign you forgot to add." }
                                 }
                             },
                             new Block
@@ -58,7 +60,7 @@ public class CourseHelper
                                 Title = "Give Feedback",
                                 Paragraphs = new List<Paragraph>
                                 {
-                                    new Paragraph { Body = "If you find any typos, broken links, misplaced or wrong information or anything else, let us know! We're only humans and bound to making mistakes. Reach out on our Discord Community, using the #feedback channel. We appreciate your help!" },
+                                    new Paragraph { Body = "If you find any typos, broken links, misplaced or wrong information or any other issues, let us know! We're only humans and bound to making mistakes. Reach out on our Discord Community, using the #feedback channel. We appreciate your help!" },
                                 }
                             }
                         }

@@ -1,7 +1,9 @@
-﻿@page "/course/{courseId:int}/article/{articleId:int}"
+﻿@page "/course/{courseId:int}/article/{articleDisplayId:int}/{articleId:int}/{isCode:bool}"
 
+@using System.Security.Claims
 @using TCSA.V2.Models;
 @using TCSA.V2.Helpers;
+@using TCSA.V2.Services
 
 <div class="dashboard-layout-wrapper row vh-100">
     <div class="col-lg-1"></div>
@@ -9,13 +11,15 @@
         <ul class="article-menu mt-2 space-y-2">
             @if (Course != null && Course.Articles.Any())
             {
-                @foreach(var article in Course.Articles)
+                @foreach (var article in Course.Articles)
                 {
-                    <li class="article-item">
-                        <a href="" @onclick="() => NavigateToArticle(article.CourseDisplayId.Value)"
+                    bool isCompleted = CompletedProjects.Contains(article.Id);
+
+                    <li class="article-item @(isCompleted ? "completed" : "")">
+                        <a href="" @onclick="() => NavigateToArticle(article.CourseDisplayId.Value, article.Id)"
                            class="block px-4 py-9 rounded-lg text-gray-800 hover:bg-gray-100 hover:text-blue-600 transition-all duration-200 ease-in-out
-                           @(article.Id == ArticleId ? "bg-blue-500 text-white font-semibold" : "")">
-                            @article.Title
+                           @(article.Id == ArticleId ? "active" : "")">
+                            <span class="course-index">@article.CourseDisplayId.</span> @article.Title
                         </a>
                     </li>
                 }
@@ -31,7 +35,8 @@
         @if (Article != null)
         {
             <CoursePage 
-                Article=@Article/>
+                Article=@Article
+                IsCode=@IsCode/>
         }
         else
         {
@@ -42,7 +47,6 @@
     <div class="col-lg-2 d-lg-block d-sm-none pt-5 mt-5">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
                 crossorigin="anonymous"></script>
-        <!-- tcsa-course-side -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-4831088216810061"
@@ -57,12 +61,23 @@
 </div>
 
 @code {
+    [Inject] NavigationManager NavigationManager { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+    [Inject] private IProjectService ProjectService { get; set; }
+
     [Parameter] public int CourseId { get; set; }
     [Parameter] public int ArticleId { get; set; }
-    [Inject] NavigationManager NavigationManager { get; set; }
+    [Parameter] public int ArticleDisplayId { get; set; }
+    [Parameter] public bool IsCode { get; set; }
 
     private Course Course { get; set; }
     private Article Article { get; set; }
+
+    private List<int> CompletedProjects = new();
+    private bool IsLoggedIn;
+    private bool IsLoading;
+    private bool IsCompleted;
+    private string UserId;
 
     protected async override Task OnInitializedAsync()
     {
@@ -70,12 +85,69 @@
 
         if (Course != null)
         {
-            Article = Course.Articles.FirstOrDefault(a => a.CourseDisplayId == ArticleId);
+            Article = Course.Articles.FirstOrDefault(a => a.CourseDisplayId == ArticleDisplayId);
         }
+
+        var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
+
+        if (AuthSate.User.Identity.IsAuthenticated)
+        {
+            IsLoggedIn = true;
+            var claims = AuthSate.User;
+            UserId = claims.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
+        var projects = await ProjectService.GetCompletedProjectsById(UserId);
+        var courseIds = Course.Articles.Select(x => x.Id);
+        CompletedProjects = projects.Where(x => courseIds.Contains(x)).ToList();
     }
 
-    private void NavigateToArticle(int articleId)
+    private void NavigateToArticle(int articleDisplayId, int articleId)
     {
-        NavigationManager.NavigateTo($"/course/{CourseId}/article/{articleId}", forceLoad: true);
+        NavigationManager.NavigateTo($"/course/{CourseId}/article/{articleDisplayId}/{articleId}/false", forceLoad: true);
     }
 }
+
+<style>
+    .course-index {
+        font-weight: 600;
+    }
+    .article-item {
+        position: relative;
+        padding-left: 2rem; 
+    }
+
+        .article-item.completed {
+            background-color: #d4edda; 
+            border: 1px solid #c3e6cb; 
+        }
+
+            .article-item.completed::before {
+                content: '✔'; 
+                color: #28a745; 
+                position: absolute;
+                left: 10px; 
+                top: 50%;
+                transform: translateY(-50%); 
+            }
+
+        .article-item a {
+            display: block;
+            padding: 0.3rem;
+            color: #343a40;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+            .article-item a:hover {
+                background-color: #f8f9fa;
+                color: #007bff;
+            }
+
+            .article-item a.active {
+                background-color: #007bff;
+                color: white;
+                font-weight: bold;
+            }
+
+</style>

@@ -26,6 +26,7 @@ public class Article
 
 public class Block
 {
+    public bool IsCourseCodePage {  get; set; }
     public string? Title { get; set; }
     public string? ImgUrl { get; set; }
     public string? BookImgUrl { get; set; }

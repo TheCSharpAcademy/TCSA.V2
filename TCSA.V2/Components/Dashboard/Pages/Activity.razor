@@ -140,7 +140,11 @@
 
         else if (item.ActivityType == ActivityType.ArticleRead)
         {
-            return ArticleHelper.GetArticles().Single(x => x.Id == item.ProjectId).ExperiencePoints;
+            var articles = ArticleHelper.GetArticles().ToList();
+            var courseArticles = CourseHelper.GetCourses().SelectMany(x => x.Articles).ToList();
+            articles.AddRange(courseArticles);
+
+            return articles.Single(x => x.Id == item.ProjectId).ExperiencePoints;
         }
 
         return ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).ExperiencePoints;

@@ -9,7 +9,7 @@
 <div class="container card card-course-content mt-5 pt-5">
     <div class="row justify-content-center mb-3">
         <div class="col text-center">
-            <p>Advertisement</p>
+            <p class="advertisement">Advertisement</p>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4831088216810061"
                     crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
@@ -60,7 +60,7 @@
     <div class="row">
         @if (IsLoggedIn)
         {
-            <div class="mt-3 d-flex align-items-center">
+            <div class="mt-3 mb-3 d-flex align-items-center">
                 <p>This chapter is worth <b> @Article.ExperiencePoints</b></p>
                 <img src="img/experience.png" width="25" class="img-xp-header ms-1 pb-1" alt="..." />
             </div>
@@ -95,7 +95,7 @@
     }
     else
     {
-        <div class="mt-3">
+        <div class="mt-3 mb-3">
             <Alert AlertType="AlertType.TCSA">
                 <p>Log in to mark this chapter as read and save your progress.</p>
             </Alert>

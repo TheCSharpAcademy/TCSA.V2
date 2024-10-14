@@ -19,10 +19,14 @@ public static class UserActivityHelper
 
     public static string GetDescription(List<int> issuesIds, AppUserActivity item, CommunityIssue? issue = null, Challenge? challenge = null)
     {
+        var articles = ArticleHelper.GetArticles().ToList();
+        var courseArticles = CourseHelper.GetCourses().SelectMany(x => x.Articles).ToList();
+        articles.AddRange(courseArticles);
+
         switch (item.ActivityType)
         {
             case ActivityType.ArticleRead:
-                return $"You read the article <b>{ArticleHelper.GetArticles().Single(x => x.Id == item.ProjectId).Title}</b>";
+                return $"You read the article <b>{articles.Single(x => x.Id == item.ProjectId).Title}</b>";
             case ActivityType.ProjectSubmitted:
                 return $"You submitted the project <b>{ProjectHelper.GetProjects().Single(x => x.Id == item.ProjectId).Title}</b> for review.";
             case ActivityType.IssueSubmitted:

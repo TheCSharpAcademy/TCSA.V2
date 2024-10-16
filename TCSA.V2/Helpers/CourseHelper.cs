@@ -761,7 +761,7 @@ public class CourseHelper
                                 Title = "Enums Class",
                                 Paragraphs = new List<Paragraph>
                                 {
-                                    new Paragraph { Body = "Let's proceed by creating an Enums.cs class. It'll contain any enum we need to create for out app. " },
+                                    new Paragraph { Body = "Let's proceed by creating an Enums.cs class. It'll contain any enum we need to create for our app. " },
                                     new Paragraph {
                                         IsCode = true,
                                         Body = "internal class Enums\r\n{\r\n    internal enum MenuOption\r\n    {\r\n        Viewbooks,\r\n        AddBook,\r\n        DeleteBook\r\n    }\r\n}" },

@@ -391,7 +391,7 @@ public class CourseHelper
                                     new Paragraph
                                     {
                                         IsCode = true,
-                                        Body = "enum MenuOption\r\n{\r\n    Viewbooks,\r\n    AddBook,\r\n    DeleteBook\r\n}"
+                                        Body = "enum MenuOption\r\n{\r\n    ViewBooks,\r\n    AddBook,\r\n    DeleteBook\r\n}"
                                     }
                                 }
                             },

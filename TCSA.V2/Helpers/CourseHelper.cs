@@ -233,7 +233,7 @@ public class CourseHelper
                                     new Paragraph
                                     {
                                         IsCode = true,
-                                        Body = "var menuChoices = new string[3] { \"View Books\", \"AddBook\", \"Delete Book\" };\r\n\r\nvar choice = AnsiConsole.Prompt(\r\n        new SelectionPrompt&lt;string&gt;()\r\n        .Title(\"What do you want to do next?\")\r\n        .AddChoices(menuChoices));"
+                                        Body = "var menuChoices = new string[3] { \"View Books\", \"Add Book\", \"Delete Book\" };\r\n\r\nvar choice = AnsiConsole.Prompt(\r\n        new SelectionPrompt&lt;string&gt;()\r\n        .Title(\"What do you want to do next?\")\r\n        .AddChoices(menuChoices));"
                                     },
                                     new Paragraph { Body = "Again if the above code is totally foreign to you, this course might not be the best suit for your current level. <a href='https://thecsharpschool.getlearnworlds.com/subscription/the-c-academy-membership' target='_blank'>We suggest you watch the tutorial in this article first</a>." },
                                     new Paragraph { Body = "Let's explain the code:" },

@@ -542,7 +542,7 @@ public class CourseHelper
                                 Paragraphs = new List<Paragraph>
                                 {
                                     new Paragraph { Body = "In C#, a class is a blueprint for creating objects. It defines a type by encapsulating data (fields) and behavior (methods) that an object will have. A class serves as a template from which you can instantiate objects, and each object created from the class is called an instance." },
-                                    new Paragraph { Body = "Let's create our first. In Visual Studio's solution explorer, right click \"TCSA.OOP.LibraryManagement\", and choose Add, then Class. Name it BookController. Click the code cleanup icon and add a semi-colon to the namespace so your class looks like this: " },
+                                    new Paragraph { Body = "Let's create our first. In Visual Studio's solution explorer, right click \"TCSA.OOP.LibraryManagement\", and choose Add, then Class. Name it BooksController. Click the code cleanup icon and add a semi-colon to the namespace so your class looks like this: " },
                                     new Paragraph
                                     {
                                         IsCode = true,

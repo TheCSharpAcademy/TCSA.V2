@@ -252,7 +252,9 @@
     protected override async Task OnInitializedAsync()
     {
         projects = ProjectHelper.GetProjects();
-        articles = ArticleHelper.GetArticles();
+        articles = ArticleHelper.GetArticles().ToList();
+        var courseArticles = CourseHelper.GetCourses().SelectMany(x => x.Articles).ToList();
+        articles.AddRange(courseArticles);
 
         try
         {

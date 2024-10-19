@@ -7,6 +7,7 @@
                 IsComplete=@IsComplete
                 IconUrl=@IconUrl
                 Description=@Description
+                Tasks=@Tasks
                 OnClickCallback="@ToggleSteps"
                 HasButton=@(HasButton ??= true) />
 
@@ -29,6 +30,7 @@
     [Parameter] public string CardName { get; set; }
     [Parameter] public string IconUrl { get; set; }
     [Parameter] public string Description { get; set; }
+    [Parameter] public string? Tasks { get; set; }
     [Parameter] public IEnumerable<Article> Projects { get; set; }
     [Parameter] public List<int> PendingProjects { get; set; }
     [Parameter] public List<int> CompleteProjects { get; set; }

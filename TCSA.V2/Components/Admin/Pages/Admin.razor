@@ -60,6 +60,9 @@
     {
         projects = ProjectHelper.GetProjects();
         articles = ArticleHelper.GetArticles();
+        var courseArticles = CourseHelper.GetCourses().Where(x => x.Id == 1).SelectMany(x => x.Articles).ToList();
+        articles.AddRange(courseArticles);
+
         activity = await ActivityService.GetLatestActivity();
         userCount = await UserService.GetTodaysUserCount();
         issuesIds = await CommunityService.GetIssuesIds();
@@ -113,6 +116,8 @@
                     return $"<span class='activity-pending'>User {appUserId} submitted the Issue <b>{communityIssue.Title}</b> for review.</span>";
                 case ActivityType.ProjectCompleted:
                     return GetTitle(appUserId, activity.ProjectId, communityIssue);
+                case ActivityType.CodeReviewCompleted:
+                    return $"<span class='review-comp'>Some completed a <b>{projects.FirstOrDefault(x => x.Id == activity.ProjectId)?.Title}</b>  review.</span>";
                 default:
                     return "";
             }
@@ -131,3 +136,9 @@
         return $"<span class='project-completed'>You marked {appUserId}'s project <b>{projects.FirstOrDefault(x => x.Id == projectId)?.Title}</b> as complete.</span>";
     }
 }
+
+    <style>
+        .review-comp {
+            color: red !important;
+        }
+    </style>

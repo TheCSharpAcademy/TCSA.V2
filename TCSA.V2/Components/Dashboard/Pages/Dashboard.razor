@@ -74,12 +74,17 @@
 
             }
 
-            <div class="col-12 m-1 pe-4 mt-1">
-                <DashboardAreaCard CardName="Intro to Object Oriented Programming"
-                    HasButton="false"
-                                   IconUrl="icons8-architecture-64.png"
-                                   Description="<a target='_blank' href='course/1/article/1/500000/false'>Check out our brand new crash course!</a> and get 20XPs" />
+            @if (!OOPCompleted)
+            {
+                <div class="col-12 m-1 pe-4 mt-1">
+                    <DashboardAreaCard CardName="Intro to Object Oriented Programming"
+                                       HasButton="false"
+                                       IconUrl="icons8-architecture-64.png"
+                                       Description="<a target='_blank' href='course/1/article/1/500000/false'>Check out our brand new crash course!</a> and get 20XPs"
+                                       Tasks=@OOPTasks/>
+
             </div>
+            }
 
             @if(State == Enums.DashboardState.Area)
             {
@@ -140,10 +145,12 @@
     private bool IsLoading = false;
     private bool IsLoggedIn = false;
     private bool ShowBeltNotification = false;
+    private bool OOPCompleted = false;
     private Enums.DashboardState State = Enums.DashboardState.Area;
     private int Ranking;
     private bool IsPendingProjectButtonClicked = false;
     private bool IsCompletedProjectButtonClicked = false;
+    private string OOPTasks;
     private List<DashboardAreaInfo> Areas = new();
     private List<Article>? Articles;
     private IEnumerable<Project> Projects;
@@ -154,8 +161,11 @@
 
     protected async override Task OnInitializedAsync()
     {
-        Articles = ArticleHelper.GetArticles();
+        Articles = ArticleHelper.GetArticles().ToList();
         Projects = ProjectHelper.GetProjects().Where(x => x.IsClosed == false);
+        var courseArticles = CourseHelper.GetCourses().Where(x => x.Id == 1).SelectMany(x => x.Articles).ToList();
+        Articles.AddRange(courseArticles);
+        var courseArticleIds = courseArticles.Select(x => x.Id).ToArray();
 
         var AuthSate = await AuthenticationState.GetAuthenticationStateAsync();
 
@@ -175,6 +185,14 @@
         PendingProjects = User?.DashboardProjects?.Where(x => x.IsPendingReview).Select(x => x.ProjectId).ToList();
         CompletedPendingNotificationProjects = User?.DashboardProjects?.Where(x => x.IsPendingNotification).Select(x => x.ProjectId).ToList();
         CompletedPendingNotificationIssues = await CommunityService.GetIssuesTitles(CompletedPendingNotificationProjects);
+
+        var incompleteOopIds = courseArticleIds
+    .Where(x => !CompletedProjects.Contains(x))
+    .ToList();
+
+        OOPTasks = $"You've completed <b>{courseArticleIds.Count() - incompleteOopIds.Count()} out of {courseArticleIds.Count()}</b> chapters.";
+
+        OOPCompleted = incompleteOopIds.Count == 0;
 
         var areaIconUrls = new List<string> { "" };
 

@@ -8,6 +8,10 @@
         <div class="col-sm-8 @(HasButton ? "col-md-8" : "col-md-11")">
             <p class="card-title-dashboard">@CardName</p>
             <p class="card-text"><small>@((MarkupString)Description)</small></p>
+            @if(!string.IsNullOrEmpty(Tasks))
+            {
+                <p class="card-text"><small>@((MarkupString)Tasks)</small></p>
+            }
         </div>
         @if (HasButton)
         {
@@ -49,6 +53,7 @@
     [Parameter] public string IconUrl { get; set; }
     [Parameter] public string CardName { get; set; }
     [Parameter] public string Description { get; set; }
+    [Parameter] public string? Tasks { get; set; }
     [Parameter] public bool IsComplete { get; set; }
     [Parameter] public bool HasButton { get; set; } = true;
 }

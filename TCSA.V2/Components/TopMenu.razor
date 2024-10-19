@@ -233,9 +233,9 @@
 
     public async void SwitchModeA()
     {
-        await JS.InvokeVoidAsync("SwitchMode");
-        isLightMode = await JS.InvokeAsync<bool>("isLightMode");
+        isLightMode = !isLightMode;
         StateHasChanged();
+        await JS.InvokeVoidAsync("SwitchMode");
     }
 }
 

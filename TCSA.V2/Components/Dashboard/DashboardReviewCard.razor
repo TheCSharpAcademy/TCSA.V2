@@ -1,4 +1,5 @@
-﻿@using TCSA.V2.Components.UI.SVGs
+﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Components.UI.SVGs
 @using Components.Dashboard.Shared
 @using Octokit.Webhooks.Models
 
@@ -34,46 +35,51 @@
             </div>
             @if (Status != "is-assigned")
             {
-            <div class="row text-center">
-                <div class="col-12 view-btn">
-                    <a target="_blank" href="" @onclick:preventDefault @onclick=AssignTask class="tw-flex tw-flex-col tw-items-center tw-gap-1">
-                        <TakeSVG/>
-                        <div class="col-12 dashboard-review-action-text">
-                            Take
-                        </div>
-                    </a>
+                <div class="row text-center">
+                    <div class="col-12 view-btn">
+                        @if (IsLoading)
+                        {
+                            <LoadingSpinner />
+                        }
+                        else
+                        {
+                            <a target="_blank" href="" @onclick:preventDefault @onclick="OnAssign" class="tw-flex tw-flex-col tw-items-center tw-gap-1">
+                                <TakeSVG />
+                                <div class="col-12 dashboard-review-action-text">
+                                    Take
+                                </div>
+                            </a>
+                        }
+                    </div>
                 </div>
-            </div>
             }
             else
             {
-            <div class="row text-center">
-                @if (Loading)
-                {
-                <div class="col-12 dashboard-review-action-text">
-                    <Loader/>
-                </div>
-                }
-                else
-                {
-                <div class="col-6 view-btn">
-                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsCompleteCallBack" class="tw-flex tw-flex-col tw-items-center tw-gap-1">
-                        <ApproveSVG/>
-                        <div class="col-12 dashboard-review-action-text">
-                            Approve
+                <div class="row text-center">
+                    @if (IsLoading)
+                    {
+                        <LoadingSpinner />
+                    }
+                    else
+                    {
+                        <div class="col-6 view-btn">
+                            <a target="_blank" href="" @onclick:preventDefault @onclick="OnMarkAsComplete" class="tw-flex tw-flex-col tw-items-center tw-gap-1">
+                                <ApproveSVG />
+                                <div class="col-12 dashboard-review-action-text">
+                                    Approve
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="col-6 view-btn">
-                    <a target="_blank" href="" @onclick:preventDefault @onclick="OnReleaseCallBack" class="tw-flex tw-flex-col tw-items-center tw-gap-1">
-                        <TakeSVG/>
-                        <div class="col-12 dashboard-review-action-text">
-                            Release
+                        <div class="col-6 view-btn">
+                            <a target="_blank" href="" @onclick:preventDefault @onclick="OnRelease" class="tw-flex tw-flex-col tw-items-center tw-gap-1">
+                                <TakeSVG />
+                                <div class="col-12 dashboard-review-action-text">
+                                    Release
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    }
                 </div>
-                }
-            </div>
             }
         </div>
     </div>
@@ -93,20 +99,32 @@
     [Parameter] public EventCallback OnMarkAsCompleteCallBack { get; set; }
     [Parameter] public MarkupString DurationOpen { get; set; }
     public string Href { get; set; }
-    public bool Loading { get; set; }
+    public bool IsLoading { get; set; }
 
     protected async override Task OnParametersSetAsync()
     {
         Href = $"project/{ProjectId}/{ProjectSlug}";
     }
 
-    private async Task AssignTask()
+    private async Task OnAssign()
     {
-        Loading = true;
+        IsLoading = true;
         await OnAssignCallBack.InvokeAsync();
-        int milliseconds = 2000;
-        await Task.Delay(milliseconds);
-        Loading = false;
+        IsLoading = false;
+    }
+
+    private async Task OnMarkAsComplete()
+    {
+        IsLoading = true;
+        await OnMarkAsCompleteCallBack.InvokeAsync();
+        IsLoading = false;
+    }
+
+    private async Task OnRelease()
+    {
+        IsLoading = true;
+        await OnReleaseCallBack.InvokeAsync();
+        IsLoading = false;
     }
 }
 

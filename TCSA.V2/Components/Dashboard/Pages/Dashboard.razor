@@ -32,15 +32,13 @@
                         <div class="row">
                             <div class="col-10 d-flex align-items-center">@GetProjectName(project) was marked as complete!</div>
                             <div class="col-2">
-                                @if (!IsLoading)
+                                @if (IsLoading)
                                 {
-                                    <button class="btn btn-outline-light" type="button" @onclick="() => DismissIsCompleteNotification(project)">Dismiss</button>
+                                    <LoadingSpinner />
                                 }
                                 else
                                 {
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
+                                    <button class="btn btn-outline-light" type="button" @onclick="() => DismissIsCompleteNotification(project)">Dismiss</button>
                                 }
                             </div>
                         </div>

@@ -4,6 +4,7 @@
 
 @using System.Security.Claims;
 @using TCSA.V2.Components.Dashboard.Shared
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Components.UI.SVGs
 @using TCSA.V2.Data
 @using TCSA.V2.Helpers
@@ -15,7 +16,11 @@
 <PageTitle>@StringConstants.PageTitle - Community Projects</PageTitle>
 
 <div class="mt-md-5 pt-md-5">
-    @if (user != null)
+    @if (user == null)
+    {
+        <LoadingSpinner />
+    }
+    else
     {
         <div class="row">
             @if (createIssue)
@@ -58,9 +63,7 @@
                             </div>
                             @if (isSubmittingIssue)
                             {
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
+                                <LoadingSpinner />
                             } else
                             {
                                 <button class="btn btn-outline-secondary mb-3" type="submit">Submit</button>
@@ -153,10 +156,6 @@
                 }
             </div>
         </div>
-    }
-    else
-    {
-        <div class="spinner"></div>
     }
 </div>
 

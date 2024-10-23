@@ -1,4 +1,5 @@
-﻿@using TCSA.V2.Helpers
+﻿@using TCSA.V2.Components.UI
+@using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Data
 @using TCSA.V2.Models.DTO
@@ -24,14 +25,12 @@
         <InputText id="githubUrl" class="form-control w-50" @bind-Value="Model.GithubUrl" />
         <label for="githubUrl">Github Url</label>
     </div>
-    @if (!IsSubmitting)
+    @if (IsSubmitting)
     {
-        <button class="btn btn-success btn-academy mt-1" type="submit">Submit</button>
+        <LoadingSpinner />
     } else
     {
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden"></span>
-        </div>
+        <button class="btn btn-success btn-academy mt-1" type="submit">Submit</button>
     }
 
 </EditForm>

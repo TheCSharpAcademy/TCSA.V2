@@ -4,6 +4,7 @@
 @rendermode InteractiveServer
 
 @using System.Security.Claims;
+@using TCSA.V2.Components.UI
 @using TCSA.V2.Helpers
 @using TCSA.V2.Models
 @using TCSA.V2.Models.Forms
@@ -31,9 +32,7 @@
 
                 @if (IsSubmitting)
                 {
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+                    <LoadingSpinner />
                 }
                 else
                 {
@@ -94,9 +93,7 @@ else
 
             @if (IsSubmitting)
             {
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+                <LoadingSpinner />
             }
             else
             {

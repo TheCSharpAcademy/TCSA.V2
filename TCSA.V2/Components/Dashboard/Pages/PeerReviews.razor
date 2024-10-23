@@ -126,14 +126,11 @@
         projectCompleted = true;
 
         availableProjects = await PeerReviewService.GetProjectsForPeerReview(userId);
-
-        User = await PeerReviewService.GetUserForPeerReview(userId);
     }
 
     private async Task AssignMyself(int id)
     {
         await PeerReviewService.AssignUserToCodeReview(userId, id);
-        User = await PeerReviewService.GetUserForPeerReview(userId);
 
         userAssigned = true;
 
@@ -143,7 +140,6 @@
     private async Task ReleaseMyself(int id)
     {
         await PeerReviewService.ReleaseUserFromCodeReview(userId, id);
-        User = await PeerReviewService.GetUserForPeerReview(userId);
 
         userReleased = true;
 
@@ -169,7 +165,6 @@
     {
         projectCompleted = false;
     }
-
 }
 
 <style>
